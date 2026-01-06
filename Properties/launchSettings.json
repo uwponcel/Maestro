@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Blish HUD Debug": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\uwpon\\OneDrive\\Documents\\BlishHUD\\Blish HUD.exe",
+      "commandLineArgs": "--debug --module \"C:\\git\\Maestro\\bin\\x64\\Debug\\Maestro.bhm\"",
+      "workingDirectory": "C:\\Users\\uwpon\\OneDrive\\Documents\\BlishHUD"
+    }
+  }
+}

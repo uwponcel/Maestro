@@ -1,0 +1,6148 @@
+{
+  "artist": "Snoop Dogg",
+  "name": "Wiggle",
+  "instrument": "Harp",
+  "commands": [
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 750,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 562,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 562,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1875,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 135,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 710,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 750,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1875,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 135,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 710,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 700,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 150,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1100,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 700,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 15,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 750,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 115,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 115,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 115,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 523,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 700,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 150,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 115,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 135,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 115,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 523,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1100,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 113,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 750,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1875,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 135,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 710,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 563,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 148,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 750,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 335,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad2",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1875,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 375,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 144,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad4",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 124,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad5",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 135,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 710,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad1",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 1125,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad3",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad9",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad7",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 188,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 75,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad0",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad6",
+      "type": "KeyUp"
+    },
+    {
+      "duration": 300,
+      "key": "None",
+      "type": "Wait"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyDown"
+    },
+    {
+      "duration": 0,
+      "key": "NumPad8",
+      "type": "KeyUp"
+    }
+  ],
+  "bpm": null
+}

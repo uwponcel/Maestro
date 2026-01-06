@@ -1,0 +1,2718 @@
+{
+    "artist":  "JoJo",
+    "name":  "Jotaros Theme",
+    "instrument":  "Piano",
+    "commands":  [
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  6850,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  175,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  175,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  175,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  375,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  450,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  1700,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  650,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  500,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  2775,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  275,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  2625,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  100,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  100,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  125,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  100,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  1725,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  625,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  500,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  2150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  325,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad3",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  425,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  3275,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  175,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  175,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad2",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  175,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  75,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad0",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad4",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  225,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad9",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  150,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  200,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  550,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad1",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "LeftAlt",
+                         "type":  "KeyUp"
+                     }
+                 ],
+    "bpm":  null
+}

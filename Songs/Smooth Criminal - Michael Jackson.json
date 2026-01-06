@@ -1,0 +1,553 @@
+{
+    "artist":  "Michael Jackson",
+    "name":  "Smooth Criminal",
+    "instrument":  "Bass",
+    "commands":  [
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad6",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  130,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad8",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad7",
+                         "type":  "KeyUp"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyDown"
+                     },
+                     {
+                         "duration":  261,
+                         "key":  "None",
+                         "type":  "Wait"
+                     },
+                     {
+                         "duration":  0,
+                         "key":  "NumPad5",
+                         "type":  "KeyUp"
+                     }
+                 ],
+    "bpm":  null
+}
