@@ -60,6 +60,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Songs\**\*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module.cs" />
