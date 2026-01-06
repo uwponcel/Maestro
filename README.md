@@ -16,10 +16,20 @@ A Blish HUD module that plays music on GW2 instruments.
 - Click the Maestro icon in the corner to open
 
 ## ⌨️ Keyboard Setup
+Songs are embedded and written for NumPad 0-9 and Alt + NumPad 1-5. The module translates these to whatever keys you configure in settings. This format will be used for custom song composition in a future update.
 
-Maestro uses numpad keys to play instruments. Make sure your GW2 keybinds match:
+**Match your module settings to your GW2 instrument keybinds.**
 
-<img width="683" height="870" alt="542" src="https://github.com/user-attachments/assets/298f0be3-c288-4bf2-8f83-15c4deaf7fe0" />
+
+### Module Settings
+<img width="782" height="357" alt="556" src="https://github.com/user-attachments/assets/41ab958c-e162-4635-b8fc-f70483ecb941" />
+<img width="767" height="191" alt="image" src="https://github.com/user-attachments/assets/8e9ec219-c10e-4189-a0ba-13fa87dee7f5" />
+
+
+### GW2 Keybinds
+<img width="647" height="761" alt="558" src="https://github.com/user-attachments/assets/14897b88-c7f8-4409-9778-5d6dbf589c50" />
+
+
 
 ## 🎮 Usage
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Blish_HUD;
 using Blish_HUD.Controls.Extern;
+using Blish_HUD.Input;
+using Blish_HUD.Settings;
 using Microsoft.Xna.Framework.Input;
 using BlishKeyboard = Blish_HUD.Controls.Intern.Keyboard;
 
@@ -8,42 +9,95 @@ namespace Maestro.Services
 {
     public class KeyboardService
     {
-        private static readonly Logger Logger = Logger.GetLogger<KeyboardService>();
+        private readonly Dictionary<Keys, SettingEntry<KeyBinding>> _keyRemappings;
+        private readonly Dictionary<Keys, SettingEntry<KeyBinding>> _sharpRemappings;
+        private readonly HashSet<Keys> _activeSharpKeys;
+        private readonly DebugLogger _debugLogger = new DebugLogger();
+        private bool _altHeld;
 
-        private static readonly Dictionary<Keys, VirtualKeyShort> KeyMapping = new Dictionary<Keys, VirtualKeyShort>
+        public KeyboardService(
+            Dictionary<Keys, SettingEntry<KeyBinding>> keyRemappings,
+            Dictionary<Keys, SettingEntry<KeyBinding>> sharpRemappings)
         {
-            { Keys.NumPad0, VirtualKeyShort.NUMPAD0 },
-            { Keys.NumPad1, VirtualKeyShort.NUMPAD1 },
-            { Keys.NumPad2, VirtualKeyShort.NUMPAD2 },
-            { Keys.NumPad3, VirtualKeyShort.NUMPAD3 },
-            { Keys.NumPad4, VirtualKeyShort.NUMPAD4 },
-            { Keys.NumPad5, VirtualKeyShort.NUMPAD5 },
-            { Keys.NumPad6, VirtualKeyShort.NUMPAD6 },
-            { Keys.NumPad7, VirtualKeyShort.NUMPAD7 },
-            { Keys.NumPad8, VirtualKeyShort.NUMPAD8 },
-            { Keys.NumPad9, VirtualKeyShort.NUMPAD9 }
-        };
+            _keyRemappings = keyRemappings;
+            _sharpRemappings = sharpRemappings;
+            _activeSharpKeys = new HashSet<Keys>();
+        }
+
+        public void StartDebugLog(string songName) => _debugLogger.Start(songName);
+
+        public void StopDebugLog() => _debugLogger.Stop();
 
         public void KeyDown(Keys key)
         {
-            if (!KeyMapping.TryGetValue(key, out var virtualKey))
+            if (key == Keys.LeftAlt)
             {
-                Logger.Warn($"Unknown key: {key}");
+                _altHeld = true;
+                _debugLogger.Log("[ALT DOWN]");
                 return;
             }
 
-            BlishKeyboard.Press(virtualKey, true);
+            if (_altHeld && _sharpRemappings.TryGetValue(key, out var sharpSetting))
+            {
+                _activeSharpKeys.Add(key);
+                _debugLogger.LogSharp(key, sharpSetting.Value);
+                SendKeyBindingDown(sharpSetting.Value);
+                return;
+            }
+
+            if (_keyRemappings.TryGetValue(key, out var setting))
+            {
+                _debugLogger.LogNote(key, setting.Value.PrimaryKey);
+                BlishKeyboard.Press((VirtualKeyShort)setting.Value.PrimaryKey, true);
+            }
+            else
+            {
+                _debugLogger.Log($"UNMAPPED: {key}");
+            }
         }
 
         public void KeyUp(Keys key)
         {
-            if (!KeyMapping.TryGetValue(key, out var virtualKey))
+            if (key == Keys.LeftAlt)
             {
-                Logger.Warn($"Unknown key: {key}");
+                _altHeld = false;
                 return;
             }
 
-            BlishKeyboard.Release(virtualKey, true);
+            if (_activeSharpKeys.Remove(key) && _sharpRemappings.TryGetValue(key, out var sharpSetting))
+            {
+                SendKeyBindingUp(sharpSetting.Value);
+                return;
+            }
+
+            if (_keyRemappings.TryGetValue(key, out var setting))
+            {
+                BlishKeyboard.Release((VirtualKeyShort)setting.Value.PrimaryKey, true);
+            }
+        }
+
+        private static void SendKeyBindingDown(KeyBinding binding)
+        {
+            if (binding.ModifierKeys.HasFlag(ModifierKeys.Alt))
+                BlishKeyboard.Press(VirtualKeyShort.LMENU, true);
+            if (binding.ModifierKeys.HasFlag(ModifierKeys.Ctrl))
+                BlishKeyboard.Press(VirtualKeyShort.LCONTROL, true);
+            if (binding.ModifierKeys.HasFlag(ModifierKeys.Shift))
+                BlishKeyboard.Press(VirtualKeyShort.LSHIFT, true);
+
+            BlishKeyboard.Press((VirtualKeyShort)binding.PrimaryKey, true);
+        }
+
+        private static void SendKeyBindingUp(KeyBinding binding)
+        {
+            BlishKeyboard.Release((VirtualKeyShort)binding.PrimaryKey, true);
+
+            if (binding.ModifierKeys.HasFlag(ModifierKeys.Shift))
+                BlishKeyboard.Release(VirtualKeyShort.LSHIFT, true);
+            if (binding.ModifierKeys.HasFlag(ModifierKeys.Ctrl))
+                BlishKeyboard.Release(VirtualKeyShort.LCONTROL, true);
+            if (binding.ModifierKeys.HasFlag(ModifierKeys.Alt))
+                BlishKeyboard.Release(VirtualKeyShort.LMENU, true);
         }
     }
 }

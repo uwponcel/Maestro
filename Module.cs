@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Threading.Tasks;
 using Blish_HUD;
 using Blish_HUD.Controls;
@@ -11,6 +10,7 @@ using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
 using Maestro.Models;
 using Maestro.Services;
+using Maestro.Settings;
 using Maestro.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,6 +33,7 @@ namespace Maestro
 
         #endregion
 
+        private ModuleSettings _moduleSettings;
         private KeyboardService _keyboardService;
         private SongPlayer _songPlayer;
         private MaestroWindow _maestroWindow;
@@ -49,99 +50,21 @@ namespace Maestro
 
         protected override void DefineSettings(SettingCollection settings)
         {
+            _moduleSettings = new ModuleSettings(settings);
         }
 
         protected override void Initialize()
         {
-            _keyboardService = new KeyboardService();
+            _keyboardService = new KeyboardService(
+                _moduleSettings.GetKeyMappings(),
+                _moduleSettings.GetSharpMappings());
             _songPlayer = new SongPlayer(_keyboardService);
             _songs = new List<Song>();
         }
 
         protected override async Task LoadAsync()
         {
-            await LoadSongsFromDirectory();
-        }
-
-        private async Task LoadSongsFromDirectory()
-        {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    // In debug mode, prioritize source directory for live editing
-                    var sourceDir = @"C:\git\Maestro\Songs";
-                    if (Directory.Exists(sourceDir))
-                    {
-                        Logger.Info($"Debug mode: Loading songs from source directory: {sourceDir}");
-                        LoadSongsFromPath(sourceDir);
-                    }
-
-                    // Load from embedded binary bundle if no debug songs found
-                    if (_songs.Count == 0)
-                    {
-                        LoadSongsFromBundle();
-                    }
-
-                    Logger.Info($"Total songs loaded: {_songs.Count}");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warn(ex, "Failed to load songs - module will continue with empty song list");
-                }
-            });
-        }
-
-        private void LoadSongsFromBundle()
-        {
-            try
-            {
-                var assembly = GetType().Assembly;
-                var resourceName = "Maestro.Data.songs.bin";
-
-                using (var stream = assembly.GetManifestResourceStream(resourceName))
-                {
-                    if (stream == null)
-                    {
-                        Logger.Warn($"Could not find embedded resource: {resourceName}");
-                        return;
-                    }
-
-                    var songs = SongSerializer.DeserializeBundle(stream);
-                    _songs.AddRange(songs);
-                    Logger.Info($"Loaded {songs.Count} songs from embedded bundle");
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Warn(ex, "Failed to load songs from embedded bundle");
-            }
-        }
-
-        private void LoadSongsFromPath(string path)
-        {
-            if (!Directory.Exists(path))
-            {
-                Logger.Debug($"Songs directory does not exist: {path}");
-                return;
-            }
-
-            var jsonFiles = Directory.GetFiles(path, "*.json");
-            Logger.Info($"Found {jsonFiles.Length} .json files in {path}");
-
-            foreach (var file in jsonFiles)
-            {
-                try
-                {
-                    var song = SongSerializer.DeserializeJson(file);
-                    _songs.Add(song);
-                    Logger.Debug($"Loaded song: {song.DisplayName}");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warn(ex, $"Failed to load song: {file}");
-                }
-            }
+            _songs = await SongLoader.LoadAllAsync();
         }
 
         protected override void OnModuleLoaded(EventArgs e)
