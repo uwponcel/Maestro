@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Maestro.Models;
-using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -19,49 +18,10 @@ namespace Maestro.Services.Data
         public static Song DeserializeJson(string filePath)
         {
             var json = File.ReadAllText(filePath);
-
-            // Detect format by checking for "notes" property
-            var rawObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-
-            if (rawObject != null && rawObject.ContainsKey("notes"))
-            {
-                return DeserializeCompactFormat(json);
-            }
-
-            return DeserializeLegacyFormat(json);
+            return DeserializeJsonContent(json);
         }
 
-        private static Song DeserializeLegacyFormat(string json)
-        {
-            var dto = JsonConvert.DeserializeObject<SongJsonDto>(json, JsonSettings);
-
-            Enum.TryParse<InstrumentType>(dto.Instrument, out var instrument);
-
-            var song = new Song
-            {
-                Name = dto.Name,
-                Artist = dto.Artist,
-                Instrument = instrument,
-                Bpm = dto.Bpm
-            };
-
-            if (dto.Commands != null)
-            {
-                foreach (var cmd in dto.Commands)
-                {
-                    song.Commands.Add(new SongCommand
-                    {
-                        Type = cmd.Type,
-                        Key = cmd.Key,
-                        Duration = cmd.Duration
-                    });
-                }
-            }
-
-            return song;
-        }
-
-        private static Song DeserializeCompactFormat(string json)
+        public static Song DeserializeJsonContent(string json)
         {
             var dto = JsonConvert.DeserializeObject<SongCompactJsonDto>(json, JsonSettings);
 
@@ -84,61 +44,35 @@ namespace Maestro.Services.Data
             return song;
         }
 
-        public static void SerializeJson(Song song, string filePath)
+        public static List<Song> DeserializeJsonArray(string json)
         {
-            var dto = new SongJsonDto
-            {
-                Name = song.Name,
-                Artist = song.Artist,
-                Instrument = song.Instrument.ToString(),
-                Bpm = song.Bpm,
-                Commands = new List<CommandJsonDto>()
-            };
+            var songs = new List<Song>();
+            var dtos = JsonConvert.DeserializeObject<List<SongCompactJsonDto>>(json, JsonSettings);
 
-            foreach (var cmd in song.Commands)
+            if (dtos == null) return songs;
+
+            foreach (var dto in dtos)
             {
-                dto.Commands.Add(new CommandJsonDto
+                Enum.TryParse<InstrumentType>(dto.Instrument, out var instrument);
+
+                var song = new Song
                 {
-                    Type = cmd.Type,
-                    Key = cmd.Key,
-                    Duration = cmd.Duration
-                });
+                    Name = dto.Name,
+                    Artist = dto.Artist,
+                    Instrument = instrument,
+                    Bpm = dto.Bpm
+                };
+
+                if (dto.Notes != null && dto.Bpm.HasValue)
+                {
+                    var commands = NoteParser.Parse(dto.Notes, dto.Bpm.Value);
+                    song.Commands.AddRange(commands);
+                }
+
+                songs.Add(song);
             }
 
-            var json = JsonConvert.SerializeObject(dto, JsonSettings);
-            File.WriteAllText(filePath, json);
-        }
-
-        private class SongJsonDto
-        {
-            [JsonProperty("name")]
-            public string Name { get; set; }
-
-            [JsonProperty("artist")]
-            public string Artist { get; set; }
-
-            [JsonProperty("instrument")]
-            public string Instrument { get; set; }
-
-            [JsonProperty("bpm")]
-            public int? Bpm { get; set; }
-
-            [JsonProperty("commands")]
-            public List<CommandJsonDto> Commands { get; set; }
-        }
-
-        private class CommandJsonDto
-        {
-            [JsonProperty("type")]
-            [JsonConverter(typeof(StringEnumConverter))]
-            public CommandType Type { get; set; }
-
-            [JsonProperty("key")]
-            [JsonConverter(typeof(StringEnumConverter))]
-            public Keys Key { get; set; }
-
-            [JsonProperty("duration")]
-            public int Duration { get; set; }
+            return songs;
         }
 
         private class SongCompactJsonDto

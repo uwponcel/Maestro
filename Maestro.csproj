@@ -58,11 +58,12 @@
     <None Include="manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include=".gitignore" />
     <None Include="packages.config" />
-    <Content Include="Songs\**\*.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="README.md" />
     <None Include="Scripts\**\*" />
+    <None Include="CHANGELOG.md" />
+    <None Include="Songs\**\*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module.cs" />
