@@ -11,9 +11,7 @@ namespace Maestro.Services.Data
     {
         private static readonly Logger Logger = Logger.GetLogger(typeof(SongLoader));
 
-        private const string DebugSongsPath = @"C:\git\Maestro\Songs";
-
-        public static async Task<List<Song>> LoadAllAsync()
+        public static async Task<List<Song>> LoadAllAsync(string songsDirectory)
         {
             return await Task.Run(() =>
             {
@@ -21,14 +19,14 @@ namespace Maestro.Services.Data
 
                 try
                 {
-                    if (Directory.Exists(DebugSongsPath))
+                    if (Directory.Exists(songsDirectory))
                     {
-                        Logger.Info($"Loading songs from: {DebugSongsPath}");
-                        LoadFromDirectory(songs, DebugSongsPath);
+                        Logger.Info($"Loading songs from: {songsDirectory}");
+                        LoadFromDirectory(songs, songsDirectory);
                     }
                     else
                     {
-                        Logger.Warn($"Songs directory not found: {DebugSongsPath}");
+                        Logger.Warn($"Songs directory not found: {songsDirectory}");
                     }
 
                     Logger.Info($"Total songs loaded: {songs.Count}");

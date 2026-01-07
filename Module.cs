@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Threading.Tasks;
 using Blish_HUD;
 using Blish_HUD.Controls;
@@ -66,7 +67,31 @@ namespace Maestro
 
         protected override async Task LoadAsync()
         {
-            _songs = await SongLoader.LoadAllAsync();
+            var songsDirectory = GetSongsDirectory();
+            _songs = await SongLoader.LoadAllAsync(songsDirectory);
+        }
+
+        private string GetSongsDirectory()
+        {
+            const string debugSongsPath = @"C:\git\Maestro\Songs";
+            if (Directory.Exists(debugSongsPath))
+            {
+                Logger.Info("Using debug songs path");
+                return debugSongsPath;
+            }
+
+            var moduleDirectory = DirectoriesManager.GetFullDirectoryPath("maestro");
+            if (!string.IsNullOrEmpty(moduleDirectory))
+            {
+                var moduleSongsPath = Path.Combine(moduleDirectory, "Songs");
+                if (Directory.Exists(moduleSongsPath))
+                {
+                    return moduleSongsPath;
+                }
+            }
+
+            Logger.Warn("No songs directory found");
+            return debugSongsPath;
         }
 
         protected override void OnModuleLoaded(EventArgs e)
