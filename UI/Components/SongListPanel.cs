@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
-using Maestro.Services;
+using Maestro.Services.Playback;
 using Microsoft.Xna.Framework;
 
 namespace Maestro.UI.Components

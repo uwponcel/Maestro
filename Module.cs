@@ -10,6 +10,8 @@ using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
 using Maestro.Models;
 using Maestro.Services;
+using Maestro.Services.Data;
+using Maestro.Services.Playback;
 using Maestro.Settings;
 using Maestro.UI;
 using Microsoft.Xna.Framework;

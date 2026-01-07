@@ -4,7 +4,7 @@ using System.Linq;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Maestro.Models;
-using Maestro.Services;
+using Maestro.Services.Playback;
 using Maestro.UI.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

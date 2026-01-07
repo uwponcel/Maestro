@@ -2,7 +2,7 @@ using System;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
-using Maestro.Services;
+using Maestro.Services.Playback;
 using Microsoft.Xna.Framework;
 
 namespace Maestro.UI.Components

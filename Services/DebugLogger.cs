@@ -12,7 +12,7 @@ namespace Maestro.Services
     public class DebugLogger
     {
         private static readonly Logger Logger = Logger.GetLogger<DebugLogger>();
-        private const string LOG_PATH = @"C:\git\Maestro\debug_keys.txt";
+        private const string DEBUG_FOLDER = @"C:\git\Maestro\Debug";
 
         private readonly StringBuilder _log = new StringBuilder();
         private bool _enabled;
@@ -34,15 +34,30 @@ namespace Maestro.Services
 
             try
             {
+                if (!Directory.Exists(DEBUG_FOLDER))
+                    Directory.CreateDirectory(DEBUG_FOLDER);
+
+                var safeFileName = SanitizeFileName(_songName);
+                var logPath = Path.Combine(DEBUG_FOLDER, $"{safeFileName}.txt");
+
                 var header = $"=== Debug Log for: {_songName} ===\n" +
                              $"=== Time: {DateTime.Now:yyyy-MM-dd HH:mm:ss} ===\n\n";
-                File.WriteAllText(LOG_PATH, header + _log);
-                Logger.Info($"Debug log written to: {LOG_PATH}");
+                File.WriteAllText(logPath, header + _log);
+                Logger.Info($"Debug log written to: {logPath}");
             }
             catch (Exception ex)
             {
                 Logger.Warn(ex, "Failed to write debug log");
             }
+        }
+
+        private static string SanitizeFileName(string name)
+        {
+            var invalid = Path.GetInvalidFileNameChars();
+            var sanitized = new StringBuilder(name);
+            foreach (var c in invalid)
+                sanitized.Replace(c, '_');
+            return sanitized.ToString();
         }
 
         [Conditional("DEBUG")]
