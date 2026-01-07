@@ -15,4 +15,4 @@ Set-Location "C:\Users\uwpon\OneDrive\Documents\BlishHUD"
 Start-Process "Blish HUD.exe" -ArgumentList '--debug', '--module', 'C:\git\Maestro\bin\x64\Debug\Maestro.bhm'
 
 # Return to project directory
-Set-Location "C:\git\Maestro\scripts"
+Set-Location "C:\git\Maestro\Scripts"

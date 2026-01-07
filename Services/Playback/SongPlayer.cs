@@ -5,7 +5,7 @@ using Blish_HUD;
 using Maestro.Models;
 using Microsoft.Xna.Framework.Input;
 
-namespace Maestro.Services
+namespace Maestro.Services.Playback
 {
     public class SongPlayer
     {
