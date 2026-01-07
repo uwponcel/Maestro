@@ -74,20 +74,31 @@ namespace Maestro
         private string GetSongsDirectory()
         {
             const string debugSongsPath = @"C:\git\Maestro\Songs";
+
+            try
+            {
+                var assemblyLocation = GetType().Assembly.Location;
+                if (!string.IsNullOrEmpty(assemblyLocation))
+                {
+                    var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+                    var embeddedSongsPath = Path.Combine(assemblyDirectory, "Songs");
+
+                    if (Directory.Exists(embeddedSongsPath))
+                    {
+                        Logger.Info($"Using embedded songs path: {embeddedSongsPath}");
+                        return embeddedSongsPath;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Debug($"Could not get assembly location: {ex.Message}");
+            }
+
             if (Directory.Exists(debugSongsPath))
             {
                 Logger.Info("Using debug songs path");
                 return debugSongsPath;
-            }
-
-            var moduleDirectory = DirectoriesManager.GetFullDirectoryPath("maestro");
-            if (!string.IsNullOrEmpty(moduleDirectory))
-            {
-                var moduleSongsPath = Path.Combine(moduleDirectory, "Songs");
-                if (Directory.Exists(moduleSongsPath))
-                {
-                    return moduleSongsPath;
-                }
             }
 
             Logger.Warn("No songs directory found");
