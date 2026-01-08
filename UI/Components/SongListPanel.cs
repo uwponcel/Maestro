@@ -10,30 +10,31 @@ namespace Maestro.UI.Components
 {
     public class SongListPanel : FlowPanel
     {
-        public static class Layout
-        {
-            public const int CardSpacing = 4;
-            public const int OuterPadding = 4;
-            public const int ScrollbarWidth = 20;
-        }
-
         public event EventHandler<Song> SongSelected;
         public event EventHandler<Song> SongPlayRequested;
+        public event EventHandler<Song> SongDeleteRequested;
         public event EventHandler<int> CountChanged;
+        
+        public static class Layout
+        {
+            public const int Height = 280;
+            public const int CardSpacing = 4;
+            public const int OuterPadding = 4;
+            public const int ScrollbarWidth = 12;
+        }
 
         private readonly SongPlayer _songPlayer;
         private readonly Dictionary<Song, SongCard> _songCards = new Dictionary<Song, SongCard>();
-        private Song _selectedSong;
         private readonly int _cardWidth;
 
-        public Song SelectedSong => _selectedSong;
+        public Song SelectedSong { get; private set; }
 
-        public SongListPanel(SongPlayer songPlayer, int width, int height)
+        public SongListPanel(SongPlayer songPlayer, int contentWidth)
         {
             _songPlayer = songPlayer;
-            _cardWidth = width - Layout.ScrollbarWidth - Layout.OuterPadding;
+            _cardWidth = contentWidth - Layout.ScrollbarWidth - Layout.OuterPadding;
 
-            Size = new Point(width, height);
+            Size = new Point(contentWidth, Layout.Height);
             FlowDirection = ControlFlowDirection.SingleTopToBottom;
             CanScroll = true;
             ShowBorder = true;
@@ -54,6 +55,7 @@ namespace Maestro.UI.Components
                 };
                 card.PlayClicked += OnCardPlayClicked;
                 card.CardClicked += OnCardClicked;
+                card.DeleteRequested += OnCardDeleteRequested;
                 _songCards[song] = card;
             }
 
@@ -80,9 +82,18 @@ namespace Maestro.UI.Components
             }
         }
 
+        private void OnCardDeleteRequested(object sender, EventArgs e)
+        {
+            var card = sender as SongCard;
+            if (card?.Song != null)
+            {
+                SongDeleteRequested?.Invoke(this, card.Song);
+            }
+        }
+
         public void SelectSong(Song song)
         {
-            _selectedSong = song;
+            SelectedSong = song;
             UpdateCardStates();
             SongSelected?.Invoke(this, song);
         }
@@ -92,7 +103,7 @@ namespace Maestro.UI.Components
             foreach (var kvp in _songCards)
             {
                 var isPlaying = _songPlayer.IsPlaying && _songPlayer.CurrentSong == kvp.Key;
-                var isSelected = kvp.Key == _selectedSong;
+                var isSelected = kvp.Key == SelectedSong;
 
                 kvp.Value.IsPlaying = isPlaying;
                 kvp.Value.IsSelected = isSelected;
@@ -105,6 +116,7 @@ namespace Maestro.UI.Components
             {
                 card.PlayClicked -= OnCardPlayClicked;
                 card.CardClicked -= OnCardClicked;
+                card.DeleteRequested -= OnCardDeleteRequested;
                 card.Dispose();
             }
             _songCards.Clear();

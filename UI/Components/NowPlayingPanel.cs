@@ -38,7 +38,7 @@ namespace Maestro.UI.Components
             _songPlayer = songPlayer;
 
             Size = new Point(width, Layout.Height);
-            BackgroundColor = MaestroColors.WithAlpha(MaestroColors.SlateGray, 150);
+            BackgroundColor = MaestroTheme.WithAlpha(MaestroTheme.SlateGray, 150);
             ShowBorder = true;
 
             _pauseButton = new StandardButton
@@ -68,7 +68,7 @@ namespace Maestro.UI.Components
                 Location = new Point(Layout.LabelX, Layout.LabelYCentered),
                 Width = Layout.LabelWidth,
                 Font = GameService.Content.DefaultFont14,
-                TextColor = MaestroColors.MutedCream
+                TextColor = MaestroTheme.MutedCream
             };
 
             _progressLabel = new Label
@@ -78,7 +78,7 @@ namespace Maestro.UI.Components
                 Location = new Point(Layout.LabelX, Layout.ProgressLabelY),
                 Width = Layout.LabelWidth,
                 Font = GameService.Content.DefaultFont12,
-                TextColor = MaestroColors.MutedCream
+                TextColor = MaestroTheme.MutedCream
             };
 
             SubscribeToEvents();
@@ -119,18 +119,18 @@ namespace Maestro.UI.Components
                 if (_songPlayer.IsPaused)
                 {
                     _pauseButton.Text = ">";
-                    _nowPlayingLabel.TextColor = MaestroColors.CreamWhite;
+                    _nowPlayingLabel.TextColor = MaestroTheme.CreamWhite;
                     _progressLabel.Text = "Paused";
-                    _progressLabel.TextColor = MaestroColors.Paused;
+                    _progressLabel.TextColor = MaestroTheme.Paused;
                 }
                 else
                 {
                     _pauseButton.Text = "||";
-                    _nowPlayingLabel.TextColor = MaestroColors.CreamWhite;
+                    _nowPlayingLabel.TextColor = MaestroTheme.CreamWhite;
                     if (_songPlayer.IsAdjustingOctave)
                     {
                         _progressLabel.Text = "Adjusting...";
-                        _progressLabel.TextColor = MaestroColors.Paused;
+                        _progressLabel.TextColor = MaestroTheme.Paused;
                     }
                     else
                     {
@@ -146,7 +146,7 @@ namespace Maestro.UI.Components
                                 : 0;
                             _progressLabel.Text = $"Playing... {progress:F0}%";
                         }
-                        _progressLabel.TextColor = MaestroColors.MutedCream;
+                        _progressLabel.TextColor = MaestroTheme.MutedCream;
                     }
                 }
 
@@ -162,15 +162,15 @@ namespace Maestro.UI.Components
                 {
                     _nowPlayingLabel.Text = song.DisplayName;
                     _nowPlayingLabel.Location = new Point(Layout.LabelX, Layout.LabelYPlaying);
-                    _nowPlayingLabel.TextColor = MaestroColors.CreamWhite;
+                    _nowPlayingLabel.TextColor = MaestroTheme.CreamWhite;
                     _progressLabel.Text = "Done!";
-                    _progressLabel.TextColor = MaestroColors.MutedCream;
+                    _progressLabel.TextColor = MaestroTheme.MutedCream;
                 }
                 else
                 {
                     _nowPlayingLabel.Text = "No song playing";
                     _nowPlayingLabel.Location = new Point(Layout.LabelX, Layout.LabelYCentered);
-                    _nowPlayingLabel.TextColor = MaestroColors.MutedCream;
+                    _nowPlayingLabel.TextColor = MaestroTheme.MutedCream;
                     _progressLabel.Text = "";
                 }
 
@@ -189,7 +189,7 @@ namespace Maestro.UI.Components
                 if (_songPlayer.IsAdjustingOctave)
                 {
                     _progressLabel.Text = "Adjusting...";
-                    _progressLabel.TextColor = MaestroColors.Paused;
+                    _progressLabel.TextColor = MaestroTheme.Paused;
                 }
                 else
                 {
@@ -206,7 +206,7 @@ namespace Maestro.UI.Components
                             : 0;
                         _progressLabel.Text = $"Playing... {progress:F0}%";
                     }
-                    _progressLabel.TextColor = MaestroColors.MutedCream;
+                    _progressLabel.TextColor = MaestroTheme.MutedCream;
                 }
             }
         }

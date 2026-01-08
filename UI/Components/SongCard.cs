@@ -1,6 +1,7 @@
 using System;
 using Blish_HUD;
 using Blish_HUD.Controls;
+using Blish_HUD.Controls.Effects;
 using Blish_HUD.Input;
 using Maestro.Models;
 using Microsoft.Xna.Framework;
@@ -22,9 +23,10 @@ namespace Maestro.UI.Components
             public const int TitleY = 22;
             public const int ArtistY = 40;
 
-            // Play button (right side)
+            // Play button (right side, vertically centered)
             public const int PlayButtonWidth = 40;
-            public const int PlayButtonY = 14;
+            public const int PlayButtonHeight = 26;
+            public const int PlayButtonY = (Height - PlayButtonHeight) / 2;
             public const int PlayButtonRightMargin = 15;
 
             // Labels width = card width - LabelRightMargin
@@ -33,6 +35,7 @@ namespace Maestro.UI.Components
 
         public event EventHandler<MouseEventArgs> PlayClicked;
         public event EventHandler<MouseEventArgs> CardClicked;
+        public event EventHandler DeleteRequested;
 
         private readonly Song _song;
         private readonly Panel _indicator;
@@ -40,6 +43,7 @@ namespace Maestro.UI.Components
         private readonly Label _titleLabel;
         private readonly Label _artistLabel;
         private readonly StandardButton _playButton;
+        private readonly ScrollingHighlightEffect _highlightEffect;
 
         private bool _isSelected;
         private bool _isPlaying;
@@ -71,7 +75,10 @@ namespace Maestro.UI.Components
             _song = song;
 
             Size = new Point(width, Layout.Height);
-            BackgroundColor = MaestroColors.PanelBackground;
+            BackgroundColor = MaestroTheme.PanelBackground;
+
+            _highlightEffect = new ScrollingHighlightEffect(this);
+            EffectBehind = _highlightEffect;
 
             var instrumentColor = GetInstrumentColor(song.Instrument);
 
@@ -99,7 +106,7 @@ namespace Maestro.UI.Components
                 Location = new Point(Layout.LabelsX, Layout.TitleY),
                 Width = width - Layout.LabelRightMargin,
                 Font = GameService.Content.DefaultFont14,
-                TextColor = MaestroColors.CreamWhite
+                TextColor = MaestroTheme.CreamWhite
             };
 
             _artistLabel = new Label
@@ -109,7 +116,7 @@ namespace Maestro.UI.Components
                 Location = new Point(Layout.LabelsX, Layout.ArtistY),
                 Width = width - Layout.LabelRightMargin,
                 Font = GameService.Content.DefaultFont12,
-                TextColor = MaestroColors.MutedCream
+                TextColor = MaestroTheme.MutedCream
             };
 
             _playButton = new StandardButton
@@ -121,49 +128,43 @@ namespace Maestro.UI.Components
             };
             _playButton.Click += (s, e) => PlayClicked?.Invoke(this, e);
 
+            if (song.IsUserImported)
+            {
+                var contextMenu = new ContextMenuStrip();
+                var deleteItem = contextMenu.AddMenuItem("Delete Song");
+                deleteItem.Click += (s, e) => DeleteRequested?.Invoke(this, EventArgs.Empty);
+                Menu = contextMenu;
+
+                const string tooltip = "Right-click for options";
+                BasicTooltipText = tooltip;
+                _indicator.BasicTooltipText = tooltip;
+                _instrumentLabel.BasicTooltipText = tooltip;
+                _titleLabel.BasicTooltipText = tooltip;
+                _artistLabel.BasicTooltipText = tooltip;
+            }
+
             Click += (s, e) => CardClicked?.Invoke(this, e);
-
-            MouseEntered += OnMouseEntered;
-            MouseLeft += OnMouseLeft;
-        }
-
-        private void OnMouseEntered(object sender, MouseEventArgs e)
-        {
-            if (!_isSelected)
-                BackgroundColor = MaestroColors.PanelHover;
-        }
-
-        private void OnMouseLeft(object sender, MouseEventArgs e)
-        {
-            if (!_isSelected)
-                BackgroundColor = MaestroColors.PanelBackground;
         }
 
         private void UpdateVisualState()
         {
-            if (_isSelected)
-                BackgroundColor = MaestroColors.PanelSelected;
-            else
-                BackgroundColor = MaestroColors.PanelBackground;
+            _highlightEffect.ForceActive = _isSelected;
         }
 
         private static Color GetInstrumentColor(InstrumentType instrument)
         {
             switch (instrument)
             {
-                case InstrumentType.Piano: return MaestroColors.Piano;
-                case InstrumentType.Harp: return MaestroColors.Harp;
-                case InstrumentType.Lute: return MaestroColors.Lute;
-                case InstrumentType.Bass: return MaestroColors.Bass;
-                default: return MaestroColors.AmberGold;
+                case InstrumentType.Piano: return MaestroTheme.Piano;
+                case InstrumentType.Harp: return MaestroTheme.Harp;
+                case InstrumentType.Lute: return MaestroTheme.Lute;
+                case InstrumentType.Bass: return MaestroTheme.Bass;
+                default: return MaestroTheme.AmberGold;
             }
         }
 
         protected override void DisposeControl()
         {
-            MouseEntered -= OnMouseEntered;
-            MouseLeft -= OnMouseLeft;
-
             _indicator?.Dispose();
             _instrumentLabel?.Dispose();
             _titleLabel?.Dispose();
