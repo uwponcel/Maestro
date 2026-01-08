@@ -1,3 +1,4 @@
+using System;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Microsoft.Xna.Framework;
@@ -8,10 +9,13 @@ namespace Maestro.UI.Components
     {
         public static class Layout
         {
-            public const int Height = 24;
+            public static int Height => MaestroTheme.ActionButtonHeight;
         }
 
+        public event EventHandler ImportClicked;
+
         private readonly Label _statusLabel;
+        private readonly StandardButton _importButton;
         private int _visibleCount;
         private int _totalCount;
 
@@ -44,12 +48,21 @@ namespace Maestro.UI.Components
             {
                 Parent = this,
                 Location = new Point(0, 0),
-                Width = Width,
+                Width = width - MaestroTheme.ActionButtonWidth - 10,
                 Height = Height,
                 Font = GameService.Content.DefaultFont12,
-                TextColor = MaestroColors.LightGray,
+                TextColor = MaestroTheme.LightGray,
                 HorizontalAlignment = HorizontalAlignment.Left
             };
+
+            _importButton = new StandardButton
+            {
+                Parent = this,
+                Text = "Import",
+                Location = new Point(width - MaestroTheme.ActionButtonWidth, 0),
+                Size = new Point(MaestroTheme.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
+            };
+            _importButton.Click += (s, e) => ImportClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void UpdateText()
@@ -62,6 +75,7 @@ namespace Maestro.UI.Components
         protected override void DisposeControl()
         {
             _statusLabel?.Dispose();
+            _importButton?.Dispose();
             base.DisposeControl();
         }
     }

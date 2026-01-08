@@ -39,10 +39,11 @@ namespace Maestro
         private ModuleSettings _moduleSettings;
         private KeyboardService _keyboardService;
         private SongPlayer _songPlayer;
+        private UserSongStorage _userSongStorage;
         private MaestroWindow _maestroWindow;
+        private ImportWindow _importWindow;
         private CornerIcon _cornerIcon;
         private List<Song> _songs;
-        private Texture2D _windowBackground;
 
         [ImportingConstructor]
         public Module([Import("ModuleParameters")] ModuleParameters moduleParameters)
@@ -67,6 +68,8 @@ namespace Maestro
 
         protected override async Task LoadAsync()
         {
+            _userSongStorage = new UserSongStorage(DirectoriesManager);
+
             const string debugSongsPath = @"C:\git\Maestro\Songs";
 
             if (Directory.Exists(debugSongsPath))
@@ -79,12 +82,13 @@ namespace Maestro
                 Logger.Info("Production mode: Loading songs from ContentsManager");
                 _songs = await SongLoader.LoadFromContentsManagerAsync(ContentsManager);
             }
+
+            var userSongs = await _userSongStorage.LoadUserSongsAsync();
+            _songs.AddRange(userSongs);
         }
 
         protected override void OnModuleLoaded(EventArgs e)
         {
-            CreateWindowBackground();
-
             try
             {
                 var iconTexture = ContentsManager.GetTexture("icon.png");
@@ -109,38 +113,60 @@ namespace Maestro
             base.OnModuleLoaded(e);
         }
 
-        private void CreateWindowBackground()
-        {
-            const int width = 419;
-            const int height = 447;
-
-            var graphicsDeviceContext = GameService.Graphics.LendGraphicsDeviceContext();
-            try
-            {
-                _windowBackground = new Texture2D(graphicsDeviceContext.GraphicsDevice, width, height);
-                var data = new Color[width * height];
-
-                for (var i = 0; i < data.Length; i++)
-                {
-                    data[i] = new Color(30, 30, 30, 255);
-                }
-
-                _windowBackground.SetData(data);
-            }
-            finally
-            {
-                graphicsDeviceContext.Dispose();
-            }
-        }
-
         private void OnCornerIconClick(object sender, MouseEventArgs e)
         {
             if (_maestroWindow == null)
             {
-                _maestroWindow = new MaestroWindow(_windowBackground, _songPlayer, _songs);
+                _maestroWindow = new MaestroWindow(_songPlayer, _songs);
+                _maestroWindow.ImportRequested += OnImportRequested;
+                _maestroWindow.SongDeleteRequested += OnSongDeleteRequested;
             }
 
             _maestroWindow.ToggleWindow();
+        }
+
+        private void OnImportRequested(object sender, EventArgs e)
+        {
+            if (_importWindow == null)
+            {
+                _importWindow = new ImportWindow();
+                _importWindow.SongImported += OnSongImported;
+            }
+
+            _importWindow.Show();
+        }
+
+        private async void OnSongImported(object sender, Song song)
+        {
+            try
+            {
+                await _userSongStorage.SaveSongAsync(song);
+                _maestroWindow?.AddImportedSong(song);
+                Logger.Info($"Imported and saved song: {song.Name} by {song.Artist}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"Failed to save imported song: {song.Name}");
+                ScreenNotification.ShowNotification("Failed to save song", ScreenNotification.NotificationType.Error);
+            }
+        }
+
+        private void OnSongDeleteRequested(object sender, Song song)
+        {
+            if (!song.IsUserImported)
+                return;
+
+            try
+            {
+                _userSongStorage.DeleteSong(song);
+                _maestroWindow?.RemoveSong(song);
+                Logger.Info($"Deleted song: {song.Name} by {song.Artist}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"Failed to delete song: {song.Name}");
+                ScreenNotification.ShowNotification("Failed to delete song", ScreenNotification.NotificationType.Error);
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -150,9 +176,9 @@ namespace Maestro
         protected override void Unload()
         {
             _songPlayer?.Stop();
+            _importWindow?.Dispose();
             _maestroWindow?.Dispose();
             _cornerIcon?.Dispose();
-            _windowBackground?.Dispose();
 
             Instance = null;
         }

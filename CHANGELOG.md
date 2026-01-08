@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.3.0
+
+📥 **Song Import**
+
+You can now import your own songs from AHK v1 scripts!
+
+- Import songs from AutoHotkey v1 macro scripts
+- User-imported songs are saved locally and persist across sessions
+- Right-click on imported songs to delete them
+- Imported songs show in the song list alongside embedded songs
+
+🎨 **UI Improvements**
+
+- Redesigned Import window with cleaner layout
+- Consistent button sizing across all windows
+- Improved spacing and visual consistency
+
+---
+
 ## v1.2.1
 
 🐛 **Bug Fixes**

@@ -76,8 +76,11 @@
     <Compile Include="Services\Data\NoteParser.cs" />
     <Compile Include="Services\Data\SongLoader.cs" />
     <Compile Include="Services\Data\SongSerializer.cs" />
+    <Compile Include="Services\Data\AhkParser.cs" />
+    <Compile Include="Services\Data\UserSongStorage.cs" />
     <Compile Include="UI\MaestroWindow.cs" />
-    <Compile Include="UI\MaestroColors.cs" />
+    <Compile Include="UI\ImportWindow.cs" />
+    <Compile Include="UI\MaestroTheme.cs" />
     <Compile Include="UI\Components\NowPlayingPanel.cs" />
     <Compile Include="UI\Components\SongCard.cs" />
     <Compile Include="UI\Components\SongFilterBar.cs" />
@@ -314,8 +317,11 @@
     <Content Include="Content\bin\Windows\Content\fonts\newkrytan\newkrytan-12-regular.xnb" />
     <Content Include="Content\bin\Windows\Content\fonts\newkrytan\newkrytan-12-regular_0.xnb" />
     <Content Include="Content\bin\Windows\Content\fonts\newkrytan\newkrytan-12-regular_1.xnb" />
-    <Content Include="ref\emblem.png" />
-    <Content Include="ref\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ref\emblem.png" />
+    <EmbeddedResource Include="ref\icon.png" />
+    <EmbeddedResource Include="ref\import.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

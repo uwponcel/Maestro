@@ -13,26 +13,17 @@ namespace Maestro.UI
 {
     public class MaestroWindow : StandardWindow
     {
-        public static class Layout
+        public event EventHandler ImportRequested;
+        public event EventHandler<Song> SongDeleteRequested;
+
+        private static class Layout
         {
-            // Content area dimensions
+            public const int WindowWidth = 420;
+            public const int WindowHeight = 470;
+
             public const int ContentWidth = 390;
             public const int ContentHeight = 420;
-
-            // Component gap
-            public const int ComponentGap = 5;
-
-            // Y positions for child components (vertical stacking)
-            public const int NowPlayingY = 0;
-            public static int FilterBarY => NowPlayingPanel.Layout.Height + ComponentGap;
-            public static int SongListY => FilterBarY + SongFilterBar.Layout.Height - 1;
-            public static int StatusBarY => ContentHeight - StatusBar.Layout.Height;
-
-            // SongList fills remaining space
-            public static int SongListHeight => ContentHeight - SongListY - StatusBar.Layout.Height;
         }
-
-        private static readonly Logger Logger = Logger.GetLogger<MaestroWindow>();
 
         private readonly SongPlayer _songPlayer;
         private readonly List<Song> _allSongs;
@@ -42,10 +33,17 @@ namespace Maestro.UI
         private SongListPanel _songListPanel;
         private StatusBar _statusBar;
 
-        public MaestroWindow(Texture2D background, SongPlayer songPlayer, List<Song> songs)
+        private static Texture2D _backgroundTexture;
+
+        private static Texture2D GetBackground()
+        {
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
+        }
+
+        public MaestroWindow(SongPlayer songPlayer, List<Song> songs)
             : base(
-                background,
-                new Rectangle(0, 0, 420, 460),
+                GetBackground(),
+                new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
                 new Rectangle(15, 30, Layout.ContentWidth, Layout.ContentHeight))
         {
             _songPlayer = songPlayer;
@@ -65,34 +63,43 @@ namespace Maestro.UI
 
         private void BuildUi()
         {
+            var currentY = MaestroTheme.PaddingContentTop;
+
             _nowPlayingPanel = new NowPlayingPanel(_songPlayer, Layout.ContentWidth)
             {
                 Parent = this,
-                Location = new Point(0, Layout.NowPlayingY)
+                Location = new Point(0, currentY)
             };
+            currentY += NowPlayingPanel.Layout.Height + MaestroTheme.InputSpacing;
 
             _filterBar = new SongFilterBar(Layout.ContentWidth)
             {
                 Parent = this,
-                Location = new Point(0, Layout.FilterBarY)
+                Location = new Point(0, currentY)
             };
             _filterBar.SearchChanged += OnFilterChanged;
             _filterBar.FilterChanged += OnFilterChanged;
+            
+            currentY += SongFilterBar.Layout.Height + MaestroTheme.InputSpacing - 3;
 
-            _songListPanel = new SongListPanel(_songPlayer, Layout.ContentWidth, Layout.SongListHeight)
+            _songListPanel = new SongListPanel(_songPlayer, Layout.ContentWidth)
             {
                 Parent = this,
-                Location = new Point(0, Layout.SongListY)
+                Location = new Point(0, currentY)
             };
             _songListPanel.SongPlayRequested += OnSongPlayRequested;
+            _songListPanel.SongDeleteRequested += OnSongDeleteRequested;
             _songListPanel.CountChanged += OnCountChanged;
 
+            currentY += SongListPanel.Layout.Height + MaestroTheme.InputSpacing;
+            
             _statusBar = new StatusBar(Layout.ContentWidth)
             {
                 Parent = this,
-                Location = new Point(0, Layout.StatusBarY)
+                Location = new Point(0, currentY)
             };
             _statusBar.TotalCount = _allSongs.Count;
+            _statusBar.ImportClicked += OnImportClicked;
 
             RefreshSongList();
         }
@@ -124,6 +131,33 @@ namespace Maestro.UI
         private void OnCountChanged(object sender, int count)
         {
             _statusBar.VisibleCount = count;
+        }
+
+        private void OnImportClicked(object sender, EventArgs e)
+        {
+            ImportRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void AddImportedSong(Song song)
+        {
+            _allSongs.Add(song);
+            _statusBar.TotalCount = _allSongs.Count;
+            RefreshSongList();
+        }
+
+        private void OnSongDeleteRequested(object sender, Song song)
+        {
+            SongDeleteRequested?.Invoke(this, song);
+        }
+
+        public void RemoveSong(Song song)
+        {
+            if (_songPlayer.CurrentSong == song)
+                _songPlayer.Stop();
+
+            _allSongs.Remove(song);
+            _statusBar.TotalCount = _allSongs.Count;
+            RefreshSongList();
         }
 
         private void RefreshSongList()
@@ -167,7 +201,9 @@ namespace Maestro.UI
             _filterBar.SearchChanged -= OnFilterChanged;
             _filterBar.FilterChanged -= OnFilterChanged;
             _songListPanel.SongPlayRequested -= OnSongPlayRequested;
+            _songListPanel.SongDeleteRequested -= OnSongDeleteRequested;
             _songListPanel.CountChanged -= OnCountChanged;
+            _statusBar.ImportClicked -= OnImportClicked;
 
             _songPlayer.Stop();
 
