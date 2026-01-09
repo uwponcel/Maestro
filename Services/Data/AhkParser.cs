@@ -30,7 +30,7 @@ namespace Maestro.Services.Data
             @"Sleep,\s*(\d+)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-        public static List<string> ParseToCompact(string ahkContent, int bpm)
+        public static List<string> ParseToCompact(string ahkContent)
         {
             var lines = ahkContent.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var result = new List<string>();
@@ -40,6 +40,11 @@ namespace Maestro.Services.Data
             foreach (var line in lines)
             {
                 var trimmed = line.Trim();
+
+                // Skip function wrapper lines
+                if (trimmed.StartsWith("PlaySong", StringComparison.OrdinalIgnoreCase) ||
+                    trimmed == "{" || trimmed == "}")
+                    continue;
 
                 var keyDownMatch = KeyDownPattern.Match(trimmed);
                 if (keyDownMatch.Success)
@@ -67,12 +72,11 @@ namespace Maestro.Services.Data
                 var sleepMatch = SleepPattern.Match(trimmed);
                 if (sleepMatch.Success && currentNotes.Count > 0)
                 {
-                    var delayMs = int.Parse(sleepMatch.Groups[1].Value);
-                    var (duration, isDotted) = GetClosestNoteDuration(delayMs, bpm);
-                    var durationStr = duration.ToString() + (isDotted ? "." : "");
+                    var durationMs = sleepMatch.Groups[1].Value;
 
+                    // Output notes with direct millisecond duration
                     var noteLine = string.Join(" ",
-                        currentNotes.ConvertAll(n => $"{n}:{durationStr}"));
+                        currentNotes.ConvertAll(n => $"{n}:{durationMs}"));
                     result.Add(noteLine);
                     currentNotes.Clear();
                 }
@@ -92,37 +96,6 @@ namespace Maestro.Services.Data
                 return $"C^{modifier}";
 
             return $"{note}{modifier}";
-        }
-
-        private static (int duration, bool isDotted) GetClosestNoteDuration(int delayMs, int bpm)
-        {
-            var durations = new[] { 1, 2, 4, 8, 16, 32 };
-            int closest = 4;
-            bool isDotted = false;
-            int minDiff = int.MaxValue;
-
-            foreach (var dur in durations)
-            {
-                int expectedMs = (int)((60000.0 / bpm) * (4.0 / dur));
-                int diff = Math.Abs(delayMs - expectedMs);
-                if (diff < minDiff)
-                {
-                    minDiff = diff;
-                    closest = dur;
-                    isDotted = false;
-                }
-
-                int dottedMs = (int)(expectedMs * 1.5);
-                diff = Math.Abs(delayMs - dottedMs);
-                if (diff < minDiff)
-                {
-                    minDiff = diff;
-                    closest = dur;
-                    isDotted = true;
-                }
-            }
-
-            return (closest, isDotted);
         }
     }
 }

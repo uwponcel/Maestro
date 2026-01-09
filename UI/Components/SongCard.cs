@@ -109,10 +109,14 @@ namespace Maestro.UI.Components
                 TextColor = MaestroTheme.CreamWhite
             };
 
+            var artistText = string.IsNullOrWhiteSpace(song.Transcriber)
+                ? song.Artist
+                : $"{song.Artist} - {song.Transcriber}";
+
             _artistLabel = new Label
             {
                 Parent = this,
-                Text = song.Artist,
+                Text = artistText,
                 Location = new Point(Layout.LabelsX, Layout.ArtistY),
                 Width = width - Layout.LabelRightMargin,
                 Font = GameService.Content.DefaultFont12,

@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.1
+
+🎵 **Expanded Song Library**
+
+Added 17 new songs bringing the total to 87 embedded songs!
+
+- Removed BPM-based timing in favor of direct millisecond values for more accurate playback
+- Songs now display transcriber attribution (Artist - Transcriber format)
+- Streamlined AHK import process with improved timing conversion
+
+---
+
 ## v1.3.0
 
 📥 **Song Import**

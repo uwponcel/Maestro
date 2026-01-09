@@ -118,7 +118,10 @@ namespace Maestro.Services.Playback
         {
             try
             {
-                ResetToMiddleOctave();
+                if (!CurrentSong.SkipOctaveReset)
+                {
+                    ResetToMiddleOctave();
+                }
 
                 await Task.Delay(300, cancellationToken);
 

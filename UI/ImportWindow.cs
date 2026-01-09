@@ -39,8 +39,6 @@ namespace Maestro.UI
 
         private static Texture2D _backgroundTexture;
 
-        private const int DefaultBpm = 120;
-
         private static Texture2D GetBackground()
         {
             return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
@@ -193,7 +191,7 @@ namespace Maestro.UI
         {
             try
             {
-                var notes = AhkParser.ParseToCompact(_scriptInput.Text, DefaultBpm);
+                var notes = AhkParser.ParseToCompact(_scriptInput.Text);
 
                 if (notes.Count == 0)
                 {
@@ -207,13 +205,13 @@ namespace Maestro.UI
                 {
                     Name = _titleInput.Text.Trim(),
                     Artist = string.IsNullOrWhiteSpace(_artistInput.Text) ? "Unknown" : _artistInput.Text.Trim(),
+                    Transcriber = string.IsNullOrWhiteSpace(_transcriberInput.Text) ? null : _transcriberInput.Text.Trim(),
                     Instrument = instrument,
-                    Bpm = DefaultBpm,
                     IsUserImported = true
                 };
 
                 song.Notes.AddRange(notes);
-                var commands = NoteParser.Parse(notes, DefaultBpm);
+                var commands = NoteParser.Parse(notes);
                 song.Commands.AddRange(commands);
 
                 ScreenNotification.ShowNotification($"Imported {notes.Count} notes, {song.Commands.Count} commands", ScreenNotification.NotificationType.Info);

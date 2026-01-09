@@ -15,6 +15,8 @@ namespace Maestro.Services
         private const string DEBUG_FOLDER = @"C:\git\Maestro\Debug";
 
         private readonly StringBuilder _log = new StringBuilder();
+        private readonly Stopwatch _stopwatch = new Stopwatch();
+        private long _lastEventMs;
         private bool _enabled;
         private string _songName;
 
@@ -24,11 +26,14 @@ namespace Maestro.Services
             _log.Clear();
             _songName = songName;
             _enabled = true;
+            _lastEventMs = 0;
+            _stopwatch.Restart();
         }
 
         [Conditional("DEBUG")]
         public void Stop()
         {
+            _stopwatch.Stop();
             _enabled = false;
             if (_log.Length == 0) return;
 
@@ -70,15 +75,32 @@ namespace Maestro.Services
         [Conditional("DEBUG")]
         public void LogNote(Keys key, Keys targetKey)
         {
-            if (_enabled)
-                _log.AppendLine($"NOTE: {key} -> {FormatKey(targetKey)}");
+            if (!_enabled) return;
+
+            var currentMs = _stopwatch.ElapsedMilliseconds;
+            var deltaMs = currentMs - _lastEventMs;
+            _lastEventMs = currentMs;
+
+            _log.AppendLine($"[+{deltaMs,4}ms] NOTE: {key} -> {FormatKey(targetKey)}");
         }
 
         [Conditional("DEBUG")]
         public void LogSharp(Keys key, KeyBinding binding)
         {
+            if (!_enabled) return;
+
+            var currentMs = _stopwatch.ElapsedMilliseconds;
+            var deltaMs = currentMs - _lastEventMs;
+            _lastEventMs = currentMs;
+
+            _log.AppendLine($"[+{deltaMs,4}ms] SHARP: {key} -> {FormatModifiers(binding.ModifierKeys)}+{FormatKey(binding.PrimaryKey)}");
+        }
+
+        [Conditional("DEBUG")]
+        public void LogDelay(int delayMs)
+        {
             if (_enabled)
-                _log.AppendLine($"SHARP: {key} -> {FormatModifiers(binding.ModifierKeys)}+{FormatKey(binding.PrimaryKey)}");
+                _log.AppendLine($"         DELAY: {delayMs}ms");
         }
 
         private static string FormatKey(Keys key)
