@@ -11,7 +11,7 @@ namespace Maestro.UI.Components
     {
         public static class Layout
         {
-            public const int Height = 70;
+            public const int Height = 95;
 
             // Button positioning (centered: (Height - ButtonHeight) / 2, ButtonHeight ≈ 26)
             public const int ButtonY = 18;
@@ -25,6 +25,14 @@ namespace Maestro.UI.Components
             public const int LabelYCentered = 21;
             public const int ProgressLabelY = 28;
             public const int LabelWidth = 300;
+
+            // Speed slider positioning
+            public const int SpeedLabelX = 8;
+            public const int SpeedLabelY = 52;
+            public const int SpeedSliderX = 60;
+            public const int SpeedSliderY = 55;
+            public const int SpeedSliderWidth = 180;
+            public const int SpeedValueX = 248;
         }
 
         private readonly SongPlayer _songPlayer;
@@ -32,6 +40,9 @@ namespace Maestro.UI.Components
         private readonly StandardButton _stopButton;
         private readonly Label _nowPlayingLabel;
         private readonly Label _progressLabel;
+        private readonly Label _speedLabel;
+        private readonly TrackBar _speedSlider;
+        private readonly Label _speedValueLabel;
 
         public NowPlayingPanel(SongPlayer songPlayer, int width)
         {
@@ -81,6 +92,38 @@ namespace Maestro.UI.Components
                 TextColor = MaestroTheme.MutedCream
             };
 
+            _speedLabel = new Label
+            {
+                Parent = this,
+                Text = "Speed:",
+                Location = new Point(Layout.SpeedLabelX, Layout.SpeedLabelY),
+                AutoSizeWidth = true,
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.MutedCream
+            };
+
+            _speedSlider = new TrackBar
+            {
+                Parent = this,
+                Location = new Point(Layout.SpeedSliderX, Layout.SpeedSliderY),
+                Width = Layout.SpeedSliderWidth,
+                MinValue = 1,
+                MaxValue = 20,
+                Value = 10,
+                SmallStep = true
+            };
+            _speedSlider.ValueChanged += OnSpeedSliderChanged;
+
+            _speedValueLabel = new Label
+            {
+                Parent = this,
+                Text = "1.0x",
+                Location = new Point(Layout.SpeedValueX, Layout.SpeedLabelY),
+                AutoSizeWidth = true,
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.CreamWhite
+            };
+
             SubscribeToEvents();
         }
 
@@ -106,6 +149,13 @@ namespace Maestro.UI.Components
         private void OnStopClicked(object sender, MouseEventArgs e)
         {
             _songPlayer.Stop();
+        }
+
+        private void OnSpeedSliderChanged(object sender, ValueEventArgs<float> e)
+        {
+            var speed = e.Value / 10f;
+            _songPlayer.PlaybackSpeed = speed;
+            _speedValueLabel.Text = $"{speed:F1}x";
         }
 
         public void UpdatePlaybackState()
@@ -186,7 +236,12 @@ namespace Maestro.UI.Components
 
             if (_songPlayer.IsPlaying && !_songPlayer.IsPaused)
             {
-                if (_songPlayer.IsAdjustingOctave)
+                if (_songPlayer.IsWaitingForInput)
+                {
+                    _progressLabel.Text = "Paused";
+                    _progressLabel.TextColor = MaestroTheme.Paused;
+                }
+                else if (_songPlayer.IsAdjustingOctave)
                 {
                     _progressLabel.Text = "Adjusting...";
                     _progressLabel.TextColor = MaestroTheme.Paused;
@@ -223,6 +278,9 @@ namespace Maestro.UI.Components
             _stopButton?.Dispose();
             _nowPlayingLabel?.Dispose();
             _progressLabel?.Dispose();
+            _speedLabel?.Dispose();
+            _speedSlider?.Dispose();
+            _speedValueLabel?.Dispose();
 
             base.DisposeControl();
         }

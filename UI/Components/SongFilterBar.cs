@@ -14,17 +14,18 @@ namespace Maestro.UI.Components
             public const int ControlY = 4;
             public const int SearchBoxX = 0;
             public const int SearchBoxWidth = 180;
-            public const int DropdownWidth = 150;
+            public const int FilterButtonWidth = 180;
         }
 
         public event EventHandler SearchChanged;
-        public event EventHandler<ValueChangedEventArgs> FilterChanged;
+        public event EventHandler FilterChanged;
 
         private readonly TextBox _searchBox;
-        private readonly Dropdown _instrumentFilter;
+        private readonly FilterButton _filterButton;
 
         public string SearchText => _searchBox.Text?.Trim().ToLower() ?? string.Empty;
-        public string SelectedInstrument => _instrumentFilter.SelectedItem;
+        public string SelectedSource => _filterButton.SelectedSource;
+        public string SelectedInstrument => _filterButton.SelectedInstrument;
 
         public SongFilterBar(int width)
         {
@@ -40,25 +41,19 @@ namespace Maestro.UI.Components
             };
             _searchBox.TextChanged += (s, e) => SearchChanged?.Invoke(this, EventArgs.Empty);
 
-            _instrumentFilter = new Dropdown
+            _filterButton = new FilterButton
             {
                 Parent = this,
-                Location = new Point(width - Layout.DropdownWidth, Layout.ControlY),
-                Width = Layout.DropdownWidth
+                Location = new Point(width - Layout.FilterButtonWidth, Layout.ControlY),
+                Width = Layout.FilterButtonWidth
             };
-            _instrumentFilter.Items.Add("All Instruments");
-            _instrumentFilter.Items.Add("Piano");
-            _instrumentFilter.Items.Add("Harp");
-            _instrumentFilter.Items.Add("Lute");
-            _instrumentFilter.Items.Add("Bass");
-            _instrumentFilter.SelectedItem = "All Instruments";
-            _instrumentFilter.ValueChanged += (s, e) => FilterChanged?.Invoke(this, e);
+            _filterButton.FilterChanged += (s, e) => FilterChanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void DisposeControl()
         {
             _searchBox?.Dispose();
-            _instrumentFilter?.Dispose();
+            _filterButton?.Dispose();
             base.DisposeControl();
         }
     }

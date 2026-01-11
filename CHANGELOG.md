@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.4.0
+
+**Smart Playback Controls**
+
+- Auto-pause when GW2 loses focus (tabbing out)
+- Auto-pause when typing in chat - resumes when clicking back in game
+- Playback speed slider (0.1x to 2.0x) for practice or fun
+
+**Improved Filtering**
+
+- Combined filter dropdown with two sections (Source + Instrument)
+- Filter by Bundled/Imported songs alongside instrument type
+
+**New Songs**
+
+Added 11 new songs including Interstellar, Never Gonna Give You Up, Radioactive, Song of Storms, and more!
+
+---
+
 ## v1.3.1
 
 🎵 **Expanded Song Library**

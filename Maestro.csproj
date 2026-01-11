@@ -83,6 +83,7 @@
     <Compile Include="UI\MaestroTheme.cs" />
     <Compile Include="UI\Components\NowPlayingPanel.cs" />
     <Compile Include="UI\Components\SongCard.cs" />
+    <Compile Include="UI\Components\FilterButton.cs" />
     <Compile Include="UI\Components\SongFilterBar.cs" />
     <Compile Include="UI\Components\SongListPanel.cs" />
     <Compile Include="UI\Components\StatusBar.cs" />

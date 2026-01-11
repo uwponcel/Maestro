@@ -14,11 +14,22 @@ namespace Maestro.Services.Playback
         private CancellationTokenSource _cancellationTokenSource;
         private Task _playbackTask;
         private readonly object _pauseLock = new object();
+        private float _playbackSpeed = 1.0f;
+
+        private static bool Gw2HasFocus => GameService.GameIntegration.Gw2Instance.Gw2HasFocus;
+        private static bool IsTextInputFocused => GameService.Gw2Mumble.UI.IsTextInputFocused;
+        private static bool ShouldPauseForInput => !Gw2HasFocus || IsTextInputFocused;
 
         public Song CurrentSong { get; private set; }
+        public float PlaybackSpeed
+        {
+            get => _playbackSpeed;
+            set => _playbackSpeed = Math.Max(0.1f, Math.Min(2.0f, value));
+        }
         public int CurrentCommandIndex { get; private set; }
         public bool IsPlaying => _playbackTask != null && !_playbackTask.IsCompleted;
         public bool IsPaused { get; private set; }
+        public bool IsWaitingForInput => IsPlaying && !IsPaused && ShouldPauseForInput;
         public bool IsAdjustingOctave { get; private set; }
 
         public event EventHandler OnStarted;
@@ -132,7 +143,7 @@ namespace Maestro.Services.Playback
 
                     lock (_pauseLock)
                     {
-                        while (IsPaused && !cancellationToken.IsCancellationRequested)
+                        while ((IsPaused || ShouldPauseForInput) && !cancellationToken.IsCancellationRequested)
                         {
                             Monitor.Wait(_pauseLock, 100);
                         }
@@ -148,7 +159,8 @@ namespace Maestro.Services.Playback
 
                     if (command.Type == CommandType.Wait && command.Duration > 0)
                     {
-                        await Task.Delay(command.Duration, cancellationToken);
+                        var adjustedDuration = (int)(command.Duration / _playbackSpeed);
+                        await Task.Delay(adjustedDuration, cancellationToken);
                     }
                 }
 

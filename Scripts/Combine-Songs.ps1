@@ -1,6 +1,6 @@
 # Combine all individual song JSON files into a single songs.json for ContentsManager
-$songsPath = "C:\git\Maestro\Songs"
-$outputPath = "C:\git\Maestro\ref\songs.json"
+$songsPath = "C:\git\perso\Maestro\Songs"
+$outputPath = "C:\git\perso\Maestro\ref\songs.json"
 
 $songs = @()
 

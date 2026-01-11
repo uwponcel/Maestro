@@ -19,10 +19,10 @@ namespace Maestro.UI
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 470;
+            public const int WindowHeight = 495;
 
             public const int ContentWidth = 390;
-            public const int ContentHeight = 420;
+            public const int ContentHeight = 445;
         }
 
         private readonly SongPlayer _songPlayer;
@@ -170,8 +170,14 @@ namespace Maestro.UI
         {
             var songs = _allSongs.AsEnumerable();
 
+            var source = _filterBar.SelectedSource;
+            if (source == "Bundled")
+                songs = songs.Where(s => !s.IsUserImported);
+            else if (source == "Imported")
+                songs = songs.Where(s => s.IsUserImported);
+
             var filter = _filterBar.SelectedInstrument;
-            if (filter != "All Instruments")
+            if (filter != "All")
             {
                 if (Enum.TryParse<InstrumentType>(filter, out var instrument))
                 {

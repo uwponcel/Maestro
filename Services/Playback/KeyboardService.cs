@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Blish_HUD;
 using Blish_HUD.Controls.Extern;
 using Blish_HUD.Input;
 using Blish_HUD.Settings;
@@ -28,8 +29,15 @@ namespace Maestro.Services.Playback
 
         public void StopDebugLog() => _debugLogger.Stop();
 
+        private static bool ShouldSendKeys =>
+            GameService.GameIntegration.Gw2Instance.Gw2HasFocus &&
+            !GameService.Gw2Mumble.UI.IsTextInputFocused;
+
         public void KeyDown(Keys key)
         {
+            if (!ShouldSendKeys)
+                return;
+
             if (key == Keys.LeftAlt)
             {
                 _altHeld = true;
