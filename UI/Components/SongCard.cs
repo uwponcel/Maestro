@@ -36,6 +36,7 @@ namespace Maestro.UI.Components
         public event EventHandler<MouseEventArgs> PlayClicked;
         public event EventHandler<MouseEventArgs> CardClicked;
         public event EventHandler DeleteRequested;
+        public event EventHandler AddToQueueRequested;
 
         private readonly Song _song;
         private readonly Panel _indicator;
@@ -132,20 +133,26 @@ namespace Maestro.UI.Components
             };
             _playButton.Click += (s, e) => PlayClicked?.Invoke(this, e);
 
+            // Context menu for all songs
+            var contextMenu = new ContextMenuStrip();
+
+            var addToQueueItem = contextMenu.AddMenuItem("Add to Queue");
+            addToQueueItem.Click += (s, e) => AddToQueueRequested?.Invoke(this, EventArgs.Empty);
+
             if (song.IsUserImported)
             {
-                var contextMenu = new ContextMenuStrip();
                 var deleteItem = contextMenu.AddMenuItem("Delete Song");
                 deleteItem.Click += (s, e) => DeleteRequested?.Invoke(this, EventArgs.Empty);
-                Menu = contextMenu;
-
-                const string tooltip = "Right-click for options";
-                BasicTooltipText = tooltip;
-                _indicator.BasicTooltipText = tooltip;
-                _instrumentLabel.BasicTooltipText = tooltip;
-                _titleLabel.BasicTooltipText = tooltip;
-                _artistLabel.BasicTooltipText = tooltip;
             }
+
+            Menu = contextMenu;
+
+            const string tooltip = "Right-click for options";
+            BasicTooltipText = tooltip;
+            _indicator.BasicTooltipText = tooltip;
+            _instrumentLabel.BasicTooltipText = tooltip;
+            _titleLabel.BasicTooltipText = tooltip;
+            _artistLabel.BasicTooltipText = tooltip;
 
             Click += (s, e) => CardClicked?.Invoke(this, e);
         }
