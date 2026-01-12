@@ -10,7 +10,7 @@ namespace Maestro.UI.Components
         public static class Layout
         {
             public static int Height => MaestroTheme.ActionButtonHeight;
-            public const int QueueButtonWidth = 36;
+            public const int QueueButtonWidth = 55;
             public const int ButtonSpacing = 5;
         }
 
@@ -77,14 +77,15 @@ namespace Maestro.UI.Components
                 Parent = this,
                 Text = "Import",
                 Location = new Point(width - buttonsWidth, 0),
-                Size = new Point(MaestroTheme.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
+                Size = new Point(MaestroTheme.ActionButtonWidth, MaestroTheme.ActionButtonHeight),
+                BasicTooltipText = "Import Song"
             };
             _importButton.Click += (s, e) => ImportClicked?.Invoke(this, EventArgs.Empty);
 
             _queueButton = new StandardButton
             {
                 Parent = this,
-                Text = "Q",
+                Text = "Queue",
                 Location = new Point(width - Layout.QueueButtonWidth, 0),
                 Size = new Point(Layout.QueueButtonWidth, MaestroTheme.ActionButtonHeight),
                 BasicTooltipText = "Toggle Queue"
@@ -101,7 +102,7 @@ namespace Maestro.UI.Components
 
         private void UpdateQueueButtonText()
         {
-            _queueButton.Text = _queueCount > 0 ? $"Q({_queueCount})" : "Q";
+            _queueButton.Text = "Queue";
         }
 
         protected override void DisposeControl()

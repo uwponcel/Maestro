@@ -80,5 +80,29 @@ namespace Maestro.UI
                 context.Dispose();
             }
         }
+
+        public static Texture2D CreateDrawerBackground(int windowWidth, int windowHeight)
+        {
+            var width = windowWidth - BACKGROUND_X_OFFSET;
+            var height = windowHeight - BACKGROUND_Y_OFFSET;
+            var context = GameService.Graphics.LendGraphicsDeviceContext();
+            try
+            {
+                var texture = new Texture2D(context.GraphicsDevice, width, height);
+                var data = new Color[width * height];
+
+                for (var i = 0; i < data.Length; i++)
+                {
+                    data[i] = WindowBackground;
+                }
+
+                texture.SetData(data);
+                return texture;
+            }
+            finally
+            {
+                context.Dispose();
+            }
+        }
     }
 }

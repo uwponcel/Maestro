@@ -19,8 +19,8 @@ namespace Maestro.UI.Components
             public const int TitleX = 32;
             public const int TitleY = 4;
             public const int ArtistY = 21;
-            public const int RemoveButtonSize = 20;
-            public const int RemoveButtonMargin = 4;
+            public const int RemoveButtonSize = 24;
+            public const int RemoveButtonMargin = 8;
         }
 
         public event EventHandler RemoveRequested;
@@ -39,6 +39,12 @@ namespace Maestro.UI.Components
         public Song Song => _song;
         public int Index => _index;
         public bool IsDragging => _isDragging;
+
+        public void EndDrag()
+        {
+            _isDragging = false;
+            _isHoveringDragHandle = false;
+        }
 
         public QueueSongCard(Song song, int index, int width)
         {

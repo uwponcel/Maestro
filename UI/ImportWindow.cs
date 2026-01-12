@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Maestro.Models;

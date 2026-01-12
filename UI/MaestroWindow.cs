@@ -34,7 +34,7 @@ namespace Maestro.UI
         private SongFilterBar _filterBar;
         private SongListPanel _songListPanel;
         private StatusBar _statusBar;
-        private PlaylistDrawer _playlistDrawer;
+        private PlaylistDrawerWindow _playlistDrawer;
         private bool _isDrawerOpen;
 
         private static Texture2D _backgroundTexture;
@@ -108,13 +108,12 @@ namespace Maestro.UI
             _statusBar.ImportClicked += OnImportClicked;
             _statusBar.QueueToggleClicked += OnQueueToggleClicked;
 
-            // Playlist drawer (floats outside window, initially hidden)
-            _playlistDrawer = new PlaylistDrawer(_playlistService, Layout.WindowHeight - 40)
+            _playlistDrawer = new PlaylistDrawerWindow(_playlistService)
             {
                 Parent = GameService.Graphics.SpriteScreen,
-                Visible = false,
-                ZIndex = ZIndex + 1
+                Visible = false
             };
+            _playlistDrawer.Hidden += OnDrawerHidden;
 
             RefreshSongList();
         }
@@ -187,12 +186,22 @@ namespace Maestro.UI
         private void ToggleDrawer()
         {
             _isDrawerOpen = !_isDrawerOpen;
-            _playlistDrawer.Visible = _isDrawerOpen;
 
             if (_isDrawerOpen)
             {
                 UpdateDrawerPosition();
+                _playlistDrawer.Show();
             }
+            else
+            {
+                _playlistDrawer.Hide();
+            }
+        }
+
+        private void OnDrawerHidden(object sender, EventArgs e)
+        {
+            // Sync state when drawer is closed via X button
+            _isDrawerOpen = false;
         }
 
         private void UpdateDrawerPosition()
@@ -220,7 +229,7 @@ namespace Maestro.UI
             // Hide drawer when window is hidden
             if (_playlistDrawer != null)
             {
-                _playlistDrawer.Visible = false;
+                _playlistDrawer.Hide();
             }
         }
 
@@ -230,8 +239,8 @@ namespace Maestro.UI
             // Show drawer if it was open
             if (_isDrawerOpen)
             {
-                _playlistDrawer.Visible = true;
                 UpdateDrawerPosition();
+                _playlistDrawer.Show();
             }
         }
 
@@ -312,6 +321,7 @@ namespace Maestro.UI
             _songListPanel.CountChanged -= OnCountChanged;
             _statusBar.ImportClicked -= OnImportClicked;
             _statusBar.QueueToggleClicked -= OnQueueToggleClicked;
+            _playlistDrawer.Hidden -= OnDrawerHidden;
 
             _songPlayer.Stop();
 

@@ -3,238 +3,203 @@ using System.Collections.Generic;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
-using Maestro.Models;
 using Maestro.Services;
+using Maestro.UI.Components;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI
 {
-    public class PlaylistDrawer : Panel
+    public class PlaylistDrawerWindow : StandardWindow
     {
-        public static class Layout
+        private static class Layout
         {
-            public const int DrawerWidth = 180;
-            public const int HeaderHeight = 32;
-            public const int HeaderPaddingX = 8;
+            public const int WindowWidth = 230;
+            public const int WindowHeight = 400;
+            public const int ContentWidth = 200;
+            public const int ContentHeight = 350;
+            public const int ContentPaddingX = 15;
+            public const int ContentPaddingY = 30;
+            public const int HeaderHeight = 40;
             public const int ClearButtonWidth = 50;
             public const int ClearButtonHeight = 22;
-            public const int CardSpacing = 2;
-            public const int ContentPadding = 4;
+            public const int CardSpacing = 4;
+            public const int OuterPadding = 4;
+            public const int DragHandleHalfWidth = 6;
         }
 
+        private static Texture2D _backgroundTexture;
+
         private readonly PlaylistService _playlistService;
-        private readonly Dictionary<Song, QueueSongCard> _cardMap = new Dictionary<Song, QueueSongCard>();
+        private readonly List<QueueSongCard> _cards = new List<QueueSongCard>();
+        private readonly int _cardWidth;
 
         private Panel _header;
-        private Panel _separator;
-        private Label _titleLabel;
         private StandardButton _clearButton;
         private FlowPanel _songList;
 
         private QueueSongCard _draggingCard;
         private QueueSongCard _dragGhost;
         private int _dragTargetIndex = -1;
-        private int _cardWidth;
 
-        public PlaylistDrawer(PlaylistService playlistService, int height)
+        public PlaylistDrawerWindow(PlaylistService playlistService)
+            : base(
+                GetBackground(),
+                new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
+                new Rectangle(Layout.ContentPaddingX, Layout.ContentPaddingY, Layout.ContentWidth, Layout.ContentHeight))
         {
             _playlistService = playlistService;
+            _cardWidth = Layout.ContentWidth - Layout.OuterPadding * 2;
 
-            Size = new Point(Layout.DrawerWidth, height);
-            BackgroundColor = new Color(20, 20, 20, 240);
+            Title = "Queue songs";
+            CanClose = true;
+            CanResize = false;
+            SavesPosition = false;
+            Id = "MaestroQueueDrawer_v1";
 
-            BuildHeader();
-            BuildSongList(height);
-
-            _cardWidth = Layout.DrawerWidth - Layout.ContentPadding * 2 - 4;
+            BuildContent();
 
             _playlistService.QueueChanged += OnQueueChanged;
             Input.Mouse.LeftMouseButtonReleased += OnGlobalMouseReleased;
             Input.Mouse.MouseMoved += OnGlobalMouseMoved;
+
             RefreshCards();
         }
 
-        private void BuildHeader()
+        private static Texture2D GetBackground()
+        {
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateDrawerBackground(Layout.WindowWidth, Layout.WindowHeight));
+        }
+
+        private static Point GetDragHandleOffset()
+        {
+            return new Point(
+                QueueSongCard.Layout.DragHandleX + Layout.DragHandleHalfWidth,
+                QueueSongCard.Layout.Height / 2);
+        }
+
+        private void BuildContent()
         {
             _header = new Panel
             {
                 Parent = this,
                 Location = Point.Zero,
-                Size = new Point(Layout.DrawerWidth, Layout.HeaderHeight),
-                BackgroundColor = Color.Transparent
-            };
-
-            _titleLabel = new Label
-            {
-                Parent = _header,
-                Text = "Queue (0)",
-                Location = new Point(Layout.HeaderPaddingX, (Layout.HeaderHeight - 16) / 2),
-                Font = Content.DefaultFont14,
-                TextColor = MaestroTheme.CreamWhite,
-                AutoSizeWidth = true
+                Size = new Point(Layout.ContentWidth, Layout.HeaderHeight),
+                BackgroundColor = MaestroTheme.SlateGray,
+                ShowBorder = true
             };
 
             _clearButton = new StandardButton
             {
-                Parent = _header,
+                Parent = this,
                 Text = "Clear",
-                Location = new Point(Layout.DrawerWidth - Layout.ClearButtonWidth - Layout.HeaderPaddingX,
+                Location = new Point(
+                    Layout.ContentWidth - Layout.ClearButtonWidth - Layout.OuterPadding,
                     (Layout.HeaderHeight - Layout.ClearButtonHeight) / 2),
                 Width = Layout.ClearButtonWidth,
                 Height = Layout.ClearButtonHeight
             };
             _clearButton.Click += OnClearClicked;
 
-            // Separator line under header
-            _separator = new Panel
-            {
-                Parent = this,
-                Location = new Point(Layout.ContentPadding, Layout.HeaderHeight - 1),
-                Size = new Point(Layout.DrawerWidth - Layout.ContentPadding * 2, 1),
-                BackgroundColor = MaestroTheme.MediumGray
-            };
-        }
-
-        private void BuildSongList(int totalHeight)
-        {
-            var listHeight = totalHeight - Layout.HeaderHeight - Layout.ContentPadding * 2;
-
+            var listTop = Layout.HeaderHeight + Layout.OuterPadding;
             _songList = new FlowPanel
             {
                 Parent = this,
-                Location = new Point(Layout.ContentPadding, Layout.HeaderHeight),
-                Size = new Point(Layout.DrawerWidth - Layout.ContentPadding * 2, listHeight),
+                Location = new Point(0, listTop),
+                Size = new Point(Layout.ContentWidth, Layout.ContentHeight - listTop),
                 FlowDirection = ControlFlowDirection.SingleTopToBottom,
                 ControlPadding = new Vector2(0, Layout.CardSpacing),
+                OuterControlPadding = new Vector2(Layout.OuterPadding, Layout.OuterPadding),
                 CanScroll = true,
-                ShowBorder = false,
+                ShowBorder = true,
                 BackgroundColor = Color.Transparent
             };
         }
 
-        private void OnQueueChanged(object sender, EventArgs e)
-        {
-            RefreshCards();
-        }
+        private void OnQueueChanged(object sender, EventArgs e) => RefreshCards();
 
-        private void OnClearClicked(object sender, MouseEventArgs e)
-        {
-            _playlistService.Clear();
-        }
+        private void OnClearClicked(object sender, MouseEventArgs e) => _playlistService.Clear();
 
         private void RefreshCards()
         {
-            // Clear existing cards
-            foreach (var card in _cardMap.Values)
+            foreach (var card in _cards)
             {
                 card.RemoveRequested -= OnCardRemoveRequested;
                 card.DragStarted -= OnCardDragStarted;
                 card.DragEnded -= OnCardDragEnded;
                 card.Dispose();
             }
-            _cardMap.Clear();
+            _cards.Clear();
 
-            // Create new cards
             var queue = _playlistService.Queue;
-
             for (var i = 0; i < queue.Count; i++)
             {
-                var song = queue[i];
-                var card = new QueueSongCard(song, i, _cardWidth)
-                {
-                    Parent = _songList
-                };
+                var card = new QueueSongCard(queue[i], i, _cardWidth) { Parent = _songList };
                 card.RemoveRequested += OnCardRemoveRequested;
                 card.DragStarted += OnCardDragStarted;
                 card.DragEnded += OnCardDragEnded;
-                _cardMap[song] = card;
+                _cards.Add(card);
             }
 
-            // Update title
-            _titleLabel.Text = $"Queue ({queue.Count})";
             _clearButton.Enabled = queue.Count > 0;
         }
 
         private void OnCardRemoveRequested(object sender, EventArgs e)
         {
             if (sender is QueueSongCard card)
-            {
-                _playlistService.Remove(card.Song);
-            }
+                _playlistService.RemoveAt(card.Index);
         }
 
         private void OnCardDragStarted(object sender, EventArgs e)
         {
             _draggingCard = sender as QueueSongCard;
+            if (_draggingCard == null) return;
 
-            if (_draggingCard != null)
+            _draggingCard.Opacity = 0.3f;
+
+            var offset = GetDragHandleOffset();
+            _dragGhost = new QueueSongCard(_draggingCard.Song, _draggingCard.Index, _cardWidth)
             {
-                // Dim the original card
-                _draggingCard.Opacity = 0.3f;
-
-                // Create ghost that follows cursor
-                _dragGhost = new QueueSongCard(_draggingCard.Song, _draggingCard.Index, _cardWidth)
-                {
-                    Parent = GameService.Graphics.SpriteScreen,
-                    ZIndex = Screen.TOOLTIP_BASEZINDEX,
-                    Location = new Point(
-                        Input.Mouse.Position.X - _cardWidth / 2,
-                        Input.Mouse.Position.Y - QueueSongCard.Layout.Height / 2)
-                };
-            }
+                Parent = GameService.Graphics.SpriteScreen,
+                ZIndex = Screen.TOOLTIP_BASEZINDEX,
+                Location = new Point(Input.Mouse.Position.X - offset.X, Input.Mouse.Position.Y - offset.Y)
+            };
         }
 
-        private void OnCardDragEnded(object sender, EventArgs e)
-        {
-            FinalizeDrag();
-        }
+        private void OnCardDragEnded(object sender, EventArgs e) => FinalizeDrag();
 
         private void OnGlobalMouseReleased(object sender, MouseEventArgs e)
         {
             if (_draggingCard != null)
-            {
                 FinalizeDrag();
-            }
         }
 
         private void OnGlobalMouseMoved(object sender, MouseEventArgs e)
         {
-            // Update ghost position while dragging
-            if (_dragGhost != null)
-            {
-                _dragGhost.Location = new Point(
-                    Input.Mouse.Position.X - _cardWidth / 2,
-                    Input.Mouse.Position.Y - QueueSongCard.Layout.Height / 2);
-            }
+            if (_dragGhost == null) return;
+
+            var offset = GetDragHandleOffset();
+            _dragGhost.Location = new Point(Input.Mouse.Position.X - offset.X, Input.Mouse.Position.Y - offset.Y);
         }
 
         private void FinalizeDrag()
         {
             if (_draggingCard != null)
             {
-                // Restore original card opacity
                 _draggingCard.Opacity = 1f;
+                _draggingCard.EndDrag();
 
-                // Calculate target index based on current mouse position
                 UpdateDragTarget();
-
                 if (_dragTargetIndex >= 0)
                 {
                     var fromIndex = _playlistService.IndexOf(_draggingCard.Song);
                     if (fromIndex >= 0 && fromIndex != _dragTargetIndex)
-                    {
                         _playlistService.Move(fromIndex, _dragTargetIndex);
-                    }
                 }
             }
 
-            // Dispose ghost
-            if (_dragGhost != null)
-            {
-                _dragGhost.Dispose();
-                _dragGhost = null;
-            }
-
+            _dragGhost?.Dispose();
+            _dragGhost = null;
             _draggingCard = null;
             _dragTargetIndex = -1;
         }
@@ -252,6 +217,13 @@ namespace Maestro.UI.Components
             _dragTargetIndex = Math.Max(0, Math.Min(_playlistService.Count - 1, mouseY / cardHeight));
         }
 
+        // Prevent window dragging while allowing close button to work
+        protected override void OnLeftMouseButtonPressed(MouseEventArgs e)
+        {
+            if (MouseOverExitButton && CanClose)
+                Hide();
+        }
+
         protected override void DisposeControl()
         {
             _playlistService.QueueChanged -= OnQueueChanged;
@@ -260,19 +232,18 @@ namespace Maestro.UI.Components
             Input.Mouse.MouseMoved -= OnGlobalMouseMoved;
 
             _dragGhost?.Dispose();
-            _dragGhost = null;
 
-            foreach (var card in _cardMap.Values)
+            foreach (var card in _cards)
             {
                 card.RemoveRequested -= OnCardRemoveRequested;
                 card.DragStarted -= OnCardDragStarted;
                 card.DragEnded -= OnCardDragEnded;
                 card.Dispose();
             }
-            _cardMap.Clear();
+            _cards.Clear();
 
             _header?.Dispose();
-            _separator?.Dispose();
+            _clearButton?.Dispose();
             _songList?.Dispose();
 
             base.DisposeControl();

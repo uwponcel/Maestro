@@ -10,13 +10,11 @@ using Blish_HUD.Modules;
 using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
 using Maestro.Models;
-using Maestro.Services;
 using Maestro.Services.Data;
 using Maestro.Services.Playback;
 using Maestro.Settings;
 using Maestro.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Maestro
 {
@@ -133,7 +131,14 @@ namespace Maestro
                 _importWindow.SongImported += OnSongImported;
             }
 
-            _importWindow.Show();
+            if (_importWindow.Visible)
+            {
+                _importWindow.Hide();
+            }
+            else
+            {
+                _importWindow.Show();
+            }
         }
 
         private async void OnSongImported(object sender, Song song)

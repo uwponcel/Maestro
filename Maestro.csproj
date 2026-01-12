@@ -88,7 +88,7 @@
     <Compile Include="UI\Components\SongFilterBar.cs" />
     <Compile Include="UI\Components\SongListPanel.cs" />
     <Compile Include="UI\Components\StatusBar.cs" />
-    <Compile Include="UI\Components\PlaylistDrawer.cs" />
+    <Compile Include="UI\PlaylistDrawerWindow.cs" />
     <Compile Include="UI\Components\QueueSongCard.cs" />
     <Compile Include="Settings\ModuleSettings.cs" />
   </ItemGroup>
