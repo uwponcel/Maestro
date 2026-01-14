@@ -18,8 +18,25 @@ namespace Maestro.Services.Data
             { "Numpad8", "C^" }
         };
 
+        private static readonly Dictionary<string, string> NumpadToSharp = new Dictionary<string, string>
+        {
+            { "Numpad1", "C#" },
+            { "Numpad2", "D#" },
+            { "Numpad3", "F#" },
+            { "Numpad4", "G#" },
+            { "Numpad5", "A#" }
+        };
+
         private static readonly Regex KeyDownPattern = new Regex(
-            @"SendInput\s*\{(Numpad\d)\s+down\}",
+            @"\{(Numpad[1-8])\s+down\}",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private static readonly Regex AltDownPattern = new Regex(
+            @"LAlt\s+down",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+        private static readonly Regex AltUpPattern = new Regex(
+            @"LAlt\s+up",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private static readonly Regex QuickPressPattern = new Regex(
@@ -36,6 +53,7 @@ namespace Maestro.Services.Data
             var result = new List<string>();
             var currentNotes = new List<string>();
             int currentOctave = 0;
+            bool altHeld = false;
 
             foreach (var line in lines)
             {
@@ -46,16 +64,37 @@ namespace Maestro.Services.Data
                     trimmed == "{" || trimmed == "}")
                     continue;
 
-                var keyDownMatch = KeyDownPattern.Match(trimmed);
-                if (keyDownMatch.Success)
+                // Track Alt key state for sharps
+                if (AltDownPattern.IsMatch(trimmed))
+                    altHeld = true;
+                if (AltUpPattern.IsMatch(trimmed))
+                    altHeld = false;
+
+                // Check for key down - can have multiple on same line
+                var keyDownMatches = KeyDownPattern.Matches(trimmed);
+                bool hasAltOnLine = AltDownPattern.IsMatch(trimmed);
+
+                foreach (Match keyDownMatch in keyDownMatches)
                 {
                     var numpad = keyDownMatch.Groups[1].Value;
-                    if (NumpadToNote.TryGetValue(numpad, out var note))
+                    bool isSharp = altHeld || hasAltOnLine;
+
+                    string note;
+                    if (isSharp && NumpadToSharp.TryGetValue(numpad, out var sharpNote))
                     {
-                        var noteWithOctave = ApplyOctaveModifier(note, currentOctave);
-                        currentNotes.Add(noteWithOctave);
+                        note = sharpNote;
                     }
-                    continue;
+                    else if (NumpadToNote.TryGetValue(numpad, out var naturalNote))
+                    {
+                        note = naturalNote;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                    var noteWithOctave = ApplyOctaveModifier(note, currentOctave);
+                    currentNotes.Add(noteWithOctave);
                 }
 
                 var quickPressMatch = QuickPressPattern.Match(trimmed);
@@ -66,7 +105,6 @@ namespace Maestro.Services.Data
                         currentOctave++;
                     else if (numpad == "Numpad0")
                         currentOctave--;
-                    continue;
                 }
 
                 var sleepMatch = SleepPattern.Match(trimmed);
@@ -92,9 +130,8 @@ namespace Maestro.Services.Data
 
             var modifier = octave > 0 ? "+" : "-";
 
-            if (note == "C^")
-                return $"C^{modifier}";
-
+            // For all notes (including sharps like F#), append modifier at end
+            // Format: Note[^|#][+/-]:duration (e.g., F#-:348, C^+:150)
             return $"{note}{modifier}";
         }
     }

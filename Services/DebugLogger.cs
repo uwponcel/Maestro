@@ -12,7 +12,7 @@ namespace Maestro.Services
     public class DebugLogger
     {
         private static readonly Logger Logger = Logger.GetLogger<DebugLogger>();
-        private const string DEBUG_FOLDER = @"C:\git\Maestro\Debug";
+        private const string DEBUG_FOLDER = @"C:\git\perso\Maestro\SongsDebug";
 
         private readonly StringBuilder _log = new StringBuilder();
         private readonly Stopwatch _stopwatch = new Stopwatch();

@@ -37,82 +37,82 @@ namespace Maestro.Settings
             NoteC = instrumentKeys.DefineSetting("KeyNoteC",
                 new KeyBinding(Keys.NumPad1),
                 () => "Note C",
-                () => "Match to GW2 Weapon Skill 1");
+                () => "Match to Weapon Skill 1");
 
             NoteD = instrumentKeys.DefineSetting("KeyNoteD",
                 new KeyBinding(Keys.NumPad2),
                 () => "Note D",
-                () => "Match to GW2 Weapon Skill 2");
+                () => "Match to Weapon Skill 2");
 
             NoteE = instrumentKeys.DefineSetting("KeyNoteE",
                 new KeyBinding(Keys.NumPad3),
                 () => "Note E",
-                () => "Match to GW2 Weapon Skill 3");
+                () => "Match to Weapon Skill 3");
 
             NoteF = instrumentKeys.DefineSetting("KeyNoteF",
                 new KeyBinding(Keys.NumPad4),
                 () => "Note F",
-                () => "Match to GW2 Weapon Skill 4");
+                () => "Match to Weapon Skill 4");
 
             NoteG = instrumentKeys.DefineSetting("KeyNoteG",
                 new KeyBinding(Keys.NumPad5),
                 () => "Note G",
-                () => "Match to GW2 Weapon Skill 5");
+                () => "Match to Weapon Skill 5");
 
             NoteA = instrumentKeys.DefineSetting("KeyNoteA",
                 new KeyBinding(Keys.NumPad6),
                 () => "Note A",
-                () => "Match to GW2 Healing Skill");
+                () => "Match to Healing Skill");
 
             NoteB = instrumentKeys.DefineSetting("KeyNoteB",
                 new KeyBinding(Keys.NumPad7),
                 () => "Note B",
-                () => "Match to GW2 Utility Skill 1");
+                () => "Match to Utility Skill 1");
 
             NoteCHigh = instrumentKeys.DefineSetting("KeyNoteCHigh",
                 new KeyBinding(Keys.NumPad8),
                 () => "Note C High",
-                () => "Match to GW2 Utility Skill 2");
+                () => "Match to Utility Skill 2");
 
             OctaveDown = instrumentKeys.DefineSetting("KeyOctaveDown",
                 new KeyBinding(Keys.NumPad0),
                 () => "Octave Down",
-                () => "Match to GW2 Utility Skill 3");
+                () => "Match to Utility Skill 3");
 
             OctaveUp = instrumentKeys.DefineSetting("KeyOctaveUp",
                 new KeyBinding(Keys.NumPad9),
                 () => "Octave Up",
-                () => "Match to GW2 Elite Skill");
+                () => "Match to Elite Skill");
         }
 
         private void DefinePianoSharps(SettingCollection settings)
         {
-            var pianoSharps = settings.AddSubCollection("PianoSharps", true, () => "Piano Only - Sharp Notes");
+            var pianoSharps = settings.AddSubCollection("PianoSharps", true, () => "Piano Only - Sharp Notes (avoid modifier + any instrument key)");
 
             SharpC = pianoSharps.DefineSetting("KeySharpC",
                 new KeyBinding(ModifierKeys.Alt, Keys.D1),
                 () => "Sharp C#",
-                () => "GW2: Alt+1");
+                () => "Match to Profession Skill 1");
 
             SharpD = pianoSharps.DefineSetting("KeySharpD",
                 new KeyBinding(ModifierKeys.Alt, Keys.D2),
                 () => "Sharp D#",
-                () => "GW2: Alt+2");
+                () => "Match to Profession Skill 2");
 
             SharpF = pianoSharps.DefineSetting("KeySharpF",
                 new KeyBinding(ModifierKeys.Alt, Keys.D3),
                 () => "Sharp F#",
-                () => "GW2: Alt+3");
+                () => "Match to Profession Skill 3");
 
             SharpG = pianoSharps.DefineSetting("KeySharpG",
                 new KeyBinding(ModifierKeys.Alt, Keys.D4),
                 () => "Sharp G#",
-                () => "GW2: Alt+4");
+                () => "Match to Profession Skill 4");
 
             SharpA = pianoSharps.DefineSetting("KeySharpA",
                 new KeyBinding(ModifierKeys.Alt, Keys.D5),
                 () => "Sharp A#",
-                () => "GW2: Alt+5");
+                () => "Match to Profession Skill 5");
         }
 
         public Dictionary<Keys, SettingEntry<KeyBinding>> GetKeyMappings()

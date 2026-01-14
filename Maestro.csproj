@@ -62,6 +62,7 @@
     <None Include="packages.config" />
     <None Include="README.md" />
     <None Include="Scripts\**\*" />
+    <None Include="SongsDebug\**\*" />
     <None Include="CHANGELOG.md" />
     <None Include="Songs\**\*" />
   </ItemGroup>

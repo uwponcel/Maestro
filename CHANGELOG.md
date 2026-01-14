@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.5.0
+
+**Piano Support & New Songs**
+
+Added full piano support with 20 new piano songs converted from PianoThomas transcriptions!
+
+- New songs include: As Long As You Love Me, I Want It That Way, Total Eclipse Of The Heart, Still Loving You, River Flows In You, Numb, My Immortal, Perfect, and more
+- Sharp note support for piano using Alt+NumPad or Profession Skills (F1-F5)
+- Updated keybind tooltips to clarify GW2 binding requirements
+
+**Song Organization**
+
+- Songs now organized into instrument subfolders (Bass, Harp, Lute, Piano)
+- Easier browsing and management of the song library
+
+**Bug Fixes**
+
+- Fixed stuck notes when stopping or pausing playback mid-song
+- Fixed timing issue in AHK conversion that caused songs to play too fast
+
+---
+
 ## v1.4.0
 
 **Smart Playback Controls**

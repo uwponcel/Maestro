@@ -13,6 +13,7 @@ namespace Maestro.Services.Playback
         private readonly Dictionary<Keys, SettingEntry<KeyBinding>> _keyRemappings;
         private readonly Dictionary<Keys, SettingEntry<KeyBinding>> _sharpRemappings;
         private readonly HashSet<Keys> _activeSharpKeys;
+        private readonly HashSet<Keys> _heldKeys;
         private readonly DebugLogger _debugLogger = new DebugLogger();
         private bool _altHeld;
 
@@ -23,6 +24,7 @@ namespace Maestro.Services.Playback
             _keyRemappings = keyRemappings;
             _sharpRemappings = sharpRemappings;
             _activeSharpKeys = new HashSet<Keys>();
+            _heldKeys = new HashSet<Keys>();
         }
 
         public void StartDebugLog(string songName) => _debugLogger.Start(songName);
@@ -55,6 +57,7 @@ namespace Maestro.Services.Playback
 
             if (_keyRemappings.TryGetValue(key, out var setting))
             {
+                _heldKeys.Add(key);
                 _debugLogger.LogNote(key, setting.Value.PrimaryKey);
                 BlishKeyboard.Press((VirtualKeyShort)setting.Value.PrimaryKey, true);
             }
@@ -80,8 +83,35 @@ namespace Maestro.Services.Playback
 
             if (_keyRemappings.TryGetValue(key, out var setting))
             {
+                _heldKeys.Remove(key);
                 BlishKeyboard.Release((VirtualKeyShort)setting.Value.PrimaryKey, true);
             }
+        }
+
+        public void ReleaseAllKeys()
+        {
+            // Release all held regular keys
+            foreach (var key in _heldKeys)
+            {
+                if (_keyRemappings.TryGetValue(key, out var setting))
+                {
+                    BlishKeyboard.Release((VirtualKeyShort)setting.Value.PrimaryKey, true);
+                }
+            }
+            _heldKeys.Clear();
+
+            // Release all held sharp keys
+            foreach (var key in _activeSharpKeys)
+            {
+                if (_sharpRemappings.TryGetValue(key, out var sharpSetting))
+                {
+                    SendKeyBindingUp(sharpSetting.Value);
+                }
+            }
+            _activeSharpKeys.Clear();
+
+            // Reset alt state
+            _altHeld = false;
         }
 
         private static void SendKeyBindingDown(KeyBinding binding)
