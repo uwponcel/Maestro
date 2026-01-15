@@ -43,7 +43,7 @@ Get-ChildItem "$ahkFolder\*.ahk" | ForEach-Object {
     & $convertMB -InputPath $_.FullName -OutputPath $tempFile
 
     # Step 2: Convert to JSON
-    & $convertJson -AhkPath $tempFile -JsonPath $outputFile -Transcriber "PianoThomas" -Artist $info.Artist -SongName $info.Song -Instrument "Piano"
+    & $convertJson -AhkPath $tempFile -JsonPath $outputFile -Transcriber "PianoTomas" -Artist $info.Artist -SongName $info.Song -Instrument "Piano"
 
     Remove-Item $tempFile
     Write-Host "  -> $outputFile"
