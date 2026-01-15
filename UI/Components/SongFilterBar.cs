@@ -27,6 +27,9 @@ namespace Maestro.UI.Components
         public string SelectedSource => _filterButton.SelectedSource;
         public string SelectedInstrument => _filterButton.SelectedInstrument;
 
+        public static bool IsTextInputFocused { get; private set; }
+        public static bool WasJustUnfocused { get; set; }
+
         public SongFilterBar(int width)
         {
             Size = new Point(width, Layout.Height);
@@ -40,6 +43,12 @@ namespace Maestro.UI.Components
                 PlaceholderText = "Search songs..."
             };
             _searchBox.TextChanged += (s, e) => SearchChanged?.Invoke(this, EventArgs.Empty);
+            _searchBox.InputFocusChanged += (s, e) =>
+            {
+                if (!e.Value && IsTextInputFocused)
+                    WasJustUnfocused = true;
+                IsTextInputFocused = e.Value;
+            };
 
             _filterButton = new FilterButton
             {

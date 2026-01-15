@@ -87,7 +87,7 @@ namespace Maestro.Settings
 
         private void DefinePianoSharps(SettingCollection settings)
         {
-            var pianoSharps = settings.AddSubCollection("PianoSharps", true, () => "Piano Only - Sharp Notes (avoid modifier + any instrument key)");
+            var pianoSharps = settings.AddSubCollection("PianoSharps", true, () => "Piano Only - Sharp Notes - Keys must not conflict with natural note keybinds");
 
             SharpC = pianoSharps.DefineSetting("KeySharpC",
                 new KeyBinding(ModifierKeys.Alt, Keys.D1),

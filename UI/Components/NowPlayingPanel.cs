@@ -143,12 +143,27 @@ namespace Maestro.UI.Components
 
         private void OnPauseClicked(object sender, MouseEventArgs e)
         {
+            if (SongFilterBar.WasJustUnfocused)
+            {
+                SongFilterBar.WasJustUnfocused = false;
+                return;
+            }
+
             _songPlayer.TogglePause();
         }
 
         private void OnStopClicked(object sender, MouseEventArgs e)
         {
+            ClearTextInputFocus();
             _songPlayer.Stop();
+        }
+
+        private static void ClearTextInputFocus()
+        {
+            if (Control.FocusedControl is TextInputBase textInput)
+            {
+                textInput.Focused = false;
+            }
         }
 
         private void OnSpeedSliderChanged(object sender, ValueEventArgs<float> e)
@@ -238,6 +253,7 @@ namespace Maestro.UI.Components
             {
                 if (_songPlayer.IsWaitingForInput)
                 {
+                    _pauseButton.Text = ">";
                     _progressLabel.Text = "Paused";
                     _progressLabel.TextColor = MaestroTheme.Paused;
                 }
@@ -248,6 +264,7 @@ namespace Maestro.UI.Components
                 }
                 else
                 {
+                    _pauseButton.Text = "||";
                     var song = _songPlayer.CurrentSong;
                     var isComplete = song != null && _songPlayer.CurrentCommandIndex >= song.Commands.Count;
                     if (isComplete)

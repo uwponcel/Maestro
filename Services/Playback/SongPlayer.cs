@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Blish_HUD;
 using Maestro.Models;
+using Maestro.UI.Components;
 using Microsoft.Xna.Framework.Input;
 
 namespace Maestro.Services.Playback
@@ -17,8 +18,9 @@ namespace Maestro.Services.Playback
         private float _playbackSpeed = 1.0f;
 
         private static bool Gw2HasFocus => GameService.GameIntegration.Gw2Instance.Gw2HasFocus;
-        private static bool IsTextInputFocused => GameService.Gw2Mumble.UI.IsTextInputFocused;
-        private static bool ShouldPauseForInput => !Gw2HasFocus || IsTextInputFocused;
+        private static bool IsGw2TextInputFocused => GameService.Gw2Mumble.UI.IsTextInputFocused;
+        private static bool IsOverlayTextInputFocused => SongFilterBar.IsTextInputFocused;
+        private static bool ShouldPauseForInput => !Gw2HasFocus || IsGw2TextInputFocused || IsOverlayTextInputFocused;
 
         public Song CurrentSong { get; private set; }
         public float PlaybackSpeed

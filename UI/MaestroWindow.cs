@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Blish_HUD;
 using Blish_HUD.Controls;
+using Blish_HUD.Input;
 using Maestro.Models;
 using Maestro.Services.Playback;
 using Maestro.UI.Components;
@@ -59,6 +60,14 @@ namespace Maestro.UI
 
             BuildUi();
             SubscribeToEvents();
+
+            LeftMouseButtonPressed += OnWindowClicked;
+        }
+
+        private void OnWindowClicked(object sender, MouseEventArgs e)
+        {
+            if (Control.FocusedControl is TextInputBase textInput && !textInput.MouseOver)
+                textInput.Focused = false;
         }
 
         private void BuildUi()

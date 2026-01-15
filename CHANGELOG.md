@@ -1,10 +1,34 @@
 # Changelog
 
+## v1.5.1
+
+**101! Songs!**
+
+The song library has grown to 101 embedded songs! 😀
+
+**Improvements**
+
+- Auto-pause playback when typing in Maestro's search box or other overlay text inputs
+- Auto-resume playback when clicking outside the search box
+- Improved README documentation with clear keybind tables for natural and sharp notes
+- Better settings description explaining sharp note keybind restrictions
+
+**Fixes**
+
+- Fixed transcriber name attribution (PianoThomas -> PianoTomas)
+
+**Internal**
+
+- Cleaned up project file organization
+- Standardized script naming to lowercase kebab-case
+
+---
+
 ## v1.5.0
 
 **Piano Support & New Songs**
 
-Added full piano support with 20 new piano songs converted from PianoThomas transcriptions!
+Added full piano support with 20 new piano songs converted from PianoTomas transcriptions!
 
 - New songs include: As Long As You Love Me, I Want It That Way, Total Eclipse Of The Heart, Still Loving You, River Flows In You, Numb, My Immortal, Perfect, and more
 - Sharp note support for piano using Alt+NumPad or Profession Skills (F1-F5)

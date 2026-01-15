@@ -233,107 +233,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bin\Windows\Content\atlas\ui-atlas.xnb" />
-    <Content Include="Content\bin\Windows\Content\atlas\ui.xnb" />
-    <Content Include="Content\bin\Windows\Content\common\button-states.xnb" />
-    <Content Include="Content\bin\Windows\Content\common\error.xnb" />
-    <Content Include="Content\bin\Windows\Content\common\menomonia.ttf" />
-    <Content Include="Content\bin\Windows\Content\common\menomonia.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\alphamask.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\distancedissolve.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\glow.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\gw2master.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\marker.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\menuitem.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\menuitem2.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\silhouette.xnb" />
-    <Content Include="Content\bin\Windows\Content\effects\trail.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\consolas-10-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\consolas-10.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\consolas-12-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\consolas-12.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\consolas-8-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\consolas-8.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia-8-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-11-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-11-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-11-italic.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-11-italic_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-11-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-11-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-12-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-12-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-12-italic.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-12-italic_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-12-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-12-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-14-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-14-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-14-italic.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-14-italic_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-14-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-14-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-16-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-16-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-16-italic.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-16-italic_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-16-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-16-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-18-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-18-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-18-italic.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-18-italic_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-18-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-18-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-20-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-20-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-20-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-20-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-22-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-22-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-22-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-22-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-24-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-24-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-24-bold_1.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-24-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-24-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-32-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-32-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-32-regular_1.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-34-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-34-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-34-regular_1.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-36-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-36-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-36-bold_1.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-36-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-36-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-36-regular_1.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-8-bold.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-8-bold_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-8-italic.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-8-italic_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-8-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\menomonia\menomonia-8-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\newkrytan\newkrytan-12-regular.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\newkrytan\newkrytan-12-regular_0.xnb" />
-    <Content Include="Content\bin\Windows\Content\fonts\newkrytan\newkrytan-12-regular_1.xnb" />
+    <Content Include="Content\**\*" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ref\emblem.png" />
     <EmbeddedResource Include="ref\icon.png" />
     <EmbeddedResource Include="ref\import.png" />
+    <EmbeddedResource Include="ref\songs.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <Import Project="packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets" Condition="Exists('packages\MonoGame.Framework.WindowsDX.3.8.0.1641\build\MonoGame.Framework.WindowsDX.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

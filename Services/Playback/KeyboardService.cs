@@ -3,6 +3,7 @@ using Blish_HUD;
 using Blish_HUD.Controls.Extern;
 using Blish_HUD.Input;
 using Blish_HUD.Settings;
+using Maestro.UI.Components;
 using Microsoft.Xna.Framework.Input;
 using BlishKeyboard = Blish_HUD.Controls.Intern.Keyboard;
 
@@ -33,7 +34,8 @@ namespace Maestro.Services.Playback
 
         private static bool ShouldSendKeys =>
             GameService.GameIntegration.Gw2Instance.Gw2HasFocus &&
-            !GameService.Gw2Mumble.UI.IsTextInputFocused;
+            !GameService.Gw2Mumble.UI.IsTextInputFocused &&
+            !SongFilterBar.IsTextInputFocused;
 
         public void KeyDown(Keys key)
         {

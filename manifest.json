@@ -1,10 +1,10 @@
 {
   "name": "Maestro",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "namespace": "Aex.Maestro",
   "package": "Maestro.dll",
   "manifest_version": 1,
-  "description": "Play music on GW2 instruments from within Blish HUD. Supports harp, piano, lute, and bass with 87 embedded songs.",
+  "description": "Play music on GW2 instruments from within Blish HUD. Supports harp, piano, lute, and bass with 103 embedded songs.",
   "dependencies": {
     "bh.blishhud": ">=1.2.0"
   },
