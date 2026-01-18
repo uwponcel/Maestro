@@ -11,6 +11,7 @@ using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
 using Maestro.Models;
 using Maestro.Services;
+using Maestro.Services.Community;
 using Maestro.Services.Data;
 using Maestro.Services.Playback;
 using Maestro.Settings;
@@ -39,9 +40,12 @@ namespace Maestro
         private ModuleSettings _moduleSettings;
         private KeyboardService _keyboardService;
         private SongPlayer _songPlayer;
+        private CommunitySongCache _songCache;
         private UserSongStorage _userSongStorage;
+        private CommunityService _communityService;
         private MaestroWindow _maestroWindow;
         private ImportWindow _importWindow;
+        private CommunityWindow _communityWindow;
         private CornerIcon _cornerIcon;
         private List<Song> _songs;
 
@@ -68,9 +72,10 @@ namespace Maestro
 
         protected override async Task LoadAsync()
         {
-            _userSongStorage = new UserSongStorage(DirectoriesManager);
+            _songCache = new CommunitySongCache(DirectoriesManager);
+            _userSongStorage = new UserSongStorage(_songCache);
 
-            const string debugSongsPath = @"C:\git\Maestro\Songs";
+            const string debugSongsPath = @"C:\git\perso\Maestro\Songs";
 
             if (Directory.Exists(debugSongsPath))
             {
@@ -85,6 +90,9 @@ namespace Maestro
 
             var userSongs = await _userSongStorage.LoadUserSongsAsync();
             _songs.AddRange(userSongs);
+
+            _communityService = new CommunityService(_songCache, _songs);
+            _communityService.LoadCachedSongsIntoMainList();
         }
 
         protected override void OnModuleLoaded(EventArgs e)
@@ -119,6 +127,7 @@ namespace Maestro
             {
                 _maestroWindow = new MaestroWindow(_songPlayer, _songs);
                 _maestroWindow.ImportRequested += OnImportRequested;
+                _maestroWindow.CommunityRequested += OnCommunityRequested;
                 _maestroWindow.SongDeleteRequested += OnSongDeleteRequested;
             }
 
@@ -133,7 +142,44 @@ namespace Maestro
                 _importWindow.SongImported += OnSongImported;
             }
 
-            _importWindow.Show();
+            if (_importWindow.Visible)
+                _importWindow.Hide();
+            else
+                _importWindow.Show();
+        }
+
+        private void OnCommunityRequested(object sender, EventArgs e)
+        {
+            if (_communityWindow == null)
+            {
+                _communityWindow = new CommunityWindow(_communityService);
+                _communityWindow.SongDownloaded += OnCommunitySongDownloaded;
+                _communityWindow.SongDeleteRequested += OnCommunitySongDeleteRequested;
+            }
+
+            if (_communityWindow.Visible)
+            {
+                _communityWindow.Hide();
+            }
+            else
+            {
+                _communityWindow.Show();
+                _communityWindow.LoadContent();
+            }
+        }
+
+        private void OnCommunitySongDownloaded(object sender, Song song)
+        {
+            _maestroWindow?.RefreshAfterCommunityDownload();
+        }
+
+        private void OnCommunitySongDeleteRequested(object sender, string communityId)
+        {
+            var song = _songs.Find(s => s.CommunityId == communityId);
+            if (song != null)
+            {
+                OnSongDeleteRequested(this, song);
+            }
         }
 
         private async void OnSongImported(object sender, Song song)
@@ -153,14 +199,21 @@ namespace Maestro
 
         private void OnSongDeleteRequested(object sender, Song song)
         {
-            if (!song.IsUserImported)
-                return;
-
             try
             {
-                _userSongStorage.DeleteSong(song);
-                _maestroWindow?.RemoveSong(song);
-                Logger.Info($"Deleted song: {song.Name} by {song.Artist}");
+                if (song.IsUserImported)
+                {
+                    _userSongStorage.DeleteSong(song);
+                    _maestroWindow?.RemoveSong(song);
+                    Logger.Info($"Deleted user song: {song.Name} by {song.Artist}");
+                }
+                else if (song.IsCommunityDownloaded)
+                {
+                    _communityService.DeleteDownloadedSong(song);
+                    _maestroWindow?.RemoveSong(song);
+                    _communityWindow?.MarkSongAsDeleted(song.CommunityId);
+                    Logger.Info($"Deleted community song: {song.Name} by {song.Artist}");
+                }
             }
             catch (Exception ex)
             {
@@ -176,8 +229,11 @@ namespace Maestro
         protected override void Unload()
         {
             _songPlayer?.Stop();
+            _communityWindow?.Dispose();
             _importWindow?.Dispose();
             _maestroWindow?.Dispose();
+            _communityService?.Dispose();
+            _songCache?.Dispose();
             _cornerIcon?.Dispose();
 
             Instance = null;

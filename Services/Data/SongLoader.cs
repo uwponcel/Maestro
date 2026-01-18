@@ -68,7 +68,7 @@ namespace Maestro.Services.Data
 
         private static void LoadFromDirectory(List<Song> songs, string path)
         {
-            var jsonFiles = Directory.GetFiles(path, "*.json");
+            var jsonFiles = Directory.GetFiles(path, "*.json", SearchOption.AllDirectories);
             Logger.Info($"Found {jsonFiles.Length} .json files in {path}");
 
             foreach (var file in jsonFiles)

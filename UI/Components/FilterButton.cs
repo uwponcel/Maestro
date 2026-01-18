@@ -15,7 +15,7 @@ namespace Maestro.UI.Components
             private const int SeparatorHeight = 8;
             private const int PaddingX = 8;
 
-            private static readonly string[] SourceItems = { "All", "Bundled", "Imported" };
+            private static readonly string[] SourceItems = { "All", "Bundled", "Community", "Imported" };
             private static readonly string[] InstrumentItems = { "All", "Piano", "Harp", "Lute", "Bass" };
 
             private readonly FilterButton _owner;

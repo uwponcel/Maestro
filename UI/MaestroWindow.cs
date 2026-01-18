@@ -15,6 +15,7 @@ namespace Maestro.UI
     public class MaestroWindow : StandardWindow
     {
         public event EventHandler ImportRequested;
+        public event EventHandler CommunityRequested;
         public event EventHandler<Song> SongDeleteRequested;
 
         private static class Layout
@@ -52,7 +53,7 @@ namespace Maestro.UI
 
             Title = "Maestro";
             Subtitle = "Music player";
-            Emblem = Module.Instance.ContentsManager.GetTexture("emblem.png");
+            Emblem = Module.Instance.ContentsManager.GetTexture("maestro-emblem.png");
             SavesPosition = true;
             Id = "MaestroWindow_v3";
             CanResize = false;
@@ -109,6 +110,7 @@ namespace Maestro.UI
             };
             _statusBar.TotalCount = _allSongs.Count;
             _statusBar.ImportClicked += OnImportClicked;
+            _statusBar.CommunityClicked += OnCommunityClicked;
 
             RefreshSongList();
         }
@@ -147,9 +149,20 @@ namespace Maestro.UI
             ImportRequested?.Invoke(this, EventArgs.Empty);
         }
 
+        private void OnCommunityClicked(object sender, EventArgs e)
+        {
+            CommunityRequested?.Invoke(this, EventArgs.Empty);
+        }
+
         public void AddImportedSong(Song song)
         {
             _allSongs.Add(song);
+            _statusBar.TotalCount = _allSongs.Count;
+            RefreshSongList();
+        }
+
+        public void RefreshAfterCommunityDownload()
+        {
             _statusBar.TotalCount = _allSongs.Count;
             RefreshSongList();
         }
@@ -181,7 +194,9 @@ namespace Maestro.UI
 
             var source = _filterBar.SelectedSource;
             if (source == "Bundled")
-                songs = songs.Where(s => !s.IsUserImported);
+                songs = songs.Where(s => !s.IsUserImported && !s.IsCommunityDownloaded);
+            else if (source == "Community")
+                songs = songs.Where(s => s.IsCommunityDownloaded);
             else if (source == "Imported")
                 songs = songs.Where(s => s.IsUserImported);
 
@@ -219,6 +234,7 @@ namespace Maestro.UI
             _songListPanel.SongDeleteRequested -= OnSongDeleteRequested;
             _songListPanel.CountChanged -= OnCountChanged;
             _statusBar.ImportClicked -= OnImportClicked;
+            _statusBar.CommunityClicked -= OnCommunityClicked;
 
             _songPlayer.Stop();
 

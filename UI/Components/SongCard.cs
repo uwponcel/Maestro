@@ -113,6 +113,12 @@ namespace Maestro.UI.Components
                 ? song.Artist
                 : $"{song.Artist} - {song.Transcriber}";
 
+            if (!string.IsNullOrEmpty(song.DisplayDownloads))
+                artistText += $" | {song.DisplayDownloads} downloads";
+
+            if (!string.IsNullOrEmpty(song.DisplayDuration))
+                artistText += $" | {song.DisplayDuration}";
+
             _artistLabel = new Label
             {
                 Parent = this,
@@ -132,7 +138,7 @@ namespace Maestro.UI.Components
             };
             _playButton.Click += (s, e) => PlayClicked?.Invoke(this, e);
 
-            if (song.IsUserImported)
+            if (song.IsUserImported || song.IsCommunityDownloaded)
             {
                 var contextMenu = new ContextMenuStrip();
                 var deleteItem = contextMenu.AddMenuItem("Delete Song");

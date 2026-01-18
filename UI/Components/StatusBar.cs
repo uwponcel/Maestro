@@ -13,8 +13,10 @@ namespace Maestro.UI.Components
         }
 
         public event EventHandler ImportClicked;
+        public event EventHandler CommunityClicked;
 
         private readonly Label _statusLabel;
+        private readonly StandardButton _communityButton;
         private readonly StandardButton _importButton;
         private int _visibleCount;
         private int _totalCount;
@@ -44,15 +46,27 @@ namespace Maestro.UI.Components
             Size = new Point(width, Layout.Height);
             BackgroundColor = Color.Transparent;
 
+            var buttonsWidth = MaestroTheme.ActionButtonWidth * 2 + 5;
+
             _statusLabel = new Label
             {
                 Parent = this,
                 Location = new Point(0, 0),
-                Width = width - MaestroTheme.ActionButtonWidth - 10,
+                Width = width - buttonsWidth - 10,
                 Height = Height,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.LightGray,
                 HorizontalAlignment = HorizontalAlignment.Left
+            };
+
+            _communityButton = new StandardButton
+            {
+                Parent = this,
+                Text = "Community",
+                Location = new Point(width - buttonsWidth, 0),
+                Size = new Point(MaestroTheme.ActionButtonWidth, MaestroTheme.ActionButtonHeight),
+                Enabled = false,
+                BasicTooltipText = "Coming soon!"
             };
 
             _importButton = new StandardButton
@@ -75,6 +89,7 @@ namespace Maestro.UI.Components
         protected override void DisposeControl()
         {
             _statusLabel?.Dispose();
+            _communityButton?.Dispose();
             _importButton?.Dispose();
             base.DisposeControl();
         }

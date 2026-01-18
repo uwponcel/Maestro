@@ -1,6 +1,6 @@
 {
   "name": "Maestro",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "namespace": "Aex.Maestro",
   "package": "Maestro.dll",
   "manifest_version": 1,
@@ -9,7 +9,7 @@
     "bh.blishhud": ">=1.2.0"
   },
   "directories": [
-    "common"
+    "maestro"
   ],
   "url": "https://github.com/uwponcel/Maestro",
   "contributors": [

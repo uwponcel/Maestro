@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.5.2
+
+**Maintenance Release**
+
+- Disabled Community button (Coming soon!)
+- Reduced module package size by ~7MB (removed bundled core dependencies)
+- Added LiteDB for future song querying capabilities
+
+---
+
 ## v1.5.1
 
 **101! Songs!**
