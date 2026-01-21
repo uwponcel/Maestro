@@ -6,7 +6,7 @@ using Blish_HUD.Input;
 using Maestro.Models;
 using Microsoft.Xna.Framework;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI.Main
 {
     public class SongCard : Panel
     {

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Blish_HUD;
 using Maestro.Models;
+using Maestro.Services.Data;
 
 namespace Maestro.Services.Community
 {
@@ -16,7 +17,7 @@ namespace Maestro.Services.Community
         public event EventHandler ManifestRefreshed;
 
         private readonly CommunityApiClient _apiClient;
-        private readonly CommunitySongCache _cache;
+        private readonly SongStorage _songStorage;
         private readonly List<Song> _mainSongList;
         private readonly Dictionary<string, CancellationTokenSource> _activeDownloads;
 
@@ -27,14 +28,14 @@ namespace Maestro.Services.Community
         public bool IsRefreshing => _isRefreshing;
         public bool HasManifest => _manifest != null;
 
-        public CommunityService(CommunitySongCache cache, List<Song> mainSongList)
+        public CommunityService(SongStorage songStorage, List<Song> mainSongList)
         {
             _apiClient = new CommunityApiClient();
-            _cache = cache;
+            _songStorage = songStorage;
             _mainSongList = mainSongList;
             _activeDownloads = new Dictionary<string, CancellationTokenSource>();
 
-            _manifest = _cache.GetCachedManifest();
+            _manifest = _songStorage.GetCachedManifest();
         }
 
         public async Task RefreshManifestAsync(CancellationToken cancellationToken = default)
@@ -47,7 +48,7 @@ namespace Maestro.Services.Community
             try
             {
                 _manifest = await _apiClient.FetchManifestAsync(cancellationToken);
-                _cache.SaveManifest(_manifest);
+                _songStorage.SaveManifest(_manifest);
                 ManifestRefreshed?.Invoke(this, EventArgs.Empty);
                 Logger.Info($"Refreshed manifest with {_manifest.Songs.Count} songs");
             }
@@ -59,7 +60,7 @@ namespace Maestro.Services.Community
             {
                 Logger.Error(ex, "Failed to refresh manifest");
                 if (_manifest == null)
-                    _manifest = _cache.GetCachedManifest();
+                    _manifest = _songStorage.GetCachedManifest();
             }
             finally
             {
@@ -96,7 +97,7 @@ namespace Maestro.Services.Community
 
         public bool IsSongDownloaded(string communityId)
         {
-            return _cache.IsSongCached(communityId);
+            return _songStorage.SongExists(communityId);
         }
 
         public bool IsDownloading(string communityId)
@@ -109,7 +110,7 @@ namespace Maestro.Services.Community
             if (IsSongDownloaded(communitySong.Id))
             {
                 Logger.Info($"Song {communitySong.Id} already downloaded, returning cached version");
-                return _cache.GetCachedSong(communitySong.Id);
+                return _songStorage.GetSong(communitySong.Id);
             }
 
             if (_activeDownloads.ContainsKey(communitySong.Id))
@@ -138,7 +139,7 @@ namespace Maestro.Services.Community
                 }
 
                 song.Downloads = communitySong.Downloads;
-                _cache.SaveSong(song);
+                _songStorage.SaveSong(song);
 
                 progress?.Report(100);
                 RaiseDownloadProgress(communitySong.Id, 100, DownloadState.Completed);
@@ -176,37 +177,11 @@ namespace Maestro.Services.Community
             }
         }
 
-        public List<Song> GetDownloadedCommunitySongs()
-        {
-            return _cache.GetAllCachedSongs();
-        }
-
         public void DeleteDownloadedSong(Song song)
         {
-            if (string.IsNullOrEmpty(song.CommunityId))
-                return;
-
-            _cache.DeleteSong(song.CommunityId);
+            _songStorage.DeleteSong(song);
             _mainSongList.Remove(song);
-            Logger.Info($"Deleted community song: {song.Name} ({song.CommunityId})");
-        }
-
-        public void LoadCachedSongsIntoMainList()
-        {
-            var cachedSongs = _cache.GetAllCachedSongs();
-            var existingIds = new HashSet<string>(_mainSongList
-                .Where(s => !string.IsNullOrEmpty(s.CommunityId))
-                .Select(s => s.CommunityId));
-
-            foreach (var song in cachedSongs)
-            {
-                if (!existingIds.Contains(song.CommunityId))
-                {
-                    _mainSongList.Add(song);
-                }
-            }
-
-            Logger.Info($"Loaded {cachedSongs.Count} cached community songs");
+            Logger.Info($"Deleted song: {song.Name} ({song.CommunityId ?? "imported"})");
         }
 
         private void RaiseDownloadProgress(string communityId, int progress, DownloadState state)

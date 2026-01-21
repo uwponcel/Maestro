@@ -37,6 +37,24 @@ namespace Maestro.UI
         public static readonly Color PanelBackground = new Color(45, 45, 45, 180);
         public static readonly Color PanelHover = new Color(64, 64, 64, 200);
         public static readonly Color PanelSelected = new Color(51, 51, 51, 220);
+
+        // Piano Key Colors
+        public static readonly Color PianoWhiteKey = new Color(250, 250, 245);
+        public static readonly Color PianoWhiteKeyHover = new Color(230, 230, 220);
+        public static readonly Color PianoWhiteKeyPressed = new Color(200, 180, 140);
+        public static readonly Color PianoBlackKey = new Color(30, 30, 30);
+        public static readonly Color PianoBlackKeyHover = new Color(50, 50, 50);
+        public static readonly Color PianoBlackKeyPressed = new Color(80, 70, 50);
+
+        // Button states (toggle buttons like duration selector)
+        public static readonly Color ButtonBackground = new Color(60, 60, 60);
+        public static readonly Color ButtonBackgroundHover = new Color(80, 80, 80);
+
+        // Note chip octave colors
+        public static readonly Color ChipRest = new Color(80, 80, 90);
+        public static readonly Color ChipLowerOctave = new Color(96, 94, 156);    // #605e9c - purple
+        public static readonly Color ChipMiddleOctave = new Color(86, 144, 99);   // #569063 - green
+        public static readonly Color ChipUpperOctave = new Color(170, 73, 72);    // #aa4948 - red
   
         // Action buttons (Import, Cancel, etc.)
         public const int ActionButtonWidth = 90;

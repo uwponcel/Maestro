@@ -6,7 +6,7 @@ using Maestro.Models;
 using Maestro.Services.Playback;
 using Microsoft.Xna.Framework;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI.Main
 {
     public class SongListPanel : FlowPanel
     {

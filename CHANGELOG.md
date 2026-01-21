@@ -1,5 +1,36 @@
 # Changelog
 
+## v2.0.0
+
+**Maestro Creator**
+
+Create your own songs directly in-game with a visual piano keyboard editor!
+
+**New Features**
+
+- Interactive piano keyboard with clickable keys for composing
+- Support for all instruments: Piano, Harp, Lute, and Bass
+- Duration selector with musical note values (whole, half, quarter, eighth, sixteenth)
+- Chord mode for adding multiple notes simultaneously
+- Live preview of your composition
+- Note sequence panel with visual chips showing notes, octaves, and durations
+- Undo and clear functionality for easy editing
+- Automatic octave reset when opening the creator
+
+**Improvements**
+
+- Reorganized UI into Main, Community, and MaestroCreator folders
+- Consolidated song storage into unified SongStorage class
+- Multi-instrument octave support (Bass uses 2 octaves, others use 3)
+
+**Internal**
+
+- Centralized note-to-key mappings in NoteMapping
+- Added GameTimings for consistent timing constants
+- Refactored KeyboardService for direct note playback
+
+---
+
 ## v1.5.2
 
 **Maintenance Release**

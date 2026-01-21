@@ -7,7 +7,7 @@ using Maestro.Models;
 using Maestro.Services.Community;
 using Microsoft.Xna.Framework;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI.Community
 {
     public class CommunitySongCard : Panel
     {

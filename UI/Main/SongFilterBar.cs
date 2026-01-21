@@ -2,7 +2,7 @@ using System;
 using Blish_HUD.Controls;
 using Microsoft.Xna.Framework;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI.Main
 {
     public class SongFilterBar : Panel
     {

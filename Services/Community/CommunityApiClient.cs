@@ -13,7 +13,7 @@ namespace Maestro.Services.Community
     {
         private static readonly Logger Logger = Logger.GetLogger<CommunityApiClient>();
 
-        private const string BaseUrl = "https://raw.githubusercontent.com/uwponcel/maestro-songs/master";
+        private const string BASE_URL = "https://raw.githubusercontent.com/uwponcel/maestro-songs/master";
         private readonly HttpClient _httpClient;
 
         public CommunityApiClient()
@@ -29,7 +29,7 @@ namespace Maestro.Services.Community
         {
             try
             {
-                var url = $"{BaseUrl}/manifest.json";
+                var url = $"{BASE_URL}/manifest.json";
                 Logger.Info($"Fetching community manifest from {url}");
 
                 var response = await _httpClient.GetAsync(url, cancellationToken);
@@ -57,7 +57,7 @@ namespace Maestro.Services.Community
         {
             try
             {
-                var url = $"{BaseUrl}/songs/{songId}.json";
+                var url = $"{BASE_URL}/songs/{songId}.json";
                 Logger.Info($"Fetching community song {songId}");
 
                 var response = await _httpClient.GetAsync(url, cancellationToken);

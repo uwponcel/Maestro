@@ -9,26 +9,6 @@ namespace Maestro.Services.Data
 {
     public static class NoteParser
     {
-        private static readonly Dictionary<string, Keys> NoteToKey = new Dictionary<string, Keys>
-        {
-            { "C", Keys.NumPad1 },
-            { "D", Keys.NumPad2 },
-            { "E", Keys.NumPad3 },
-            { "F", Keys.NumPad4 },
-            { "G", Keys.NumPad5 },
-            { "A", Keys.NumPad6 },
-            { "B", Keys.NumPad7 }
-        };
-
-        private static readonly Dictionary<string, Keys> SharpToKey = new Dictionary<string, Keys>
-        {
-            { "C#", Keys.NumPad1 },
-            { "D#", Keys.NumPad2 },
-            { "F#", Keys.NumPad3 },
-            { "G#", Keys.NumPad4 },
-            { "A#", Keys.NumPad5 }
-        };
-
         // Pattern: Note[^|#][+/-]:Duration (duration is milliseconds)
         // Examples: C:75, C#:150, D+:300, E-:500, C^:75 (high C = NumPad8)
         private static readonly Regex NotePattern = new Regex(
@@ -72,11 +52,13 @@ namespace Maestro.Services.Data
                     if (note.TargetOctave != currentOctave)
                     {
                         int steps = note.TargetOctave - currentOctave;
-                        Keys octaveKey = steps > 0 ? Keys.NumPad9 : Keys.NumPad0;
+                        Keys octaveKey = steps > 0 ? NoteMapping.OctaveUpKey : NoteMapping.OctaveDownKey;
                         for (int i = 0; i < Math.Abs(steps); i++)
                         {
                             commands.Add(SongCommand.KeyDownCmd(octaveKey));
                             commands.Add(SongCommand.KeyUpCmd(octaveKey));
+                            // Small delay to let the game register the octave change
+                            commands.Add(SongCommand.WaitCmd(GameTimings.OctaveChangeDelayMs));
                         }
                         currentOctave = note.TargetOctave;
                     }
@@ -128,18 +110,26 @@ namespace Maestro.Services.Data
 
                 if (isHighC)
                 {
-                    noteKey = Keys.NumPad8;
+                    noteKey = NoteMapping.HighCKey;
                 }
                 else if (isSharp)
                 {
-                    if (!SharpToKey.TryGetValue(note + "#", out noteKey))
+                    if (!NoteMapping.TryParse(note, out var sharpNoteName))
                         continue;
+                    var sharpKey = NoteMapping.GetSharpKey(sharpNoteName);
+                    if (!sharpKey.HasValue)
+                        continue;
+                    noteKey = sharpKey.Value;
                     needsAlt = true;
                 }
                 else
                 {
-                    if (!NoteToKey.TryGetValue(note, out noteKey))
+                    if (!NoteMapping.TryParse(note, out var naturalNoteName))
                         continue;
+                    var naturalKey = NoteMapping.GetNaturalKey(naturalNoteName);
+                    if (!naturalKey.HasValue)
+                        continue;
+                    noteKey = naturalKey.Value;
                 }
 
                 notes.Add(new ParsedNote

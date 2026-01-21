@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
 using Maestro.Services.Community;
-using Maestro.UI.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Maestro.UI
+namespace Maestro.UI.Community
 {
     public class CommunityWindow : StandardWindow
     {
@@ -287,7 +285,7 @@ namespace Maestro.UI
             if (downloadedSong != null)
             {
                 SongDownloaded?.Invoke(this, downloadedSong);
-                ScreenNotification.ShowNotification($"Downloaded: {downloadedSong.Name}", ScreenNotification.NotificationType.Info);
+                ScreenNotification.ShowNotification($"Downloaded: {downloadedSong.Name}");
             }
         }
 

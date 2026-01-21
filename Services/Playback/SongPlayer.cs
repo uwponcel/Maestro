@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Blish_HUD;
 using Maestro.Models;
-using Maestro.UI.Components;
+using Maestro.UI.Main;
 using Microsoft.Xna.Framework.Input;
 
 namespace Maestro.Services.Playback
@@ -138,7 +138,7 @@ namespace Maestro.Services.Playback
                     ResetToMiddleOctave();
                 }
 
-                await Task.Delay(300, cancellationToken);
+                await Task.Delay(GameTimings.PlaybackStartDelayMs, cancellationToken);
 
                 for (var i = 0; i < CurrentSong.Commands.Count; i++)
                 {
@@ -211,7 +211,7 @@ namespace Maestro.Services.Playback
             {
                 _keyboardService.KeyDown(Keys.NumPad0);
                 _keyboardService.KeyUp(Keys.NumPad0);
-                Thread.Sleep(150);
+                Thread.Sleep(GameTimings.OctaveChangeDelayMs);
             }
 
             // Bass only has Low/High octaves - stay at Low, songs handle their own octave
@@ -220,11 +220,8 @@ namespace Maestro.Services.Playback
             {
                 _keyboardService.KeyDown(Keys.NumPad9);
                 _keyboardService.KeyUp(Keys.NumPad9);
-                Thread.Sleep(150);
+                Thread.Sleep(GameTimings.OctaveChangeDelayMs);
             }
-
-            // Small delay to let the instrument settle before playing
-            Thread.Sleep(200);
 
             IsAdjustingOctave = false;
             Logger.Debug(CurrentSong?.Instrument == InstrumentType.Bass

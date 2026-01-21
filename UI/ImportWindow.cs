@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Maestro.Models;
@@ -214,7 +213,7 @@ namespace Maestro.UI
                 var commands = NoteParser.Parse(notes);
                 song.Commands.AddRange(commands);
 
-                ScreenNotification.ShowNotification($"Imported {notes.Count} notes, {song.Commands.Count} commands", ScreenNotification.NotificationType.Info);
+                ScreenNotification.ShowNotification($"Imported {notes.Count} notes, {song.Commands.Count} commands");
                 return song;
             }
             catch (Exception ex)

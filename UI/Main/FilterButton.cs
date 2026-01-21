@@ -5,17 +5,18 @@ using Blish_HUD.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI.Main
 {
     public class FilterButton : Control
     {
         private class FilterPanel : Control
         {
-            private const int ItemHeight = 24;
-            private const int SeparatorHeight = 8;
-            private const int PaddingX = 8;
+            private const int ITEM_HEIGHT = 24;
+            private const int SEPARATOR_HEIGHT = 8;
+            private const int PADDING_X = 8;
 
-            private static readonly string[] SourceItems = { "All", "Bundled", "Community", "Imported" };
+            // TODO: Re-enable Community filter when community features are ready
+            private static readonly string[] SourceItems = { "All", "Bundled", /* "Community", */ "Imported" };
             private static readonly string[] InstrumentItems = { "All", "Piano", "Harp", "Lute", "Bass" };
 
             private readonly FilterButton _owner;
@@ -26,7 +27,7 @@ namespace Maestro.UI.Components
                 _owner = owner;
 
                 var totalItems = SourceItems.Length + InstrumentItems.Length;
-                var height = totalItems * ItemHeight + SeparatorHeight;
+                var height = totalItems * ITEM_HEIGHT + SEPARATOR_HEIGHT;
 
                 _size = new Point(_owner.Width, height);
                 _location = GetPanelLocation();
@@ -60,16 +61,16 @@ namespace Maestro.UI.Components
 
             private int GetItemIndexAt(int y)
             {
-                var sourceHeight = SourceItems.Length * ItemHeight;
+                var sourceHeight = SourceItems.Length * ITEM_HEIGHT;
 
                 if (y < sourceHeight)
-                    return y / ItemHeight;
+                    return y / ITEM_HEIGHT;
 
-                if (y < sourceHeight + SeparatorHeight)
+                if (y < sourceHeight + SEPARATOR_HEIGHT)
                     return -1; // Separator
 
-                var instrumentY = y - sourceHeight - SeparatorHeight;
-                return SourceItems.Length + instrumentY / ItemHeight;
+                var instrumentY = y - sourceHeight - SEPARATOR_HEIGHT;
+                return SourceItems.Length + instrumentY / ITEM_HEIGHT;
             }
 
             protected override void OnClick(MouseEventArgs e)
@@ -107,14 +108,14 @@ namespace Maestro.UI.Components
                     var isHighlighted = _highlightedIndex == i;
 
                     DrawItem(spriteBatch, item, y, isSelected, isHighlighted);
-                    y += ItemHeight;
+                    y += ITEM_HEIGHT;
                 }
 
                 // Separator
                 spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(PaddingX, y + SeparatorHeight / 2 - 1, _size.X - PaddingX * 2, 2),
+                    new Rectangle(PADDING_X, y + SEPARATOR_HEIGHT / 2 - 1, _size.X - PADDING_X * 2, 2),
                     MaestroTheme.MediumGray);
-                y += SeparatorHeight;
+                y += SEPARATOR_HEIGHT;
 
                 // Instrument section
                 for (var i = 0; i < InstrumentItems.Length; i++)
@@ -124,7 +125,7 @@ namespace Maestro.UI.Components
                     var isHighlighted = _highlightedIndex == SourceItems.Length + i;
 
                     DrawItem(spriteBatch, item, y, isSelected, isHighlighted);
-                    y += ItemHeight;
+                    y += ITEM_HEIGHT;
                 }
             }
 
@@ -133,13 +134,13 @@ namespace Maestro.UI.Components
                 if (isHighlighted)
                 {
                     spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                        new Rectangle(2, y + 2, _size.X - 4, ItemHeight - 4),
+                        new Rectangle(2, y + 2, _size.X - 4, ITEM_HEIGHT - 4),
                         new Color(45, 37, 25, 255));
                 }
 
                 // Radio indicator
-                var radioX = PaddingX;
-                var radioY = y + ItemHeight / 2 - 4;
+                var radioX = PADDING_X;
+                var radioY = y + ITEM_HEIGHT / 2 - 4;
                 var radioColor = isSelected ? MaestroTheme.AmberGold : MaestroTheme.MediumGray;
 
                 // Draw radio circle outline
@@ -162,7 +163,7 @@ namespace Maestro.UI.Components
                 // Text
                 var textColor = isHighlighted ? ContentService.Colors.Chardonnay : Color.FromNonPremultiplied(239, 240, 239, 255);
                 spriteBatch.DrawStringOnCtrl(this, text, Content.DefaultFont14,
-                    new Rectangle(PaddingX + 14, y, _size.X - PaddingX - 14, ItemHeight), textColor);
+                    new Rectangle(PADDING_X + 14, y, _size.X - PADDING_X - 14, ITEM_HEIGHT), textColor);
             }
 
             protected override void DisposeControl()

@@ -10,14 +10,15 @@ using Blish_HUD.Modules;
 using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
 using Maestro.Models;
-using Maestro.Services;
 using Maestro.Services.Community;
 using Maestro.Services.Data;
 using Maestro.Services.Playback;
 using Maestro.Settings;
 using Maestro.UI;
+using Maestro.UI.Community;
+using Maestro.UI.Main;
+using Maestro.UI.MaestroCreator;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Maestro
 {
@@ -40,12 +41,12 @@ namespace Maestro
         private ModuleSettings _moduleSettings;
         private KeyboardService _keyboardService;
         private SongPlayer _songPlayer;
-        private CommunitySongCache _songCache;
-        private UserSongStorage _userSongStorage;
+        private SongStorage _songStorage;
         private CommunityService _communityService;
         private MaestroWindow _maestroWindow;
         private ImportWindow _importWindow;
         private CommunityWindow _communityWindow;
+        private MaestroCreatorWindow _maestroCreatorWindow;
         private CornerIcon _cornerIcon;
         private List<Song> _songs;
 
@@ -72,8 +73,7 @@ namespace Maestro
 
         protected override async Task LoadAsync()
         {
-            _songCache = new CommunitySongCache(DirectoriesManager);
-            _userSongStorage = new UserSongStorage(_songCache);
+            _songStorage = new SongStorage(DirectoriesManager);
 
             const string debugSongsPath = @"C:\git\perso\Maestro\Songs";
 
@@ -88,11 +88,11 @@ namespace Maestro
                 _songs = await SongLoader.LoadFromContentsManagerAsync(ContentsManager);
             }
 
-            var userSongs = await _userSongStorage.LoadUserSongsAsync();
+            var userSongs = _songStorage.GetAllSongs();
+            Logger.Info($"Loaded {userSongs.Count} user songs from storage");
             _songs.AddRange(userSongs);
 
-            _communityService = new CommunityService(_songCache, _songs);
-            _communityService.LoadCachedSongsIntoMainList();
+            _communityService = new CommunityService(_songStorage, _songs);
         }
 
         protected override void OnModuleLoaded(EventArgs e)
@@ -128,6 +128,7 @@ namespace Maestro
                 _maestroWindow = new MaestroWindow(_songPlayer, _songs);
                 _maestroWindow.ImportRequested += OnImportRequested;
                 _maestroWindow.CommunityRequested += OnCommunityRequested;
+                _maestroWindow.CreateRequested += OnCreateRequested;
                 _maestroWindow.SongDeleteRequested += OnSongDeleteRequested;
             }
 
@@ -168,6 +169,85 @@ namespace Maestro
             }
         }
 
+        private void OnCreateRequested(object sender, InstrumentType instrument)
+        {
+            if (_maestroCreatorWindow == null)
+            {
+                _maestroCreatorWindow = new MaestroCreatorWindow();
+                _maestroCreatorWindow.SongCreated += OnPianoSongCreated;
+                _maestroCreatorWindow.WindowClosed += OnCreatorWindowClosed;
+            }
+
+            _maestroCreatorWindow.SetInstrument(instrument);
+
+            if (_maestroCreatorWindow.Visible)
+            {
+                _maestroCreatorWindow.Hide();
+            }
+            else
+            {
+                _maestroWindow?.SetCreateButtonEnabled(false);
+                _maestroCreatorWindow.Show();
+            }
+        }
+
+        private void OnCreatorWindowClosed(object sender, EventArgs e)
+        {
+            _maestroWindow?.SetCreateButtonEnabled(true);
+        }
+
+        private void OnPianoSongCreated(object sender, Song song)
+        {
+            try
+            {
+                _songStorage.SaveSong(song);
+                _maestroWindow?.AddImportedSong(song);
+                Logger.Info($"Created and saved song: {song.Name} by {song.Artist}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"Failed to save created song: {song.Name}");
+                ScreenNotification.ShowNotification("Failed to save song", ScreenNotification.NotificationType.Error);
+            }
+        }
+
+        /// <summary>
+        /// Plays a musical note on the in-game instrument.
+        /// </summary>
+        /// <param name="note">The note name (C, D, E, F, G, A, B).</param>
+        /// <param name="isSharp">Whether to play the sharp variant.</param>
+        /// <param name="isHighC">Whether this is high C.</param>
+        public void PlayNote(string note, bool isSharp = false, bool isHighC = false)
+        {
+            _keyboardService?.PlayNoteByName(note, isSharp, isHighC);
+        }
+
+        /// <summary>
+        /// Changes the in-game instrument octave.
+        /// </summary>
+        /// <param name="up">True to go up one octave, false to go down.</param>
+        public void PlayOctaveChange(bool up)
+        {
+            _keyboardService?.PlayOctaveChange(up);
+        }
+
+        /// <summary>
+        /// Resets the in-game instrument to middle octave.
+        /// </summary>
+        public void ResetToMiddleOctave()
+        {
+            _keyboardService?.ResetToMiddleOctave();
+        }
+
+        /// <summary>
+        /// Starts playing a song using the SongPlayer.
+        /// </summary>
+        /// <param name="song">The song to play.</param>
+        public void PreviewSong(Song song)
+        {
+            _songPlayer?.Play(song);
+        }
+
         private void OnCommunitySongDownloaded(object sender, Song song)
         {
             _maestroWindow?.RefreshAfterCommunityDownload();
@@ -182,11 +262,11 @@ namespace Maestro
             }
         }
 
-        private async void OnSongImported(object sender, Song song)
+        private void OnSongImported(object sender, Song song)
         {
             try
             {
-                await _userSongStorage.SaveSongAsync(song);
+                _songStorage.SaveSong(song);
                 _maestroWindow?.AddImportedSong(song);
                 Logger.Info($"Imported and saved song: {song.Name} by {song.Artist}");
             }
@@ -201,19 +281,15 @@ namespace Maestro
         {
             try
             {
-                if (song.IsUserImported)
+                _communityService.DeleteDownloadedSong(song);
+                _maestroWindow?.RemoveSong(song);
+
+                if (!string.IsNullOrEmpty(song.CommunityId))
                 {
-                    _userSongStorage.DeleteSong(song);
-                    _maestroWindow?.RemoveSong(song);
-                    Logger.Info($"Deleted user song: {song.Name} by {song.Artist}");
-                }
-                else if (song.IsCommunityDownloaded)
-                {
-                    _communityService.DeleteDownloadedSong(song);
-                    _maestroWindow?.RemoveSong(song);
                     _communityWindow?.MarkSongAsDeleted(song.CommunityId);
-                    Logger.Info($"Deleted community song: {song.Name} by {song.Artist}");
                 }
+
+                Logger.Info($"Deleted song: {song.Name} by {song.Artist}");
             }
             catch (Exception ex)
             {
@@ -229,11 +305,12 @@ namespace Maestro
         protected override void Unload()
         {
             _songPlayer?.Stop();
+            _maestroCreatorWindow?.Dispose();
             _communityWindow?.Dispose();
             _importWindow?.Dispose();
             _maestroWindow?.Dispose();
             _communityService?.Dispose();
-            _songCache?.Dispose();
+            _songStorage?.Dispose();
             _cornerIcon?.Dispose();
 
             Instance = null;

@@ -5,7 +5,7 @@ using Blish_HUD.Input;
 using Maestro.Services.Playback;
 using Microsoft.Xna.Framework;
 
-namespace Maestro.UI.Components
+namespace Maestro.UI.Main
 {
     public class NowPlayingPanel : Panel
     {
