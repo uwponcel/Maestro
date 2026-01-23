@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.0.1
+
+**Bug Fixes**
+
+- Auto-pause playing song when using Creator piano keyboard or octave controls
+- Fixed note chip layout: consistent 3 chips per line with fixed width
+- Scroll now shows last row of note chips fully
+
+---
+
 ## v2.0.0
 
 **Maestro Creator**

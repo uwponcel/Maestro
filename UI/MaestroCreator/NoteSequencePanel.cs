@@ -14,6 +14,7 @@ namespace Maestro.UI.MaestroCreator
             public const int HeaderBottomSpacing = 12;
             public const int ChipSpacing = 4;
             public const int Padding = 5;
+            public const int PaddingBottom = 30;
             public const int ButtonY = 6;
         }
 
@@ -28,6 +29,7 @@ namespace Maestro.UI.MaestroCreator
         private readonly StandardButton _undoButton;
         private readonly StandardButton _clearButton;
         private readonly FlowPanel _chipsContainer;
+        private Panel _bottomSpacer;
 
         public IReadOnlyList<string> Notes => _notes.AsReadOnly();
         public int NoteCount => _notes.Count;
@@ -101,6 +103,7 @@ namespace Maestro.UI.MaestroCreator
             chip.RemoveClicked += OnChipRemoveClicked;
             _chips.Add(chip);
 
+            EnsureBottomSpacer();
             UpdateHeader();
             UpdateButtonStates();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
@@ -151,6 +154,9 @@ namespace Maestro.UI.MaestroCreator
             }
             _chips.Clear();
 
+            _bottomSpacer?.Dispose();
+            _bottomSpacer = null;
+
             UpdateHeader();
             UpdateButtonStates();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
@@ -184,11 +190,23 @@ namespace Maestro.UI.MaestroCreator
             _clearButton.Enabled = hasNotes;
         }
 
+        private void EnsureBottomSpacer()
+        {
+            _bottomSpacer?.Dispose();
+            _bottomSpacer = new Panel
+            {
+                Parent = _chipsContainer,
+                Size = new Point(_chipsContainer.Width, Layout.PaddingBottom),
+                BackgroundColor = Color.Transparent
+            };
+        }
+
         protected override void DisposeControl()
         {
             _headerLabel?.Dispose();
             _undoButton?.Dispose();
             _clearButton?.Dispose();
+            _bottomSpacer?.Dispose();
 
             foreach (var chip in _chips)
             {

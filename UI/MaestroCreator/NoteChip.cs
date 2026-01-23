@@ -10,12 +10,9 @@ namespace Maestro.UI.MaestroCreator
         public static class Layout
         {
             public const int Height = 24;
-            public const int MinWidth = 50;
-            public const int MaxWidth = 155;
+            public const int FixedWidth = 118;
             public const int CloseButtonSize = 16;
             public const int Padding = 4;
-            public const int CharWidthEstimate = 8;
-            public const int CharWidthTruncate = 7;
             public const int CloseButtonMargin = 2;
         }
 
@@ -32,18 +29,19 @@ namespace Maestro.UI.MaestroCreator
             NoteString = noteString;
             Index = index;
 
-            var textWidth = noteString.Length * Layout.CharWidthEstimate + Layout.Padding * 2 + Layout.CloseButtonSize;
-            var width = Math.Max(Layout.MinWidth, Math.Min(textWidth, Layout.MaxWidth));
-
-            Size = new Point(width, Layout.Height);
+            Size = new Point(Layout.FixedWidth, Layout.Height);
             BackgroundColor = GetNoteColor(noteString);
 
+            // Calculate max text width and truncate if needed
+            var maxTextWidth = Layout.FixedWidth - Layout.CloseButtonSize - Layout.Padding * 2 - Layout.CloseButtonMargin;
+            var maxChars = maxTextWidth / 7;  // ~7px per char
             var displayText = noteString;
-            var maxTextWidth = width - Layout.CloseButtonSize - Layout.Padding * 2;
-            var maxChars = maxTextWidth / Layout.CharWidthTruncate;
-            if (noteString.Length > maxChars && maxChars > 3)
+            var needsTooltip = false;
+
+            if (noteString.Length > maxChars)
             {
                 displayText = noteString.Substring(0, maxChars - 2) + "..";
+                needsTooltip = true;
             }
 
             _noteLabel = new Label
@@ -56,14 +54,14 @@ namespace Maestro.UI.MaestroCreator
                 TextColor = MaestroTheme.CreamWhite,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Middle,
-                BasicTooltipText = noteString // Show full text on hover
+                BasicTooltipText = needsTooltip ? noteString : null
             };
 
             _closeButton = new Label
             {
                 Parent = this,
                 Text = "×",
-                Location = new Point(width - Layout.CloseButtonSize - Layout.CloseButtonMargin, Layout.CloseButtonMargin),
+                Location = new Point(Layout.FixedWidth - Layout.CloseButtonSize - Layout.CloseButtonMargin, Layout.CloseButtonMargin),
                 Size = new Point(Layout.CloseButtonSize, Layout.Height - Layout.Padding),
                 Font = GameService.Content.DefaultFont14,
                 TextColor = MaestroTheme.MutedCream,

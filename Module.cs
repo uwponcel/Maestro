@@ -232,6 +232,15 @@ namespace Maestro
         }
 
         /// <summary>
+        /// Pauses the currently playing song if one is active.
+        /// </summary>
+        public void PauseIfPlaying()
+        {
+            if (_songPlayer.IsPlaying && !_songPlayer.IsPaused)
+                _songPlayer.Pause();
+        }
+
+        /// <summary>
         /// Resets the in-game instrument to middle octave.
         /// </summary>
         public void ResetToMiddleOctave()

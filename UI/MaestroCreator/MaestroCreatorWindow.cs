@@ -380,7 +380,7 @@ namespace Maestro.UI.MaestroCreator
 
         private void OnOctaveChanged(object sender, bool up)
         {
-            // Send the octave change to in-game instrument
+            Module.Instance.PauseIfPlaying();
             Module.Instance.PlayOctaveChange(up);
         }
 
@@ -408,6 +408,7 @@ namespace Maestro.UI.MaestroCreator
             if (e.IsRest)
                 return;
 
+            Module.Instance.PauseIfPlaying();
             Module.Instance.PlayNote(e.Note, e.IsSharp, e.IsHighC);
         }
 
