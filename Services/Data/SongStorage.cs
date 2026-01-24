@@ -35,8 +35,6 @@ namespace Maestro.Services.Data
             _songsCollection.EnsureIndex(x => x.SongKey, unique: true);
         }
 
-        #region Song Operations
-
         public List<Song> GetAllSongs()
         {
             var songs = _songsCollection
@@ -95,10 +93,6 @@ namespace Maestro.Services.Data
             return SongExists(key);
         }
 
-        #endregion
-
-        #region Manifest Operations
-
         public CommunityManifest GetCachedManifest()
         {
             var cached = _manifestCollection.FindById(1);
@@ -116,8 +110,6 @@ namespace Maestro.Services.Data
             _manifestCollection.Upsert(cached);
             Logger.Debug("Saved manifest to cache");
         }
-
-        #endregion
 
         private string GetSongKey(Song song)
         {

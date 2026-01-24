@@ -14,8 +14,8 @@ using Maestro.Services.Community;
 using Maestro.Services.Data;
 using Maestro.Services.Playback;
 using Maestro.Settings;
-using Maestro.UI;
 using Maestro.UI.Community;
+using Maestro.UI.Import;
 using Maestro.UI.Main;
 using Maestro.UI.MaestroCreator;
 using Microsoft.Xna.Framework;
@@ -29,14 +29,10 @@ namespace Maestro
 
         internal static Module Instance { get; private set; }
 
-        #region Service Managers
-
         internal SettingsManager SettingsManager => ModuleParameters.SettingsManager;
         internal ContentsManager ContentsManager => ModuleParameters.ContentsManager;
         internal DirectoriesManager DirectoriesManager => ModuleParameters.DirectoriesManager;
         internal Gw2ApiManager Gw2ApiManager => ModuleParameters.Gw2ApiManager;
-
-        #endregion
 
         private ModuleSettings _moduleSettings;
         private KeyboardService _keyboardService;

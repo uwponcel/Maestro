@@ -18,6 +18,7 @@ namespace Maestro.Services
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private long _lastEventMs;
         private bool _enabled;
+        private bool _hasLoggedNotes;
         private string _songName;
 
         [Conditional("DEBUG")]
@@ -26,6 +27,7 @@ namespace Maestro.Services
             _log.Clear();
             _songName = songName;
             _enabled = true;
+            _hasLoggedNotes = false;
             _lastEventMs = 0;
             _stopwatch.Restart();
         }
@@ -35,7 +37,10 @@ namespace Maestro.Services
         {
             _stopwatch.Stop();
             _enabled = false;
-            if (_log.Length == 0) return;
+            if (!_hasLoggedNotes || _log.Length == 0) return;
+
+            // Reset flag immediately to prevent duplicate writes if Stop() is called again
+            _hasLoggedNotes = false;
 
             try
             {
@@ -43,7 +48,7 @@ namespace Maestro.Services
                     Directory.CreateDirectory(DEBUG_FOLDER);
 
                 var safeFileName = SanitizeFileName(_songName);
-                var logPath = Path.Combine(DEBUG_FOLDER, $"{safeFileName}.txt");
+                var logPath = GetUniqueLogPath(safeFileName);
 
                 var header = $"=== Debug Log for: {_songName} ===\n" +
                              $"=== Time: {DateTime.Now:yyyy-MM-dd HH:mm:ss} ===\n\n";
@@ -54,6 +59,23 @@ namespace Maestro.Services
             {
                 Logger.Warn(ex, "Failed to write debug log");
             }
+        }
+
+        private static string GetUniqueLogPath(string baseName)
+        {
+            var basePath = Path.Combine(DEBUG_FOLDER, $"{baseName}.txt");
+            if (!File.Exists(basePath))
+                return basePath;
+
+            int counter = 1;
+            string newPath;
+            do
+            {
+                newPath = Path.Combine(DEBUG_FOLDER, $"{baseName} - {counter}.txt");
+                counter++;
+            } while (File.Exists(newPath));
+
+            return newPath;
         }
 
         private static string SanitizeFileName(string name)
@@ -77,6 +99,7 @@ namespace Maestro.Services
         {
             if (!_enabled) return;
 
+            _hasLoggedNotes = true;
             var currentMs = _stopwatch.ElapsedMilliseconds;
             var deltaMs = currentMs - _lastEventMs;
             _lastEventMs = currentMs;
@@ -89,6 +112,7 @@ namespace Maestro.Services
         {
             if (!_enabled) return;
 
+            _hasLoggedNotes = true;
             var currentMs = _stopwatch.ElapsedMilliseconds;
             var deltaMs = currentMs - _lastEventMs;
             _lastEventMs = currentMs;

@@ -79,7 +79,8 @@
     <Compile Include="Services\Data\SongSerializer.cs" />
     <Compile Include="Services\Data\AhkParser.cs" />
     <Compile Include="Services\Data\SongStorage.cs" />
-    <Compile Include="UI\ImportWindow.cs" />
+    <Compile Include="Services\PlaylistService.cs" />
+    <Compile Include="UI\Import\ImportWindow.cs" />
     <Compile Include="UI\MaestroTheme.cs" />
     <Compile Include="UI\Main\MaestroWindow.cs" />
     <Compile Include="UI\Main\NowPlayingPanel.cs" />
@@ -88,6 +89,8 @@
     <Compile Include="UI\Main\SongFilterBar.cs" />
     <Compile Include="UI\Main\SongListPanel.cs" />
     <Compile Include="UI\Main\StatusBar.cs" />
+    <Compile Include="UI\Playlist\QueueSongCard.cs" />
+    <Compile Include="UI\Playlist\PlaylistDrawerWindow.cs" />
     <Compile Include="UI\MaestroCreator\MaestroCreatorWindow.cs" />
     <Compile Include="UI\MaestroCreator\PianoKeyboard.cs" />
     <Compile Include="UI\MaestroCreator\DurationSelector.cs" />

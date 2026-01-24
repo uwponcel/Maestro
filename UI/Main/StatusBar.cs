@@ -114,20 +114,24 @@ namespace Maestro.UI.Main
         public static class Layout
         {
             public static int Height => MaestroTheme.ActionButtonHeight;
+            public const int QueueButtonWidth = 55;
         }
 
         public event EventHandler ImportClicked;
         public event EventHandler CommunityClicked;
         public event EventHandler<InstrumentType> CreateClicked;
+        public event EventHandler QueueToggleClicked;
 
         private readonly Label _statusLabel;
         private readonly StandardButton _communityButton;
         private readonly StandardButton _createButton;
         private readonly StandardButton _importButton;
+        private readonly StandardButton _queueButton;
         private InstrumentSelectorPanel _instrumentPanel;
         private bool _hadPanel;
         private int _visibleCount;
         private int _totalCount;
+        private int _queueCount;
 
         public int VisibleCount
         {
@@ -149,15 +153,25 @@ namespace Maestro.UI.Main
             }
         }
 
+        public int QueueCount
+        {
+            get => _queueCount;
+            set
+            {
+                _queueCount = value;
+                UpdateQueueButtonText();
+            }
+        }
+
         public StatusBar(int width)
         {
             Size = new Point(width, Layout.Height);
             BackgroundColor = Color.Transparent;
 
-            const int buttonWidth = 80;
-            const int communityButtonWidth = 95;
+            const int buttonWidth = 70;
+            const int communityButtonWidth = 85;
             const int buttonSpacing = 5;
-            var buttonsWidth = communityButtonWidth + buttonWidth * 2 + buttonSpacing * 2;
+            var buttonsWidth = communityButtonWidth + buttonWidth * 2 + Layout.QueueButtonWidth + buttonSpacing * 3;
 
             _statusLabel = new Label
             {
@@ -170,33 +184,49 @@ namespace Maestro.UI.Main
                 HorizontalAlignment = HorizontalAlignment.Left
             };
 
+            var x = width - buttonsWidth;
+
             _communityButton = new StandardButton
             {
                 Parent = this,
                 Text = "Community",
-                Location = new Point(width - buttonsWidth, 0),
+                Location = new Point(x, 0),
                 Size = new Point(communityButtonWidth, MaestroTheme.ActionButtonHeight),
                 Enabled = false,
                 BasicTooltipText = "Coming soon!"
             };
+            x += communityButtonWidth + buttonSpacing;
 
             _createButton = new StandardButton
             {
                 Parent = this,
                 Text = "Create",
-                Location = new Point(width - buttonWidth * 2 - buttonSpacing, 0),
+                Location = new Point(x, 0),
                 Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight)
             };
             _createButton.Click += OnCreateButtonClick;
+            x += buttonWidth + buttonSpacing;
 
             _importButton = new StandardButton
             {
                 Parent = this,
                 Text = "Import",
-                Location = new Point(width - buttonWidth, 0),
-                Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight)
+                Location = new Point(x, 0),
+                Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight),
+                BasicTooltipText = "Toggle Import"
             };
             _importButton.Click += (s, e) => ImportClicked?.Invoke(this, EventArgs.Empty);
+            x += buttonWidth + buttonSpacing;
+
+            _queueButton = new StandardButton
+            {
+                Parent = this,
+                Text = "Queue",
+                Location = new Point(x, 0),
+                Size = new Point(Layout.QueueButtonWidth, MaestroTheme.ActionButtonHeight),
+                BasicTooltipText = "Toggle Queue"
+            };
+            _queueButton.Click += (s, e) => QueueToggleClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnCreateButtonClick(object sender, MouseEventArgs e)
@@ -230,6 +260,11 @@ namespace Maestro.UI.Main
                 : $"  {_visibleCount} of {_totalCount} songs";
         }
 
+        private void UpdateQueueButtonText()
+        {
+            _queueButton.Text = _queueCount > 0 ? $"Q ({_queueCount})" : "Queue";
+        }
+
         protected override void DisposeControl()
         {
             _instrumentPanel?.Dispose();
@@ -237,6 +272,7 @@ namespace Maestro.UI.Main
             _communityButton?.Dispose();
             _createButton?.Dispose();
             _importButton?.Dispose();
+            _queueButton?.Dispose();
             base.DisposeControl();
         }
     }

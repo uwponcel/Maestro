@@ -10,7 +10,7 @@ namespace Maestro.UI.Main
 {
     public class SongCard : Panel
     {
-        public static class Layout
+        private static class Layout
         {
             public const int Height = 70;
 
@@ -36,8 +36,8 @@ namespace Maestro.UI.Main
         public event EventHandler<MouseEventArgs> PlayClicked;
         public event EventHandler<MouseEventArgs> CardClicked;
         public event EventHandler DeleteRequested;
+        public event EventHandler AddToQueueRequested;
 
-        private readonly Song _song;
         private readonly Panel _indicator;
         private readonly Label _instrumentLabel;
         private readonly Label _titleLabel;
@@ -48,7 +48,7 @@ namespace Maestro.UI.Main
         private bool _isSelected;
         private bool _isPlaying;
 
-        public Song Song => _song;
+        public Song Song { get; }
 
         public bool IsSelected
         {
@@ -72,7 +72,7 @@ namespace Maestro.UI.Main
 
         public SongCard(Song song, int width)
         {
-            _song = song;
+            Song = song;
 
             Size = new Point(width, Layout.Height);
             BackgroundColor = MaestroTheme.PanelBackground;
@@ -138,20 +138,26 @@ namespace Maestro.UI.Main
             };
             _playButton.Click += (s, e) => PlayClicked?.Invoke(this, e);
 
-            if (song.IsUserImported || song.IsCommunityDownloaded)
+            // Context menu for all songs
+            var contextMenu = new ContextMenuStrip();
+
+            var addToQueueItem = contextMenu.AddMenuItem("Add to Queue");
+            addToQueueItem.Click += (s, e) => AddToQueueRequested?.Invoke(this, EventArgs.Empty);
+
+            if (song.IsUserImported || song.IsCreated || song.IsCommunityDownloaded)
             {
-                var contextMenu = new ContextMenuStrip();
                 var deleteItem = contextMenu.AddMenuItem("Delete Song");
                 deleteItem.Click += (s, e) => DeleteRequested?.Invoke(this, EventArgs.Empty);
-                Menu = contextMenu;
-
-                const string tooltip = "Right-click for options";
-                BasicTooltipText = tooltip;
-                _indicator.BasicTooltipText = tooltip;
-                _instrumentLabel.BasicTooltipText = tooltip;
-                _titleLabel.BasicTooltipText = tooltip;
-                _artistLabel.BasicTooltipText = tooltip;
             }
+
+            Menu = contextMenu;
+
+            const string tooltip = "Right-click for options";
+            BasicTooltipText = tooltip;
+            _indicator.BasicTooltipText = tooltip;
+            _instrumentLabel.BasicTooltipText = tooltip;
+            _titleLabel.BasicTooltipText = tooltip;
+            _artistLabel.BasicTooltipText = tooltip;
 
             Click += (s, e) => CardClicked?.Invoke(this, e);
         }

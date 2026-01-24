@@ -51,7 +51,7 @@ namespace Maestro.UI.Community
             : base(
                 GetBackground(),
                 new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
-                new Rectangle(15, 30, Layout.ContentWidth, Layout.ContentHeight))
+                new Rectangle(15, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.ContentHeight))
         {
             _communityService = communityService;
             _songCards = new Dictionary<string, CommunitySongCard>();
@@ -71,7 +71,7 @@ namespace Maestro.UI.Community
 
         private void OnWindowClicked(object sender, MouseEventArgs e)
         {
-            if (Control.FocusedControl is TextInputBase textInput && !textInput.MouseOver)
+            if (FocusedControl is TextInputBase textInput && !textInput.MouseOver)
                 textInput.Focused = false;
         }
 

@@ -1,5 +1,29 @@
 # Changelog
 
+## v2.1.0
+
+**Playlist Queue**
+
+Queue up songs and play them back-to-back!
+
+**New Features**
+
+- Queue drawer panel that slides out from main window
+- Add songs to queue via right-click context menu
+- Play, reorder, and remove songs from queue
+- Continuous playback through queued songs
+- Visual queue count badge on toggle button
+- Instrument confirmation overlay when switching instruments between songs
+- Current instrument display in the Now Playing panel
+- Smart instrument matching - queue songs play directly when they match your current instrument
+
+**Improvements**
+
+- Consistent window styling across Community, Import, and Creator windows
+- Shared theme constants for padding and spacing
+
+---
+
 ## v2.0.1
 
 **Bug Fixes**

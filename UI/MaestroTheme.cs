@@ -38,6 +38,11 @@ namespace Maestro.UI
         public static readonly Color PanelHover = new Color(64, 64, 64, 200);
         public static readonly Color PanelSelected = new Color(51, 51, 51, 220);
 
+        // Queue Drawer Colors
+        public static readonly Color DrawerHeader = new Color(38, 42, 48);
+        public static readonly Color DrawerAccent = new Color(85, 95, 110);
+        public static readonly Color DrawerBackground = new Color(25, 28, 32);
+
         // Piano Key Colors
         public static readonly Color PianoWhiteKey = new Color(250, 250, 245);
         public static readonly Color PianoWhiteKeyHover = new Color(230, 230, 220);
@@ -64,6 +69,7 @@ namespace Maestro.UI
         public const int InputSpacing = 7;
         public const int PaddingContentBottom = 20;
         public const int PaddingContentTop = 2;
+        public const int WindowContentTopPadding = 20;
 
         // Private
         private static readonly Color WindowBackground = new Color(30, 30, 30, 255);
@@ -88,6 +94,30 @@ namespace Maestro.UI
                 for (var i = 0; i < data.Length; i++)
                 {
                     data[i] = WindowBackground;
+                }
+
+                texture.SetData(data);
+                return texture;
+            }
+            finally
+            {
+                context.Dispose();
+            }
+        }
+
+        public static Texture2D CreateDrawerBackground(int windowWidth, int windowHeight)
+        {
+            var width = windowWidth - BACKGROUND_X_OFFSET;
+            var height = windowHeight - BACKGROUND_Y_OFFSET;
+            var context = GameService.Graphics.LendGraphicsDeviceContext();
+            try
+            {
+                var texture = new Texture2D(context.GraphicsDevice, width, height);
+                var data = new Color[width * height];
+
+                for (var i = 0; i < data.Length; i++)
+                {
+                    data[i] = DrawerBackground;
                 }
 
                 texture.SetData(data);

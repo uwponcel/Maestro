@@ -13,6 +13,7 @@ namespace Maestro.Models
         public List<SongCommand> Commands { get; set; } = new List<SongCommand>();
         public List<string> Notes { get; set; } = new List<string>();
         public bool IsUserImported { get; set; }
+        public bool IsCreated { get; set; }
         public bool SkipOctaveReset { get; set; }
         public string CommunityId { get; set; }
         public int Downloads { get; set; }

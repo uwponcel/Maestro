@@ -16,7 +16,7 @@ namespace Maestro.UI.Main
             private const int PADDING_X = 8;
 
             // TODO: Re-enable Community filter when community features are ready
-            private static readonly string[] SourceItems = { "All", "Bundled", /* "Community", */ "Imported" };
+            private static readonly string[] SourceItems = { "All", "Bundled", /* "Community", */ "Created", "Imported" };
             private static readonly string[] InstrumentItems = { "All", "Piano", "Harp", "Lute", "Bass" };
 
             private readonly FilterButton _owner;

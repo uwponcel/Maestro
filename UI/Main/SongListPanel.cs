@@ -13,6 +13,7 @@ namespace Maestro.UI.Main
         public event EventHandler<Song> SongSelected;
         public event EventHandler<Song> SongPlayRequested;
         public event EventHandler<Song> SongDeleteRequested;
+        public event EventHandler<Song> AddToQueueRequested;
         public event EventHandler<int> CountChanged;
         
         public static class Layout
@@ -56,6 +57,7 @@ namespace Maestro.UI.Main
                 card.PlayClicked += OnCardPlayClicked;
                 card.CardClicked += OnCardClicked;
                 card.DeleteRequested += OnCardDeleteRequested;
+                card.AddToQueueRequested += OnCardAddToQueueRequested;
                 _songCards[song] = card;
             }
 
@@ -65,7 +67,7 @@ namespace Maestro.UI.Main
 
         private void OnCardPlayClicked(object sender, MouseEventArgs e)
         {
-            if (Control.FocusedControl is TextInputBase textInput)
+            if (FocusedControl is TextInputBase textInput)
             {
                 textInput.Focused = false;
             }
@@ -80,7 +82,7 @@ namespace Maestro.UI.Main
 
         private void OnCardClicked(object sender, MouseEventArgs e)
         {
-            if (Control.FocusedControl is TextInputBase textInput)
+            if (FocusedControl is TextInputBase textInput)
             {
                 textInput.Focused = false;
             }
@@ -98,6 +100,15 @@ namespace Maestro.UI.Main
             if (card?.Song != null)
             {
                 SongDeleteRequested?.Invoke(this, card.Song);
+            }
+        }
+
+        private void OnCardAddToQueueRequested(object sender, EventArgs e)
+        {
+            var card = sender as SongCard;
+            if (card?.Song != null)
+            {
+                AddToQueueRequested?.Invoke(this, card.Song);
             }
         }
 
@@ -127,6 +138,7 @@ namespace Maestro.UI.Main
                 card.PlayClicked -= OnCardPlayClicked;
                 card.CardClicked -= OnCardClicked;
                 card.DeleteRequested -= OnCardDeleteRequested;
+                card.AddToQueueRequested -= OnCardAddToQueueRequested;
                 card.Dispose();
             }
             _songCards.Clear();

@@ -6,15 +6,14 @@ using Maestro.Services.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Maestro.UI
+namespace Maestro.UI.Import
 {
     public class ImportWindow : StandardWindow
     {
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 380;
-
+            public const int WindowHeight = 370;
             public const int ContentWidth = 390;
             public const int ContentHeight = 380;
             
@@ -47,7 +46,7 @@ namespace Maestro.UI
             : base(
                 GetBackground(),
                 new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
-                new Rectangle(15, 30, Layout.ContentWidth, Layout.ContentHeight))
+                new Rectangle(15, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.ContentHeight))
         {
             Title = "Import Song";
             Subtitle = "AHK v1 Format";
