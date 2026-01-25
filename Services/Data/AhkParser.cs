@@ -4,8 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace Maestro.Services.Data
 {
+    /// <summary>
+    /// Parses AHK v1 scripts (from GW2 Music Box) into Maestro's compact note format.
+    /// </summary>
     public static class AhkParser
     {
+        private const int InstantNoteDurationMs = 1;
+
         private static readonly Dictionary<string, string> NumpadToNote = new Dictionary<string, string>
         {
             { "Numpad1", "C" },
@@ -31,6 +36,10 @@ namespace Maestro.Services.Data
             @"\{(Numpad[1-8])\s+down\}",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        private static readonly Regex KeyUpPattern = new Regex(
+            @"\{(Numpad[1-8])\s+up\}",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         private static readonly Regex AltDownPattern = new Regex(
             @"LAlt\s+down",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -47,11 +56,23 @@ namespace Maestro.Services.Data
             @"Sleep,\s*(\d+)",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        private class PendingNote
+        {
+            public string Note { get; set; }
+            public string NumpadKey { get; set; }
+            public bool IsSharp { get; set; }
+        }
+
+        /// <summary>
+        /// Parses AHK script content into compact note format.
+        /// Notes with Sleep get that duration. Notes released before Sleep (grace notes) get 1ms.
+        /// </summary>
         public static List<string> ParseToCompact(string ahkContent)
         {
             var lines = ahkContent.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var result = new List<string>();
-            var currentNotes = new List<string>();
+            var heldNotes = new List<PendingNote>();
+            var instantNotes = new List<string>();
             int currentOctave = 0;
             bool altHeld = false;
 
@@ -59,21 +80,18 @@ namespace Maestro.Services.Data
             {
                 var trimmed = line.Trim();
 
-                // Skip function wrapper lines
                 if (trimmed.StartsWith("PlaySong", StringComparison.OrdinalIgnoreCase) ||
                     trimmed == "{" || trimmed == "}")
                     continue;
 
-                // Track Alt key state for sharps
                 if (AltDownPattern.IsMatch(trimmed))
                     altHeld = true;
                 if (AltUpPattern.IsMatch(trimmed))
                     altHeld = false;
 
-                // Check for key down - can have multiple on same line
-                var keyDownMatches = KeyDownPattern.Matches(trimmed);
                 bool hasAltOnLine = AltDownPattern.IsMatch(trimmed);
 
+                var keyDownMatches = KeyDownPattern.Matches(trimmed);
                 foreach (Match keyDownMatch in keyDownMatches)
                 {
                     var numpad = keyDownMatch.Groups[1].Value;
@@ -81,20 +99,31 @@ namespace Maestro.Services.Data
 
                     string note;
                     if (isSharp && NumpadToSharp.TryGetValue(numpad, out var sharpNote))
-                    {
                         note = sharpNote;
-                    }
                     else if (NumpadToNote.TryGetValue(numpad, out var naturalNote))
-                    {
                         note = naturalNote;
-                    }
                     else
-                    {
                         continue;
-                    }
 
                     var noteWithOctave = ApplyOctaveModifier(note, currentOctave);
-                    currentNotes.Add(noteWithOctave);
+                    heldNotes.Add(new PendingNote
+                    {
+                        Note = noteWithOctave,
+                        NumpadKey = numpad,
+                        IsSharp = isSharp
+                    });
+                }
+
+                var keyUpMatches = KeyUpPattern.Matches(trimmed);
+                foreach (Match keyUpMatch in keyUpMatches)
+                {
+                    var numpad = keyUpMatch.Groups[1].Value;
+                    var matchingNote = heldNotes.Find(n => n.NumpadKey == numpad);
+                    if (matchingNote != null)
+                    {
+                        heldNotes.Remove(matchingNote);
+                        instantNotes.Add(matchingNote.Note);
+                    }
                 }
 
                 var quickPressMatch = QuickPressPattern.Match(trimmed);
@@ -108,17 +137,25 @@ namespace Maestro.Services.Data
                 }
 
                 var sleepMatch = SleepPattern.Match(trimmed);
-                if (sleepMatch.Success && currentNotes.Count > 0)
+                if (sleepMatch.Success)
                 {
                     var durationMs = sleepMatch.Groups[1].Value;
 
-                    // Output notes with direct millisecond duration
-                    var noteLine = string.Join(" ",
-                        currentNotes.ConvertAll(n => $"{n}:{durationMs}"));
-                    result.Add(noteLine);
-                    currentNotes.Clear();
+                    foreach (var instantNote in instantNotes)
+                        result.Add($"{instantNote}:{InstantNoteDurationMs}");
+                    instantNotes.Clear();
+
+                    if (heldNotes.Count > 0)
+                    {
+                        var noteLine = string.Join(" ", heldNotes.ConvertAll(n => $"{n.Note}:{durationMs}"));
+                        result.Add(noteLine);
+                        heldNotes.Clear();
+                    }
                 }
             }
+
+            foreach (var instantNote in instantNotes)
+                result.Add($"{instantNote}:{InstantNoteDurationMs}");
 
             return result;
         }
@@ -129,9 +166,6 @@ namespace Maestro.Services.Data
                 return note;
 
             var modifier = octave > 0 ? "+" : "-";
-
-            // For all notes (including sharps like F#), append modifier at end
-            // Format: Note[^|#][+/-]:duration (e.g., F#-:348, C^+:150)
             return $"{note}{modifier}";
         }
     }

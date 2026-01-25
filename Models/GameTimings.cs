@@ -2,15 +2,20 @@ namespace Maestro.Models
 {
     /// <summary>
     /// Centralized timing constants for GW2 instrument interactions.
-    /// These delays ensure the game has time to register key presses.
     /// </summary>
     public static class GameTimings
     {
         /// <summary>
-        /// Delay after an octave change key press to let the game register it.
-        /// Used everywhere: during playback, reset, and composer operations.
+        /// Delay after an octave change during playback.
+        /// AHK scripts work with no explicit delay, so we keep this minimal.
         /// </summary>
-        public const int OctaveChangeDelayMs = 100;
+        public const int OctaveChangeDelayMs = 10;
+
+        /// <summary>
+        /// Delay after an octave change during reset (before playback starts).
+        /// Needs to be longer because we send multiple rapid octave changes with no notes between.
+        /// </summary>
+        public const int OctaveResetDelayMs = 100;
 
         /// <summary>
         /// Delay before starting playback to give the player time to prepare.

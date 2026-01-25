@@ -201,26 +201,26 @@ namespace Maestro.Services.Playback
             }
         }
 
+        /// <summary>
+        /// Resets the instrument to middle octave (or low for Bass) before playback.
+        /// </summary>
         private void ResetToMiddleOctave()
         {
             IsAdjustingOctave = true;
             Logger.Debug("Resetting octave...");
 
-            // Go to lowest octave (5x down ensures we're at bottom)
             for (var i = 0; i < 5; i++)
             {
                 _keyboardService.KeyDown(Keys.NumPad0);
                 _keyboardService.KeyUp(Keys.NumPad0);
-                Thread.Sleep(GameTimings.OctaveChangeDelayMs);
+                Thread.Sleep(GameTimings.OctaveResetDelayMs);
             }
 
-            // Bass only has Low/High octaves - stay at Low, songs handle their own octave
-            // Other instruments: go up one to reach middle octave
             if (CurrentSong?.Instrument != InstrumentType.Bass)
             {
                 _keyboardService.KeyDown(Keys.NumPad9);
                 _keyboardService.KeyUp(Keys.NumPad9);
-                Thread.Sleep(GameTimings.OctaveChangeDelayMs);
+                Thread.Sleep(GameTimings.OctaveResetDelayMs);
             }
 
             IsAdjustingOctave = false;

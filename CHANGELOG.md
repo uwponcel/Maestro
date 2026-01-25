@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.1.1
+
+**Bug Fixes**
+
+- Fixed AHK import timing to match original script playback
+- Grace notes (instant key taps) now handled correctly instead of being bundled with sustained notes
+- Reduced octave change delay during playback for faster response
+
+---
+
 ## v2.1.0
 
 **Playlist Queue**
