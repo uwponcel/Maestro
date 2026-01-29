@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-17T20:00:00Z",
+  "lastUpdated": "2026-01-29T15:02:22.210Z",
   "songs": [
     {
       "id": "550e8400-e29b-41d4-a716-446655440001",
@@ -45,6 +45,17 @@
       "durationMs": 60000,
       "downloads": 0,
       "createdAt": "2026-01-17T20:00:00Z"
+    },
+    {
+      "id": "cronins-transcribed-by-dave-marshall",
+      "name": "Cronin's",
+      "artist": "transcribed by Dave Marshall",
+      "transcriber": "transcribed by Dave Marshall",
+      "instrument": "Piano",
+      "noteCount": 262,
+      "durationMs": 52400,
+      "downloads": 0,
+      "createdAt": "2026-01-29T15:02:22.210Z"
     }
   ]
 }
