@@ -35,6 +35,7 @@ namespace Maestro.UI.Community
 
         public event EventHandler<Song> SongDownloaded;
         public event EventHandler<string> SongDeleteRequested;
+        public event EventHandler UploadRequested;
 
         private readonly CommunityService _communityService;
         private readonly Dictionary<string, CommunitySongCard> _songCards;
@@ -45,6 +46,7 @@ namespace Maestro.UI.Community
         private FlowPanel _songListPanel;
         private Label _statusLabel;
         private StandardButton _refreshButton;
+        private StandardButton _uploadButton;
         private LoadingSpinner _loadingSpinner;
 
         public CommunityWindow(CommunityService communityService)
@@ -117,10 +119,9 @@ namespace Maestro.UI.Community
                 Location = new Point(235, 0),
                 Width = 80
             };
-            _sortFilter.Items.Add("Popular");
             _sortFilter.Items.Add("Newest");
             _sortFilter.Items.Add("Name A-Z");
-            _sortFilter.SelectedItem = "Popular";
+            _sortFilter.SelectedItem = "Newest";
             _sortFilter.ValueChanged += OnFilterChanged;
 
             _loadingSpinner = new LoadingSpinner
@@ -131,12 +132,22 @@ namespace Maestro.UI.Community
                 Visible = false
             };
 
-            _refreshButton = new StandardButton
+            _uploadButton = new StandardButton
             {
                 Parent = filterPanel,
-                Text = "Refresh",
+                Text = "Upload",
                 Location = new Point(350, 0),
                 Width = 70
+            };
+            _uploadButton.Click += OnUploadClicked;
+
+            _refreshButton = new StandardButton
+            {
+                Parent = this,
+                Text = "Refresh",
+                Location = new Point(Layout.ContentWidth - 70, MaestroTheme.PaddingContentTop + Layout.TopPadding + Layout.FilterBarHeight + MaestroTheme.InputSpacing + Layout.SongListHeight + MaestroTheme.InputSpacing),
+                Width = 70,
+                Height = 26
             };
             _refreshButton.Click += OnRefreshClicked;
 
@@ -159,12 +170,17 @@ namespace Maestro.UI.Community
             {
                 Parent = this,
                 Location = new Point(0, currentY),
-                Width = Layout.ContentWidth,
+                Width = Layout.ContentWidth - 80,
                 Height = Layout.StatusBarHeight,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.LightGray,
                 Text = "Loading..."
             };
+        }
+
+        private void OnUploadClicked(object sender, MouseEventArgs e)
+        {
+            UploadRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void SubscribeToEvents()
@@ -245,15 +261,12 @@ namespace Maestro.UI.Community
 
             var searchTerm = _searchBox?.Text?.ToLower() ?? "";
             var instrumentFilter = _instrumentFilter?.SelectedItem ?? "All";
-            var sortOption = _sortFilter?.SelectedItem ?? "Popular";
+            var sortOption = _sortFilter?.SelectedItem ?? "Newest";
 
             var songs = _communityService.SearchSongs(searchTerm, instrumentFilter);
 
             switch (sortOption)
             {
-                case "Popular":
-                    songs = songs.OrderByDescending(s => s.Downloads);
-                    break;
                 case "Newest":
                     songs = songs.OrderByDescending(s => s.CreatedAt);
                     break;
@@ -327,12 +340,15 @@ namespace Maestro.UI.Community
             }
             _songCards.Clear();
 
+            _uploadButton.Click -= OnUploadClicked;
+
             _searchBox?.Dispose();
             _instrumentFilter?.Dispose();
             _sortFilter?.Dispose();
             _songListPanel?.Dispose();
             _statusLabel?.Dispose();
             _refreshButton?.Dispose();
+            _uploadButton?.Dispose();
             _loadingSpinner?.Dispose();
 
             base.DisposeControl();

@@ -41,9 +41,12 @@ namespace Maestro
         private SongPlayer _songPlayer;
         private SongStorage _songStorage;
         private CommunityService _communityService;
+        private CommunityUploadService _uploadService;
+        private UploadRateLimiter _uploadRateLimiter;
         private MaestroWindow _maestroWindow;
         private ImportWindow _importWindow;
         private CommunityWindow _communityWindow;
+        private UploadWindow _uploadWindow;
         private MaestroCreatorWindow _maestroCreatorWindow;
         private CornerIcon _cornerIcon;
         private List<Song> _songs;
@@ -91,6 +94,14 @@ namespace Maestro
             _songs.AddRange(userSongs);
 
             _communityService = new CommunityService(_songStorage, _songs);
+
+            _uploadRateLimiter = new UploadRateLimiter(_songStorage.Database);
+            _uploadRateLimiter.CleanupOldRecords();
+
+            _uploadService = new CommunityUploadService(
+                new CommunityApiClient(),
+                _communityService,
+                _uploadRateLimiter);
         }
 
         protected override void OnModuleLoaded(EventArgs e)
@@ -156,6 +167,7 @@ namespace Maestro
                 _communityWindow = new CommunityWindow(_communityService);
                 _communityWindow.SongDownloaded += OnCommunitySongDownloaded;
                 _communityWindow.SongDeleteRequested += OnCommunitySongDeleteRequested;
+                _communityWindow.UploadRequested += OnUploadRequested;
             }
 
             if (_communityWindow.Visible)
@@ -257,6 +269,32 @@ namespace Maestro
             _songPlayer?.Play(song);
         }
 
+        private void OnUploadRequested(object sender, EventArgs e)
+        {
+            if (_uploadWindow == null)
+            {
+                _uploadWindow = new UploadWindow(_uploadService, _songs);
+                _uploadWindow.UploadCompleted += OnUploadCompleted;
+            }
+
+            if (_uploadWindow.Visible)
+            {
+                _uploadWindow.Hide();
+            }
+            else
+            {
+                _uploadWindow.Show();
+            }
+        }
+
+        private void OnUploadCompleted(object sender, UploadResponse response)
+        {
+            if (response.Success)
+            {
+                Logger.Info($"Song upload complete. PR URL: {response.PrUrl}");
+            }
+        }
+
         private void OnCommunitySongDownloaded(object sender, Song song)
         {
             _maestroWindow?.RefreshAfterCommunityDownload();
@@ -315,6 +353,7 @@ namespace Maestro
         {
             _songPlayer?.Stop();
             _maestroCreatorWindow?.Dispose();
+            _uploadWindow?.Dispose();
             _communityWindow?.Dispose();
             _importWindow?.Dispose();
             _maestroWindow?.Dispose();

@@ -21,6 +21,8 @@ namespace Maestro.Services.Data
         private readonly ILiteCollection<StoredSong> _songsCollection;
         private readonly ILiteCollection<CachedManifest> _manifestCollection;
 
+        public LiteDatabase Database => _database;
+
         public SongStorage(DirectoriesManager directoriesManager)
         {
             var moduleDir = directoriesManager.GetFullDirectoryPath("maestro");

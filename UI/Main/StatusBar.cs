@@ -192,9 +192,9 @@ namespace Maestro.UI.Main
                 Text = "Community",
                 Location = new Point(x, 0),
                 Size = new Point(communityButtonWidth, MaestroTheme.ActionButtonHeight),
-                Enabled = false,
-                BasicTooltipText = "Coming soon!"
+                BasicTooltipText = "Browse & upload community songs"
             };
+            _communityButton.Click += (s, e) => CommunityClicked?.Invoke(this, EventArgs.Empty);
             x += communityButtonWidth + buttonSpacing;
 
             _createButton = new StandardButton
