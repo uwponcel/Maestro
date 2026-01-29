@@ -25,6 +25,8 @@ namespace Maestro
     [Export(typeof(Blish_HUD.Modules.Module))]
     public class Module : Blish_HUD.Modules.Module
     {
+        private const int CORNER_ICON_PRIORITY = 1316531834;
+
         private static readonly Logger Logger = Logger.GetLogger<Module>();
 
         internal static Module Instance { get; private set; }
@@ -99,7 +101,8 @@ namespace Maestro
                 _cornerIcon = new CornerIcon
                 {
                     Icon = iconTexture ?? ContentService.Textures.Error,
-                    BasicTooltipText = "Maestro - Music Player"
+                    BasicTooltipText = "Maestro - Music Player",
+                    Priority = CORNER_ICON_PRIORITY
                 };
                 _cornerIcon.Click += OnCornerIconClick;
             }
@@ -109,7 +112,8 @@ namespace Maestro
                 _cornerIcon = new CornerIcon
                 {
                     Icon = ContentService.Textures.Error,
-                    BasicTooltipText = "Maestro - Music Player"
+                    BasicTooltipText = "Maestro - Music Player",
+                    Priority = CORNER_ICON_PRIORITY
                 };
                 _cornerIcon.Click += OnCornerIconClick;
             }

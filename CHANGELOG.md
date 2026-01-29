@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.2
+
+**Improvements**
+
+- Added Bag of Holding support - corner icon position now persists between sessions
+
+---
+
 ## v2.1.1
 
 **Bug Fixes**
