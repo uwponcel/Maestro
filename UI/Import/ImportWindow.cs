@@ -50,7 +50,7 @@ namespace Maestro.UI.Import
         {
             Title = "Import Song";
             Subtitle = "AHK v1 Format";
-            Emblem = Module.Instance.ContentsManager.GetTexture("import.png");
+            Emblem = Module.Instance.ContentsManager.GetTexture("import-emblem.png");
             SavesPosition = true;
             Id = "ImportWindow_v1";
             CanResize = false;

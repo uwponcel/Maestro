@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Blish_HUD;
@@ -13,11 +14,14 @@ namespace Maestro.Services.Community
     {
         private static readonly Logger Logger = Logger.GetLogger<CommunityApiClient>();
 
-        private const string BASE_URL = "https://raw.githubusercontent.com/uwponcel/maestro-songs/master";
+        private const string BASE_URL = "https://raw.githubusercontent.com/uwponcel/Maestro/main/community";
+        private const string UPLOAD_API_URL = "https://maestro-api.uwponcel.workers.dev/api";
         private readonly HttpClient _httpClient;
+        private readonly string _clientId;
 
-        public CommunityApiClient()
+        public CommunityApiClient(string clientId = null)
         {
+            _clientId = clientId;
             _httpClient = new HttpClient
             {
                 Timeout = TimeSpan.FromSeconds(30)
@@ -83,6 +87,55 @@ namespace Maestro.Services.Community
             {
                 Logger.Error(ex, $"Failed to fetch community song {songId}");
                 throw;
+            }
+        }
+
+        public async Task<UploadResponse> UploadSongAsync(Song song, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var url = $"{UPLOAD_API_URL}/upload-song";
+                Logger.Info($"Uploading song {song.Name} to community");
+
+                var songJson = SongSerializer.SerializeToJson(song);
+                var payload = new
+                {
+                    song = JsonConvert.DeserializeObject(songJson),
+                    transcriber = song.Transcriber,
+                    clientId = _clientId
+                };
+
+                var content = new StringContent(
+                    JsonConvert.SerializeObject(payload),
+                    Encoding.UTF8,
+                    "application/json");
+
+                var request = new HttpRequestMessage(HttpMethod.Post, url) { Content = content };
+#if DEBUG
+                request.Headers.Add("X-Debug-Key", "maestro-debug");
+#endif
+                var response = await _httpClient.SendAsync(request, cancellationToken);
+
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var uploadResponse = JsonConvert.DeserializeObject<UploadResponse>(responseBody);
+
+                if (!response.IsSuccessStatusCode && uploadResponse != null && string.IsNullOrEmpty(uploadResponse.Error))
+                {
+                    uploadResponse.Error = $"Upload failed with status {(int)response.StatusCode}";
+                }
+
+                Logger.Info($"Upload response: {(uploadResponse?.Success == true ? "Success" : "Failed")}");
+                return uploadResponse ?? new UploadResponse { Success = false, Error = "Invalid response from server" };
+            }
+            catch (OperationCanceledException)
+            {
+                Logger.Debug("Song upload cancelled");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"Failed to upload song {song.Name}");
+                return new UploadResponse { Success = false, Error = ex.Message };
             }
         }
 

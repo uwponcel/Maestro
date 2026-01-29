@@ -1,0 +1,20 @@
+{
+  "name": "Zelda's Lullaby",
+  "artist": "Koji Kondo",
+  "transcriber": "Zelda_Fan",
+  "instrument": "Lute",
+  "notes": [
+    "B:500",
+    "D+:250",
+    "A:750",
+    "B:500",
+    "D+:250",
+    "A:750",
+    "B:500",
+    "D+:250",
+    "A:250",
+    "G:250",
+    "A:1000"
+  ],
+  "skipOctaveReset": false
+}

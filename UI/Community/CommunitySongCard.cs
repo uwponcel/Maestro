@@ -19,9 +19,9 @@ namespace Maestro.UI.Community
             public const int InstrumentY = 4;
             public const int TitleY = 22;
             public const int DetailsY = 40;
-            public const int ButtonWidth = 50;
+            public const int ButtonWidth = 90;
             public const int ButtonHeight = 26;
-            public const int ButtonY = (Height - ButtonHeight) / 2;
+            public const int ButtonY = 18;
             public const int ButtonRightMargin = 15;
             public static int LabelRightMargin => ButtonWidth + ButtonRightMargin + 10;
         }
@@ -98,8 +98,6 @@ namespace Maestro.UI.Community
             };
 
             var detailsText = $"{song.Artist} - {song.Transcriber}";
-            if (!string.IsNullOrEmpty(song.DisplayDownloads))
-                detailsText += $" | {song.DisplayDownloads} downloads";
             if (!string.IsNullOrEmpty(song.DisplayDuration))
                 detailsText += $" | {song.DisplayDuration}";
 
@@ -116,7 +114,7 @@ namespace Maestro.UI.Community
             _actionButton = new StandardButton
             {
                 Parent = this,
-                Text = "DL",
+                Text = "Download",
                 Location = new Point(width - Layout.ButtonWidth - Layout.ButtonRightMargin, Layout.ButtonY),
                 Width = Layout.ButtonWidth
             };
@@ -172,7 +170,7 @@ namespace Maestro.UI.Community
             switch (_downloadState)
             {
                 case DownloadState.Idle:
-                    _actionButton.Text = "v";
+                    _actionButton.Text = "Download";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = true;
                     _progressLabel.Visible = false;
@@ -185,7 +183,7 @@ namespace Maestro.UI.Community
                     break;
 
                 case DownloadState.Completed:
-                    _actionButton.Text = "v";
+                    _actionButton.Text = "Downloaded";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = false;
                     _progressLabel.Visible = false;
@@ -199,7 +197,7 @@ namespace Maestro.UI.Community
                     break;
 
                 case DownloadState.Cancelled:
-                    _actionButton.Text = "v";
+                    _actionButton.Text = "Download";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = true;
                     _progressLabel.Visible = false;

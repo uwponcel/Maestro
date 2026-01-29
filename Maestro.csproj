@@ -65,6 +65,7 @@
     <None Include="SongsDebug\**\*" />
     <None Include="CHANGELOG.md" />
     <None Include="Songs\**\*" />
+    <None Include="community\**\*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module.cs" />
@@ -85,7 +86,8 @@
     <Compile Include="UI\Main\MaestroWindow.cs" />
     <Compile Include="UI\Main\NowPlayingPanel.cs" />
     <Compile Include="UI\Main\SongCard.cs" />
-    <Compile Include="UI\Main\FilterButton.cs" />
+    <Compile Include="UI\Controls\GenericFilterButton.cs" />
+    <Compile Include="UI\Controls\CustomDropdown.cs" />
     <Compile Include="UI\Main\SongFilterBar.cs" />
     <Compile Include="UI\Main\SongListPanel.cs" />
     <Compile Include="UI\Main\StatusBar.cs" />
@@ -98,13 +100,18 @@
     <Compile Include="UI\MaestroCreator\NoteSequencePanel.cs" />
     <Compile Include="UI\Community\CommunityWindow.cs" />
     <Compile Include="UI\Community\CommunitySongCard.cs" />
+    <Compile Include="UI\Community\UploadWindow.cs" />
     <Compile Include="Settings\ModuleSettings.cs" />
     <Compile Include="Models\CommunitySong.cs" />
     <Compile Include="Models\CommunityManifest.cs" />
+    <Compile Include="Models\UploadValidationResult.cs" />
+    <Compile Include="Models\UploadResponse.cs" />
     <Compile Include="Models\NoteType.cs" />
     <Compile Include="Models\NoteName.cs" />
     <Compile Include="Services\Community\CommunityApiClient.cs" />
     <Compile Include="Services\Community\CommunityService.cs" />
+    <Compile Include="Services\Community\CommunityUploadService.cs" />
+    <Compile Include="Services\Community\UploadRateLimiter.cs" />
     <Compile Include="Models\NoteMapping.cs" />
     <Compile Include="Models\GameTimings.cs" />
   </ItemGroup>
