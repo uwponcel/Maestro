@@ -9,7 +9,6 @@ namespace Maestro.Models
         public string Artist { get; set; }
         public string Transcriber { get; set; }
         public string Instrument { get; set; }
-        public int NoteCount { get; set; }
         public long DurationMs { get; set; }
         public DateTime CreatedAt { get; set; }
 
