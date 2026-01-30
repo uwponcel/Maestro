@@ -22,13 +22,14 @@ namespace Maestro.Models
 
         public string DisplayName => $"{Name} - {Artist}";
 
+        public long DurationMs => Commands.Where(c => c.Type == CommandType.Wait).Sum(c => c.Duration);
+
         public string DisplayDuration
         {
             get
             {
-                var totalMs = Commands.Where(c => c.Type == CommandType.Wait).Sum(c => c.Duration);
-                if (totalMs <= 0) return null;
-                var span = TimeSpan.FromMilliseconds(totalMs);
+                if (DurationMs <= 0) return null;
+                var span = TimeSpan.FromMilliseconds(DurationMs);
                 return span.TotalHours >= 1
                     ? span.ToString(@"h\:mm\:ss")
                     : span.ToString(@"m\:ss");

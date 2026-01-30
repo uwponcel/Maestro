@@ -14,11 +14,11 @@ Submitted songs are added to a review branch. Songs are reviewed in batches and 
 
 - Upload your created or imported songs to the community library
 - Browse, search, and download community songs
-- Edit imported songs in the Maestro Creator
+- Edit imported or created songs in the Maestro Creator (right-click → Edit Song)
 - Re-upload edited songs to update your existing community submission
 - Filter community songs by instrument and sort by name or date
 - Filter your song list by source (Bundled, Created, Imported, Community)
-- Daily upload limit (3 per day) enforced client-side and server-side
+- Maximum 3 uploads per day per user
 - Duplicate detection prevents uploading identical songs
 - Upload validation checks (name, transcriber, instrument, note count)
 - Upload progress indicator with validation checklist

@@ -103,7 +103,8 @@ namespace Maestro.Services.Community
                     song = JsonConvert.DeserializeObject(songJson),
                     transcriber = song.Transcriber,
                     clientId = _clientId,
-                    existingSongId = song.CommunityId
+                    existingSongId = song.CommunityId,
+                    durationMs = song.DurationMs
                 };
 
                 var content = new StringContent(
