@@ -41,12 +41,16 @@ namespace Maestro
         private SongPlayer _songPlayer;
         private SongStorage _songStorage;
         private CommunityService _communityService;
+        private CommunityUploadService _uploadService;
+        private UploadRateLimiter _uploadRateLimiter;
         private MaestroWindow _maestroWindow;
         private ImportWindow _importWindow;
         private CommunityWindow _communityWindow;
+        private UploadWindow _uploadWindow;
         private MaestroCreatorWindow _maestroCreatorWindow;
         private CornerIcon _cornerIcon;
         private List<Song> _songs;
+        private Song _editingOriginalSong;
 
         [ImportingConstructor]
         public Module([Import("ModuleParameters")] ModuleParameters moduleParameters)
@@ -91,6 +95,15 @@ namespace Maestro
             _songs.AddRange(userSongs);
 
             _communityService = new CommunityService(_songStorage, _songs);
+
+            _uploadRateLimiter = new UploadRateLimiter(_songStorage.Database);
+            _uploadRateLimiter.CleanupOldRecords();
+
+            _uploadService = new CommunityUploadService(
+                new CommunityApiClient(_moduleSettings.ClientId),
+                _communityService,
+                _uploadRateLimiter,
+                _songStorage);
         }
 
         protected override void OnModuleLoaded(EventArgs e)
@@ -130,6 +143,7 @@ namespace Maestro
                 _maestroWindow.CommunityRequested += OnCommunityRequested;
                 _maestroWindow.CreateRequested += OnCreateRequested;
                 _maestroWindow.SongDeleteRequested += OnSongDeleteRequested;
+                _maestroWindow.EditRequested += OnEditRequested;
             }
 
             _maestroWindow.ToggleWindow();
@@ -156,6 +170,7 @@ namespace Maestro
                 _communityWindow = new CommunityWindow(_communityService);
                 _communityWindow.SongDownloaded += OnCommunitySongDownloaded;
                 _communityWindow.SongDeleteRequested += OnCommunitySongDeleteRequested;
+                _communityWindow.UploadRequested += OnUploadRequested;
             }
 
             if (_communityWindow.Visible)
@@ -175,6 +190,7 @@ namespace Maestro
             {
                 _maestroCreatorWindow = new MaestroCreatorWindow();
                 _maestroCreatorWindow.SongCreated += OnPianoSongCreated;
+                _maestroCreatorWindow.SongEdited += OnSongEdited;
                 _maestroCreatorWindow.WindowClosed += OnCreatorWindowClosed;
             }
 
@@ -196,12 +212,67 @@ namespace Maestro
             _maestroWindow?.SetCreateButtonEnabled(true);
         }
 
+        private void OnEditRequested(object sender, Song song)
+        {
+            if (_maestroCreatorWindow == null)
+            {
+                _maestroCreatorWindow = new MaestroCreatorWindow();
+                _maestroCreatorWindow.SongCreated += OnPianoSongCreated;
+                _maestroCreatorWindow.SongEdited += OnSongEdited;
+                _maestroCreatorWindow.WindowClosed += OnCreatorWindowClosed;
+            }
+
+            _editingOriginalSong = song;
+            _maestroCreatorWindow.LoadSong(song);
+
+            _maestroWindow?.SetCreateButtonEnabled(false);
+            _maestroCreatorWindow.Show();
+        }
+
+        private void OnSongEdited(object sender, Song editedSong)
+        {
+            try
+            {
+                if (_editingOriginalSong != null)
+                {
+                    _songStorage.DeleteSong(_editingOriginalSong);
+
+                    var index = _songs.IndexOf(_editingOriginalSong);
+                    if (index >= 0)
+                    {
+                        _songs[index] = editedSong;
+                    }
+                    else
+                    {
+                        _songs.Add(editedSong);
+                    }
+
+                    _editingOriginalSong = null;
+                }
+                else
+                {
+                    _songs.Add(editedSong);
+                }
+
+                _songStorage.SaveSong(editedSong);
+                _maestroWindow?.RefreshAfterCommunityDownload();
+                _uploadWindow?.RefreshSongList();
+                Logger.Info($"Edited and saved song: {editedSong.Name} by {editedSong.Artist}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"Failed to save edited song: {editedSong.Name}");
+                ScreenNotification.ShowNotification("Failed to save song", ScreenNotification.NotificationType.Error);
+            }
+        }
+
         private void OnPianoSongCreated(object sender, Song song)
         {
             try
             {
                 _songStorage.SaveSong(song);
                 _maestroWindow?.AddImportedSong(song);
+                _uploadWindow?.RefreshSongList();
                 Logger.Info($"Created and saved song: {song.Name} by {song.Artist}");
             }
             catch (Exception ex)
@@ -255,6 +326,32 @@ namespace Maestro
         public void PreviewSong(Song song)
         {
             _songPlayer?.Play(song);
+        }
+
+        private void OnUploadRequested(object sender, EventArgs e)
+        {
+            if (_uploadWindow == null)
+            {
+                _uploadWindow = new UploadWindow(_uploadService, _songs);
+                _uploadWindow.UploadCompleted += OnUploadCompleted;
+            }
+
+            if (_uploadWindow.Visible)
+            {
+                _uploadWindow.Hide();
+            }
+            else
+            {
+                _uploadWindow.Show();
+            }
+        }
+
+        private void OnUploadCompleted(object sender, UploadResponse response)
+        {
+            if (response.Success)
+            {
+                Logger.Info($"Song upload complete. Song ID: {response.SongId}");
+            }
         }
 
         private void OnCommunitySongDownloaded(object sender, Song song)
@@ -315,6 +412,7 @@ namespace Maestro
         {
             _songPlayer?.Stop();
             _maestroCreatorWindow?.Dispose();
+            _uploadWindow?.Dispose();
             _communityWindow?.Dispose();
             _importWindow?.Dispose();
             _maestroWindow?.Dispose();

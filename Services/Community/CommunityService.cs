@@ -138,7 +138,6 @@ namespace Maestro.Services.Community
                     return null;
                 }
 
-                song.Downloads = communitySong.Downloads;
                 _songStorage.SaveSong(song);
 
                 progress?.Report(100);

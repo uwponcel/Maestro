@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Blish_HUD;
 using Blish_HUD.Controls;
@@ -41,6 +42,7 @@ namespace Maestro.UI.MaestroCreator
         }
 
         public event EventHandler<Song> SongCreated;
+        public event EventHandler<Song> SongEdited;
         public event EventHandler WindowClosed;
 
         private readonly TextBox _titleInput;
@@ -61,6 +63,7 @@ namespace Maestro.UI.MaestroCreator
         private readonly List<NoteEventArgs> _pendingChordEvents = new List<NoteEventArgs>();
 
         private InstrumentType _instrument = InstrumentType.Piano;
+        private Song _editingSong;
 
         // Instrument confirmation overlay
         private readonly Panel _confirmationOverlay;
@@ -82,12 +85,38 @@ namespace Maestro.UI.MaestroCreator
             _pianoKeyboard.Configure(instrument);
         }
 
+        public void LoadSong(Song song)
+        {
+            _editingSong = song;
+            _instrument = song.Instrument;
+            SetInstrument(song.Instrument);
+
+            _titleInput.Text = song.Name ?? string.Empty;
+            _artistInput.Text = song.Artist ?? string.Empty;
+            _transcriberInput.Text = song.Transcriber ?? string.Empty;
+
+            _noteSequencePanel.Clear();
+            foreach (var note in song.Notes)
+            {
+                _noteSequencePanel.AddNote(note);
+            }
+        }
+
         public override void Show()
         {
             base.Show();
 
             // Configure keyboard for selected instrument
             _pianoKeyboard.Configure(_instrument);
+
+            // Skip confirmation overlay when editing (instrument is already known)
+            if (_editingSong != null)
+            {
+                _isWaitingForConfirmation = false;
+                _confirmationOverlay.Visible = false;
+                _pianoKeyboard.SetOctaveButtonsEnabled(true);
+                return;
+            }
 
             // Show confirmation overlay and wait for user to confirm instrument is equipped
             _isWaitingForConfirmation = true;
@@ -492,8 +521,22 @@ namespace Maestro.UI.MaestroCreator
 
             if (song != null)
             {
-                SongCreated?.Invoke(this, song);
-                ScreenNotification.ShowNotification($"Song saved: {song.Name}");
+                if (_editingSong != null)
+                {
+                    // Preserve source flags from the original song
+                    song.IsCreated = _editingSong.IsCreated;
+                    song.IsUserImported = _editingSong.IsUserImported;
+                    song.CommunityId = _editingSong.CommunityId;
+                    song.IsUploaded = _editingSong.IsUploaded && !HasSongChanged(_editingSong, song);
+                    SongEdited?.Invoke(this, song);
+                    ScreenNotification.ShowNotification($"Song updated: {song.Name}");
+                }
+                else
+                {
+                    SongCreated?.Invoke(this, song);
+                    ScreenNotification.ShowNotification($"Song saved: {song.Name}");
+                }
+
                 Hide();
                 ClearInputs();
             }
@@ -509,6 +552,16 @@ namespace Maestro.UI.MaestroCreator
         {
             base.Hide();
             WindowClosed?.Invoke(this, EventArgs.Empty);
+        }
+
+        private bool HasSongChanged(Song original, Song edited)
+        {
+            if (original.Name != edited.Name) return true;
+            if (original.Artist != edited.Artist) return true;
+            if (original.Transcriber != edited.Transcriber) return true;
+            if (original.Instrument != edited.Instrument) return true;
+            if (!original.Notes.SequenceEqual(edited.Notes)) return true;
+            return false;
         }
 
         private bool ValidateInput()
@@ -560,6 +613,7 @@ namespace Maestro.UI.MaestroCreator
 
         private void ClearInputs()
         {
+            _editingSong = null;
             _titleInput.Text = string.Empty;
             _artistInput.Text = string.Empty;
             _transcriberInput.Text = string.Empty;

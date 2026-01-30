@@ -21,6 +21,8 @@ namespace Maestro.Services.Data
         private readonly ILiteCollection<StoredSong> _songsCollection;
         private readonly ILiteCollection<CachedManifest> _manifestCollection;
 
+        public LiteDatabase Database => _database;
+
         public SongStorage(DirectoriesManager directoriesManager)
         {
             var moduleDir = directoriesManager.GetFullDirectoryPath("maestro");
@@ -63,9 +65,11 @@ namespace Maestro.Services.Data
         public void SaveSong(Song song)
         {
             var key = GetSongKey(song);
+            var existing = _songsCollection.FindOne(x => x.SongKey == key);
 
             var stored = new StoredSong
             {
+                Id = existing?.Id ?? ObjectId.NewObjectId(),
                 SongKey = key,
                 Song = song,
                 SavedAt = DateTime.UtcNow

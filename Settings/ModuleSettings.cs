@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Blish_HUD.Input;
 using Blish_HUD.Settings;
@@ -24,10 +25,13 @@ namespace Maestro.Settings
         public SettingEntry<KeyBinding> SharpG { get; private set; }
         public SettingEntry<KeyBinding> SharpA { get; private set; }
 
+        public string ClientId { get; private set; }
+
         public ModuleSettings(SettingCollection settings)
         {
             DefineInstrumentKeys(settings);
             DefinePianoSharps(settings);
+            DefineClientId(settings);
         }
 
         private void DefineInstrumentKeys(SettingCollection settings)
@@ -113,6 +117,19 @@ namespace Maestro.Settings
                 new KeyBinding(ModifierKeys.Alt, Keys.D5),
                 () => "Sharp A#",
                 () => "Match to Profession Skill 5");
+        }
+
+        private void DefineClientId(SettingCollection settings)
+        {
+            var clientIdSetting = settings.DefineSetting("ClientId", "", () => "", () => "");
+            clientIdSetting.SetDisabled();
+
+            if (string.IsNullOrEmpty(clientIdSetting.Value))
+            {
+                clientIdSetting.Value = Guid.NewGuid().ToString();
+            }
+
+            ClientId = clientIdSetting.Value;
         }
 
         public Dictionary<Keys, SettingEntry<KeyBinding>> GetKeyMappings()

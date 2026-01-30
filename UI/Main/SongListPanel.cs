@@ -13,6 +13,7 @@ namespace Maestro.UI.Main
         public event EventHandler<Song> SongSelected;
         public event EventHandler<Song> SongPlayRequested;
         public event EventHandler<Song> SongDeleteRequested;
+        public event EventHandler<Song> EditRequested;
         public event EventHandler<Song> AddToQueueRequested;
         public event EventHandler<int> CountChanged;
         
@@ -57,6 +58,7 @@ namespace Maestro.UI.Main
                 card.PlayClicked += OnCardPlayClicked;
                 card.CardClicked += OnCardClicked;
                 card.DeleteRequested += OnCardDeleteRequested;
+                card.EditRequested += OnCardEditRequested;
                 card.AddToQueueRequested += OnCardAddToQueueRequested;
                 _songCards[song] = card;
             }
@@ -103,6 +105,15 @@ namespace Maestro.UI.Main
             }
         }
 
+        private void OnCardEditRequested(object sender, EventArgs e)
+        {
+            var card = sender as SongCard;
+            if (card?.Song != null)
+            {
+                EditRequested?.Invoke(this, card.Song);
+            }
+        }
+
         private void OnCardAddToQueueRequested(object sender, EventArgs e)
         {
             var card = sender as SongCard;
@@ -138,6 +149,7 @@ namespace Maestro.UI.Main
                 card.PlayClicked -= OnCardPlayClicked;
                 card.CardClicked -= OnCardClicked;
                 card.DeleteRequested -= OnCardDeleteRequested;
+                card.EditRequested -= OnCardEditRequested;
                 card.AddToQueueRequested -= OnCardAddToQueueRequested;
                 card.Dispose();
             }
