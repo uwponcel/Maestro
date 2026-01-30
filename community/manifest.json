@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-30T01:55:40.997Z",
+  "lastUpdated": "2026-01-30T01:57:37.658Z",
   "songs": [
     {
       "id": "413a60a2-b558-4358-94d1-692b0819cd41",
-      "name": "J'ai Vu Le Loup, Le Renard, Le Lièvre",
+      "name": "J'ai Vu Le Loup, Le Renard, Le LiÃ¨vre",
       "artist": "Aex",
       "transcriber": "Aex",
       "instrument": "Piano",
@@ -14,13 +14,23 @@
     },
     {
       "id": "a02b1305-e410-41aa-af20-ef2ebc4d48c0",
-      "name": "J'ai Vu Le Loup, Le Renard, Le Li�vre",
+      "name": "J'ai Vu Le Loup, Le Renard, Le Lièvre",
       "artist": "Aex",
       "transcriber": "Aex",
       "instrument": "Piano",
       "noteCount": 51,
       "durationMs": 10200,
       "createdAt": "2026-01-30T01:55:40.997Z"
+    },
+    {
+      "id": "3af83700-fae8-44db-8e59-67bef799ed99",
+      "name": "J'ai Vu Le",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "noteCount": 53,
+      "durationMs": 10600,
+      "createdAt": "2026-01-30T01:57:37.658Z"
     }
   ]
 }
