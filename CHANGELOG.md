@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.0.1
+
+**Bug Fixes**
+
+- Fixed ClientId being visible in the module settings panel
+
+---
+
 ## v3.0.0
 
 **Community Song Sharing**

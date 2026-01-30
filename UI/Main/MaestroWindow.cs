@@ -498,6 +498,8 @@ namespace Maestro.UI.Main
                     return songs.Where(s => s.IsCreated);
                 case "Imported":
                     return songs.Where(s => s.IsUserImported);
+                case "Submittals":
+                    return songs.Where(s => s.IsSubmittal);
                 default:
                     return songs;
             }

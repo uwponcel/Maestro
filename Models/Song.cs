@@ -17,6 +17,7 @@ namespace Maestro.Models
         public bool SkipOctaveReset { get; set; }
         public string CommunityId { get; set; }
         public bool IsUploaded { get; set; }
+        public bool IsSubmittal { get; set; }
 
         public bool IsCommunityDownloaded => !string.IsNullOrEmpty(CommunityId) && !IsUserImported && !IsCreated;
 

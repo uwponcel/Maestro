@@ -183,6 +183,49 @@ namespace Maestro.Services.Community
             Logger.Info($"Deleted song: {song.Name} ({song.CommunityId ?? "imported"})");
         }
 
+        public async Task<List<Song>> LoadSubmittalsAsync(CancellationToken cancellationToken = default)
+        {
+            var submittals = new List<Song>();
+
+            try
+            {
+                var pendingManifest = await _apiClient.FetchPendingManifestAsync(cancellationToken);
+                if (pendingManifest?.Songs == null || pendingManifest.Songs.Count == 0)
+                    return submittals;
+
+                var mainManifest = _manifest ?? await _apiClient.FetchManifestAsync(cancellationToken);
+                var mainSongIds = new HashSet<string>(
+                    mainManifest?.Songs?.Select(s => s.Id) ?? Enumerable.Empty<string>());
+
+                var newSongs = pendingManifest.Songs.Where(s => !mainSongIds.Contains(s.Id)).ToList();
+                Logger.Info($"Found {newSongs.Count} submittal(s) in pending branch");
+
+                foreach (var communitySong in newSongs)
+                {
+                    try
+                    {
+                        var song = await _apiClient.FetchPendingSongAsync(communitySong.Id, cancellationToken);
+                        if (song != null)
+                        {
+                            song.IsSubmittal = true;
+                            submittals.Add(song);
+                            Logger.Info($"Loaded submittal: {song.Name}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Warn(ex, $"Failed to load submittal {communitySong.Id}, skipping");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Failed to load submittals from pending branch");
+            }
+
+            return submittals;
+        }
+
         private void RaiseDownloadProgress(string communityId, int progress, DownloadState state)
         {
             DownloadProgressChanged?.Invoke(this, new DownloadProgressEventArgs(communityId, progress, state));

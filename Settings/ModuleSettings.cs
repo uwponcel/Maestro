@@ -121,8 +121,8 @@ namespace Maestro.Settings
 
         private void DefineClientId(SettingCollection settings)
         {
-            var clientIdSetting = settings.DefineSetting("ClientId", "", () => "", () => "");
-            clientIdSetting.SetDisabled();
+            var hiddenSettings = settings.AddSubCollection("Internal", false);
+            var clientIdSetting = hiddenSettings.DefineSetting("ClientId", "");
 
             if (string.IsNullOrEmpty(clientIdSetting.Value))
             {

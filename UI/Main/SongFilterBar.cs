@@ -52,8 +52,13 @@ namespace Maestro.UI.Main
                 IsTextInputFocused = e.Value;
             };
 
+#if DEBUG
+            var sourceItems = new[] { "All", "Bundled", "Created", "Imported", "Community", "Submittals" };
+#else
+            var sourceItems = new[] { "All", "Bundled", "Created", "Imported", "Community" };
+#endif
             _filterButton = new GenericFilterButton(
-                new FilterSection { Items = new[] { "All", "Bundled", "Created", "Imported", "Community" }, DefaultValue = "All" },
+                new FilterSection { Items = sourceItems, DefaultValue = "All" },
                 new FilterSection { Items = new[] { "All", "Piano", "Harp", "Lute", "Bass" }, DefaultValue = "All" },
                 new FilterSection { Items = new[] { "Name A-Z", "Name Z-A" }, DefaultValue = "Name A-Z" })
             {

@@ -104,6 +104,19 @@ namespace Maestro
                 _communityService,
                 _uploadRateLimiter,
                 _songStorage);
+
+#if DEBUG
+            try
+            {
+                var submittals = await _communityService.LoadSubmittalsAsync();
+                _songs.AddRange(submittals);
+                Logger.Info($"Loaded {submittals.Count} submittal(s) for review");
+            }
+            catch (Exception ex)
+            {
+                Logger.Warn(ex, "Failed to load submittals");
+            }
+#endif
         }
 
         protected override void OnModuleLoaded(EventArgs e)
