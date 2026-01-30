@@ -160,7 +160,7 @@ namespace Maestro.UI.MaestroCreator
             for (var i = 0; i < 5; i++)
             {
                 keyboardService.PlayOctaveChange(false);
-                System.Threading.Thread.Sleep(GameTimings.OctaveChangeDelayMs);
+                System.Threading.Thread.Sleep(GameTimings.OctaveResetDelayMs);
             }
         }
 

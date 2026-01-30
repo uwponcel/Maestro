@@ -225,12 +225,12 @@ namespace Maestro.Services.Playback
             {
                 KeyDown(NoteMapping.OctaveDownKey);
                 KeyUp(NoteMapping.OctaveDownKey);
-                Thread.Sleep(GameTimings.OctaveChangeDelayMs);
+                Thread.Sleep(GameTimings.OctaveResetDelayMs);
             }
 
             KeyDown(NoteMapping.OctaveUpKey);
             KeyUp(NoteMapping.OctaveUpKey);
-            Thread.Sleep(GameTimings.OctaveChangeDelayMs);
+            Thread.Sleep(GameTimings.OctaveResetDelayMs);
         }
 
         private static void SendKeyBindingDown(KeyBinding binding)

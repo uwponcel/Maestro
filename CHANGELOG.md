@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.0.2
+
+**Bug Fixes**
+
+- Fixed octave reset being too fast in Maestro Creator (10ms → 100ms delay between keypresses), causing GW2 to miss inputs when resetting to middle/low octave
+
+---
+
 ## v3.0.1
 
 **Bug Fixes**
