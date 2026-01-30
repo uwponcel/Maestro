@@ -16,22 +16,9 @@ namespace Maestro.Models
         public bool IsCreated { get; set; }
         public bool SkipOctaveReset { get; set; }
         public string CommunityId { get; set; }
-        public int Downloads { get; set; }
+        public bool IsUploaded { get; set; }
 
-        public bool IsCommunityDownloaded => !string.IsNullOrEmpty(CommunityId);
-
-        public string DisplayDownloads
-        {
-            get
-            {
-                if (Downloads <= 0) return null;
-                if (Downloads >= 1000000)
-                    return $"{Downloads / 1000000.0:F1}M";
-                if (Downloads >= 1000)
-                    return $"{Downloads / 1000.0:F1}k";
-                return Downloads.ToString();
-            }
-        }
+        public bool IsCommunityDownloaded => !string.IsNullOrEmpty(CommunityId) && !IsUserImported && !IsCreated;
 
         public string DisplayName => $"{Name} - {Artist}";
 

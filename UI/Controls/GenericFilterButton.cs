@@ -5,9 +5,15 @@ using Blish_HUD.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Maestro.UI.Main
+namespace Maestro.UI.Controls
 {
-    public class FilterButton : Control
+    public class FilterSection
+    {
+        public string[] Items { get; set; }
+        public string DefaultValue { get; set; }
+    }
+
+    public class GenericFilterButton : Control
     {
         private class FilterPanel : Control
         {
@@ -15,19 +21,23 @@ namespace Maestro.UI.Main
             private const int SEPARATOR_HEIGHT = 8;
             private const int PADDING_X = 8;
 
-            // TODO: Re-enable Community filter when community features are ready
-            private static readonly string[] SourceItems = { "All", "Bundled", /* "Community", */ "Created", "Imported" };
-            private static readonly string[] InstrumentItems = { "All", "Piano", "Harp", "Lute", "Bass" };
-
-            private readonly FilterButton _owner;
+            private readonly GenericFilterButton _owner;
             private int _highlightedIndex = -1;
 
-            public FilterPanel(FilterButton owner)
+            public FilterPanel(GenericFilterButton owner)
             {
                 _owner = owner;
 
-                var totalItems = SourceItems.Length + InstrumentItems.Length;
-                var height = totalItems * ITEM_HEIGHT + SEPARATOR_HEIGHT;
+                var totalItems = _owner._section1.Items.Length + _owner._section2.Items.Length;
+                var separatorCount = 1;
+
+                if (_owner._section3 != null)
+                {
+                    totalItems += _owner._section3.Items.Length;
+                    separatorCount = 2;
+                }
+
+                var height = totalItems * ITEM_HEIGHT + separatorCount * SEPARATOR_HEIGHT;
 
                 _size = new Point(_owner.Width, height);
                 _location = GetPanelLocation();
@@ -61,32 +71,54 @@ namespace Maestro.UI.Main
 
             private int GetItemIndexAt(int y)
             {
-                var sourceHeight = SourceItems.Length * ITEM_HEIGHT;
+                var section1Height = _owner._section1.Items.Length * ITEM_HEIGHT;
 
-                if (y < sourceHeight)
+                if (y < section1Height)
                     return y / ITEM_HEIGHT;
 
-                if (y < sourceHeight + SEPARATOR_HEIGHT)
-                    return -1; // Separator
+                if (y < section1Height + SEPARATOR_HEIGHT)
+                    return -1; // Separator 1
 
-                var instrumentY = y - sourceHeight - SEPARATOR_HEIGHT;
-                return SourceItems.Length + instrumentY / ITEM_HEIGHT;
+                var section2Start = section1Height + SEPARATOR_HEIGHT;
+                var section2Height = _owner._section2.Items.Length * ITEM_HEIGHT;
+
+                if (y < section2Start + section2Height)
+                {
+                    var section2Y = y - section2Start;
+                    return _owner._section1.Items.Length + section2Y / ITEM_HEIGHT;
+                }
+
+                if (_owner._section3 == null)
+                    return -1;
+
+                var section3Start = section2Start + section2Height + SEPARATOR_HEIGHT;
+
+                if (y < section2Start + section2Height + SEPARATOR_HEIGHT)
+                    return -1; // Separator 2
+
+                var section3Y = y - section3Start;
+                return _owner._section1.Items.Length + _owner._section2.Items.Length + section3Y / ITEM_HEIGHT;
             }
 
             protected override void OnClick(MouseEventArgs e)
             {
                 var index = GetItemIndexAt(RelativeMousePosition.Y);
 
-                if (index >= 0 && index < SourceItems.Length)
+                if (index >= 0 && index < _owner._section1.Items.Length)
                 {
-                    _owner.SelectedSource = SourceItems[index];
+                    _owner.SelectedValue1 = _owner._section1.Items[index];
                 }
-                else if (index >= SourceItems.Length)
+                else if (index >= _owner._section1.Items.Length && index < _owner._section1.Items.Length + _owner._section2.Items.Length)
                 {
-                    var instrumentIndex = index - SourceItems.Length;
-                    if (instrumentIndex < InstrumentItems.Length)
+                    var section2Index = index - _owner._section1.Items.Length;
+                    _owner.SelectedValue2 = _owner._section2.Items[section2Index];
+                }
+                else if (_owner._section3 != null && index >= _owner._section1.Items.Length + _owner._section2.Items.Length)
+                {
+                    var section3Index = index - _owner._section1.Items.Length - _owner._section2.Items.Length;
+                    if (section3Index < _owner._section3.Items.Length)
                     {
-                        _owner.SelectedInstrument = InstrumentItems[instrumentIndex];
+                        _owner.SelectedValue3 = _owner._section3.Items[section3Index];
                     }
                 }
 
@@ -100,32 +132,52 @@ namespace Maestro.UI.Main
 
                 var y = 0;
 
-                // Source section
-                for (var i = 0; i < SourceItems.Length; i++)
+                // Section 1
+                for (var i = 0; i < _owner._section1.Items.Length; i++)
                 {
-                    var item = SourceItems[i];
-                    var isSelected = item == _owner.SelectedSource;
+                    var item = _owner._section1.Items[i];
+                    var isSelected = item == _owner.SelectedValue1;
                     var isHighlighted = _highlightedIndex == i;
 
                     DrawItem(spriteBatch, item, y, isSelected, isHighlighted);
                     y += ITEM_HEIGHT;
                 }
 
-                // Separator
+                // Separator 1
                 spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
                     new Rectangle(PADDING_X, y + SEPARATOR_HEIGHT / 2 - 1, _size.X - PADDING_X * 2, 2),
                     MaestroTheme.MediumGray);
                 y += SEPARATOR_HEIGHT;
 
-                // Instrument section
-                for (var i = 0; i < InstrumentItems.Length; i++)
+                // Section 2
+                for (var i = 0; i < _owner._section2.Items.Length; i++)
                 {
-                    var item = InstrumentItems[i];
-                    var isSelected = item == _owner.SelectedInstrument;
-                    var isHighlighted = _highlightedIndex == SourceItems.Length + i;
+                    var item = _owner._section2.Items[i];
+                    var isSelected = item == _owner.SelectedValue2;
+                    var isHighlighted = _highlightedIndex == _owner._section1.Items.Length + i;
 
                     DrawItem(spriteBatch, item, y, isSelected, isHighlighted);
                     y += ITEM_HEIGHT;
+                }
+
+                // Section 3 (optional)
+                if (_owner._section3 != null)
+                {
+                    // Separator 2
+                    spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                        new Rectangle(PADDING_X, y + SEPARATOR_HEIGHT / 2 - 1, _size.X - PADDING_X * 2, 2),
+                        MaestroTheme.MediumGray);
+                    y += SEPARATOR_HEIGHT;
+
+                    for (var i = 0; i < _owner._section3.Items.Length; i++)
+                    {
+                        var item = _owner._section3.Items[i];
+                        var isSelected = item == _owner.SelectedValue3;
+                        var isHighlighted = _highlightedIndex == _owner._section1.Items.Length + _owner._section2.Items.Length + i;
+
+                        DrawItem(spriteBatch, item, y, isSelected, isHighlighted);
+                        y += ITEM_HEIGHT;
+                    }
                 }
             }
 
@@ -187,29 +239,47 @@ namespace Maestro.UI.Main
         private FilterPanel _panel;
         private bool _hadPanel;
 
-        private string _selectedSource = "All";
-        public string SelectedSource
+        private readonly FilterSection _section1;
+        private readonly FilterSection _section2;
+        private readonly FilterSection _section3;
+
+        private string _selectedValue1;
+        public string SelectedValue1
         {
-            get => _selectedSource;
+            get => _selectedValue1;
             set
             {
-                if (_selectedSource != value)
+                if (_selectedValue1 != value)
                 {
-                    _selectedSource = value;
+                    _selectedValue1 = value;
                     FilterChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
 
-        private string _selectedInstrument = "All";
-        public string SelectedInstrument
+        private string _selectedValue2;
+        public string SelectedValue2
         {
-            get => _selectedInstrument;
+            get => _selectedValue2;
             set
             {
-                if (_selectedInstrument != value)
+                if (_selectedValue2 != value)
                 {
-                    _selectedInstrument = value;
+                    _selectedValue2 = value;
+                    FilterChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        private string _selectedValue3;
+        public string SelectedValue3
+        {
+            get => _selectedValue3;
+            set
+            {
+                if (_selectedValue3 != value)
+                {
+                    _selectedValue3 = value;
                     FilterChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
@@ -217,10 +287,19 @@ namespace Maestro.UI.Main
 
         public bool PanelOpen => _panel != null;
 
-        private string DisplayText => $"{_selectedSource} / {_selectedInstrument}";
+        private string DisplayText => _section3 != null
+            ? $"{_selectedValue1} / {_selectedValue2} / {_selectedValue3}"
+            : $"{_selectedValue1} / {_selectedValue2}";
 
-        public FilterButton()
+        public GenericFilterButton(FilterSection section1, FilterSection section2, FilterSection section3 = null)
         {
+            _section1 = section1;
+            _section2 = section2;
+            _section3 = section3;
+            _selectedValue1 = section1.DefaultValue;
+            _selectedValue2 = section2.DefaultValue;
+            _selectedValue3 = section3?.DefaultValue;
+
             Size = new Point(180, 27);
         }
 

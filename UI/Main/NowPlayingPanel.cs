@@ -32,10 +32,15 @@ namespace Maestro.UI.Main
             public const int SpeedSliderY = 65;
             public const int SpeedSliderWidth = 180;
             public const int SpeedValueX = 248;
+
+            public const int QueueButtonWidth = 30;
+            public const int QueueButtonRightPadding = 8;
+            public const int QueueButtonY = 8;
         }
 
         public event EventHandler StopRequested;
         public event EventHandler<Song> PlayPendingRequested;
+        public event EventHandler QueueToggleClicked;
 
         private readonly SongPlayer _songPlayer;
         private readonly StandardButton _pauseButton;
@@ -46,6 +51,7 @@ namespace Maestro.UI.Main
         private readonly Label _speedLabel;
         private readonly TrackBar _speedSlider;
         private readonly Label _speedValueLabel;
+        private readonly StandardButton _queueButton;
 
         private bool _isPlayingFromQueue;
         private Song _pendingSong;
@@ -67,6 +73,7 @@ namespace Maestro.UI.Main
             _speedLabel = CreateSpeedLabel();
             _speedSlider = CreateSpeedSlider();
             _speedValueLabel = CreateSpeedValueLabel();
+            _queueButton = CreateQueueButton(width);
 
             SubscribeToEvents();
         }
@@ -232,6 +239,20 @@ namespace Maestro.UI.Main
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.CreamWhite
             };
+        }
+
+        private StandardButton CreateQueueButton(int panelWidth)
+        {
+            var button = new StandardButton
+            {
+                Parent = this,
+                Text = ">>",
+                Location = new Point(panelWidth - Layout.QueueButtonWidth - Layout.QueueButtonRightPadding, Layout.QueueButtonY),
+                Size = new Point(Layout.QueueButtonWidth, MaestroTheme.ActionButtonHeight),
+                BasicTooltipText = "Toggle Queue"
+            };
+            button.Click += (s, e) => QueueToggleClicked?.Invoke(this, EventArgs.Empty);
+            return button;
         }
 
         private void SubscribeToEvents()
@@ -440,6 +461,7 @@ namespace Maestro.UI.Main
             _speedLabel?.Dispose();
             _speedSlider?.Dispose();
             _speedValueLabel?.Dispose();
+            _queueButton?.Dispose();
         }
     }
 }

@@ -1,5 +1,30 @@
 # Changelog
 
+## v3.0.0
+
+**Community Song Sharing**
+
+Share your songs with the community and download songs made by other players!
+
+**How it works**
+
+Submitted songs are added to a review branch. Songs are reviewed in batches and merged into main, making them available in the community library for all players without requiring a module update.
+
+**New Features**
+
+- Upload your created or imported songs to the community library
+- Browse, search, and download community songs
+- Edit imported songs in the Maestro Creator
+- Re-upload edited songs to update your existing community submission
+- Filter community songs by instrument and sort by name or date
+- Filter your song list by source (Bundled, Created, Imported, Community)
+- Daily upload limit (3 per day) enforced client-side and server-side
+- Duplicate detection prevents uploading identical songs
+- Upload validation checks (name, transcriber, instrument, note count)
+- Upload progress indicator with validation checklist
+
+---
+
 ## v2.1.2
 
 **Improvements**

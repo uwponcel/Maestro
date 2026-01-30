@@ -36,6 +36,7 @@ namespace Maestro.UI.Main
         public event EventHandler<MouseEventArgs> PlayClicked;
         public event EventHandler<MouseEventArgs> CardClicked;
         public event EventHandler DeleteRequested;
+        public event EventHandler EditRequested;
         public event EventHandler AddToQueueRequested;
 
         private readonly Panel _indicator;
@@ -113,9 +114,6 @@ namespace Maestro.UI.Main
                 ? song.Artist
                 : $"{song.Artist} - {song.Transcriber}";
 
-            if (!string.IsNullOrEmpty(song.DisplayDownloads))
-                artistText += $" | {song.DisplayDownloads} downloads";
-
             if (!string.IsNullOrEmpty(song.DisplayDuration))
                 artistText += $" | {song.DisplayDuration}";
 
@@ -143,6 +141,12 @@ namespace Maestro.UI.Main
 
             var addToQueueItem = contextMenu.AddMenuItem("Add to Queue");
             addToQueueItem.Click += (s, e) => AddToQueueRequested?.Invoke(this, EventArgs.Empty);
+
+            if (song.IsUserImported || song.IsCreated)
+            {
+                var editItem = contextMenu.AddMenuItem("Edit Song");
+                editItem.Click += (s, e) => EditRequested?.Invoke(this, EventArgs.Empty);
+            }
 
             if (song.IsUserImported || song.IsCreated || song.IsCommunityDownloaded)
             {
