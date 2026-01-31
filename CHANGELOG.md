@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.1.0
+
+**Improved Import Window**
+
+- Redesigned import window with paste-from-clipboard button replacing the script textbox
+- Import preview now shows note count and song duration before importing
+
+**Bug Fixes**
+
+- Fixed import of PianoTomas piano songs
+- Fixed imported songs playing wrong notes by going into chord territory
+- Fixed song duration display being inconsistent between community and main windows
+
+---
+
 ## v3.0.2
 
 **Bug Fixes**

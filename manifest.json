@@ -1,6 +1,6 @@
 {
   "name": "Maestro",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "namespace": "Aex.Maestro",
   "package": "Maestro.dll",
   "manifest_version": 1,

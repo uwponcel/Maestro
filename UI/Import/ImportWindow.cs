@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Maestro.Models;
@@ -13,15 +14,12 @@ namespace Maestro.UI.Import
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 370;
+            public const int WindowHeight = 250;
             public const int ContentWidth = 390;
-            public const int ContentHeight = 380;
-            
+
             public const int InputX = 90;
             public const int InputWidth = 290;
             public const int RowHeight = 28;
-
-            public const int ScriptAreaHeight = 140;
         }
 
         public event EventHandler<Song> SongImported;
@@ -30,10 +28,12 @@ namespace Maestro.UI.Import
         private readonly TextBox _artistInput;
         private readonly TextBox _transcriberInput;
         private readonly Dropdown _instrumentDropdown;
-        private readonly Panel _scriptContainer;
-        private readonly MultilineTextBox _scriptInput;
+        private readonly StandardButton _pasteButton;
+        private readonly Label _parseStatusLabel;
         private readonly StandardButton _importButton;
         private readonly StandardButton _cancelButton;
+
+        private List<string> _parsedNotes;
 
         private static Texture2D _backgroundTexture;
 
@@ -46,7 +46,7 @@ namespace Maestro.UI.Import
             : base(
                 GetBackground(),
                 new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
-                new Rectangle(15, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.ContentHeight))
+                new Rectangle(15, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.WindowHeight))
         {
             Title = "Import Song";
             Subtitle = "AHK v1 Format";
@@ -82,29 +82,29 @@ namespace Maestro.UI.Import
                 _instrumentDropdown.Items.Add(instrument);
             }
             _instrumentDropdown.SelectedItem = "Harp";
-            currentY += Layout.RowHeight + MaestroTheme.InputSpacing;
+            currentY += Layout.RowHeight + MaestroTheme.InputSpacing * 2;
 
             CreateLabel("AHK Script:", 0, currentY);
-            currentY += 28;
-
-            _scriptContainer = new Panel
+            _pasteButton = new StandardButton
             {
                 Parent = this,
-                Location = new Point(0, currentY),
-                Size = new Point(Layout.ContentWidth, Layout.ScriptAreaHeight),
-                CanScroll = true,
-                ShowBorder = true
+                Text = "Paste from Clipboard",
+                Location = new Point(Layout.InputX, currentY),
+                Size = new Point(Layout.InputWidth, MaestroTheme.ActionButtonHeight)
             };
+            _pasteButton.Click += OnPasteClicked;
+            currentY += Layout.RowHeight + MaestroTheme.InputSpacing;
 
-            _scriptInput = new MultilineTextBox
+            _parseStatusLabel = new Label
             {
-                Parent = _scriptContainer,
-                Location = new Point(0, 0),
-                Size = new Point(Layout.ContentWidth - 20, 600),
-                PlaceholderText = "Paste AHK v1 script here...",
-                HideBackground = true
+                Parent = this,
+                Text = "",
+                Location = new Point(Layout.InputX, currentY),
+                Width = Layout.InputWidth,
+                AutoSizeHeight = true,
+                TextColor = MaestroTheme.MutedCream
             };
-            currentY += Layout.ScriptAreaHeight + MaestroTheme.InputSpacing;
+            currentY += 10 + MaestroTheme.InputSpacing;
 
             _importButton = new StandardButton
             {
@@ -148,12 +148,56 @@ namespace Maestro.UI.Import
             };
         }
 
+        private void OnPasteClicked(object sender, Blish_HUD.Input.MouseEventArgs e)
+        {
+            ClipboardUtil.WindowsClipboardService.GetTextAsync()
+                .ContinueWith(task =>
+                {
+                    if (task.IsFaulted || string.IsNullOrEmpty(task.Result))
+                    {
+                        _parsedNotes = null;
+                        _parseStatusLabel.Text = "Clipboard is empty";
+                        _parseStatusLabel.TextColor = MaestroTheme.Error;
+                        return;
+                    }
+
+                    ParseScript(task.Result);
+                });
+        }
+
+        private void ParseScript(string script)
+        {
+            try
+            {
+                _parsedNotes = AhkParser.ParseToCompact(script);
+
+                if (_parsedNotes.Count == 0)
+                {
+                    _parseStatusLabel.Text = "No notes found in script";
+                    _parseStatusLabel.TextColor = MaestroTheme.Error;
+                }
+                else
+                {
+                    var durationMs = NoteParser.CalculateDurationMs(_parsedNotes);
+                    var duration = TimeSpan.FromMilliseconds(durationMs);
+                    _parseStatusLabel.Text = $"{_parsedNotes.Count} notes \u00b7 {duration:m\\:ss}";
+                    _parseStatusLabel.TextColor = MaestroTheme.Playing;
+                }
+            }
+            catch
+            {
+                _parsedNotes = null;
+                _parseStatusLabel.Text = "Could not parse clipboard content";
+                _parseStatusLabel.TextColor = MaestroTheme.Error;
+            }
+        }
+
         private void OnImportClicked(object sender, Blish_HUD.Input.MouseEventArgs e)
         {
             if (!ValidateInput())
                 return;
 
-            var song = ParseSong();
+            var song = BuildSong();
             if (song != null)
             {
                 SongImported?.Invoke(this, song);
@@ -176,50 +220,34 @@ namespace Maestro.UI.Import
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(_scriptInput.Text))
+            if (_parsedNotes == null || _parsedNotes.Count == 0)
             {
-                ScreenNotification.ShowNotification("Please paste the AHK script", ScreenNotification.NotificationType.Error);
+                ScreenNotification.ShowNotification("Please paste a valid AHK script", ScreenNotification.NotificationType.Error);
                 return false;
             }
 
             return true;
         }
 
-        private Song ParseSong()
+        private Song BuildSong()
         {
-            try
+            Enum.TryParse<InstrumentType>(_instrumentDropdown.SelectedItem, out var instrument);
+
+            var song = new Song
             {
-                var notes = AhkParser.ParseToCompact(_scriptInput.Text);
+                Name = _titleInput.Text.Trim(),
+                Artist = string.IsNullOrWhiteSpace(_artistInput.Text) ? "Unknown" : _artistInput.Text.Trim(),
+                Transcriber = string.IsNullOrWhiteSpace(_transcriberInput.Text) ? null : _transcriberInput.Text.Trim(),
+                Instrument = instrument,
+                IsUserImported = true
+            };
 
-                if (notes.Count == 0)
-                {
-                    ScreenNotification.ShowNotification("No notes found in AHK script", ScreenNotification.NotificationType.Error);
-                    return null;
-                }
+            song.Notes.AddRange(_parsedNotes);
+            var commands = NoteParser.Parse(_parsedNotes);
+            song.Commands.AddRange(commands);
 
-                Enum.TryParse<InstrumentType>(_instrumentDropdown.SelectedItem, out var instrument);
-
-                var song = new Song
-                {
-                    Name = _titleInput.Text.Trim(),
-                    Artist = string.IsNullOrWhiteSpace(_artistInput.Text) ? "Unknown" : _artistInput.Text.Trim(),
-                    Transcriber = string.IsNullOrWhiteSpace(_transcriberInput.Text) ? null : _transcriberInput.Text.Trim(),
-                    Instrument = instrument,
-                    IsUserImported = true
-                };
-
-                song.Notes.AddRange(notes);
-                var commands = NoteParser.Parse(notes);
-                song.Commands.AddRange(commands);
-
-                ScreenNotification.ShowNotification($"Imported {notes.Count} notes, {song.Commands.Count} commands");
-                return song;
-            }
-            catch (Exception ex)
-            {
-                ScreenNotification.ShowNotification($"Parse error: {ex.Message}", ScreenNotification.NotificationType.Error);
-                return null;
-            }
+            ScreenNotification.ShowNotification($"Imported \"{song.Name}\" ({_parsedNotes.Count} notes)");
+            return song;
         }
 
         private void ClearInputs()
@@ -227,21 +255,22 @@ namespace Maestro.UI.Import
             _titleInput.Text = string.Empty;
             _artistInput.Text = string.Empty;
             _transcriberInput.Text = string.Empty;
-            _scriptInput.Text = string.Empty;
             _instrumentDropdown.SelectedItem = "Harp";
+            _parsedNotes = null;
+            _parseStatusLabel.Text = "";
         }
 
         protected override void DisposeControl()
         {
             _importButton.Click -= OnImportClicked;
             _cancelButton.Click -= OnCancelClicked;
+            _pasteButton.Click -= OnPasteClicked;
 
             _titleInput?.Dispose();
             _artistInput?.Dispose();
             _transcriberInput?.Dispose();
             _instrumentDropdown?.Dispose();
-            _scriptInput?.Dispose();
-            _scriptContainer?.Dispose();
+            _pasteButton?.Dispose();
             _importButton?.Dispose();
             _cancelButton?.Dispose();
 

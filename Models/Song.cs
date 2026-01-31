@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Maestro.Services.Data;
 
 namespace Maestro.Models
 {
@@ -23,7 +24,9 @@ namespace Maestro.Models
 
         public string DisplayName => $"{Name} - {Artist}";
 
-        public long DurationMs => Commands.Where(c => c.Type == CommandType.Wait).Sum(c => c.Duration);
+        public long DurationMs => Notes.Count > 0
+            ? NoteParser.CalculateDurationMs(Notes)
+            : Commands.Where(c => c.Type == CommandType.Wait).Sum(c => c.Duration);
 
         public string DisplayDuration
         {

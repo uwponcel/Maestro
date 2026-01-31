@@ -24,6 +24,28 @@ namespace Maestro.Services.Data
             public bool IsRest { get; set; }
         }
 
+        /// <summary>
+        /// Calculates the pure musical duration from compact notes (no octave change overhead).
+        /// Each line is a chord/note group; duration is the max of all notes on that line.
+        /// </summary>
+        public static long CalculateDurationMs(List<string> noteLines)
+        {
+            long total = 0;
+            foreach (var line in noteLines)
+            {
+                var matches = NotePattern.Matches(line);
+                int maxDuration = 0;
+                foreach (Match match in matches)
+                {
+                    var duration = int.Parse(match.Groups[4].Value);
+                    if (duration > maxDuration)
+                        maxDuration = duration;
+                }
+                total += maxDuration;
+            }
+            return total;
+        }
+
         public static List<SongCommand> Parse(List<string> noteLines)
         {
             var commands = new List<SongCommand>();
@@ -52,13 +74,21 @@ namespace Maestro.Services.Data
                     if (note.TargetOctave != currentOctave)
                     {
                         int steps = note.TargetOctave - currentOctave;
+                        int absSteps = Math.Abs(steps);
                         Keys octaveKey = steps > 0 ? NoteMapping.OctaveUpKey : NoteMapping.OctaveDownKey;
-                        for (int i = 0; i < Math.Abs(steps); i++)
+
+                        // Multi-step octave changes (e.g. high→low = 2 steps) need longer delays
+                        // between each step, same as reset, because GW2 can miss rapid consecutive
+                        // octave changes and drift into chord territory.
+                        var delay = absSteps > 1
+                            ? GameTimings.OctaveResetDelayMs
+                            : GameTimings.OctaveChangeDelayMs;
+
+                        for (int i = 0; i < absSteps; i++)
                         {
                             commands.Add(SongCommand.KeyDownCmd(octaveKey));
                             commands.Add(SongCommand.KeyUpCmd(octaveKey));
-                            // Small delay to let the game register the octave change
-                            commands.Add(SongCommand.WaitCmd(GameTimings.OctaveChangeDelayMs));
+                            commands.Add(SongCommand.WaitCmd(delay));
                         }
                         currentOctave = note.TargetOctave;
                     }

@@ -52,6 +52,7 @@ namespace Maestro.Services.Data
 
             if (dto.Notes != null)
             {
+                song.Notes.AddRange(dto.Notes);
                 var commands = NoteParser.Parse(dto.Notes);
                 song.Commands.AddRange(commands);
             }
@@ -81,6 +82,7 @@ namespace Maestro.Services.Data
 
                 if (dto.Notes != null)
                 {
+                    song.Notes.AddRange(dto.Notes);
                     var commands = NoteParser.Parse(dto.Notes);
                     song.Commands.AddRange(commands);
                 }
