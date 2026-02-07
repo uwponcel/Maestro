@@ -1,5 +1,21 @@
 # Changelog
 
+## v3.2.0
+
+**Scrolling Now Playing Title**
+
+- Long song titles now scroll horizontally in the now-playing panel instead of being clipped
+- Hover tooltip shows full title
+
+**New Community Songs**
+
+- The Best is Yet to Come MGS (Juliugh)
+- Losing my religion (TwigLeigh)
+- Wake me up when september ends (hilmo)
+- Gravity Falls Theme slow (Georgius Agicolae)
+
+---
+
 ## v3.1.0
 
 **Improved Import Window**
@@ -19,7 +35,8 @@
 
 **Bug Fixes**
 
-- Fixed octave reset being too fast in Maestro Creator (10ms → 100ms delay between keypresses), causing GW2 to miss inputs when resetting to middle/low octave
+- Fixed octave reset being too fast in Maestro Creator (10ms → 100ms delay between keypresses), causing GW2 to miss
+  inputs when resetting to middle/low octave
 
 ---
 
@@ -39,7 +56,8 @@ Share your songs with the community and download songs made by other players!
 
 **How it works**
 
-Submitted songs are added to a review branch. Songs are reviewed in batches and merged into main, making them available in the community library for all players without requiring a module update.
+Submitted songs are added to a review branch. Songs are reviewed in batches and merged into main, making them available
+in the community library for all players without requiring a module update.
 
 **New Features**
 
@@ -179,7 +197,8 @@ The song library has grown to 101 embedded songs! 😀
 
 Added full piano support with 20 new piano songs converted from PianoTomas transcriptions!
 
-- New songs include: As Long As You Love Me, I Want It That Way, Total Eclipse Of The Heart, Still Loving You, River Flows In You, Numb, My Immortal, Perfect, and more
+- New songs include: As Long As You Love Me, I Want It That Way, Total Eclipse Of The Heart, Still Loving You, River
+  Flows In You, Numb, My Immortal, Perfect, and more
 - Sharp note support for piano using Alt+NumPad or Profession Skills (F1-F5)
 - Updated keybind tooltips to clarify GW2 binding requirements
 

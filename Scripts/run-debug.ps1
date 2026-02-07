@@ -34,14 +34,14 @@ if ($LocalBlishHUD) {
     $process = Start-Process "Blish HUD.exe" -ArgumentList '--debug', '--module', 'C:\git\perso\Maestro\bin\x64\Debug\Maestro.bhm' -PassThru
 } else {
     Write-Host "Starting installed Blish HUD..." -ForegroundColor Green
-    Set-Location "C:\Users\uwpon\OneDrive\Documents\BlishHUD"
+    Set-Location "C:\Users\uwpon\Documents\BlishHUD"
     $process = Start-Process "Blish HUD.exe" -ArgumentList '--debug', '--module', 'C:\git\perso\Maestro\bin\x64\Debug\Maestro.bhm' -PassThru
 }
 
 # Wait a bit for module to load and check for errors
 Start-Sleep -Seconds 3
 
-$logDir = "$env:USERPROFILE\OneDrive\Documents\Guild Wars 2\addons\blishhud\logs"
+$logDir = "$env:USERPROFILE\Documents\Guild Wars 2\addons\blishhud\logs"
 $latestLog = Get-ChildItem $logDir -Filter "blishhud.*.log" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 
 if ($latestLog) {

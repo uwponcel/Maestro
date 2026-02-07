@@ -1,19 +1,19 @@
 ﻿<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BLISH HUD debug" type="RunExe" factoryName=".NET Executable">
-    <option name="EXE_PATH" value="$USER_HOME$/OneDrive/Documents/BlishHUD/Blish HUD.exe" />
-    <option name="PROGRAM_PARAMETERS" value="--debug --module C:\git\perso\Maestro\bin\x64\Debug\Maestro.bhm" />
-    <option name="WORKING_DIRECTORY" value="$USER_HOME$/OneDrive/Documents/BlishHUD" />
-    <option name="PASS_PARENT_ENVS" value="1" />
-    <option name="ENV_FILE_PATHS" value="" />
-    <option name="REDIRECT_INPUT_PATH" value="" />
-    <option name="MIXED_MODE_DEBUG" value="0" />
-    <option name="USE_MONO" value="0" />
-    <option name="RUNTIME_ARGUMENTS" value="" />
-    <option name="AUTO_ATTACH_CHILDREN" value="0" />
-    <option name="RUNTIME_TYPE" value="netfw" />
-    <method v="2">
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Kill Blish HUD" />
-      <option name="Build Solution" enabled="true" />
-    </method>
-  </configuration>
+    <configuration default="false" name="BLISH HUD debug" type="RunExe" factoryName=".NET Executable">
+        <option name="EXE_PATH" value="$USER_HOME$/Documents/BlishHUD/Blish HUD.exe"/>
+        <option name="PROGRAM_PARAMETERS" value="--debug --module C:\git\perso\Maestro\bin\x64\Debug\Maestro.bhm"/>
+        <option name="WORKING_DIRECTORY" value="$USER_HOME$/Documents/BlishHUD"/>
+        <option name="PASS_PARENT_ENVS" value="1"/>
+        <option name="ENV_FILE_PATHS" value=""/>
+        <option name="REDIRECT_INPUT_PATH" value=""/>
+        <option name="MIXED_MODE_DEBUG" value="0"/>
+        <option name="USE_MONO" value="0"/>
+        <option name="RUNTIME_ARGUMENTS" value=""/>
+        <option name="AUTO_ATTACH_CHILDREN" value="0"/>
+        <option name="RUNTIME_TYPE" value="netfw"/>
+        <method v="2">
+            <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Kill Blish HUD"/>
+            <option name="Build Solution" enabled="true"/>
+        </method>
+    </configuration>
 </component>

@@ -347,6 +347,3 @@ tools/
 
 # Rider run configurations
 .run/
-
-# Claude Code
-CLAUDE.md

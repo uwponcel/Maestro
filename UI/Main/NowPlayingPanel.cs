@@ -4,6 +4,7 @@ using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
 using Maestro.Services.Playback;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 
 namespace Maestro.UI.Main
@@ -45,7 +46,7 @@ namespace Maestro.UI.Main
         private readonly SongPlayer _songPlayer;
         private readonly StandardButton _pauseButton;
         private readonly StandardButton _stopButton;
-        private readonly Label _nowPlayingLabel;
+        private readonly MarqueeLabel _nowPlayingLabel;
         private readonly Label _progressLabel;
         private readonly Label _instrumentLabel;
         private readonly Label _speedLabel;
@@ -160,14 +161,15 @@ namespace Maestro.UI.Main
             return button;
         }
 
-        private Label CreateNowPlayingLabel()
+        private MarqueeLabel CreateNowPlayingLabel()
         {
-            return new Label
+            var availableWidth = Width - Layout.LabelX - Layout.QueueButtonWidth - Layout.QueueButtonRightPadding - 5;
+            return new MarqueeLabel
             {
                 Parent = this,
                 Text = "No song playing",
                 Location = new Point(Layout.LabelX, Layout.LabelYCentered),
-                Width = Layout.LabelWidth,
+                Width = availableWidth,
                 Font = GameService.Content.DefaultFont14,
                 TextColor = MaestroTheme.MutedCream
             };
