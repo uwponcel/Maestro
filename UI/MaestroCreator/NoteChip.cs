@@ -1,13 +1,15 @@
 using System;
 using Blish_HUD;
 using Blish_HUD.Controls;
+using Blish_HUD.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Maestro.UI.MaestroCreator
 {
     public class NoteChip : Panel
     {
-        public static class Layout
+        private static class Layout
         {
             public const int Height = 24;
             public const int FixedWidth = 118;
@@ -16,7 +18,10 @@ namespace Maestro.UI.MaestroCreator
             public const int CloseButtonMargin = 2;
         }
 
+        private const int BORDER_THICKNESS = 2;
+
         public event EventHandler RemoveClicked;
+        public event EventHandler<MouseEventArgs> ChipClicked;
 
         public string NoteString { get; }
         public int Index { get; set; }
@@ -24,13 +29,22 @@ namespace Maestro.UI.MaestroCreator
         private readonly Label _noteLabel;
         private readonly Label _closeButton;
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set { _isSelected = value; UpdateVisualState(); }
+        }
+
         public NoteChip(string noteString, int index)
         {
             NoteString = noteString;
             Index = index;
 
+            var baseColor = GetNoteColor(noteString);
+
             Size = new Point(Layout.FixedWidth, Layout.Height);
-            BackgroundColor = GetNoteColor(noteString);
+            BackgroundColor = baseColor;
 
             // Calculate max text width and truncate if needed
             var maxTextWidth = Layout.FixedWidth - Layout.CloseButtonSize - Layout.Padding * 2 - Layout.CloseButtonMargin;
@@ -74,11 +88,28 @@ namespace Maestro.UI.MaestroCreator
             _closeButton.LeftMouseButtonReleased += (s, e) => RemoveClicked?.Invoke(this, EventArgs.Empty);
 
             // Hover effect for the whole chip
-            MouseEntered += (s, e) => BackgroundColor = MaestroTheme.WithAlpha(GetNoteColor(noteString), 255);
-            MouseLeft += (s, e) => BackgroundColor = GetNoteColor(noteString);
+            MouseEntered += (s, e) => BackgroundColor = MaestroTheme.WithAlpha(baseColor, 255);
+            MouseLeft += (s, e) => BackgroundColor = baseColor;
         }
 
-        private Color GetNoteColor(string noteString)
+        protected override void OnClick(MouseEventArgs e)
+        {
+            // Only fire ChipClicked if click is outside the close button area
+            const int closeButtonX = Layout.FixedWidth - Layout.CloseButtonSize - Layout.CloseButtonMargin;
+            if (RelativeMousePosition.X < closeButtonX)
+            {
+                ChipClicked?.Invoke(this, e);
+            }
+
+            base.OnClick(e);
+        }
+
+        private void UpdateVisualState()
+        {
+            Invalidate();
+        }
+
+        private static Color GetNoteColor(string noteString)
         {
             if (noteString.StartsWith("R"))
                 return MaestroTheme.ChipRest;
@@ -90,6 +121,25 @@ namespace Maestro.UI.MaestroCreator
                 return MaestroTheme.ChipUpperOctave;
 
             return MaestroTheme.ChipMiddleOctave;
+        }
+
+        public override void PaintBeforeChildren(SpriteBatch spriteBatch, Rectangle bounds)
+        {
+            base.PaintBeforeChildren(spriteBatch, bounds);
+
+            if (!_isSelected) return;
+
+            var borderColor = MaestroTheme.AmberGold;
+            var pixel = ContentService.Textures.Pixel;
+
+            // Top
+            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(0, 0, bounds.Width, BORDER_THICKNESS), borderColor);
+            // Bottom
+            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(0, bounds.Height - BORDER_THICKNESS, bounds.Width, BORDER_THICKNESS), borderColor);
+            // Left
+            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(0, 0, BORDER_THICKNESS, bounds.Height), borderColor);
+            // Right
+            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(bounds.Width - BORDER_THICKNESS, 0, BORDER_THICKNESS, bounds.Height), borderColor);
         }
 
         protected override void DisposeControl()

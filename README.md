@@ -20,6 +20,19 @@
 - **Smart playback** -- auto-pauses when you tab out or type in chat, resumes when you return
 - Search, filter by instrument or source, and sort your library
 
+## Maestro Creator
+
+The Creator lets you compose songs in-game with a visual piano keyboard. Notes appear as colored chips in the sequence panel.
+
+### Note Selection
+
+You can select notes to preview or delete specific sections of your composition:
+
+- **Click** a note chip to select it
+- **Shift+Click** to select a range of notes
+- **Ctrl+Click** to add or remove individual notes from the selection
+- **Right-click** the notes area for a context menu with Preview Selected, Delete Selected, Select All, and Clear Selection
+
 ## Module Settings
 
 ![Module settings - keybinds](https://github.com/user-attachments/assets/b38a401b-adb8-4a2e-b9ca-7a4a7ccbd26f)

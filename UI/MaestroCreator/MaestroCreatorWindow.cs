@@ -13,8 +13,6 @@ namespace Maestro.UI.MaestroCreator
 {
     public class MaestroCreatorWindow : StandardWindow
     {
-        private static readonly Logger Logger = Logger.GetLogger<MaestroCreatorWindow>();
-
         private static class Layout
         {
             public const int WindowWidth = 420;
@@ -36,6 +34,7 @@ namespace Maestro.UI.MaestroCreator
             public const int TranscriberInputWidth = 115;
 
             public const int ActionButtonWidth = 80;
+            public const int PreviewButtonWidth = 95;
             public const int ActionButtonSpacing = 10;
             public const int ChordPreviewMaxLength = 38;
             public const int LabelYOffset = 5;
@@ -265,17 +264,19 @@ namespace Maestro.UI.MaestroCreator
                 Location = new Point(0, currentY),
                 ShowBorder = true
             };
+            _noteSequencePanel.PreviewSelectionRequested += OnPreviewSelectionClicked;
             currentY += Layout.NoteSequenceHeight + MaestroTheme.InputSpacing * 2;
 
             // Action buttons
-            var buttonsStartX = (Layout.ContentWidth - (Layout.ActionButtonWidth * 3 + Layout.ActionButtonSpacing * 2)) / 2;
+            var totalButtonsWidth = Layout.PreviewButtonWidth + Layout.ActionButtonWidth * 2 + Layout.ActionButtonSpacing * 2;
+            var buttonsStartX = (Layout.ContentWidth - totalButtonsWidth) / 2;
 
             _previewButton = new StandardButton
             {
                 Parent = this,
-                Text = "Preview",
+                Text = "Preview All",
                 Location = new Point(buttonsStartX, currentY),
-                Size = new Point(Layout.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
+                Size = new Point(Layout.PreviewButtonWidth, MaestroTheme.ActionButtonHeight)
             };
             _previewButton.Click += OnPreviewClicked;
 
@@ -283,7 +284,7 @@ namespace Maestro.UI.MaestroCreator
             {
                 Parent = this,
                 Text = "Save",
-                Location = new Point(buttonsStartX + Layout.ActionButtonWidth + Layout.ActionButtonSpacing, currentY),
+                Location = new Point(buttonsStartX + Layout.PreviewButtonWidth + Layout.ActionButtonSpacing, currentY),
                 Size = new Point(Layout.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
             };
             _saveButton.Click += OnSaveClicked;
@@ -292,7 +293,7 @@ namespace Maestro.UI.MaestroCreator
             {
                 Parent = this,
                 Text = "Cancel",
-                Location = new Point(buttonsStartX + (Layout.ActionButtonWidth + Layout.ActionButtonSpacing) * 2, currentY),
+                Location = new Point(buttonsStartX + Layout.PreviewButtonWidth + Layout.ActionButtonWidth + Layout.ActionButtonSpacing * 2, currentY),
                 Size = new Point(Layout.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
             };
             _cancelButton.Click += OnCancelClicked;
@@ -503,6 +504,37 @@ namespace Maestro.UI.MaestroCreator
             }
         }
 
+        private void OnPreviewSelectionClicked(object sender, EventArgs e)
+        {
+            var selectedNotes = _noteSequencePanel.GetSelectedNotes();
+            if (selectedNotes.Count == 0) return;
+
+            try
+            {
+                var song = new Song
+                {
+                    Name = "Preview",
+                    Artist = "Preview",
+                    Instrument = _instrument,
+                    IsCreated = true
+                };
+
+                foreach (var note in selectedNotes)
+                {
+                    song.Notes.Add(note);
+                }
+
+                var commands = NoteParser.Parse(song.Notes);
+                song.Commands.AddRange(commands);
+
+                Module.Instance.PreviewSong(song);
+            }
+            catch (Exception ex)
+            {
+                ScreenNotification.ShowNotification($"Error previewing selection: {ex.Message}", ScreenNotification.NotificationType.Error);
+            }
+        }
+
         private void OnSaveClicked(object sender, Blish_HUD.Input.MouseEventArgs e)
         {
             // Add any pending chord first
@@ -617,6 +649,7 @@ namespace Maestro.UI.MaestroCreator
             _titleInput.Text = string.Empty;
             _artistInput.Text = string.Empty;
             _transcriberInput.Text = string.Empty;
+            _noteSequencePanel.ClearSelection();
             _noteSequencePanel.Clear();
             _pianoKeyboard.CurrentOctave = 0;
             _pendingChordNotes.Clear();
@@ -628,6 +661,7 @@ namespace Maestro.UI.MaestroCreator
 
         protected override void DisposeControl()
         {
+            _noteSequencePanel.PreviewSelectionRequested -= OnPreviewSelectionClicked;
             _pianoKeyboard.NotePressed -= OnNotePressed;
             _pianoKeyboard.OctaveChanged -= OnOctaveChanged;
             _previewButton.Click -= OnPreviewClicked;

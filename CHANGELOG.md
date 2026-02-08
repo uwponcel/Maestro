@@ -1,5 +1,21 @@
 # Changelog
 
+## v3.3.0
+
+**Note Selection in Maestro Creator**
+
+Select individual notes or groups of notes in the Creator to preview or delete them without affecting the rest of your composition.
+
+- Click a note chip to select it
+- Shift+click to select a range of notes
+- Ctrl+click to toggle individual notes in and out of the selection
+- Right-click the notes area for quick actions: Preview Selected, Delete Selected, Select All, and Clear Selection
+- Selected notes are highlighted with a gold border
+- The header shows how many notes are currently selected
+- "Preview All" button always plays the full song
+
+---
+
 ## v3.2.0
 
 **Scrolling Now Playing Title**
