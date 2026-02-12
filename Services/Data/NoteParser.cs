@@ -113,6 +113,53 @@ namespace Maestro.Services.Data
             return commands;
         }
 
+        public static SeekData ComputeSeekData(List<SongCommand> commands)
+        {
+            var count = commands.Count;
+            var cumulativeTimeMs = new long[count];
+            var octaveAtCommand = new int[count];
+
+            long elapsed = 0;
+            int octave = 0;
+            bool lastKeyUpWasOctave = false;
+
+            for (int i = 0; i < count; i++)
+            {
+                var cmd = commands[i];
+
+                if (cmd.Type == CommandType.KeyDown)
+                {
+                    if (cmd.Key == Keys.NumPad9)
+                        octave = Math.Min(octave + 1, 1);
+                    else if (cmd.Key == Keys.NumPad0)
+                        octave = Math.Max(octave - 1, -1);
+                }
+
+                if (cmd.Type == CommandType.KeyUp)
+                {
+                    lastKeyUpWasOctave = cmd.Key == Keys.NumPad9 || cmd.Key == Keys.NumPad0;
+                }
+
+                cumulativeTimeMs[i] = elapsed;
+                octaveAtCommand[i] = octave;
+
+                if (cmd.Type == CommandType.Wait)
+                {
+                    // Only count musical waits, skip octave change delays
+                    if (!lastKeyUpWasOctave)
+                        elapsed += cmd.Duration;
+                    lastKeyUpWasOctave = false;
+                }
+            }
+
+            return new SeekData
+            {
+                CumulativeTimeMs = cumulativeTimeMs,
+                OctaveAtCommand = octaveAtCommand,
+                TotalDurationMs = elapsed
+            };
+        }
+
         private static List<ParsedNote> ParseNotesFromLine(string line)
         {
             var notes = new List<ParsedNote>();

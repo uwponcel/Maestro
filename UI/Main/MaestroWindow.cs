@@ -18,7 +18,7 @@ namespace Maestro.UI.Main
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 495;
+            public const int WindowHeight = 520;
             public const int ContentWidth = 390;
         }
 

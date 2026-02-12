@@ -1,5 +1,24 @@
 # Changelog
 
+## v3.4.0
+
+**Seek Slider**
+
+- Added seek slider below the speed control in the now-playing panel
+- Drag the slider to jump to any position in the song
+- Elapsed and total time labels show song progress
+- Clicking the slider pauses playback; releasing it seeks and resumes
+
+**Octave Drift Fix**
+
+- Increased octave change delays to reduce octave drift during long songs with many octave changes
+
+**New Community Songs**
+- Star Power SMB (Juliugh)
+- Castle Vein (Arona)
+
+---
+
 ## v3.3.0
 
 **Note Selection in Maestro Creator**

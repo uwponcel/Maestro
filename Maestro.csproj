@@ -72,6 +72,7 @@
         <Compile Include="Models\InstrumentType.cs"/>
         <Compile Include="Models\SongCommand.cs"/>
         <Compile Include="Models\Song.cs"/>
+        <Compile Include="Models\SeekData.cs"/>
         <Compile Include="Services\DebugLogger.cs"/>
         <Compile Include="Services\Playback\KeyboardService.cs"/>
         <Compile Include="Services\Playback\SongPlayer.cs"/>

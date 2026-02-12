@@ -13,7 +13,7 @@ namespace Maestro.UI.Main
     {
         public static class Layout
         {
-            public const int Height = 105;
+            public const int Height = 130;
 
             public const int ButtonY = 18;
             public const int ButtonWidth = 40;
@@ -34,6 +34,13 @@ namespace Maestro.UI.Main
             public const int SpeedSliderWidth = 180;
             public const int SpeedValueX = 248;
 
+            public const int SeekElapsedX = 8;
+            public const int SeekLabelY = 87;
+            public const int SeekSliderX = 42;
+            public const int SeekSliderY = 90;
+            public const int SeekSliderWidth = 200;
+            public const int SeekTotalX = 248;
+
             public const int QueueButtonWidth = 30;
             public const int QueueButtonRightPadding = 8;
             public const int QueueButtonY = 8;
@@ -52,11 +59,15 @@ namespace Maestro.UI.Main
         private readonly Label _speedLabel;
         private readonly TrackBar _speedSlider;
         private readonly Label _speedValueLabel;
+        private readonly Label _elapsedLabel;
+        private readonly TrackBar _seekSlider;
+        private readonly Label _totalLabel;
         private readonly StandardButton _queueButton;
 
         private bool _isPlayingFromQueue;
         private Song _pendingSong;
         private InstrumentType? _currentInstrument;
+        private bool _wasPlayingBeforeSeek;
 
         public NowPlayingPanel(SongPlayer songPlayer, int width)
         {
@@ -74,6 +85,9 @@ namespace Maestro.UI.Main
             _speedLabel = CreateSpeedLabel();
             _speedSlider = CreateSpeedSlider();
             _speedValueLabel = CreateSpeedValueLabel();
+            _elapsedLabel = CreateElapsedLabel();
+            _seekSlider = CreateSeekSlider();
+            _totalLabel = CreateTotalLabel();
             _queueButton = CreateQueueButton(width);
 
             SubscribeToEvents();
@@ -122,6 +136,11 @@ namespace Maestro.UI.Main
             if (_songPlayer.IsPlaying && !_songPlayer.IsPaused)
             {
                 UpdateLiveProgress();
+            }
+
+            if (_songPlayer.IsPlaying && !_seekSlider.Dragging)
+            {
+                UpdateSeekSlider();
             }
         }
 
@@ -243,6 +262,50 @@ namespace Maestro.UI.Main
             };
         }
 
+        private Label CreateElapsedLabel()
+        {
+            return new Label
+            {
+                Parent = this,
+                Text = "0:00",
+                Location = new Point(Layout.SeekElapsedX, Layout.SeekLabelY),
+                AutoSizeWidth = true,
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.MutedCream
+            };
+        }
+
+        private TrackBar CreateSeekSlider()
+        {
+            var slider = new TrackBar
+            {
+                Parent = this,
+                Location = new Point(Layout.SeekSliderX, Layout.SeekSliderY),
+                Width = Layout.SeekSliderWidth,
+                MinValue = 0,
+                MaxValue = 1000,
+                Value = 0,
+                SmallStep = true,
+                Enabled = false
+            };
+            slider.IsDraggingChanged += OnSeekDraggingChanged;
+            slider.ValueChanged += OnSeekValueChanged;
+            return slider;
+        }
+
+        private Label CreateTotalLabel()
+        {
+            return new Label
+            {
+                Parent = this,
+                Text = "0:00",
+                Location = new Point(Layout.SeekTotalX, Layout.SeekLabelY),
+                AutoSizeWidth = true,
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.MutedCream
+            };
+        }
+
         private StandardButton CreateQueueButton(int panelWidth)
         {
             var button = new StandardButton
@@ -305,6 +368,33 @@ namespace Maestro.UI.Main
             _speedValueLabel.Text = $"{speed:F1}x";
         }
 
+        private void OnSeekDraggingChanged(object sender, ValueEventArgs<bool> e)
+        {
+            if (e.Value)
+            {
+                _wasPlayingBeforeSeek = _songPlayer.IsPlaying && !_songPlayer.IsPaused;
+                if (_wasPlayingBeforeSeek)
+                    _songPlayer.Pause();
+            }
+            else
+            {
+                _songPlayer.SeekTo(_seekSlider.Value / 1000f);
+                if (_wasPlayingBeforeSeek)
+                    _songPlayer.Resume();
+            }
+        }
+
+        private void OnSeekValueChanged(object sender, ValueEventArgs<float> e)
+        {
+            if (!_seekSlider.Dragging) return;
+
+            var song = _songPlayer.CurrentSong;
+            if (song?.SeekData == null) return;
+
+            var targetMs = (long)(e.Value / 1000f * song.SeekData.TotalDurationMs);
+            _elapsedLabel.Text = FormatTime(targetMs);
+        }
+
         private void UpdatePlayingState()
         {
             var song = _songPlayer.CurrentSong;
@@ -323,6 +413,12 @@ namespace Maestro.UI.Main
 
             _pauseButton.Enabled = true;
             _stopButton.Enabled = true;
+            _seekSlider.Enabled = true;
+
+            if (song?.SeekData != null)
+            {
+                _totalLabel.Text = FormatTime(song.SeekData.TotalDurationMs);
+            }
         }
 
         private void UpdatePausedState()
@@ -388,6 +484,10 @@ namespace Maestro.UI.Main
             _pauseButton.Text = "||";
             _pauseButton.Enabled = false;
             _stopButton.Enabled = false;
+            _seekSlider.Enabled = false;
+            _seekSlider.Value = 0;
+            _elapsedLabel.Text = "0:00";
+            _totalLabel.Text = "0:00";
         }
 
         private void ShowPendingState()
@@ -403,6 +503,7 @@ namespace Maestro.UI.Main
             _pauseButton.Text = ">";
             _pauseButton.Enabled = true;
             _stopButton.Enabled = false;
+            _seekSlider.Enabled = false;
         }
 
         private void UpdateLiveProgress()
@@ -427,6 +528,25 @@ namespace Maestro.UI.Main
             }
         }
 
+        private void UpdateSeekSlider()
+        {
+            var song = _songPlayer.CurrentSong;
+            if (song?.SeekData == null) return;
+
+            var seekData = song.SeekData;
+            var index = _songPlayer.CurrentCommandIndex;
+            if (index >= seekData.CumulativeTimeMs.Length)
+                index = seekData.CumulativeTimeMs.Length - 1;
+            if (index < 0) return;
+
+            var elapsedMs = seekData.CumulativeTimeMs[index];
+            var progress = seekData.TotalDurationMs > 0
+                ? (float)elapsedMs / seekData.TotalDurationMs * 1000f
+                : 0;
+            _seekSlider.Value = progress;
+            _elapsedLabel.Text = FormatTime(elapsedMs);
+        }
+
         private string GetQueueSuffix() => _isPlayingFromQueue ? " - Queue" : "";
 
         private float CalculateProgress(Song song)
@@ -434,6 +554,14 @@ namespace Maestro.UI.Main
             return song != null && song.Commands.Count > 0
                 ? (float)_songPlayer.CurrentCommandIndex / song.Commands.Count * 100
                 : 0;
+        }
+
+        private static string FormatTime(long ms)
+        {
+            var span = TimeSpan.FromMilliseconds(Math.Max(0, ms));
+            return span.TotalHours >= 1
+                ? span.ToString(@"h\:mm\:ss")
+                : span.ToString(@"m\:ss");
         }
 
         private static void ClearTextInputFocus()
@@ -463,6 +591,9 @@ namespace Maestro.UI.Main
             _speedLabel?.Dispose();
             _speedSlider?.Dispose();
             _speedValueLabel?.Dispose();
+            _elapsedLabel?.Dispose();
+            _seekSlider?.Dispose();
+            _totalLabel?.Dispose();
             _queueButton?.Dispose();
         }
     }

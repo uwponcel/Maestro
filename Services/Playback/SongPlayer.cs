@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Blish_HUD;
 using Maestro.Models;
+using Maestro.Services.Data;
 using Maestro.UI.Main;
 using Microsoft.Xna.Framework.Input;
 
@@ -16,6 +17,10 @@ namespace Maestro.Services.Playback
         private Task _playbackTask;
         private readonly object _pauseLock = new object();
         private float _playbackSpeed = 1.0f;
+
+        private volatile bool _seekRequested;
+        private int _seekTargetIndex;
+        private int _seekTargetOctave;
 
         private static bool Gw2HasFocus => GameService.GameIntegration.Gw2Instance.Gw2HasFocus;
         private static bool IsGw2TextInputFocused => GameService.Gw2Mumble.UI.IsTextInputFocused;
@@ -52,7 +57,13 @@ namespace Maestro.Services.Playback
             CurrentSong = song;
             CurrentCommandIndex = 0;
             IsPaused = false;
+            _seekRequested = false;
             _cancellationTokenSource = new CancellationTokenSource();
+
+            if (song.SeekData == null && song.Commands.Count > 0)
+            {
+                song.SeekData = NoteParser.ComputeSeekData(song.Commands);
+            }
 
             _keyboardService.StartDebugLog(song.DisplayName);
             _playbackTask = Task.Run(() => PlaybackLoop(_cancellationTokenSource.Token));
@@ -97,6 +108,25 @@ namespace Maestro.Services.Playback
                 Pause();
         }
 
+        public void SeekTo(float progress)
+        {
+            if (CurrentSong?.SeekData == null) return;
+
+            var seekData = CurrentSong.SeekData;
+            var targetMs = (long)(progress * seekData.TotalDurationMs);
+
+            var index = Array.BinarySearch(seekData.CumulativeTimeMs, targetMs);
+            if (index < 0) index = ~index;
+            index = Math.Min(index, CurrentSong.Commands.Count - 1);
+            index = Math.Max(index, 0);
+
+            _seekTargetIndex = index;
+            _seekTargetOctave = seekData.OctaveAtCommand[index];
+            _seekRequested = true;
+
+            Logger.Info($"Seek requested to {progress:P0} (command {index}, octave {_seekTargetOctave})");
+        }
+
         public void Stop()
         {
             if (_cancellationTokenSource != null)
@@ -124,6 +154,7 @@ namespace Maestro.Services.Playback
 
             CurrentSong = null;
             CurrentCommandIndex = 0;
+            _seekRequested = false;
 
             OnStopped?.Invoke(this, EventArgs.Empty);
             Logger.Info("Playback stopped");
@@ -140,7 +171,9 @@ namespace Maestro.Services.Playback
 
                 await Task.Delay(GameTimings.PlaybackStartDelayMs, cancellationToken);
 
-                for (var i = 0; i < CurrentSong.Commands.Count; i++)
+                CurrentCommandIndex = 0;
+
+                while (CurrentCommandIndex < CurrentSong.Commands.Count)
                 {
                     if (cancellationToken.IsCancellationRequested)
                         break;
@@ -156,8 +189,16 @@ namespace Maestro.Services.Playback
                     if (cancellationToken.IsCancellationRequested)
                         break;
 
-                    CurrentCommandIndex = i;
-                    var command = CurrentSong.Commands[i];
+                    if (_seekRequested)
+                    {
+                        _seekRequested = false;
+                        CurrentCommandIndex = _seekTargetIndex;
+                        _keyboardService.ReleaseAllKeys();
+                        ResetToTargetOctave(_seekTargetOctave);
+                        continue;
+                    }
+
+                    var command = CurrentSong.Commands[CurrentCommandIndex];
 
                     ExecuteCommand(command);
 
@@ -166,6 +207,8 @@ namespace Maestro.Services.Playback
                         var adjustedDuration = (int)(command.Duration / _playbackSpeed);
                         await Task.Delay(adjustedDuration, cancellationToken);
                     }
+
+                    CurrentCommandIndex++;
                 }
 
                 if (!cancellationToken.IsCancellationRequested)
@@ -227,6 +270,39 @@ namespace Maestro.Services.Playback
             Logger.Debug(CurrentSong?.Instrument == InstrumentType.Bass
                 ? "Octave reset complete - Bass at Low octave"
                 : "Octave reset complete - now at middle octave");
+        }
+
+        /// <summary>
+        /// Resets the instrument to a specific target octave for seeking.
+        /// Goes to absolute bottom (5x down), then steps up to the target.
+        /// </summary>
+        private void ResetToTargetOctave(int targetOctave)
+        {
+            IsAdjustingOctave = true;
+            Logger.Debug($"Seek octave reset to {targetOctave}...");
+
+            for (var i = 0; i < 5; i++)
+            {
+                _keyboardService.KeyDown(Keys.NumPad0);
+                _keyboardService.KeyUp(Keys.NumPad0);
+                Thread.Sleep(GameTimings.OctaveResetDelayMs);
+            }
+
+            // From bottom: non-Bass needs (targetOctave + 1) ups, Bass needs targetOctave ups
+            int upsNeeded = CurrentSong?.Instrument == InstrumentType.Bass
+                ? targetOctave
+                : targetOctave + 1;
+            upsNeeded = Math.Max(0, upsNeeded);
+
+            for (var i = 0; i < upsNeeded; i++)
+            {
+                _keyboardService.KeyDown(Keys.NumPad9);
+                _keyboardService.KeyUp(Keys.NumPad9);
+                Thread.Sleep(GameTimings.OctaveResetDelayMs);
+            }
+
+            IsAdjustingOctave = false;
+            Logger.Debug($"Seek octave reset complete - target octave {targetOctave}");
         }
     }
 }

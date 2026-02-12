@@ -7,15 +7,15 @@ namespace Maestro.Models
     {
         /// <summary>
         /// Delay after an octave change during playback.
-        /// AHK scripts work with no explicit delay, so we keep this minimal.
+        /// GW2 can miss rapid octave keypresses, causing drift over long songs.
         /// </summary>
-        public const int OctaveChangeDelayMs = 10;
+        public const int OctaveChangeDelayMs = 50;
 
         /// <summary>
         /// Delay after an octave change during reset (before playback starts).
         /// Needs to be longer because we send multiple rapid octave changes with no notes between.
         /// </summary>
-        public const int OctaveResetDelayMs = 100;
+        public const int OctaveResetDelayMs = 150;
 
         /// <summary>
         /// Delay before starting playback to give the player time to prepare.
