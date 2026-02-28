@@ -1,5 +1,23 @@
 # Changelog
 
+## v3.5.0
+
+**Favorites**
+
+- Star icon on each song card to mark favorites
+- Click the star or right-click and select "Toggle Favorite" to add/remove
+- Filter by "Favorites" in the source dropdown to show only starred songs
+- Favorites persist across sessions
+
+**New Community Songs**
+
+- I'll Make A Man - Mulan (Lindsey)
+- Elite Four - Pokemon Red/Blue/Yellow (Lindsey)
+- Hey There Deliliah (RandomGuy)
+- Sakura (Bai Gujing)
+
+---
+
 ## v3.4.0
 
 **Seek Slider**

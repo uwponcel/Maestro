@@ -4,6 +4,7 @@ using Blish_HUD.Controls;
 using Blish_HUD.Controls.Effects;
 using Blish_HUD.Input;
 using Maestro.Models;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 
 namespace Maestro.UI.Main
@@ -23,6 +24,10 @@ namespace Maestro.UI.Main
             public const int TitleY = 22;
             public const int ArtistY = 40;
 
+            // Star button
+            public const int StarButtonSize = 20;
+            public const int StarButtonGap = 4;
+
             // Play button (right side, vertically centered)
             public const int PlayButtonWidth = 40;
             public const int PlayButtonHeight = 26;
@@ -30,7 +35,7 @@ namespace Maestro.UI.Main
             public const int PlayButtonRightMargin = 15;
 
             // Labels width = card width - LabelRightMargin
-            public static int LabelRightMargin => PlayButtonWidth + PlayButtonRightMargin;
+            public static int LabelRightMargin => PlayButtonWidth + PlayButtonRightMargin + StarButtonSize + StarButtonGap;
         }
 
         public event EventHandler<MouseEventArgs> PlayClicked;
@@ -38,11 +43,13 @@ namespace Maestro.UI.Main
         public event EventHandler DeleteRequested;
         public event EventHandler EditRequested;
         public event EventHandler AddToQueueRequested;
+        public event EventHandler FavoriteToggleRequested;
 
         private readonly Panel _indicator;
         private readonly Label _instrumentLabel;
         private readonly Label _titleLabel;
         private readonly Label _artistLabel;
+        private readonly StarButton _starButton;
         private readonly StandardButton _playButton;
         private readonly ScrollingHighlightEffect _highlightEffect;
 
@@ -69,6 +76,12 @@ namespace Maestro.UI.Main
                 _isPlaying = value;
                 UpdateVisualState();
             }
+        }
+
+        public bool IsFavorite
+        {
+            get => _starButton.IsFavorite;
+            set => _starButton.IsFavorite = value;
         }
 
         public SongCard(Song song, int width)
@@ -127,6 +140,15 @@ namespace Maestro.UI.Main
                 TextColor = MaestroTheme.MutedCream
             };
 
+            _starButton = new StarButton
+            {
+                Parent = this,
+                Location = new Point(
+                    width - Layout.PlayButtonWidth - Layout.PlayButtonRightMargin - Layout.StarButtonSize - Layout.StarButtonGap,
+                    (Layout.Height - Layout.StarButtonSize) / 2)
+            };
+            _starButton.Click += (s, e) => FavoriteToggleRequested?.Invoke(this, EventArgs.Empty);
+
             _playButton = new StandardButton
             {
                 Parent = this,
@@ -141,6 +163,9 @@ namespace Maestro.UI.Main
 
             var addToQueueItem = contextMenu.AddMenuItem("Add to Queue");
             addToQueueItem.Click += (s, e) => AddToQueueRequested?.Invoke(this, EventArgs.Empty);
+
+            var favoriteItem = contextMenu.AddMenuItem("Toggle Favorite");
+            favoriteItem.Click += (s, e) => FavoriteToggleRequested?.Invoke(this, EventArgs.Empty);
 
             if (song.IsUserImported || song.IsCreated)
             {
@@ -189,6 +214,7 @@ namespace Maestro.UI.Main
             _instrumentLabel?.Dispose();
             _titleLabel?.Dispose();
             _artistLabel?.Dispose();
+            _starButton?.Dispose();
             _playButton?.Dispose();
 
             base.DisposeControl();

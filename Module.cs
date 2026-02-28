@@ -10,6 +10,7 @@ using Blish_HUD.Modules;
 using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
 using Maestro.Models;
+using Maestro.Services;
 using Maestro.Services.Community;
 using Maestro.Services.Data;
 using Maestro.Services.Playback;
@@ -40,6 +41,7 @@ namespace Maestro
         private KeyboardService _keyboardService;
         private SongPlayer _songPlayer;
         private SongStorage _songStorage;
+        private FavoriteService _favoriteService;
         private CommunityService _communityService;
         private CommunityUploadService _uploadService;
         private UploadRateLimiter _uploadRateLimiter;
@@ -76,6 +78,7 @@ namespace Maestro
         protected override async Task LoadAsync()
         {
             _songStorage = new SongStorage(DirectoriesManager);
+            _favoriteService = new FavoriteService(_songStorage.Database);
 
             const string debugSongsPath = @"C:\git\perso\Maestro\Songs";
 
@@ -151,7 +154,7 @@ namespace Maestro
         {
             if (_maestroWindow == null)
             {
-                _maestroWindow = new MaestroWindow(_songPlayer, _songs);
+                _maestroWindow = new MaestroWindow(_songPlayer, _songs, _favoriteService);
                 _maestroWindow.ImportRequested += OnImportRequested;
                 _maestroWindow.CommunityRequested += OnCommunityRequested;
                 _maestroWindow.CreateRequested += OnCreateRequested;

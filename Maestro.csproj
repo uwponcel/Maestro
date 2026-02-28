@@ -81,12 +81,14 @@
         <Compile Include="Services\Data\SongSerializer.cs"/>
         <Compile Include="Services\Data\AhkParser.cs"/>
         <Compile Include="Services\Data\SongStorage.cs"/>
+        <Compile Include="Services\FavoriteService.cs"/>
         <Compile Include="Services\PlaylistService.cs"/>
         <Compile Include="UI\Import\ImportWindow.cs"/>
         <Compile Include="UI\MaestroTheme.cs"/>
         <Compile Include="UI\Main\MaestroWindow.cs"/>
         <Compile Include="UI\Main\NowPlayingPanel.cs"/>
         <Compile Include="UI\Main\SongCard.cs"/>
+        <Compile Include="UI\Controls\StarButton.cs"/>
         <Compile Include="UI\Controls\GenericFilterButton.cs"/>
         <Compile Include="UI\Controls\CustomDropdown.cs"/>
         <Compile Include="UI\Controls\MarqueeLabel.cs"/>

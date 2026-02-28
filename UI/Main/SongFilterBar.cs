@@ -53,9 +53,9 @@ namespace Maestro.UI.Main
             };
 
 #if DEBUG
-            var sourceItems = new[] { "All", "Bundled", "Created", "Imported", "Community", "Submittals" };
+            var sourceItems = new[] { "All", "Favorites", "Bundled", "Created", "Imported", "Community", "Submittals" };
 #else
-            var sourceItems = new[] { "All", "Bundled", "Created", "Imported", "Community" };
+            var sourceItems = new[] { "All", "Favorites", "Bundled", "Created", "Imported", "Community" };
 #endif
             _filterButton = new GenericFilterButton(
                 new FilterSection { Items = sourceItems, DefaultValue = "All" },

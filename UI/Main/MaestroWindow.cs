@@ -33,6 +33,7 @@ namespace Maestro.UI.Main
         private readonly SongPlayer _songPlayer;
         private readonly List<Song> _allSongs;
         private readonly PlaylistService _playlistService;
+        private readonly FavoriteService _favoriteService;
 
         private NowPlayingPanel _nowPlayingPanel;
         private SongFilterBar _filterBar;
@@ -47,7 +48,7 @@ namespace Maestro.UI.Main
         private InstrumentType? _lastPlayedInstrument;
         private Song _pendingSong;
 
-        public MaestroWindow(SongPlayer songPlayer, List<Song> songs)
+        public MaestroWindow(SongPlayer songPlayer, List<Song> songs, FavoriteService favoriteService)
             : base(
                 GetBackground(),
                 new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
@@ -56,6 +57,7 @@ namespace Maestro.UI.Main
             _songPlayer = songPlayer;
             _allSongs = songs;
             _playlistService = new PlaylistService();
+            _favoriteService = favoriteService;
 
             Title = "Maestro";
             Subtitle = "Music player";
@@ -188,6 +190,7 @@ namespace Maestro.UI.Main
             _songListPanel.SongDeleteRequested += OnSongDeleteRequested;
             _songListPanel.EditRequested += OnEditRequested;
             _songListPanel.AddToQueueRequested += OnAddToQueueRequested;
+            _songListPanel.FavoriteToggleRequested += OnFavoriteToggleRequested;
             _songListPanel.CountChanged += OnCountChanged;
             return currentY + SongListPanel.Layout.Height + MaestroTheme.InputSpacing;
         }
@@ -226,6 +229,7 @@ namespace Maestro.UI.Main
             _songPlayer.OnCompleted += OnSongCompleted;
 
             _playlistService.QueueChanged += OnQueueChanged;
+            _favoriteService.FavoritesChanged += OnFavoritesChanged;
         }
 
         private void OnWindowClicked(object sender, MouseEventArgs e)
@@ -295,6 +299,20 @@ namespace Maestro.UI.Main
         private void OnAddToQueueRequested(object sender, Song song)
         {
             _playlistService.Add(song);
+        }
+
+        private void OnFavoriteToggleRequested(object sender, Song song)
+        {
+            _favoriteService.ToggleFavorite(song);
+        }
+
+        private void OnFavoritesChanged(object sender, EventArgs e)
+        {
+            var favoriteKeys = _favoriteService.GetAllFavoriteKeys();
+            _songListPanel.UpdateFavoriteStates(favoriteKeys);
+
+            if (_filterBar.SelectedSource == "Favorites")
+                RefreshSongList();
         }
 
         private void OnQueueChanged(object sender, EventArgs e)
@@ -458,6 +476,9 @@ namespace Maestro.UI.Main
         {
             var filteredSongs = GetFilteredSongs();
             _songListPanel.RefreshSongs(filteredSongs);
+
+            var favoriteKeys = _favoriteService.GetAllFavoriteKeys();
+            _songListPanel.UpdateFavoriteStates(favoriteKeys);
         }
 
         private IEnumerable<Song> GetFilteredSongs()
@@ -490,6 +511,8 @@ namespace Maestro.UI.Main
             var source = _filterBar.SelectedSource;
             switch (source)
             {
+                case "Favorites":
+                    return songs.Where(s => _favoriteService.IsFavorite(s));
                 case "Bundled":
                     return songs.Where(s => !s.IsUserImported && !s.IsCreated && !s.IsCommunityDownloaded);
                 case "Community":
@@ -538,6 +561,7 @@ namespace Maestro.UI.Main
             _songPlayer.OnCompleted -= OnSongCompleted;
 
             _playlistService.QueueChanged -= OnQueueChanged;
+            _favoriteService.FavoritesChanged -= OnFavoritesChanged;
 
             _filterBar.SearchChanged -= OnFilterChanged;
             _filterBar.FilterChanged -= OnFilterChanged;
@@ -545,6 +569,7 @@ namespace Maestro.UI.Main
             _songListPanel.SongDeleteRequested -= OnSongDeleteRequested;
             _songListPanel.EditRequested -= OnEditRequested;
             _songListPanel.AddToQueueRequested -= OnAddToQueueRequested;
+            _songListPanel.FavoriteToggleRequested -= OnFavoriteToggleRequested;
             _songListPanel.CountChanged -= OnCountChanged;
             _statusBar.ImportClicked -= OnImportClicked;
             _statusBar.CommunityClicked -= OnCommunityClicked;

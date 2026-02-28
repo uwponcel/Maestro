@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
+using Maestro.Services;
 using Maestro.Services.Playback;
 using Microsoft.Xna.Framework;
 
@@ -15,6 +16,7 @@ namespace Maestro.UI.Main
         public event EventHandler<Song> SongDeleteRequested;
         public event EventHandler<Song> EditRequested;
         public event EventHandler<Song> AddToQueueRequested;
+        public event EventHandler<Song> FavoriteToggleRequested;
         public event EventHandler<int> CountChanged;
         
         public static class Layout
@@ -60,6 +62,7 @@ namespace Maestro.UI.Main
                 card.DeleteRequested += OnCardDeleteRequested;
                 card.EditRequested += OnCardEditRequested;
                 card.AddToQueueRequested += OnCardAddToQueueRequested;
+                card.FavoriteToggleRequested += OnCardFavoriteToggleRequested;
                 _songCards[song] = card;
             }
 
@@ -123,6 +126,15 @@ namespace Maestro.UI.Main
             }
         }
 
+        private void OnCardFavoriteToggleRequested(object sender, EventArgs e)
+        {
+            var card = sender as SongCard;
+            if (card?.Song != null)
+            {
+                FavoriteToggleRequested?.Invoke(this, card.Song);
+            }
+        }
+
         public void SelectSong(Song song)
         {
             SelectedSong = song;
@@ -142,6 +154,15 @@ namespace Maestro.UI.Main
             }
         }
 
+        public void UpdateFavoriteStates(HashSet<string> favoriteKeys)
+        {
+            foreach (var kvp in _songCards)
+            {
+                var key = FavoriteService.GetSongKey(kvp.Key);
+                kvp.Value.IsFavorite = favoriteKeys.Contains(key);
+            }
+        }
+
         protected override void DisposeControl()
         {
             foreach (var card in _songCards.Values)
@@ -151,6 +172,7 @@ namespace Maestro.UI.Main
                 card.DeleteRequested -= OnCardDeleteRequested;
                 card.EditRequested -= OnCardEditRequested;
                 card.AddToQueueRequested -= OnCardAddToQueueRequested;
+                card.FavoriteToggleRequested -= OnCardFavoriteToggleRequested;
                 card.Dispose();
             }
             _songCards.Clear();
