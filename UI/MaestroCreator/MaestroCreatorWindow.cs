@@ -64,6 +64,10 @@ namespace Maestro.UI.MaestroCreator
         private InstrumentType _instrument = InstrumentType.Piano;
         private Song _editingSong;
 
+        // Pop-out note sequence window
+        private NoteSequenceWindow _noteSequenceWindow;
+        private Panel _noteSequencePlaceholder;
+
         // Instrument confirmation overlay
         private readonly Panel _confirmationOverlay;
         private readonly Label _confirmationLabel;
@@ -265,6 +269,32 @@ namespace Maestro.UI.MaestroCreator
                 ShowBorder = true
             };
             _noteSequencePanel.PreviewSelectionRequested += OnPreviewSelectionClicked;
+            _noteSequencePanel.InsertModeChanged += OnNoteSequenceStateChanged;
+            _noteSequencePanel.ReplaceModeChanged += OnNoteSequenceStateChanged;
+            _noteSequencePanel.SelectionChanged += OnNoteSequenceStateChanged;
+            _noteSequencePanel.ExpandRequested += OnExpandRequested;
+
+            // Placeholder shown when the note panel is popped out
+            _noteSequencePlaceholder = new Panel
+            {
+                Parent = this,
+                Location = new Point(0, currentY),
+                Size = new Point(Layout.ContentWidth, Layout.NoteSequenceHeight),
+                BackgroundColor = MaestroTheme.DarkCharcoal,
+                ShowBorder = true,
+                Visible = false
+            };
+            new Label
+            {
+                Parent = _noteSequencePlaceholder,
+                Text = "Notes are being edited in a separate window",
+                Location = new Point(0, Layout.NoteSequenceHeight / 2 - 10),
+                Size = new Point(Layout.ContentWidth, 20),
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.MutedCream,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
             currentY += Layout.NoteSequenceHeight + MaestroTheme.InputSpacing * 2;
 
             // Action buttons
@@ -377,7 +407,17 @@ namespace Maestro.UI.MaestroCreator
 
             // Join notes with space for chord notation
             var chordString = string.Join(" ", _pendingChordNotes);
-            _noteSequencePanel.AddNote(chordString);
+
+            if (_noteSequencePanel.IsInsertMode && _noteSequencePanel.HasSelection)
+            {
+                var insertIndex = _noteSequencePanel.GetLastSelectedIndex() + 1;
+                _noteSequencePanel.InsertAt(insertIndex, chordString);
+                _noteSequencePanel.SelectSingle(insertIndex);
+            }
+            else
+            {
+                _noteSequencePanel.AddNote(chordString);
+            }
 
             _pendingChordNotes.Clear();
             _pendingChordEvents.Clear();
@@ -408,6 +448,77 @@ namespace Maestro.UI.MaestroCreator
             }
         }
 
+        private void OnNoteSequenceStateChanged(object sender, EventArgs e) => UpdateStatusLabel();
+
+        private void OnExpandRequested(object sender, EventArgs e)
+        {
+            if (_noteSequenceWindow != null)
+            {
+                // Collapse: bring panel back
+                CollapseNoteSequence();
+            }
+            else
+            {
+                // Expand: pop out to new window
+                ExpandNoteSequence();
+            }
+        }
+
+        private void ExpandNoteSequence()
+        {
+            // Detach panel from this window
+            _noteSequencePanel.Parent = null;
+
+            // Show placeholder
+            _noteSequencePlaceholder.Visible = true;
+
+            // Create pop-out window with the panel
+            _noteSequenceWindow = new NoteSequenceWindow(_noteSequencePanel);
+            _noteSequenceWindow.PanelReturned += OnNoteSequenceWindowClosed;
+            _noteSequenceWindow.Show();
+        }
+
+        private void CollapseNoteSequence()
+        {
+            if (_noteSequenceWindow == null) return;
+
+            // Detach panel from pop-out window
+            var panel = _noteSequenceWindow.DetachPanel();
+
+            // Close the pop-out window
+            _noteSequenceWindow.PanelReturned -= OnNoteSequenceWindowClosed;
+            _noteSequenceWindow.Hide();
+            _noteSequenceWindow.Dispose();
+            _noteSequenceWindow = null;
+
+            // Reparent panel back and restore original size
+            if (panel != null)
+            {
+                panel.ResizeTo(Layout.ContentWidth, Layout.NoteSequenceHeight);
+                panel.Parent = this;
+                panel.Location = _noteSequencePlaceholder.Location;
+                panel.ShowBorder = true;
+            }
+
+            // Hide placeholder
+            _noteSequencePlaceholder.Visible = false;
+        }
+
+        private void OnNoteSequenceWindowClosed(object sender, EventArgs e)
+        {
+            CollapseNoteSequence();
+        }
+
+        private void UpdateStatusLabel()
+        {
+            // Insert/replace status is now shown in NoteSequencePanel's own mode label.
+            // Here we only clear the chord preview label when not in chord mode.
+            if (!_isChordMode)
+            {
+                _chordPreviewLabel.Text = "";
+            }
+        }
+
         private void OnOctaveChanged(object sender, bool up)
         {
             Module.Instance.PauseIfPlaying();
@@ -424,6 +535,21 @@ namespace Maestro.UI.MaestroCreator
                 _pendingChordNotes.Add(noteString);
                 _pendingChordEvents.Add(e);
                 UpdateChordPreview();
+            }
+            else if (_noteSequencePanel.IsReplaceMode)
+            {
+                // Replace mode: one-shot replace of the targeted note
+                PlayNoteSound(e);
+                _noteSequencePanel.ReplaceAt(_noteSequencePanel.ReplaceTargetIndex, noteString);
+                _noteSequencePanel.ExitReplaceMode();
+            }
+            else if (_noteSequencePanel.IsInsertMode && _noteSequencePanel.HasSelection)
+            {
+                // Insert mode: insert after the last selected note
+                PlayNoteSound(e);
+                var insertIndex = _noteSequencePanel.GetLastSelectedIndex() + 1;
+                _noteSequencePanel.InsertAt(insertIndex, noteString);
+                _noteSequencePanel.SelectSingle(insertIndex);
             }
             else
             {
@@ -582,6 +708,9 @@ namespace Maestro.UI.MaestroCreator
 
         public override void Hide()
         {
+            // Collapse the note sequence window if it's popped out
+            CollapseNoteSequence();
+
             base.Hide();
             WindowClosed?.Invoke(this, EventArgs.Empty);
         }
@@ -649,8 +778,10 @@ namespace Maestro.UI.MaestroCreator
             _titleInput.Text = string.Empty;
             _artistInput.Text = string.Empty;
             _transcriberInput.Text = string.Empty;
+            _noteSequencePanel.ResetModes();
             _noteSequencePanel.ClearSelection();
             _noteSequencePanel.Clear();
+            _noteSequencePanel.ClearUndoStack();
             _pianoKeyboard.CurrentOctave = 0;
             _pendingChordNotes.Clear();
             _pendingChordEvents.Clear();
@@ -661,7 +792,12 @@ namespace Maestro.UI.MaestroCreator
 
         protected override void DisposeControl()
         {
+            CollapseNoteSequence();
             _noteSequencePanel.PreviewSelectionRequested -= OnPreviewSelectionClicked;
+            _noteSequencePanel.InsertModeChanged -= OnNoteSequenceStateChanged;
+            _noteSequencePanel.ReplaceModeChanged -= OnNoteSequenceStateChanged;
+            _noteSequencePanel.SelectionChanged -= OnNoteSequenceStateChanged;
+            _noteSequencePanel.ExpandRequested -= OnExpandRequested;
             _pianoKeyboard.NotePressed -= OnNotePressed;
             _pianoKeyboard.OctaveChanged -= OnOctaveChanged;
             _previewButton.Click -= OnPreviewClicked;
@@ -684,6 +820,7 @@ namespace Maestro.UI.MaestroCreator
             _chordPreviewLabel?.Dispose();
             _addChordButton?.Dispose();
             _readyButton?.Dispose();
+            _noteSequencePlaceholder?.Dispose();
             _confirmationLabel?.Dispose();
             _confirmationOverlay?.Dispose();
 

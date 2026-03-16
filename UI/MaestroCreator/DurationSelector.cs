@@ -60,13 +60,34 @@ namespace Maestro.UI.MaestroCreator
             }
         }
 
-        public int CurrentDurationMs => _selectedNoteType.GetDurationMs(_bpm);
+        private bool _isDotted;
+        public bool IsDotted
+        {
+            get => _isDotted;
+            set
+            {
+                _isDotted = value;
+                UpdateDottedVisual();
+                DurationChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public int CurrentDurationMs
+        {
+            get
+            {
+                var baseDuration = _selectedNoteType.GetDurationMs(_bpm);
+                return _isDotted ? (int)(baseDuration * 1.5) : baseDuration;
+            }
+        }
 
         private readonly Label _bpmLabel;
         private readonly TextBox _bpmInput;
         private readonly Panel[] _noteButtons;
         private readonly Label[] _noteLabels;
         private readonly NoteType[] _noteTypes = { NoteType.Whole, NoteType.Half, NoteType.Quarter, NoteType.Eighth, NoteType.Sixteenth };
+        private readonly Panel _dottedButton;
+        private readonly Label _dottedLabel;
 
         public DurationSelector(int width)
         {
@@ -148,6 +169,40 @@ namespace Maestro.UI.MaestroCreator
                 _noteLabels[i] = label;
             }
 
+            // Dotted note toggle button
+            var dottedX = noteX + _noteTypes.Length * (Layout.NoteButtonWidth + Layout.NoteButtonGap) + 10;
+            _dottedButton = new Panel
+            {
+                Parent = this,
+                Location = new Point(dottedX, 0),
+                Size = new Point(42, Layout.NoteButtonHeight),
+                BackgroundColor = MaestroTheme.ButtonBackground,
+                BasicTooltipText = "Dotted note (+50% duration)"
+            };
+
+            _dottedLabel = new Label
+            {
+                Parent = _dottedButton,
+                Text = "Dot",
+                Location = new Point(0, 0),
+                Size = new Point(42, Layout.NoteButtonHeight),
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.CreamWhite,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Middle,
+                BasicTooltipText = "Dotted note (+50% duration)"
+            };
+
+            _dottedButton.MouseEntered += (s, e) =>
+            {
+                _dottedButton.BackgroundColor = _isDotted ? MaestroTheme.DeepAmber : MaestroTheme.ButtonBackgroundHover;
+            };
+            _dottedButton.MouseLeft += (s, e) =>
+            {
+                _dottedButton.BackgroundColor = _isDotted ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground;
+            };
+            _dottedButton.LeftMouseButtonReleased += (s, e) => IsDotted = !_isDotted;
+
             UpdateNoteTypeSelection();
         }
 
@@ -227,13 +282,31 @@ namespace Maestro.UI.MaestroCreator
 
         private void UpdateTooltips()
         {
+            var dottedSuffix = _isDotted ? ", dotted" : "";
             for (int i = 0; i < _noteTypes.Length; i++)
             {
                 var noteType = _noteTypes[i];
-                var tooltipText = $"{noteType.GetDisplayName()} note ({noteType.GetDurationMs(_bpm)}ms @ {_bpm} BPM)";
+                var baseMs = noteType.GetDurationMs(_bpm);
+                var effectiveMs = _isDotted ? (int)(baseMs * 1.5) : baseMs;
+                var tooltipText = $"{noteType.GetDisplayName()} note ({effectiveMs}ms @ {_bpm} BPM{dottedSuffix})";
                 _noteButtons[i].BasicTooltipText = tooltipText;
                 _noteLabels[i].BasicTooltipText = tooltipText;
             }
+
+            if (_dottedButton != null)
+            {
+                var dottedMs = CurrentDurationMs;
+                _dottedButton.BasicTooltipText = $"Dotted note (+50% duration) — current: {dottedMs}ms";
+                _dottedLabel.BasicTooltipText = _dottedButton.BasicTooltipText;
+            }
+        }
+
+        private void UpdateDottedVisual()
+        {
+            if (_dottedButton == null) return;
+            _dottedButton.BackgroundColor = _isDotted ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground;
+            _dottedLabel.TextColor = _isDotted ? MaestroTheme.DarkCharcoal : MaestroTheme.CreamWhite;
+            UpdateTooltips();
         }
 
         private void UpdateNoteTypeSelection()
@@ -262,6 +335,9 @@ namespace Maestro.UI.MaestroCreator
 
             foreach (var button in _noteButtons)
                 button?.Dispose();
+
+            _dottedLabel?.Dispose();
+            _dottedButton?.Dispose();
 
             base.DisposeControl();
         }

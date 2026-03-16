@@ -102,6 +102,7 @@
         <Compile Include="UI\MaestroCreator\DurationSelector.cs"/>
         <Compile Include="UI\MaestroCreator\NoteChip.cs"/>
         <Compile Include="UI\MaestroCreator\NoteSequencePanel.cs"/>
+        <Compile Include="UI\MaestroCreator\NoteSequenceWindow.cs"/>
         <Compile Include="UI\Community\CommunityWindow.cs"/>
         <Compile Include="UI\Community\CommunitySongCard.cs"/>
         <Compile Include="UI\Community\UploadWindow.cs"/>

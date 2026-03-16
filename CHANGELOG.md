@@ -1,5 +1,43 @@
 # Changelog
 
+## v3.6.0
+
+**Creator: Insert & Replace Notes Anywhere**
+
+- New "Insert" toggle button in the notes panel header — when active, piano keys insert notes after the selected note instead of appending to the end
+- Right-click a single selected note and choose "Replace" to swap it with the next key you press
+- Selection auto-advances after each insert, so you can type a sequence in the middle of a song
+
+**Creator: Copy & Paste**
+
+- Select notes, then right-click > "Copy" to copy them to an internal clipboard
+- Right-click > "Paste" inserts the copied notes after the current selection (or at the end if nothing is selected)
+
+**Creator: Dotted Notes**
+
+- New "Dot" toggle next to the note duration buttons
+- Adds 50% duration to any note type (e.g. dotted quarter = 1.5 beats)
+
+**Creator: Full Undo**
+
+- Undo now restores the previous state for any action (insert, delete, replace, paste, clear) — not just the last note added
+
+**Creator: Expandable Notes Panel**
+
+- New "Expand" button opens the notes panel in a separate, resizable window for more room while composing
+- Piano keys in the creator still add notes to the expanded panel
+- Close or click "Collapse" to return the panel to the creator window
+
+**New Community Songs**
+
+- Song of Healing - Koji Kondo
+- A Thousand Miles - Vanessa Carlton
+- Alicia - Tomas
+- Lumiere - Tomas
+- Leutinist of Limbo - Space Dandy
+
+---
+
 ## v3.5.0
 
 **Favorites**
