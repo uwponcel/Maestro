@@ -21,5 +21,18 @@ namespace Maestro.Models
         /// Delay before starting playback to give the player time to prepare.
         /// </summary>
         public const int PlaybackStartDelayMs = 300;
+
+        /// <summary>
+        /// Threshold (ms) for detecting potential phantom note risk.
+        /// When a note is held longer than this and followed by an octave change,
+        /// it is logged as a phantom risk in debug builds.
+        /// </summary>
+        public const int PhantomNoteThresholdMs = 500;
+
+        /// <summary>
+        /// Optional gap (ms) inserted between KeyUp(Note) and KeyDown(OctaveKey) for long notes.
+        /// Set to 0 to disable. May help prevent phantom notes at slow tempos.
+        /// </summary>
+        public const int PostLongNoteGapMs = 0;
     }
 }

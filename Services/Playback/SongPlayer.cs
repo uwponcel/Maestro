@@ -22,6 +22,11 @@ namespace Maestro.Services.Playback
         private int _seekTargetIndex;
         private int _seekTargetOctave;
 
+        // Phantom note detection state
+        private int _lastWaitDuration;
+        private bool _lastKeyUpWasNote;
+        private Keys _lastKeyUpKey;
+
         private static bool Gw2HasFocus => GameService.GameIntegration.Gw2Instance.Gw2HasFocus;
         private static bool IsGw2TextInputFocused => GameService.Gw2Mumble.UI.IsTextInputFocused;
         private static bool IsOverlayTextInputFocused => SongFilterBar.IsTextInputFocused;
@@ -200,6 +205,7 @@ namespace Maestro.Services.Playback
 
                     var command = CurrentSong.Commands[CurrentCommandIndex];
 
+                    DetectPhantomNoteRisk(command);
                     ExecuteCommand(command);
 
                     if (command.Type == CommandType.Wait && command.Duration > 0)
@@ -225,6 +231,32 @@ namespace Maestro.Services.Playback
             catch (Exception ex)
             {
                 Logger.Warn(ex, "Error during playback - song stopped");
+            }
+        }
+
+        private void DetectPhantomNoteRisk(SongCommand command)
+        {
+            if (command.Type == CommandType.Wait)
+            {
+                _lastWaitDuration = command.Duration;
+                _lastKeyUpWasNote = false;
+            }
+            else if (command.Type == CommandType.KeyUp)
+            {
+                var isOctaveKey = command.Key == Keys.NumPad9 || command.Key == Keys.NumPad0;
+                _lastKeyUpWasNote = !isOctaveKey && command.Key != Keys.LeftAlt;
+                _lastKeyUpKey = command.Key;
+            }
+            else if (command.Type == CommandType.KeyDown && _lastKeyUpWasNote)
+            {
+                var isOctaveKey = command.Key == Keys.NumPad9 || command.Key == Keys.NumPad0;
+                if (isOctaveKey && _lastWaitDuration >= GameTimings.PhantomNoteThresholdMs)
+                {
+                    Logger.Debug($"[PHANTOM-RISK] Long note ({_lastWaitDuration}ms) " +
+                                $"KeyUp({_lastKeyUpKey}) followed by octave change ({command.Key}) " +
+                                $"at command {CurrentCommandIndex}");
+                }
+                _lastKeyUpWasNote = false;
             }
         }
 

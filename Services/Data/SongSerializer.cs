@@ -29,7 +29,8 @@ namespace Maestro.Services.Data
                 Artist = song.Artist,
                 Transcriber = song.Transcriber,
                 Instrument = song.Instrument.ToString(),
-                Notes = song.Notes
+                Notes = song.Notes,
+                Bpm = song.Bpm
             };
 
             return JsonConvert.SerializeObject(dto, JsonSettings);
@@ -47,7 +48,8 @@ namespace Maestro.Services.Data
                 Artist = dto.Artist,
                 Transcriber = dto.Transcriber,
                 Instrument = instrument,
-                SkipOctaveReset = dto.SkipOctaveReset
+                SkipOctaveReset = dto.SkipOctaveReset,
+                Bpm = dto.Bpm
             };
 
             if (dto.Notes != null)
@@ -77,7 +79,8 @@ namespace Maestro.Services.Data
                     Artist = dto.Artist,
                     Transcriber = dto.Transcriber,
                     Instrument = instrument,
-                    SkipOctaveReset = dto.SkipOctaveReset
+                    SkipOctaveReset = dto.SkipOctaveReset,
+                    Bpm = dto.Bpm
                 };
 
                 if (dto.Notes != null)
@@ -112,6 +115,9 @@ namespace Maestro.Services.Data
 
             [JsonProperty("skipOctaveReset")]
             public bool SkipOctaveReset { get; set; }
+
+            [JsonProperty("bpm", NullValueHandling = NullValueHandling.Ignore)]
+            public int? Bpm { get; set; }
         }
     }
 }
