@@ -100,7 +100,9 @@
         <Compile Include="UI\MaestroCreator\MaestroCreatorWindow.cs"/>
         <Compile Include="UI\MaestroCreator\PianoKeyboard.cs"/>
         <Compile Include="UI\MaestroCreator\DurationSelector.cs"/>
+        <Compile Include="UI\MaestroCreator\BaseChip.cs"/>
         <Compile Include="UI\MaestroCreator\NoteChip.cs"/>
+        <Compile Include="UI\MaestroCreator\SectionMarkerChip.cs"/>
         <Compile Include="UI\MaestroCreator\NoteSequencePanel.cs"/>
         <Compile Include="UI\MaestroCreator\NoteSequenceWindow.cs"/>
         <Compile Include="UI\Community\CommunityWindow.cs"/>

@@ -8,10 +8,12 @@ namespace Maestro.UI.MaestroCreator
 {
     public class NoteSequenceWindow : StandardWindow
     {
-        private static class Layout
+        public static class Layout
         {
             public const int DefaultWidth = 700;
             public const int DefaultHeight = 450;
+            public const int MinWidth = 500;
+            public const int MinHeight = 350;
             public const int MaxWidth = 1200;
             public const int MaxHeight = 800;
             public const int ContentPaddingX = 15;
@@ -50,13 +52,21 @@ namespace Maestro.UI.MaestroCreator
             _panel = panel;
             _panel.Parent = this;
             _panel.Location = new Point(0, MaestroTheme.PaddingContentTop);
-            _panel.SetExpanded(true);
 
             UpdatePanelSize();
         }
 
         public override void RecalculateLayout()
         {
+            // Enforce minimum size
+            if (Width < Layout.MinWidth || Height < Layout.MinHeight)
+            {
+                Size = new Point(
+                    Math.Max(Width, Layout.MinWidth),
+                    Math.Max(Height, Layout.MinHeight));
+                return;
+            }
+
             base.RecalculateLayout();
             UpdatePanelSize();
         }
@@ -64,8 +74,9 @@ namespace Maestro.UI.MaestroCreator
         private void UpdatePanelSize()
         {
             if (_panel == null) return;
+            const int bottomMargin = 5;
             var contentWidth = ContentRegion.Width;
-            var contentHeight = ContentRegion.Height - MaestroTheme.PaddingContentTop;
+            var contentHeight = ContentRegion.Height - MaestroTheme.PaddingContentTop - bottomMargin;
             if (contentWidth > 0 && contentHeight > 0)
             {
                 _panel.ResizeTo(contentWidth, contentHeight);
@@ -78,7 +89,6 @@ namespace Maestro.UI.MaestroCreator
             if (panel != null)
             {
                 panel.Parent = null;
-                panel.SetExpanded(false);
                 _panel = null;
             }
 

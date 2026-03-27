@@ -39,7 +39,9 @@ namespace Maestro
 
         private ModuleSettings _moduleSettings;
         private KeyboardService _keyboardService;
+        internal KeyboardService KeyboardService => _keyboardService;
         private SongPlayer _songPlayer;
+        internal SongPlayer SongPlayer => _songPlayer;
         private SongStorage _songStorage;
         private FavoriteService _favoriteService;
         private CommunityService _communityService;
@@ -218,14 +220,14 @@ namespace Maestro
             }
             else
             {
-                _maestroWindow?.SetCreateButtonEnabled(false);
+                _maestroWindow?.Hide();
                 _maestroCreatorWindow.Show();
             }
         }
 
         private void OnCreatorWindowClosed(object sender, EventArgs e)
         {
-            _maestroWindow?.SetCreateButtonEnabled(true);
+            _maestroWindow?.Show();
         }
 
         private void OnEditRequested(object sender, Song song)
@@ -241,7 +243,7 @@ namespace Maestro
             _editingOriginalSong = song;
             _maestroCreatorWindow.LoadSong(song);
 
-            _maestroWindow?.SetCreateButtonEnabled(false);
+            _maestroWindow?.Hide();
             _maestroCreatorWindow.Show();
         }
 

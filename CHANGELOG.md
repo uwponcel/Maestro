@@ -1,5 +1,38 @@
 # Changelog
 
+## v4.0.0
+
+**Creator: Redesigned Layout**
+
+- The notes panel now always opens in its own resizable window alongside the creator
+- Compact creator window with streamlined controls
+- Chord button uses a highlight toggle instead of ON/OFF text
+- Click a selected note again to deselect it
+
+**Creator: Section Markers**
+
+- New "Section" button to add markers (Intro, Verse, Chorus, Bridge, Outro, or custom names)
+- Section jump dropdown to quickly navigate between sections
+- Sections are visually distinct full-width chips, separate from notes
+- Sections persist with your song
+
+**Creator: Playback Highlighting**
+
+- Notes highlight as they play during Preview All and Preview Selected
+- Auto-scrolls to follow playback
+- Pause, resume, and stop controls in the notes window
+- All editing controls are disabled during playback
+
+**Creator: BPM Persistence**
+
+- BPM now saves with your song and restores when you edit it
+
+**Creator: Bug Fixes**
+
+- Fixed chords not working with Replace mode
+- Fixed scroll position resetting when adding notes
+- Sharp notes now display in a darker shade for easier identification
+
 ## v3.6.0
 
 **Creator: Insert & Replace Notes Anywhere**

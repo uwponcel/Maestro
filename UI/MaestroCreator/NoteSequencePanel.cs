@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
+using Maestro.Services.Playback;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -25,13 +28,15 @@ namespace Maestro.UI.MaestroCreator
         public event EventHandler UndoClicked;
         public event EventHandler ClearClicked;
         public event EventHandler SelectionChanged;
+        public event EventHandler PreviewAllRequested;
         public event EventHandler PreviewSelectionRequested;
+        public event EventHandler PauseRequested;
+        public event EventHandler StopRequested;
         public event EventHandler InsertModeChanged;
         public event EventHandler ReplaceModeChanged;
-        public event EventHandler ExpandRequested;
 
         private readonly List<string> _notes = new List<string>();
-        private readonly List<NoteChip> _chips = new List<NoteChip>();
+        private readonly List<BaseChip> _chips = new List<BaseChip>();
 
         private readonly HashSet<int> _selectedIndices = new HashSet<int>();
         private int _lastClickedIndex = -1;
@@ -41,6 +46,25 @@ namespace Maestro.UI.MaestroCreator
         private int _replaceTargetIndex = -1;
         private readonly List<string> _clipboard = new List<string>();
         private readonly Stack<List<string>> _undoStack = new Stack<List<string>>();
+        private int _pendingScrollToIndex = -1;
+        private int _scrollApplyFrames;
+        private Scrollbar _scrollbarRef;
+
+        private static readonly FieldInfo PanelScrollbarField =
+            typeof(Panel).GetField("_panelScrollbar", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        private Scrollbar GetScrollbar()
+        {
+            if (_scrollbarRef != null && _scrollbarRef.Parent != null) return _scrollbarRef;
+            _scrollbarRef = PanelScrollbarField?.GetValue(_chipsContainer) as Scrollbar;
+            return _scrollbarRef;
+        }
+
+        private void RequestScrollTo(int chipIndex)
+        {
+            _pendingScrollToIndex = chipIndex;
+            _scrollApplyFrames = 5;
+        }
 
         private readonly ContextMenuStrip _contextMenu;
         private readonly ContextMenuStripItem _previewSelectedItem;
@@ -53,15 +77,36 @@ namespace Maestro.UI.MaestroCreator
 
         private readonly Label _headerLabel;
         private readonly Label _modeStatusLabel;
-        private readonly StandardButton _expandButton;
         private readonly StandardButton _insertButton;
+        private readonly StandardButton _previewAllButton;
+        private readonly StandardButton _previewSelectedButton;
+        private readonly StandardButton _pauseButton;
+        private readonly StandardButton _stopButton;
+        private readonly Label _playbackStatusLabel;
+        private bool _suppressSectionScroll;
         private readonly StandardButton _undoButton;
         private readonly StandardButton _clearButton;
+        private readonly Panel _headerPanel;
+        private readonly Panel _footerPanel;
         private readonly FlowPanel _chipsContainer;
         private Panel _bottomSpacer;
+        private readonly StandardButton _sectionButton;
+        private readonly ContextMenuStrip _sectionMenu;
+        private readonly CustomDropdown _sectionJumpDropdown;
+        private TextBox _customSectionInput;
+
+        private int _playbackHighlightIndex = -1;
+        private HashSet<int> _savedSelection;
+        private bool _isPlaybackActive;
+        private int[] _playbackMapping;
+        private int[] _playbackNoteIndices;
+        private SongPlayer _activeSongPlayer;
+
+        public static bool IsSectionMarker(string s) => s != null && s.StartsWith("[") && s.EndsWith("]");
+        public static string GetSectionName(string s) => s.Substring(1, s.Length - 2);
 
         public IReadOnlyList<string> Notes => _notes.AsReadOnly();
-        public int NoteCount => _notes.Count;
+        public int NoteCount => _notes.Count(n => !IsSectionMarker(n));
         public bool HasSelection => _selectedIndices.Count > 0;
         public bool IsInsertMode => _isInsertMode;
         public bool IsReplaceMode => _isReplaceMode;
@@ -70,24 +115,44 @@ namespace Maestro.UI.MaestroCreator
         public NoteSequencePanel(int width, int height)
         {
             Size = new Point(width, height);
-            BackgroundColor = MaestroTheme.DarkCharcoal;
+            BackgroundColor = Color.Transparent;
+
+            var headerHeight = Layout.HeaderHeight + 58;
+            _headerPanel = new Panel
+            {
+                Parent = this,
+                Location = new Point(0, 0),
+                Size = new Point(width, headerHeight),
+                BackgroundColor = MaestroTheme.SlateGray,
+                ShowBorder = true
+            };
 
             _headerLabel = new Label
             {
-                Parent = this,
+                Parent = _headerPanel,
                 Text = "Notes: 0",
                 Location = new Point(Layout.Padding, 4),
-                Size = new Point(120, Layout.HeaderHeight - 4),
-                Font = GameService.Content.DefaultFont12,
+                Size = new Point(140, Layout.HeaderHeight - 4),
+                Font = GameService.Content.DefaultFont14,
                 TextColor = MaestroTheme.CreamWhite
             };
 
+            // Header buttons: right-aligned with equal 5px gaps
+            // Clear(55) gap Undo(55) gap Insert(55) gap Section(60)
+            const int btnGap = 5;
+            const int btnW = 55;
+            const int sectionBtnW = 60;
+            var clearX = width - 10 - btnW;
+            var undoX = clearX - btnGap - btnW;
+            var insertX = undoX - btnGap - btnW;
+            var sectionX = insertX - btnGap - sectionBtnW;
+
             _clearButton = new StandardButton
             {
-                Parent = this,
+                Parent = _headerPanel,
                 Text = "Clear",
-                Location = new Point(width - 65, Layout.ButtonY),
-                Size = new Point(55, Layout.HeaderHeight)
+                Location = new Point(clearX, Layout.ButtonY),
+                Size = new Point(btnW, Layout.HeaderHeight)
             };
             _clearButton.Click += (s, e) =>
             {
@@ -97,10 +162,10 @@ namespace Maestro.UI.MaestroCreator
 
             _undoButton = new StandardButton
             {
-                Parent = this,
+                Parent = _headerPanel,
                 Text = "Undo",
-                Location = new Point(width - 125, Layout.ButtonY),
-                Size = new Point(55, Layout.HeaderHeight)
+                Location = new Point(undoX, Layout.ButtonY),
+                Size = new Point(btnW, Layout.HeaderHeight)
             };
             _undoButton.Click += (s, e) =>
             {
@@ -108,12 +173,32 @@ namespace Maestro.UI.MaestroCreator
                 Undo();
             };
 
+            _sectionMenu = new ContextMenuStrip();
+            foreach (var name in new[] { "Intro", "Verse", "Chorus", "Bridge", "Outro" })
+            {
+                var item = _sectionMenu.AddMenuItem(name);
+                var captured = name;
+                item.Click += (s, e) => AddSectionMarker(captured);
+            }
+            var customItem = _sectionMenu.AddMenuItem("Custom...");
+            customItem.Click += (s, e) => ShowCustomSectionInput();
+
+            _sectionButton = new StandardButton
+            {
+                Parent = _headerPanel,
+                Text = "Section",
+                Location = new Point(sectionX, Layout.ButtonY),
+                Size = new Point(sectionBtnW, Layout.HeaderHeight),
+                BasicTooltipText = "Add a section marker to organize notes"
+            };
+            _sectionButton.Click += (s, e) => _sectionMenu.Show(_sectionButton);
+
             _insertButton = new StandardButton
             {
-                Parent = this,
+                Parent = _headerPanel,
                 Text = "Insert",
-                Location = new Point(width - 185, Layout.ButtonY),
-                Size = new Point(55, Layout.HeaderHeight),
+                Location = new Point(insertX, Layout.ButtonY),
+                Size = new Point(btnW, Layout.HeaderHeight),
                 BasicTooltipText = "When active, new notes insert after the selected note instead of appending to the end"
             };
             _insertButton.Click += (s, e) =>
@@ -124,32 +209,37 @@ namespace Maestro.UI.MaestroCreator
                 InsertModeChanged?.Invoke(this, EventArgs.Empty);
             };
 
-            _expandButton = new StandardButton
+            _sectionJumpDropdown = new CustomDropdown
             {
                 Parent = this,
-                Text = "Expand",
-                Location = new Point(width - 255, Layout.ButtonY),
-                Size = new Point(65, Layout.HeaderHeight),
-                BasicTooltipText = "Open notes in a resizable window"
+                Location = new Point(Layout.Padding, Layout.HeaderHeight + 18),
+                Size = new Point(150, 27),
+                Visible = false,
+                BasicTooltipText = "Jump to section"
             };
-            _expandButton.Click += (s, e) => ExpandRequested?.Invoke(this, EventArgs.Empty);
+            _sectionJumpDropdown.ValueChanged += OnSectionJumpChanged;
 
             _modeStatusLabel = new Label
             {
-                Parent = this,
+                Parent = _headerPanel,
                 Text = "",
-                Location = new Point(Layout.Padding, Layout.HeaderHeight + 2),
-                Size = new Point(width - Layout.Padding * 2, 16),
-                Font = GameService.Content.DefaultFont12,
-                TextColor = MaestroTheme.AmberGold
+                Location = new Point(0, Layout.HeaderHeight + 19),
+                Size = new Point(width - 10, 18),
+                Font = GameService.Content.DefaultFont14,
+                TextColor = MaestroTheme.AmberGold,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom
             };
 
-            const int chipsY = Layout.HeaderHeight + 18 + Layout.ChipSpacing;
+            const int gapHeight = 4;
+            const int footerHeight = 46;
+            var chipsY = headerHeight + gapHeight;
+            var chipsHeight = height - chipsY - footerHeight - gapHeight;
             _chipsContainer = new FlowPanel
             {
                 Parent = this,
                 Location = new Point(0, chipsY),
-                Size = new Point(width, height - chipsY),
+                Size = new Point(width, chipsHeight),
                 FlowDirection = ControlFlowDirection.LeftToRight,
                 ControlPadding = new Vector2(Layout.ChipSpacing, Layout.ChipSpacing),
                 OuterControlPadding = new Vector2(Layout.Padding, Layout.Padding),
@@ -183,12 +273,83 @@ namespace Maestro.UI.MaestroCreator
 
             _chipsContainer.Menu = _contextMenu;
 
+            // Footer panel with playback controls
+            _footerPanel = new Panel
+            {
+                Parent = this,
+                Location = new Point(0, height - footerHeight),
+                Size = new Point(width, footerHeight),
+                BackgroundColor = Color.Transparent
+            };
+
+            const int btnHeight = 26;
+            const int btnY = 6;
+
+            // Left side: playback controls (hidden until playing)
+            _pauseButton = new StandardButton
+            {
+                Parent = _footerPanel,
+                Text = "||",
+                Location = new Point(Layout.Padding, btnY),
+                Size = new Point(30, btnHeight),
+                Enabled = false
+            };
+            _pauseButton.Click += (s, e) => PauseRequested?.Invoke(this, EventArgs.Empty);
+
+            _stopButton = new StandardButton
+            {
+                Parent = _footerPanel,
+                Text = "X",
+                Location = new Point(Layout.Padding + 35, btnY),
+                Size = new Point(30, btnHeight),
+                Enabled = false
+            };
+            _stopButton.Click += (s, e) => StopRequested?.Invoke(this, EventArgs.Empty);
+
+            _playbackStatusLabel = new Label
+            {
+                Parent = _footerPanel,
+                Text = "No song playing",
+                Location = new Point(Layout.Padding + 72, btnY),
+                Size = new Point(200, btnHeight),
+                Font = GameService.Content.DefaultFont14,
+                TextColor = MaestroTheme.LightGray,
+                VerticalAlignment = VerticalAlignment.Middle
+            };
+
+            // Right side: preview buttons
+            _previewAllButton = new StandardButton
+            {
+                Parent = _footerPanel,
+                Text = "Preview All",
+                Location = new Point(width - 95, btnY),
+                Size = new Point(85, btnHeight),
+                BasicTooltipText = "Preview all notes"
+            };
+            _previewAllButton.Click += (s, e) => PreviewAllRequested?.Invoke(this, EventArgs.Empty);
+
+            _previewSelectedButton = new StandardButton
+            {
+                Parent = _footerPanel,
+                Text = "Preview Selected",
+                Location = new Point(width - 220, btnY),
+                Size = new Point(120, btnHeight),
+                Enabled = false,
+                BasicTooltipText = "Preview selected notes"
+            };
+            _previewSelectedButton.Click += (s, e) => PreviewSelectionRequested?.Invoke(this, EventArgs.Empty);
+
             UpdateButtonStates();
         }
 
         public IReadOnlyList<string> GetSelectedNotes()
         {
             return _selectedIndices.OrderBy(i => i).Select(i => _notes[i]).ToList();
+        }
+
+        public IReadOnlyList<int> GetSelectedIndices()
+        {
+            return _selectedIndices.OrderBy(i => i).ToList();
         }
 
         public void ClearSelection()
@@ -210,6 +371,7 @@ namespace Maestro.UI.MaestroCreator
         {
             for (var i = 0; i < _chips.Count; i++)
             {
+                if (_chips[i] is SectionMarkerChip) continue;
                 _selectedIndices.Add(i);
                 _chips[i].IsSelected = true;
             }
@@ -248,6 +410,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
             SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -257,18 +420,18 @@ namespace Maestro.UI.MaestroCreator
             PushUndo();
             _notes.Add(noteString);
 
-            var chip = new NoteChip(noteString, _notes.Count - 1)
-            {
-                Parent = _chipsContainer
-            };
+            var chip = CreateChip(noteString, _notes.Count - 1);
+            chip.Parent = _chipsContainer;
             chip.RemoveClicked += OnChipRemoveClicked;
             chip.ChipClicked += OnChipClicked;
             _chips.Add(chip);
 
             EnsureBottomSpacer();
+            RequestScrollTo(_notes.Count - 1);
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -279,7 +442,7 @@ namespace Maestro.UI.MaestroCreator
 
             _notes.Insert(index, noteString);
 
-            var chip = new NoteChip(noteString, index);
+            var chip = CreateChip(noteString, index);
             chip.RemoveClicked += OnChipRemoveClicked;
             chip.ChipClicked += OnChipClicked;
             _chips.Insert(index, chip);
@@ -298,9 +461,11 @@ namespace Maestro.UI.MaestroCreator
             ReorderChipsFrom(index);
             UpdateIndices();
             EnsureBottomSpacer();
+            RequestScrollTo(index);
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -315,7 +480,7 @@ namespace Maestro.UI.MaestroCreator
                 var insertIdx = index + i;
                 _notes.Insert(insertIdx, noteStrings[i]);
 
-                var chip = new NoteChip(noteStrings[i], insertIdx);
+                var chip = CreateChip(noteStrings[i], insertIdx);
                 chip.RemoveClicked += OnChipRemoveClicked;
                 chip.ChipClicked += OnChipClicked;
                 _chips.Insert(insertIdx, chip);
@@ -335,9 +500,11 @@ namespace Maestro.UI.MaestroCreator
             ReorderChipsFrom(index);
             UpdateIndices();
             EnsureBottomSpacer();
+            RequestScrollTo(index);
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -354,7 +521,7 @@ namespace Maestro.UI.MaestroCreator
             oldChip.Parent = null;
             oldChip.Dispose();
 
-            var newChip = new NoteChip(noteString, index);
+            var newChip = CreateChip(noteString, index);
             newChip.RemoveClicked += OnChipRemoveClicked;
             newChip.ChipClicked += OnChipClicked;
             _chips[index] = newChip;
@@ -362,7 +529,9 @@ namespace Maestro.UI.MaestroCreator
             ReorderChipsFrom(index);
             newChip.IsSelected = _selectedIndices.Contains(index);
 
+            RequestScrollTo(index);
             UpdateHeader();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -469,31 +638,104 @@ namespace Maestro.UI.MaestroCreator
         {
             Size = new Point(width, height);
 
-            // Reposition right-aligned header buttons
-            _expandButton.Location = new Point(width - 255, Layout.ButtonY);
-            _insertButton.Location = new Point(width - 185, Layout.ButtonY);
-            _undoButton.Location = new Point(width - 125, Layout.ButtonY);
-            _clearButton.Location = new Point(width - 65, Layout.ButtonY);
+            // Resize header panel
+            var headerHeight = Layout.HeaderHeight + 58;
+            _headerPanel.Size = new Point(width, headerHeight);
+
+            // Reposition right-aligned header buttons with equal gaps
+            const int btnGap = 5;
+            const int btnW = 55;
+            const int sectionBtnW = 60;
+            var clearX = width - 10 - btnW;
+            var undoX = clearX - btnGap - btnW;
+            var insertX = undoX - btnGap - btnW;
+            var sectionX = insertX - btnGap - sectionBtnW;
+            _clearButton.Location = new Point(clearX, Layout.ButtonY);
+            _undoButton.Location = new Point(undoX, Layout.ButtonY);
+            _insertButton.Location = new Point(insertX, Layout.ButtonY);
+            _sectionButton.Location = new Point(sectionX, Layout.ButtonY);
 
             // Update mode status label width
-            _modeStatusLabel.Size = new Point(width - Layout.Padding * 2, 16);
+            _modeStatusLabel.Size = new Point(width - 10, 18);
 
-            // Resize chips container
-            var chipsY = Layout.HeaderHeight + 18 + Layout.ChipSpacing;
+            // Resize chips container and footer
+            const int gapHeight = 4;
+            const int footerHeight = 46;
+            var chipsY = headerHeight + gapHeight;
+            var chipsHeight = height - chipsY - footerHeight - gapHeight;
             _chipsContainer.Location = new Point(0, chipsY);
-            _chipsContainer.Size = new Point(width, height - chipsY);
+            _chipsContainer.Size = new Point(width, chipsHeight);
+
+            _footerPanel.Location = new Point(0, height - footerHeight);
+            _footerPanel.Size = new Point(width, footerHeight);
+            _previewAllButton.Location = new Point(width - 95, _previewAllButton.Location.Y);
+            _previewSelectedButton.Location = new Point(width - 220, _previewSelectedButton.Location.Y);
+
+            // Resize section marker chips to match new width
+            foreach (var chip in _chips)
+            {
+                if (chip is SectionMarkerChip)
+                    chip.Size = new Point(width - 26, SectionMarkerChip.Layout.Height);
+            }
         }
 
-        public void SetExpanded(bool expanded)
+        public override void UpdateContainer(GameTime gameTime)
         {
-            _expandButton.Text = expanded ? "Collapse" : "Expand";
-            _expandButton.BasicTooltipText = expanded
-                ? "Return notes to the creator window"
-                : "Open notes in a resizable window";
+            base.UpdateContainer(gameTime);
+
+            if (_pendingScrollToIndex >= 0 && _scrollApplyFrames > 0)
+            {
+                _scrollApplyFrames--;
+                ScrollToChip(_pendingScrollToIndex);
+
+                if (_scrollApplyFrames <= 0)
+                    _pendingScrollToIndex = -1;
+            }
+
+            if (_isPlaybackActive)
+            {
+                UpdatePlaybackHighlight();
+            }
+        }
+
+
+        private void ScrollToChip(int chipIndex)
+        {
+            if (chipIndex < 0 || chipIndex >= _chips.Count) return;
+
+            var scrollbar = GetScrollbar();
+            if (scrollbar == null) return;
+
+            var chip = _chips[chipIndex];
+            var chipBottom = chip.Location.Y + chip.Height;
+            var viewportHeight = _chipsContainer.ContentRegion.Height;
+
+            // Find the lowest visible child to determine total content height
+            var contentHeight = 0;
+            foreach (var child in _chipsContainer.Children)
+            {
+                if (child.Visible && child.Bottom > contentHeight)
+                    contentHeight = child.Bottom;
+            }
+
+            contentHeight = Math.Max(contentHeight, viewportHeight);
+            var scrollableRange = contentHeight - viewportHeight;
+
+            if (scrollableRange <= 0) return;
+
+            // Calculate the scroll distance (0-1) needed to make the chip visible
+            var targetOffset = chipBottom - viewportHeight + Layout.PaddingBottom;
+            targetOffset = Math.Max(0, Math.Min(targetOffset, scrollableRange));
+
+            var scrollDistance = (float)targetOffset / scrollableRange;
+            scrollbar.ScrollDistance = Math.Max(0f, Math.Min(1f, scrollDistance));
         }
 
         private void ReorderChipsFrom(int startIndex)
         {
+            var scrollbar = GetScrollbar();
+            var savedDistance = scrollbar?.ScrollDistance ?? 0f;
+
             if (_bottomSpacer != null)
                 _bottomSpacer.Parent = null;
 
@@ -504,6 +746,9 @@ namespace Maestro.UI.MaestroCreator
 
             if (_bottomSpacer != null)
                 _bottomSpacer.Parent = _chipsContainer;
+
+            if (scrollbar != null)
+                scrollbar.ScrollDistance = savedDistance;
         }
 
         private const int MaxUndoDepth = 100;
@@ -528,6 +773,7 @@ namespace Maestro.UI.MaestroCreator
 
             var previousState = _undoStack.Pop();
             RestoreFromNotes(previousState);
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
             SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -557,7 +803,8 @@ namespace Maestro.UI.MaestroCreator
             foreach (var note in notes)
             {
                 _notes.Add(note);
-                var chip = new NoteChip(note, _notes.Count - 1) { Parent = _chipsContainer };
+                var chip = CreateChip(note, _notes.Count - 1);
+                chip.Parent = _chipsContainer;
                 chip.RemoveClicked += OnChipRemoveClicked;
                 chip.ChipClicked += OnChipClicked;
                 _chips.Add(chip);
@@ -613,6 +860,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -638,12 +886,14 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnChipClicked(object sender, MouseEventArgs e)
         {
-            if (!(sender is NoteChip chip)) return;
+            if (!(sender is BaseChip chip)) return;
+            if (chip is SectionMarkerChip) return;
 
             var index = chip.Index;
             var modifiers = GameService.Input.Keyboard.ActiveModifiers;
@@ -670,6 +920,7 @@ namespace Maestro.UI.MaestroCreator
 
                 for (var i = from; i <= to; i++)
                 {
+                    if (_chips[i] is SectionMarkerChip) continue;
                     _selectedIndices.Add(i);
                     _chips[i].IsSelected = true;
                 }
@@ -691,17 +942,23 @@ namespace Maestro.UI.MaestroCreator
             }
             else
             {
-                // Plain click: clear all, select only this
-                foreach (var si in _selectedIndices.Where(si => si < _chips.Count))
-                {
-                    _chips[si].IsSelected = false;
-                }
+                // Plain click: toggle if clicking the only selected note, otherwise select only this
+                var wasOnlySelected = _selectedIndices.Count == 1 && _selectedIndices.Contains(index);
 
+                foreach (var si in _selectedIndices.Where(si => si < _chips.Count))
+                    _chips[si].IsSelected = false;
                 _selectedIndices.Clear();
 
-                _selectedIndices.Add(index);
-                chip.IsSelected = true;
-                _lastClickedIndex = index;
+                if (!wasOnlySelected)
+                {
+                    _selectedIndices.Add(index);
+                    chip.IsSelected = true;
+                    _lastClickedIndex = index;
+                }
+                else
+                {
+                    _lastClickedIndex = -1;
+                }
             }
 
             // Auto-exit replace mode if selection changes
@@ -715,7 +972,7 @@ namespace Maestro.UI.MaestroCreator
 
         private void OnChipRemoveClicked(object sender, EventArgs e)
         {
-            if (sender is NoteChip chip)
+            if (sender is BaseChip chip)
             {
                 RemoveAt(chip.Index);
             }
@@ -731,9 +988,10 @@ namespace Maestro.UI.MaestroCreator
 
         private void UpdateHeader()
         {
+            var noteCount = NoteCount;
             _headerLabel.Text = _selectedIndices.Count > 0
-                ? $"Notes: {_notes.Count} ({_selectedIndices.Count} selected)"
-                : $"Notes: {_notes.Count}";
+                ? $"Notes: {noteCount} ({_selectedIndices.Count} selected)"
+                : $"Notes: {noteCount}";
             UpdateModeStatus();
         }
 
@@ -777,6 +1035,7 @@ namespace Maestro.UI.MaestroCreator
             var hasChips = _chips.Count > 0;
 
             _previewSelectedItem.Enabled = hasSelection;
+            _previewSelectedButton.Enabled = hasSelection;
             _deleteSelectedItem.Enabled = hasSelection;
             _replaceItem.Enabled = _selectedIndices.Count == 1;
             _copyItem.Enabled = hasSelection;
@@ -796,11 +1055,288 @@ namespace Maestro.UI.MaestroCreator
             };
         }
 
+        public void SetControlsEnabled(bool enabled)
+        {
+            // Footer preview buttons
+            _previewAllButton.Enabled = enabled;
+            _previewSelectedButton.Enabled = enabled && _selectedIndices.Count > 0;
+
+            // Playback controls
+            _pauseButton.Enabled = !enabled;
+            _stopButton.Enabled = !enabled;
+            if (!enabled)
+            {
+                _playbackStatusLabel.Text = "Playing...";
+                _playbackStatusLabel.TextColor = MaestroTheme.Playing;
+                _pauseButton.Text = "||";
+            }
+            else
+            {
+                _playbackStatusLabel.Text = "No song playing";
+                _playbackStatusLabel.TextColor = MaestroTheme.LightGray;
+                _pauseButton.Text = "||";
+            }
+
+            // Header buttons
+            _sectionButton.Enabled = enabled;
+            _insertButton.Enabled = enabled;
+            _undoButton.Enabled = enabled;
+            _clearButton.Enabled = enabled;
+
+            // Context menu
+            _previewSelectedItem.Enabled = enabled && _selectedIndices.Count > 0;
+            _deleteSelectedItem.Enabled = enabled && _selectedIndices.Count > 0;
+            _replaceItem.Enabled = enabled && _selectedIndices.Count == 1;
+            _copyItem.Enabled = enabled && _selectedIndices.Count > 0;
+            _pasteItem.Enabled = enabled && _clipboard.Count > 0;
+            _selectAllItem.Enabled = enabled;
+            _clearSelectionItem.Enabled = enabled && _selectedIndices.Count > 0;
+        }
+
+        public void SetPlaybackPaused(bool paused)
+        {
+            _pauseButton.Text = paused ? ">" : "||";
+            _playbackStatusLabel.Text = paused ? "Paused" : "Playing...";
+            _playbackStatusLabel.TextColor = paused ? MaestroTheme.Paused : MaestroTheme.Playing;
+        }
+
+        public void StartPlaybackHighlight(SongPlayer player, int[] mapping, int[] noteIndices)
+        {
+            _savedSelection = new HashSet<int>(_selectedIndices);
+            foreach (var si in _selectedIndices)
+            {
+                if (si < _chips.Count)
+                    _chips[si].IsSelected = false;
+            }
+            _selectedIndices.Clear();
+            _playbackHighlightIndex = -1;
+            _playbackMapping = mapping;
+            _playbackNoteIndices = noteIndices;
+            _activeSongPlayer = player;
+            _isPlaybackActive = true;
+        }
+
+        public void StopPlaybackHighlight()
+        {
+            _isPlaybackActive = false;
+            _playbackMapping = null;
+            _playbackNoteIndices = null;
+            _activeSongPlayer = null;
+
+            if (_playbackHighlightIndex >= 0 && _playbackHighlightIndex < _chips.Count)
+                _chips[_playbackHighlightIndex].IsSelected = false;
+            _playbackHighlightIndex = -1;
+
+            if (_savedSelection != null)
+            {
+                foreach (var si in _savedSelection)
+                {
+                    if (si < _chips.Count)
+                    {
+                        _selectedIndices.Add(si);
+                        _chips[si].IsSelected = true;
+                    }
+                }
+                _savedSelection = null;
+            }
+
+            UpdateHeader();
+            UpdateContextMenuStates();
+        }
+
+        private void UpdatePlaybackHighlight()
+        {
+            if (_activeSongPlayer == null || !_activeSongPlayer.IsPlaying) return;
+            var player = _activeSongPlayer;
+
+            if (player.IsAdjustingOctave)
+            {
+                if (_playbackStatusLabel.Text != "Adjusting...")
+                {
+                    _playbackStatusLabel.Text = "Adjusting...";
+                    _playbackStatusLabel.TextColor = MaestroTheme.AmberGold;
+                }
+                return;
+            }
+
+            if (player.IsPaused)
+                return;
+
+            if (_playbackStatusLabel.Text != "Playing...")
+            {
+                _playbackStatusLabel.Text = "Playing...";
+                _playbackStatusLabel.TextColor = MaestroTheme.Playing;
+            }
+
+            var cmdIndex = player.CurrentCommandIndex;
+            if (_playbackMapping == null || cmdIndex >= _playbackMapping.Length) return;
+
+            var noteLineIndex = _playbackMapping[cmdIndex];
+
+            if (_playbackNoteIndices != null && noteLineIndex < _playbackNoteIndices.Length)
+                noteLineIndex = _playbackNoteIndices[noteLineIndex];
+
+            if (noteLineIndex == _playbackHighlightIndex) return;
+
+            if (_playbackHighlightIndex >= 0 && _playbackHighlightIndex < _chips.Count)
+                _chips[_playbackHighlightIndex].IsSelected = false;
+
+            _playbackHighlightIndex = noteLineIndex;
+
+            if (noteLineIndex >= 0 && noteLineIndex < _chips.Count && !(_chips[noteLineIndex] is SectionMarkerChip))
+            {
+                _chips[noteLineIndex].IsSelected = true;
+                RequestScrollTo(noteLineIndex);
+            }
+        }
+
+        private BaseChip CreateChip(string noteString, int index)
+        {
+            if (IsSectionMarker(noteString))
+            {
+                return new SectionMarkerChip(GetSectionName(noteString), index, _chipsContainer.Width);
+            }
+
+            return new NoteChip(noteString, index);
+        }
+
+        private void AddSectionMarker(string name)
+        {
+            var marker = $"[{name}]";
+
+            if (_isInsertMode && _selectedIndices.Count > 0)
+            {
+                var insertIndex = _selectedIndices.Max() + 1;
+                InsertAt(insertIndex, marker);
+                SelectSingle(insertIndex);
+            }
+            else
+            {
+                AddNote(marker);
+            }
+
+            // Select the newly added section in the jump dropdown without scrolling
+            _suppressSectionScroll = true;
+            for (int i = 0; i < _sectionJumpDropdown.ItemCount; i++)
+            {
+                if (_sectionJumpDropdown.ItemAt(i)?.DisplayText == name)
+                {
+                    _sectionJumpDropdown.SelectedIndex = i;
+                    break;
+                }
+            }
+            _suppressSectionScroll = false;
+        }
+
+        private void ShowCustomSectionInput()
+        {
+            if (_customSectionInput != null) return;
+
+            // Place side by side with the dropdown
+            var inputX = _sectionJumpDropdown.Visible
+                ? _sectionJumpDropdown.Location.X + _sectionJumpDropdown.Width + 5
+                : Layout.Padding;
+            var inputY = _sectionJumpDropdown.Visible
+                ? _sectionJumpDropdown.Location.Y
+                : _modeStatusLabel.Location.Y;
+
+            _customSectionInput = new TextBox
+            {
+                Parent = this,
+                Location = new Point(inputX, inputY),
+                Width = 140,
+                PlaceholderText = "Section name...",
+                ZIndex = 50
+            };
+            _customSectionInput.EnterPressed += (s, e) =>
+            {
+                var name = ((TextBox)s).Text.Trim();
+                RemoveCustomSectionInput();
+                if (!string.IsNullOrEmpty(name))
+                    AddSectionMarker(name);
+            };
+            _modeStatusLabel.Visible = false;
+        }
+
+        private void RemoveCustomSectionInput()
+        {
+            if (_customSectionInput == null) return;
+            _customSectionInput.Dispose();
+            _customSectionInput = null;
+            _modeStatusLabel.Visible = true;
+        }
+
+        private void OnSectionJumpChanged(object sender, ValueChangedEventArgs e)
+        {
+            if (_suppressSectionScroll) return;
+            ScrollToSection(e.CurrentValue);
+        }
+
+        private void ScrollToSection(string sectionName)
+        {
+            if (string.IsNullOrEmpty(sectionName)) return;
+
+            for (int i = 0; i < _notes.Count; i++)
+            {
+                if (IsSectionMarker(_notes[i]) && GetSectionName(_notes[i]) == sectionName)
+                {
+                    RequestScrollTo(i);
+                    break;
+                }
+            }
+        }
+
+        private void UpdateSectionDropdown()
+        {
+            var previousSelection = _sectionJumpDropdown.SelectedValue;
+
+            var sections = new List<string>();
+            foreach (var note in _notes)
+            {
+                if (IsSectionMarker(note))
+                    sections.Add(GetSectionName(note));
+            }
+
+            // Suppress scrolling during entire rebuild
+            _suppressSectionScroll = true;
+
+            _sectionJumpDropdown.ClearItems();
+            foreach (var section in sections)
+                _sectionJumpDropdown.AddItem(section);
+
+            _sectionJumpDropdown.Visible = sections.Count > 0;
+
+            // Restore previous selection
+            if (previousSelection != null)
+            {
+                for (int i = 0; i < _sectionJumpDropdown.ItemCount; i++)
+                {
+                    if (_sectionJumpDropdown.ItemAt(i)?.DisplayText == previousSelection)
+                    {
+                        _sectionJumpDropdown.SelectedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            _suppressSectionScroll = false;
+        }
+
         protected override void DisposeControl()
         {
+            _headerPanel?.Dispose();
+            _footerPanel?.Dispose();
             _headerLabel?.Dispose();
             _modeStatusLabel?.Dispose();
-            _expandButton?.Dispose();
+            _previewAllButton?.Dispose();
+            _previewSelectedButton?.Dispose();
+            _pauseButton?.Dispose();
+            _stopButton?.Dispose();
+            _playbackStatusLabel?.Dispose();
+            _sectionButton?.Dispose();
+            _sectionMenu?.Dispose();
+            _sectionJumpDropdown?.Dispose();
+            _customSectionInput?.Dispose();
             _insertButton?.Dispose();
             _undoButton?.Dispose();
             _clearButton?.Dispose();

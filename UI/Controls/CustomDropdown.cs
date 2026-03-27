@@ -87,7 +87,16 @@ namespace Maestro.UI.Controls
                 var index = GetItemIndexAt(RelativeMousePosition.Y);
                 if (index >= 0 && index < _owner._items.Count)
                 {
-                    _owner.SelectedIndex = index;
+                    if (index == _owner._selectedIndex)
+                    {
+                        // Re-selecting same item: force-fire event
+                        var val = _owner._items[index].DisplayText;
+                        _owner.ValueChanged?.Invoke(_owner, new ValueChangedEventArgs(val, val));
+                    }
+                    else
+                    {
+                        _owner.SelectedIndex = index;
+                    }
                     Dispose();
                 }
                 base.OnClick(e);
@@ -162,6 +171,7 @@ namespace Maestro.UI.Controls
             {
                 if (_owner != null)
                 {
+                    _owner._panelJustClosed = _owner._mouseOver;
                     _owner._panel = null;
                 }
 
@@ -191,7 +201,7 @@ namespace Maestro.UI.Controls
         public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
         private DropdownPanel _panel;
-        private bool _hadPanel;
+        private bool _panelJustClosed;
         private readonly List<DropdownItem> _items = new List<DropdownItem>();
 
         private int _selectedIndex = -1;
@@ -247,25 +257,34 @@ namespace Maestro.UI.Controls
 
         public int ItemCount => _items.Count;
 
+        public DropdownItem ItemAt(int index)
+        {
+            return index >= 0 && index < _items.Count ? _items[index] : null;
+        }
+
         protected override void OnClick(MouseEventArgs e)
         {
             base.OnClick(e);
 
             if (!Enabled) return;
 
-            if (_panel == null && !_hadPanel)
+            if (_panel != null)
             {
-                _panel = new DropdownPanel(this);
+                _panel.Dispose();
+                return;
             }
-            else
+
+            if (_panelJustClosed)
             {
-                _hadPanel = false;
+                _panelJustClosed = false;
+                return;
             }
+
+            _panel = new DropdownPanel(this);
         }
 
         public void HidePanel()
         {
-            _hadPanel = _mouseOver;
             _panel?.Dispose();
         }
 
