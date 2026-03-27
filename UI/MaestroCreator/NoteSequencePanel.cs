@@ -410,6 +410,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
             SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -430,6 +431,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -463,6 +465,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -501,6 +504,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -527,6 +531,7 @@ namespace Maestro.UI.MaestroCreator
 
             RequestScrollTo(index);
             UpdateHeader();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -768,6 +773,7 @@ namespace Maestro.UI.MaestroCreator
 
             var previousState = _undoStack.Pop();
             RestoreFromNotes(previousState);
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
             SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -854,6 +860,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -879,6 +886,7 @@ namespace Maestro.UI.MaestroCreator
             UpdateHeader();
             UpdateButtonStates();
             UpdateContextMenuStates();
+            UpdateSectionDropdown();
             SequenceChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -980,12 +988,11 @@ namespace Maestro.UI.MaestroCreator
 
         private void UpdateHeader()
         {
-            var noteCount = _notes.Count(n => !IsSectionMarker(n));
+            var noteCount = NoteCount;
             _headerLabel.Text = _selectedIndices.Count > 0
                 ? $"Notes: {noteCount} ({_selectedIndices.Count} selected)"
                 : $"Notes: {noteCount}";
             UpdateModeStatus();
-            UpdateSectionDropdown();
         }
 
         private void UpdateModeStatus()
@@ -1144,16 +1151,22 @@ namespace Maestro.UI.MaestroCreator
 
             if (player.IsAdjustingOctave)
             {
-                _playbackStatusLabel.Text = "Adjusting...";
-                _playbackStatusLabel.TextColor = MaestroTheme.AmberGold;
+                if (_playbackStatusLabel.Text != "Adjusting...")
+                {
+                    _playbackStatusLabel.Text = "Adjusting...";
+                    _playbackStatusLabel.TextColor = MaestroTheme.AmberGold;
+                }
                 return;
             }
 
             if (player.IsPaused)
                 return;
 
-            _playbackStatusLabel.Text = "Playing...";
-            _playbackStatusLabel.TextColor = MaestroTheme.Playing;
+            if (_playbackStatusLabel.Text != "Playing...")
+            {
+                _playbackStatusLabel.Text = "Playing...";
+                _playbackStatusLabel.TextColor = MaestroTheme.Playing;
+            }
 
             var cmdIndex = player.CurrentCommandIndex;
             if (_playbackMapping == null || cmdIndex >= _playbackMapping.Length) return;

@@ -81,6 +81,11 @@ namespace Maestro.UI
             return new Color(color.R, color.G, color.B, alpha);
         }
 
+        public static Color Darken(Color color, float amount)
+        {
+            return new Color((int)(color.R * amount), (int)(color.G * amount), (int)(color.B * amount), color.A);
+        }
+
         public static Texture2D CreateWindowBackground(int windowWidth, int windowHeight)
         {
             var width = windowWidth - BACKGROUND_X_OFFSET;

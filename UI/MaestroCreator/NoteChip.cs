@@ -86,11 +86,6 @@ namespace Maestro.UI.MaestroCreator
             base.OnClick(e);
         }
 
-        private static Color Darken(Color c, float amount)
-        {
-            return new Color((int)(c.R * amount), (int)(c.G * amount), (int)(c.B * amount), c.A);
-        }
-
         private static Color GetNoteColor(string noteString)
         {
             if (noteString.StartsWith("R"))
@@ -106,7 +101,7 @@ namespace Maestro.UI.MaestroCreator
             else
                 baseColor = MaestroTheme.ChipMiddleOctave;
 
-            return isSharp ? Darken(baseColor, 0.7f) : baseColor;
+            return isSharp ? MaestroTheme.Darken(baseColor, 0.7f) : baseColor;
         }
 
         protected override void DisposeControl()

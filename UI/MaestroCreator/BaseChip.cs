@@ -23,13 +23,6 @@ namespace Maestro.UI.MaestroCreator
             set { _isSelected = value; Invalidate(); }
         }
 
-        private bool _isHighlighted;
-        public bool IsHighlighted
-        {
-            get => _isHighlighted;
-            set { _isHighlighted = value; Invalidate(); }
-        }
-
         protected void FireChipClicked(MouseEventArgs e) => ChipClicked?.Invoke(this, e);
         protected void FireRemoveClicked() => RemoveClicked?.Invoke(this, EventArgs.Empty);
 
@@ -46,9 +39,7 @@ namespace Maestro.UI.MaestroCreator
         {
             base.PaintBeforeChildren(spriteBatch, bounds);
 
-            if (_isHighlighted)
-                DrawBorder(spriteBatch, bounds, MaestroTheme.Playing);
-            else if (_isSelected)
+            if (_isSelected)
                 DrawBorder(spriteBatch, bounds, MaestroTheme.AmberGold);
         }
     }

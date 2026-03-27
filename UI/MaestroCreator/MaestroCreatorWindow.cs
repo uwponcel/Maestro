@@ -68,8 +68,6 @@ namespace Maestro.UI.MaestroCreator
         // Creator's own playback (decoupled from main window)
         private readonly SongPlayer _creatorPlayer;
         private bool _isPreviewActive;
-        private int[] _playbackMapping;
-        private int[] _playbackNoteIndices;
 
         // Instrument confirmation overlay
         private readonly Panel _confirmationOverlay;
@@ -582,11 +580,9 @@ namespace Maestro.UI.MaestroCreator
             song.Notes.AddRange(notes);
             song.Commands.AddRange(parseResult.Commands);
 
-            _playbackMapping = parseResult.CommandToNoteLineIndex;
-            _playbackNoteIndices = null;
             Module.Instance.SongPlayer.Stop();
             _creatorPlayer.Play(song);
-            StartPreviewHighlight();
+            StartPreviewHighlight(parseResult.CommandToNoteLineIndex, null);
         }
 
         private void OnPreviewSelectionClicked(object sender, EventArgs e)
@@ -609,11 +605,9 @@ namespace Maestro.UI.MaestroCreator
                 song.Notes.AddRange(selectedNotes);
                 song.Commands.AddRange(parseResult.Commands);
 
-                _playbackMapping = parseResult.CommandToNoteLineIndex;
-                _playbackNoteIndices = selectedIndices.ToArray();
                 Module.Instance.SongPlayer.Stop();
                 _creatorPlayer.Play(song);
-                StartPreviewHighlight();
+                StartPreviewHighlight(parseResult.CommandToNoteLineIndex, selectedIndices.ToArray());
             }
             catch (Exception ex)
             {
@@ -621,30 +615,25 @@ namespace Maestro.UI.MaestroCreator
             }
         }
 
-        private void StartPreviewHighlight()
+        private void StartPreviewHighlight(int[] mapping, int[] noteIndices)
         {
-            // Clean up any previous preview state
             if (_isPreviewActive)
                 StopPreviewHighlight();
 
             _isPreviewActive = true;
-            _noteSequencePanel.StartPlaybackHighlight(_creatorPlayer, _playbackMapping, _playbackNoteIndices);
+            _noteSequencePanel.StartPlaybackHighlight(_creatorPlayer, mapping, noteIndices);
             _noteSequencePanel.SetControlsEnabled(false);
 
-            var player = _creatorPlayer;
-            player.OnStopped += OnPreviewEnded;
-            player.OnCompleted += OnPreviewEnded;
+            _creatorPlayer.OnStopped += OnPreviewEnded;
+            _creatorPlayer.OnCompleted += OnPreviewEnded;
         }
 
         private void StopPreviewHighlight()
         {
-            var player = _creatorPlayer;
-            player.OnStopped -= OnPreviewEnded;
-            player.OnCompleted -= OnPreviewEnded;
+            _creatorPlayer.OnStopped -= OnPreviewEnded;
+            _creatorPlayer.OnCompleted -= OnPreviewEnded;
 
             _isPreviewActive = false;
-            _playbackMapping = null;
-            _playbackNoteIndices = null;
             _noteSequencePanel.StopPlaybackHighlight();
             _noteSequencePanel.SetControlsEnabled(true);
         }
@@ -801,6 +790,7 @@ namespace Maestro.UI.MaestroCreator
 
         protected override void DisposeControl()
         {
+            _creatorPlayer.Stop();
             CloseNotesWindow();
             _noteSequencePanel.PreviewSelectionRequested -= OnPreviewSelectionClicked;
             _noteSequencePanel.InsertModeChanged -= OnNoteSequenceStateChanged;

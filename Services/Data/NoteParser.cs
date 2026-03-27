@@ -133,69 +133,7 @@ namespace Maestro.Services.Data
 
         public static List<SongCommand> Parse(List<string> noteLines)
         {
-            var commands = new List<SongCommand>();
-            int currentOctave = 0;
-
-            foreach (var line in noteLines)
-            {
-                // Parse all notes in line - all notes on same line form ONE chord
-                var notes = ParseNotesFromLine(line);
-
-                if (notes.Count == 0)
-                    continue;
-
-                // Handle rest
-                if (notes.Any(n => n.IsRest))
-                {
-                    commands.Add(SongCommand.WaitCmd(notes.Max(n => n.DurationMs)));
-                    continue;
-                }
-
-                // Press all keys DOWN, handling octave changes inline (like AHK does)
-                // This keeps all notes pressed together even across octave changes
-                foreach (var note in notes)
-                {
-                    // Change octave if needed for this note
-                    if (note.TargetOctave != currentOctave)
-                    {
-                        int steps = note.TargetOctave - currentOctave;
-                        int absSteps = Math.Abs(steps);
-                        Keys octaveKey = steps > 0 ? NoteMapping.OctaveUpKey : NoteMapping.OctaveDownKey;
-
-                        // Multi-step octave changes (e.g. high→low = 2 steps) need longer delays
-                        // between each step, same as reset, because GW2 can miss rapid consecutive
-                        // octave changes and drift into chord territory.
-                        var delay = absSteps > 1
-                            ? GameTimings.OctaveResetDelayMs
-                            : GameTimings.OctaveChangeDelayMs;
-
-                        for (int i = 0; i < absSteps; i++)
-                        {
-                            commands.Add(SongCommand.KeyDownCmd(octaveKey));
-                            commands.Add(SongCommand.KeyUpCmd(octaveKey));
-                            commands.Add(SongCommand.WaitCmd(delay));
-                        }
-                        currentOctave = note.TargetOctave;
-                    }
-
-                    if (note.NeedsAlt)
-                        commands.Add(SongCommand.KeyDownCmd(Keys.LeftAlt));
-                    commands.Add(SongCommand.KeyDownCmd(note.Key));
-                }
-
-                // Wait for chord duration (use max duration)
-                commands.Add(SongCommand.WaitCmd(notes.Max(n => n.DurationMs)));
-
-                // Release all keys UP (reverse order for clean release)
-                foreach (var note in notes.AsEnumerable().Reverse())
-                {
-                    commands.Add(SongCommand.KeyUpCmd(note.Key));
-                    if (note.NeedsAlt)
-                        commands.Add(SongCommand.KeyUpCmd(Keys.LeftAlt));
-                }
-            }
-
-            return commands;
+            return ParseWithMapping(noteLines).Commands;
         }
 
         public static SeekData ComputeSeekData(List<SongCommand> commands)
