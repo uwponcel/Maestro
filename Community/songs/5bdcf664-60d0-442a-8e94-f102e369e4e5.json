@@ -1,0 +1,22 @@
+{
+  "name": "The Minstrel's Song",
+  "artist": "Maklain the Minstrel",
+  "transcriber": "Mike.8061",
+  "instrument": "Lute",
+  "notes": [
+    "C:500",
+    "D:500",
+    "E:500",
+    "F:500",
+    "E:500",
+    "D:500",
+    "C:500",
+    "C:500",
+    "D:500",
+    "B-:500",
+    "B-:500",
+    "C^-:500",
+    "G-:500"
+  ],
+  "skipOctaveReset": false
+}
