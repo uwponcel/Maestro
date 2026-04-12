@@ -3,6 +3,7 @@ using Blish_HUD;
 using Blish_HUD.Controls;
 using Maestro.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Maestro.UI.MaestroCreator
 {
@@ -90,9 +91,12 @@ namespace Maestro.UI.MaestroCreator
         }
 
         private readonly Label _octaveLabel;
-        private readonly StandardButton _octaveDownButton;
-        private readonly StandardButton _octaveUpButton;
-        private readonly StandardButton _restButton;
+        private readonly Panel _octaveDownButton;
+        private readonly Label _octaveDownLabel;
+        private readonly Panel _octaveUpButton;
+        private readonly Label _octaveUpLabel;
+        private readonly Panel _restButton;
+        private readonly Label _restLabel;
 
         private readonly string[] _whiteNotes = { "C", "D", "E", "F", "G", "A", "B", "C^" };
 
@@ -108,13 +112,15 @@ namespace Maestro.UI.MaestroCreator
         private readonly Panel[] _whiteKeyPanels;
         private readonly Panel[] _blackKeyPanels;
 
+        private Color _accentColor = MaestroTheme.AmberGold;
+
         private readonly int _keysY;
         private readonly int _keysOffsetX;
 
         public PianoKeyboard(int containerWidth)
         {
             Size = new Point(containerWidth, Layout.TotalHeight);
-            BackgroundColor = MaestroTheme.PanelBackground;
+            BackgroundColor = new Color(0, 0, 0, 65);  // Dark container for piano keys
 
             _whiteKeyPanels = new Panel[8];
             _blackKeyPanels = new Panel[5];
@@ -124,16 +130,29 @@ namespace Maestro.UI.MaestroCreator
             var centerX = containerWidth / 2;
 
             var octaveY = Layout.Spacing;
-            _octaveDownButton = new StandardButton
+            _octaveDownButton = new Panel
             {
                 Parent = this,
-                Text = "-",
                 Location = new Point(centerX - Layout.OctaveButtonOffset, octaveY),
-                Size = new Point(Layout.OctaveButtonWidth, Layout.OctaveControlHeight - 4)
+                Size = new Point(Layout.OctaveButtonWidth, Layout.OctaveControlHeight - 4),
+                BackgroundColor = MaestroTheme.GhostButtonBackground
             };
-            _octaveDownButton.Click += (s, e) =>
+            _octaveDownLabel = new Label
             {
-                if (_currentOctave > _minOctave)
+                Parent = _octaveDownButton,
+                Text = "-",
+                Location = new Point(0, 0),
+                Size = new Point(Layout.OctaveButtonWidth, Layout.OctaveControlHeight - 4),
+                Font = GameService.Content.DefaultFont16,
+                TextColor = _accentColor,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Middle
+            };
+            _octaveDownButton.MouseEntered += (s, e) => _octaveDownButton.BackgroundColor = MaestroTheme.GhostButtonHover;
+            _octaveDownButton.MouseLeft += (s, e) => _octaveDownButton.BackgroundColor = MaestroTheme.GhostButtonBackground;
+            _octaveDownButton.LeftMouseButtonReleased += (s, e) =>
+            {
+                if (_octaveButtonsEnabled && _currentOctave > _minOctave)
                 {
                     CurrentOctave--;
                     OctaveChanged?.Invoke(this, false);
@@ -147,21 +166,34 @@ namespace Maestro.UI.MaestroCreator
                 Location = new Point(centerX - Layout.OctaveLabelOffset, octaveY),
                 Size = new Point(Layout.OctaveLabelWidth, Layout.OctaveControlHeight),
                 Font = GameService.Content.DefaultFont14,
-                TextColor = MaestroTheme.CreamWhite,
+                TextColor = MaestroTheme.OctaveLabelColor,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle
             };
 
-            _octaveUpButton = new StandardButton
+            _octaveUpButton = new Panel
             {
                 Parent = this,
-                Text = "+",
                 Location = new Point(centerX + Layout.OctaveButtonOffset - Layout.OctaveButtonWidth, octaveY),
-                Size = new Point(Layout.OctaveButtonWidth, Layout.OctaveControlHeight - 4)
+                Size = new Point(Layout.OctaveButtonWidth, Layout.OctaveControlHeight - 4),
+                BackgroundColor = MaestroTheme.GhostButtonBackground
             };
-            _octaveUpButton.Click += (s, e) =>
+            _octaveUpLabel = new Label
             {
-                if (_currentOctave < _maxOctave)
+                Parent = _octaveUpButton,
+                Text = "+",
+                Location = new Point(0, 0),
+                Size = new Point(Layout.OctaveButtonWidth, Layout.OctaveControlHeight - 4),
+                Font = GameService.Content.DefaultFont16,
+                TextColor = _accentColor,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Middle
+            };
+            _octaveUpButton.MouseEntered += (s, e) => _octaveUpButton.BackgroundColor = MaestroTheme.GhostButtonHover;
+            _octaveUpButton.MouseLeft += (s, e) => _octaveUpButton.BackgroundColor = MaestroTheme.GhostButtonBackground;
+            _octaveUpButton.LeftMouseButtonReleased += (s, e) =>
+            {
+                if (_octaveButtonsEnabled && _currentOctave < _maxOctave)
                 {
                     CurrentOctave++;
                     OctaveChanged?.Invoke(this, true);
@@ -186,24 +218,38 @@ namespace Maestro.UI.MaestroCreator
             }
 
             var restY = _keysY + Layout.WhiteKeyHeight + Layout.RestSpacing;
-            _restButton = new StandardButton
+            _restButton = new Panel
             {
                 Parent = this,
-                Text = "REST",
                 Location = new Point(_keysOffsetX + Layout.Spacing, restY),
-                Size = new Point(60, Layout.RestButtonHeight)
+                Size = new Point(60, Layout.RestButtonHeight),
+                BackgroundColor = MaestroTheme.GhostButtonBackground
             };
-            _restButton.Click += (s, e) => NotePressed?.Invoke(this, new NoteEventArgs("R", isRest: true));
+            _restLabel = new Label
+            {
+                Parent = _restButton,
+                Text = "REST",
+                Location = new Point(0, -2),
+                Size = new Point(60, Layout.RestButtonHeight),
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.GhostButtonText,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Middle
+            };
+            _restButton.MouseEntered += (s, e) => _restButton.BackgroundColor = MaestroTheme.GhostButtonHover;
+            _restButton.MouseLeft += (s, e) => _restButton.BackgroundColor = MaestroTheme.GhostButtonBackground;
+            _restButton.LeftMouseButtonReleased += (s, e) => NotePressed?.Invoke(this, new NoteEventArgs("R", isRest: true));
         }
 
         private Panel CreateWhiteKey(int index, string note, bool isHighC)
         {
-            var keyPanel = new Panel
+            var keyPanel = new RoundedKeyPanel
             {
                 Parent = this,
                 Location = new Point(_keysOffsetX + Layout.Spacing + index * Layout.WhiteKeyWidth, _keysY),
                 Size = new Point(Layout.WhiteKeyWidth - Layout.WhiteKeyGap, Layout.WhiteKeyHeight),
-                BackgroundColor = MaestroTheme.PianoWhiteKey,
+                BackgroundColor = Color.Transparent,
+                FillColor = MaestroTheme.PianoWhiteKey,
                 ZIndex = 0
             };
 
@@ -218,15 +264,15 @@ namespace Maestro.UI.MaestroCreator
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
-            keyPanel.MouseEntered += (s, e) => keyPanel.BackgroundColor = MaestroTheme.PianoWhiteKeyHover;
-            keyPanel.MouseLeft += (s, e) => keyPanel.BackgroundColor = MaestroTheme.PianoWhiteKey;
+            keyPanel.MouseEntered += (s, e) => keyPanel.FillColor = MaestroTheme.PianoWhiteKeyHover;
+            keyPanel.MouseLeft += (s, e) => keyPanel.FillColor = MaestroTheme.PianoWhiteKey;
             keyPanel.LeftMouseButtonPressed += (s, e) =>
             {
-                keyPanel.BackgroundColor = MaestroTheme.PianoWhiteKeyPressed;
+                keyPanel.FillColor = MaestroTheme.PianoWhiteKeyPressed;
             };
             keyPanel.LeftMouseButtonReleased += (s, e) =>
             {
-                keyPanel.BackgroundColor = MaestroTheme.PianoWhiteKeyHover;
+                keyPanel.FillColor = MaestroTheme.PianoWhiteKeyHover;
                 NotePressed?.Invoke(this, new NoteEventArgs(note.Replace("^", ""), isHighC: isHighC));
             };
 
@@ -237,13 +283,14 @@ namespace Maestro.UI.MaestroCreator
         {
             var xPos = _keysOffsetX + Layout.Spacing + (afterWhiteKey + 1) * Layout.WhiteKeyWidth - Layout.BlackKeyWidth / 2 - 1;
 
-            var keyPanel = new Panel
+            var keyPanel = new RoundedKeyPanel
             {
                 Parent = this,
                 Location = new Point(xPos, _keysY),
                 Size = new Point(Layout.BlackKeyWidth, Layout.BlackKeyHeight),
-                BackgroundColor = MaestroTheme.PianoBlackKey,
-                ZIndex = 10 // Much higher than white keys
+                BackgroundColor = Color.Transparent,
+                FillColor = MaestroTheme.PianoBlackKey,
+                ZIndex = 10
             };
 
             var baseNote = note.Replace("#", "");
@@ -258,15 +305,15 @@ namespace Maestro.UI.MaestroCreator
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
-            keyPanel.MouseEntered += (s, e) => keyPanel.BackgroundColor = MaestroTheme.PianoBlackKeyHover;
-            keyPanel.MouseLeft += (s, e) => keyPanel.BackgroundColor = MaestroTheme.PianoBlackKey;
+            keyPanel.MouseEntered += (s, e) => keyPanel.FillColor = MaestroTheme.PianoBlackKeyHover;
+            keyPanel.MouseLeft += (s, e) => keyPanel.FillColor = MaestroTheme.PianoBlackKey;
             keyPanel.LeftMouseButtonPressed += (s, e) =>
             {
-                keyPanel.BackgroundColor = MaestroTheme.PianoBlackKeyPressed;
+                keyPanel.FillColor = MaestroTheme.PianoBlackKeyPressed;
             };
             keyPanel.LeftMouseButtonReleased += (s, e) =>
             {
-                keyPanel.BackgroundColor = MaestroTheme.PianoBlackKeyHover;
+                keyPanel.FillColor = MaestroTheme.PianoBlackKeyHover;
                 NotePressed?.Invoke(this, new NoteEventArgs(baseNote, isSharp: true));
             };
 
@@ -320,6 +367,7 @@ namespace Maestro.UI.MaestroCreator
             // Clamp current octave to new bounds and reset to starting position
             // Bass starts at low (0), others at middle (0)
             _currentOctave = _instrument == InstrumentType.Bass ? 0 : 0;
+            _accentColor = MaestroTheme.GetInstrumentAccent(instrument);
             UpdateOctaveDisplay();
         }
 
@@ -353,17 +401,28 @@ namespace Maestro.UI.MaestroCreator
             }
 
             if (_octaveDownButton != null)
-                _octaveDownButton.Enabled = _octaveButtonsEnabled && _currentOctave > _minOctave;
+            {
+                var downEnabled = _octaveButtonsEnabled && _currentOctave > _minOctave;
+                _octaveDownButton.Opacity = downEnabled ? 1f : 0.3f;
+                _octaveDownLabel.TextColor = downEnabled ? _accentColor : MaestroTheme.Disabled;
+            }
 
             if (_octaveUpButton != null)
-                _octaveUpButton.Enabled = _octaveButtonsEnabled && _currentOctave < _maxOctave;
+            {
+                var upEnabled = _octaveButtonsEnabled && _currentOctave < _maxOctave;
+                _octaveUpButton.Opacity = upEnabled ? 1f : 0.3f;
+                _octaveUpLabel.TextColor = upEnabled ? _accentColor : MaestroTheme.Disabled;
+            }
         }
 
         protected override void DisposeControl()
         {
             _octaveLabel?.Dispose();
+            _octaveDownLabel?.Dispose();
             _octaveDownButton?.Dispose();
+            _octaveUpLabel?.Dispose();
             _octaveUpButton?.Dispose();
+            _restLabel?.Dispose();
             _restButton?.Dispose();
 
             foreach (var key in _whiteKeyPanels)
@@ -373,6 +432,21 @@ namespace Maestro.UI.MaestroCreator
                 key?.Dispose();
 
             base.DisposeControl();
+        }
+
+        private class RoundedKeyPanel : Panel
+        {
+            private Color _fillColor;
+            public Color FillColor
+            {
+                get => _fillColor;
+                set { _fillColor = value; Invalidate(); }
+            }
+
+            public override void PaintBeforeChildren(SpriteBatch spriteBatch, Rectangle bounds)
+            {
+                MaestroTheme.DrawBottomRoundedRect(spriteBatch, this, bounds, _fillColor);
+            }
         }
     }
 }

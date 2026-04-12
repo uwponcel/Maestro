@@ -19,8 +19,6 @@ namespace Maestro.UI.MaestroCreator
             public const int ContentPaddingX = 15;
         }
 
-        public event EventHandler PanelReturned;
-
         private NoteSequencePanel _panel;
 
         private static Texture2D _backgroundTexture;
@@ -95,10 +93,16 @@ namespace Maestro.UI.MaestroCreator
             return panel;
         }
 
-        public override void Hide()
+        public void CloseProgrammatic()
         {
             base.Hide();
-            PanelReturned?.Invoke(this, EventArgs.Empty);
+        }
+
+        public override void Hide()
+        {
+            // The Notes window is tied to the Creator window's lifetime; clicking the
+            // built-in X button routes here and must not actually close the window.
+            // Use CloseProgrammatic() to hide it alongside the Creator.
         }
 
         protected override void DisposeControl()

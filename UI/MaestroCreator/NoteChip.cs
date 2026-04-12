@@ -2,6 +2,7 @@ using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Maestro.UI.MaestroCreator
 {
@@ -20,16 +21,20 @@ namespace Maestro.UI.MaestroCreator
 
         private readonly Label _noteLabel;
         private readonly Label _closeButton;
+        private readonly Color _chipColor;
+        private readonly Color _hoverColor;
 
         public NoteChip(string noteString, int index)
         {
             NoteString = noteString;
             Index = index;
 
-            var baseColor = GetNoteColor(noteString);
+            _chipColor = GetNoteColor(noteString);
+            _hoverColor = MaestroTheme.Brighten(_chipColor);
+            _currentColor = _chipColor;
 
             Size = new Point(Layout.FixedWidth, Layout.Height);
-            BackgroundColor = baseColor;
+            BackgroundColor = Color.Transparent; // Drawn via rounded rect
 
             var maxTextWidth = Layout.FixedWidth - Layout.CloseButtonSize - Layout.Padding * 2 - Layout.CloseButtonMargin;
             var maxChars = maxTextWidth / 7;
@@ -71,8 +76,8 @@ namespace Maestro.UI.MaestroCreator
             _closeButton.MouseLeft += (s, e) => _closeButton.TextColor = MaestroTheme.MutedCream;
             _closeButton.LeftMouseButtonReleased += (s, e) => FireRemoveClicked();
 
-            MouseEntered += (s, e) => BackgroundColor = MaestroTheme.WithAlpha(baseColor, 255);
-            MouseLeft += (s, e) => BackgroundColor = baseColor;
+            MouseEntered += (s, e) => { _currentColor = _hoverColor; Invalidate(); };
+            MouseLeft += (s, e) => { _currentColor = _chipColor; Invalidate(); };
         }
 
         protected override void OnClick(MouseEventArgs e)
@@ -92,16 +97,13 @@ namespace Maestro.UI.MaestroCreator
                 return MaestroTheme.ChipRest;
 
             var isSharp = noteString.Contains("#");
-            Color baseColor;
 
             if (noteString.Contains("-"))
-                baseColor = MaestroTheme.ChipLowerOctave;
-            else if (noteString.Contains("+"))
-                baseColor = MaestroTheme.ChipUpperOctave;
-            else
-                baseColor = MaestroTheme.ChipMiddleOctave;
+                return isSharp ? MaestroTheme.ChipLowerOctaveSharp : MaestroTheme.ChipLowerOctave;
+            if (noteString.Contains("+"))
+                return isSharp ? MaestroTheme.ChipUpperOctaveSharp : MaestroTheme.ChipUpperOctave;
 
-            return isSharp ? MaestroTheme.Darken(baseColor, 0.7f) : baseColor;
+            return isSharp ? MaestroTheme.ChipMiddleOctaveSharp : MaestroTheme.ChipMiddleOctave;
         }
 
         protected override void DisposeControl()

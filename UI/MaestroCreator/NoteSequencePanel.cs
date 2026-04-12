@@ -50,6 +50,9 @@ namespace Maestro.UI.MaestroCreator
         private int _scrollApplyFrames;
         private Scrollbar _scrollbarRef;
 
+        private DateTime? _clearConfirmExpiresAt;
+        private const double ClearConfirmTimeoutSeconds = 3.0;
+
         private static readonly FieldInfo PanelScrollbarField =
             typeof(Panel).GetField("_panelScrollbar", BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -90,6 +93,8 @@ namespace Maestro.UI.MaestroCreator
         private readonly Panel _footerPanel;
         private readonly FlowPanel _chipsContainer;
         private Panel _bottomSpacer;
+        private readonly Panel _headerSeparator;
+        private readonly Panel _footerSeparator;
         private readonly StandardButton _sectionButton;
         private readonly ContextMenuStrip _sectionMenu;
         private readonly CustomDropdown _sectionJumpDropdown;
@@ -123,8 +128,8 @@ namespace Maestro.UI.MaestroCreator
                 Parent = this,
                 Location = new Point(0, 0),
                 Size = new Point(width, headerHeight),
-                BackgroundColor = MaestroTheme.SlateGray,
-                ShowBorder = true
+                BackgroundColor = new Color(0, 0, 0, 80),
+                ShowBorder = false
             };
 
             _headerLabel = new Label
@@ -156,6 +161,13 @@ namespace Maestro.UI.MaestroCreator
             };
             _clearButton.Click += (s, e) =>
             {
+                if (_clearConfirmExpiresAt == null)
+                {
+                    PrimeClearConfirm();
+                    return;
+                }
+
+                ResetClearConfirm();
                 ClearClicked?.Invoke(this, EventArgs.Empty);
                 Clear();
             };
@@ -169,6 +181,7 @@ namespace Maestro.UI.MaestroCreator
             };
             _undoButton.Click += (s, e) =>
             {
+                ResetClearConfirm();
                 UndoClicked?.Invoke(this, EventArgs.Empty);
                 Undo();
             };
@@ -191,7 +204,11 @@ namespace Maestro.UI.MaestroCreator
                 Size = new Point(sectionBtnW, Layout.HeaderHeight),
                 BasicTooltipText = "Add a section marker to organize notes"
             };
-            _sectionButton.Click += (s, e) => _sectionMenu.Show(_sectionButton);
+            _sectionButton.Click += (s, e) =>
+            {
+                ResetClearConfirm();
+                _sectionMenu.Show(_sectionButton);
+            };
 
             _insertButton = new StandardButton
             {
@@ -203,6 +220,7 @@ namespace Maestro.UI.MaestroCreator
             };
             _insertButton.Click += (s, e) =>
             {
+                ResetClearConfirm();
                 _isInsertMode = !_isInsertMode;
                 UpdateInsertVisual();
                 UpdateModeStatus();
@@ -223,7 +241,7 @@ namespace Maestro.UI.MaestroCreator
             {
                 Parent = _headerPanel,
                 Text = "",
-                Location = new Point(0, Layout.HeaderHeight + 19),
+                Location = new Point(0, Layout.HeaderHeight + 26),
                 Size = new Point(width - 10, 18),
                 Font = GameService.Content.DefaultFont14,
                 TextColor = MaestroTheme.AmberGold,
@@ -234,6 +252,15 @@ namespace Maestro.UI.MaestroCreator
             const int gapHeight = 4;
             const int footerHeight = 46;
             var chipsY = headerHeight + gapHeight;
+
+            _headerSeparator = new Panel
+            {
+                Parent = this,
+                Location = new Point(0, headerHeight),
+                Size = new Point(width, 1),
+                BackgroundColor = MaestroTheme.SubtleBorder
+            };
+
             var chipsHeight = height - chipsY - footerHeight - gapHeight;
             _chipsContainer = new FlowPanel
             {
@@ -272,6 +299,14 @@ namespace Maestro.UI.MaestroCreator
             _clearSelectionItem.Click += (s, e) => ClearSelection();
 
             _chipsContainer.Menu = _contextMenu;
+
+            _footerSeparator = new Panel
+            {
+                Parent = this,
+                Location = new Point(0, height - footerHeight - gapHeight),
+                Size = new Point(width, 1),
+                BackgroundColor = MaestroTheme.SubtleBorder
+            };
 
             // Footer panel with playback controls
             _footerPanel = new Panel
@@ -313,7 +348,7 @@ namespace Maestro.UI.MaestroCreator
                 Location = new Point(Layout.Padding + 72, btnY),
                 Size = new Point(200, btnHeight),
                 Font = GameService.Content.DefaultFont14,
-                TextColor = MaestroTheme.LightGray,
+                TextColor = MaestroTheme.HintTextColor,
                 VerticalAlignment = VerticalAlignment.Middle
             };
 
@@ -663,9 +698,12 @@ namespace Maestro.UI.MaestroCreator
             const int footerHeight = 46;
             var chipsY = headerHeight + gapHeight;
             var chipsHeight = height - chipsY - footerHeight - gapHeight;
+            _headerSeparator.Size = new Point(width, 1);
             _chipsContainer.Location = new Point(0, chipsY);
             _chipsContainer.Size = new Point(width, chipsHeight);
 
+            _footerSeparator.Location = new Point(0, height - footerHeight - gapHeight);
+            _footerSeparator.Size = new Point(width, 1);
             _footerPanel.Location = new Point(0, height - footerHeight);
             _footerPanel.Size = new Point(width, footerHeight);
             _previewAllButton.Location = new Point(width - 95, _previewAllButton.Location.Y);
@@ -696,6 +734,26 @@ namespace Maestro.UI.MaestroCreator
             {
                 UpdatePlaybackHighlight();
             }
+
+            if (_clearConfirmExpiresAt.HasValue && DateTime.UtcNow >= _clearConfirmExpiresAt.Value)
+            {
+                ResetClearConfirm();
+            }
+        }
+
+        private void PrimeClearConfirm()
+        {
+            _clearConfirmExpiresAt = DateTime.UtcNow.AddSeconds(ClearConfirmTimeoutSeconds);
+            _clearButton.Text = "Sure?";
+            _clearButton.BackgroundColor = MaestroTheme.Error;
+        }
+
+        private void ResetClearConfirm()
+        {
+            if (_clearConfirmExpiresAt == null) return;
+            _clearConfirmExpiresAt = null;
+            _clearButton.Text = "Clear";
+            _clearButton.BackgroundColor = Color.Transparent;
         }
 
 
@@ -1073,7 +1131,7 @@ namespace Maestro.UI.MaestroCreator
             else
             {
                 _playbackStatusLabel.Text = "No song playing";
-                _playbackStatusLabel.TextColor = MaestroTheme.LightGray;
+                _playbackStatusLabel.TextColor = MaestroTheme.HintTextColor;
                 _pauseButton.Text = "||";
             }
 
@@ -1123,8 +1181,8 @@ namespace Maestro.UI.MaestroCreator
             _playbackNoteIndices = null;
             _activeSongPlayer = null;
 
-            if (_playbackHighlightIndex >= 0 && _playbackHighlightIndex < _chips.Count)
-                _chips[_playbackHighlightIndex].IsSelected = false;
+            foreach (var chip in _chips)
+                chip.IsPlaying = false;
             _playbackHighlightIndex = -1;
 
             if (_savedSelection != null)
@@ -1179,13 +1237,13 @@ namespace Maestro.UI.MaestroCreator
             if (noteLineIndex == _playbackHighlightIndex) return;
 
             if (_playbackHighlightIndex >= 0 && _playbackHighlightIndex < _chips.Count)
-                _chips[_playbackHighlightIndex].IsSelected = false;
+                _chips[_playbackHighlightIndex].IsPlaying = false;
 
             _playbackHighlightIndex = noteLineIndex;
 
             if (noteLineIndex >= 0 && noteLineIndex < _chips.Count && !(_chips[noteLineIndex] is SectionMarkerChip))
             {
-                _chips[noteLineIndex].IsSelected = true;
+                _chips[noteLineIndex].IsPlaying = true;
                 RequestScrollTo(noteLineIndex);
             }
         }

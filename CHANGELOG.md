@@ -1,5 +1,31 @@
 # Changelog
 
+## v4.1.0
+
+**Creator: Visual Polish**
+
+- Warm fantasy palette with per-instrument accent colors (Piano, Harp, Lute, Bass)
+- Note chips and piano keys now have rounded corners
+- Playing and selected states shown as a subtle inset amber border instead of a bright glow
+- Section markers redesigned with warm bronze color, rounded corners, and a gold left border
+- Sharp notes rendered in a darker shade for easier identification at a glance
+- Note sequencer now has a dark overlay header with clean separators
+- Piano container uses a dark background with styled octave and REST buttons for better visibility
+- Brighter ghost button text, octave labels, and section markers for improved contrast
+- Instrument badge and per-instrument theming on the creator window
+
+**Creator: Enhancements**
+
+- Chord builder now caps at 7 notes per chord (covers up to a 13th chord) and silently ignores duplicate notes
+- Chord preview shows a live count, e.g. `Chord (3/7): C:150 E:150 G:150`
+- Clear button now requires a second click within 3 seconds to confirm, preventing accidental wipes of long transcriptions
+- Notes window can no longer be closed independently of the Creator - the X button is disabled so the two windows always stay in sync
+
+**Creator: Bug Fixes**
+
+- REST button label is now vertically centered inside the button
+- Dot button tooltip now refreshes when the selected note duration changes, instead of showing stale milliseconds
+
 ## v4.0.0
 
 **Creator: Redesigned Layout**

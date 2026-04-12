@@ -15,8 +15,8 @@ namespace Maestro.UI.MaestroCreator
             public const int CloseButtonMargin = 2;
         }
 
-        private static readonly Color SectionColor = new Color(58, 120, 140);
-        private static readonly Color SectionColorHover = new Color(72, 140, 162);
+        private static readonly Color SectionColor = new Color(80, 68, 58);
+        private static readonly Color SectionHoverColor = MaestroTheme.Brighten(SectionColor);
 
         public string SectionName { get; }
 
@@ -28,10 +28,10 @@ namespace Maestro.UI.MaestroCreator
             SectionName = sectionName;
             Index = index;
 
-            // Full width of the container minus scrollbar
             var chipWidth = containerWidth - 26;
             Size = new Point(chipWidth, Layout.Height);
-            BackgroundColor = SectionColor;
+            BackgroundColor = Color.Transparent;
+            _currentColor = SectionColor;
 
             _sectionLabel = new Label
             {
@@ -61,8 +61,8 @@ namespace Maestro.UI.MaestroCreator
             _closeButton.MouseLeft += (s, e) => _closeButton.TextColor = MaestroTheme.MutedCream;
             _closeButton.LeftMouseButtonReleased += (s, e) => FireRemoveClicked();
 
-            MouseEntered += (s, e) => BackgroundColor = SectionColorHover;
-            MouseLeft += (s, e) => BackgroundColor = SectionColor;
+            MouseEntered += (s, e) => { _currentColor = SectionHoverColor; Invalidate(); };
+            MouseLeft += (s, e) => { _currentColor = SectionColor; Invalidate(); };
 
             Resized += (s, e) => UpdateLayout();
         }

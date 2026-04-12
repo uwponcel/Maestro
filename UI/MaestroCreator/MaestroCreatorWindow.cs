@@ -37,6 +37,7 @@ namespace Maestro.UI.MaestroCreator
             public const int ActionButtonSpacing = 10;
             public const int ChordPreviewMaxLength = 38;
             public const int LabelYOffset = 5;
+            public const int MaxChordNotes = 7;
         }
 
         public event EventHandler<Song> SongCreated;
@@ -87,6 +88,11 @@ namespace Maestro.UI.MaestroCreator
             _instrument = instrument;
             Subtitle = instrument.ToString();
             _pianoKeyboard.Configure(instrument);
+            _durationSelector.SetAccentColor(instrument);
+
+            // Update chord mode button accent
+            if (_isChordMode)
+                _chordModeButton.BackgroundColor = MaestroTheme.GetInstrumentAccent(instrument);
         }
 
         public void LoadSong(Song song)
@@ -141,7 +147,6 @@ namespace Maestro.UI.MaestroCreator
 
             _noteSequencePanel.Parent = null;
             _noteSequenceWindow = new NoteSequenceWindow(_noteSequencePanel);
-            _noteSequenceWindow.PanelReturned += OnNoteSequenceWindowClosed;
             _noteSequenceWindow.Show();
         }
 
@@ -150,23 +155,9 @@ namespace Maestro.UI.MaestroCreator
             if (_noteSequenceWindow == null) return;
 
             _noteSequenceWindow.DetachPanel();
-            _noteSequenceWindow.PanelReturned -= OnNoteSequenceWindowClosed;
-            _noteSequenceWindow.Hide();
+            _noteSequenceWindow.CloseProgrammatic();
             _noteSequenceWindow.Dispose();
             _noteSequenceWindow = null;
-        }
-
-        private void OnNoteSequenceWindowClosed(object sender, EventArgs e)
-        {
-            // If the user closes the Notes window, just reopen it
-            var panel = _noteSequenceWindow?.DetachPanel();
-            _noteSequenceWindow?.Dispose();
-            _noteSequenceWindow = null;
-
-            if (panel != null && Visible)
-            {
-                OpenNotesWindow();
-            }
         }
 
         private void OnReadyClicked(object sender, Blish_HUD.Input.MouseEventArgs e)
@@ -379,14 +370,15 @@ namespace Maestro.UI.MaestroCreator
                 Text = text,
                 Location = new Point(x, y + Layout.LabelYOffset),
                 AutoSizeWidth = true,
-                TextColor = MaestroTheme.CreamWhite
+                TextColor = MaestroTheme.InputLabelColor
             };
         }
 
         private void OnChordModeToggle(object sender, Blish_HUD.Input.MouseEventArgs e)
         {
             _isChordMode = !_isChordMode;
-            _chordModeButton.BackgroundColor = _isChordMode ? MaestroTheme.AmberGold : Color.Transparent;
+            var accent = MaestroTheme.GetInstrumentAccent(_instrument);
+            _chordModeButton.BackgroundColor = _isChordMode ? accent : Color.Transparent;
 
             if (!_isChordMode && _pendingChordNotes.Count > 0)
             {
@@ -437,28 +429,29 @@ namespace Maestro.UI.MaestroCreator
             UpdateChordPreview();
         }
 
-        private void UpdateChordPreview()
+        private void UpdateChordPreview(bool showFullMessage = false)
         {
             if (_pendingChordNotes.Count == 0)
             {
                 _chordPreviewLabel.Text = _isChordMode ? "Click keys to build chord..." : "";
                 _chordPreviewLabel.BasicTooltipText = null;
                 _addChordButton.Enabled = false;
+                return;
             }
-            else
+
+            var chordText = string.Join(" ", _pendingChordNotes);
+            var displayText = showFullMessage
+                ? $"Chord full ({Layout.MaxChordNotes}/{Layout.MaxChordNotes})"
+                : $"Chord ({_pendingChordNotes.Count}/{Layout.MaxChordNotes}): {chordText}";
+
+            if (displayText.Length > Layout.ChordPreviewMaxLength)
             {
-                var chordText = string.Join(" ", _pendingChordNotes);
-                var displayText = "Chord: " + chordText;
-
-                if (displayText.Length > Layout.ChordPreviewMaxLength)
-                {
-                    displayText = displayText.Substring(0, Layout.ChordPreviewMaxLength - 3) + "...";
-                }
-
-                _chordPreviewLabel.Text = displayText;
-                _chordPreviewLabel.BasicTooltipText = chordText;
-                _addChordButton.Enabled = true;
+                displayText = displayText.Substring(0, Layout.ChordPreviewMaxLength - 3) + "...";
             }
+
+            _chordPreviewLabel.Text = displayText;
+            _chordPreviewLabel.BasicTooltipText = chordText;
+            _addChordButton.Enabled = true;
         }
 
         private void OnNoteSequenceStateChanged(object sender, EventArgs e) => UpdateStatusLabel();
@@ -483,6 +476,15 @@ namespace Maestro.UI.MaestroCreator
 
             if (_isChordMode)
             {
+                if (_pendingChordNotes.Count >= Layout.MaxChordNotes)
+                {
+                    UpdateChordPreview(showFullMessage: true);
+                    return;
+                }
+                if (_pendingChordNotes.Contains(noteString))
+                {
+                    return;
+                }
                 _pendingChordNotes.Add(noteString);
                 _pendingChordEvents.Add(e);
                 UpdateChordPreview();
@@ -821,7 +823,6 @@ namespace Maestro.UI.MaestroCreator
             _readyButton?.Dispose();
             _confirmationLabel?.Dispose();
             _confirmationOverlay?.Dispose();
-
             base.DisposeControl();
         }
     }

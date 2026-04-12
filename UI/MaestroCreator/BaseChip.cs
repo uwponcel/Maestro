@@ -1,5 +1,4 @@
 using System;
-using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Microsoft.Xna.Framework;
@@ -16,6 +15,8 @@ namespace Maestro.UI.MaestroCreator
 
         public int Index { get; set; }
 
+        protected Color _currentColor;
+
         private bool _isSelected;
         public bool IsSelected
         {
@@ -23,24 +24,29 @@ namespace Maestro.UI.MaestroCreator
             set { _isSelected = value; Invalidate(); }
         }
 
+        private bool _isPlaying;
+        public bool IsPlaying
+        {
+            get => _isPlaying;
+            set { _isPlaying = value; Invalidate(); }
+        }
+
         protected void FireChipClicked(MouseEventArgs e) => ChipClicked?.Invoke(this, e);
         protected void FireRemoveClicked() => RemoveClicked?.Invoke(this, EventArgs.Empty);
 
-        protected void DrawBorder(SpriteBatch spriteBatch, Rectangle bounds, Color borderColor)
-        {
-            var pixel = ContentService.Textures.Pixel;
-            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(0, 0, bounds.Width, BORDER_THICKNESS), borderColor);
-            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(0, bounds.Height - BORDER_THICKNESS, bounds.Width, BORDER_THICKNESS), borderColor);
-            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(0, 0, BORDER_THICKNESS, bounds.Height), borderColor);
-            spriteBatch.DrawOnCtrl(this, pixel, new Rectangle(bounds.Width - BORDER_THICKNESS, 0, BORDER_THICKNESS, bounds.Height), borderColor);
-        }
-
         public override void PaintBeforeChildren(SpriteBatch spriteBatch, Rectangle bounds)
         {
-            base.PaintBeforeChildren(spriteBatch, bounds);
-
-            if (_isSelected)
-                DrawBorder(spriteBatch, bounds, MaestroTheme.AmberGold);
+            if (_isPlaying || _isSelected)
+            {
+                MaestroTheme.DrawRoundedRect(spriteBatch, this, bounds, MaestroTheme.AmberGold);
+                var inset = new Rectangle(BORDER_THICKNESS, BORDER_THICKNESS,
+                    bounds.Width - BORDER_THICKNESS * 2, bounds.Height - BORDER_THICKNESS * 2);
+                MaestroTheme.DrawRoundedRect(spriteBatch, this, inset, _currentColor);
+            }
+            else
+            {
+                MaestroTheme.DrawRoundedRect(spriteBatch, this, bounds, _currentColor);
+            }
         }
     }
 }

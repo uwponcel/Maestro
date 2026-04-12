@@ -56,6 +56,7 @@ namespace Maestro.UI.MaestroCreator
             {
                 _selectedNoteType = value;
                 UpdateNoteTypeSelection();
+                UpdateTooltips();
                 DurationChanged?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -89,6 +90,17 @@ namespace Maestro.UI.MaestroCreator
         private readonly Panel _dottedButton;
         private readonly Label _dottedLabel;
 
+        private Color _accentColor = MaestroTheme.AmberGold;
+        private Color _accentColorDark = MaestroTheme.DeepAmber;
+
+        public void SetAccentColor(InstrumentType instrument)
+        {
+            _accentColor = MaestroTheme.GetInstrumentAccent(instrument);
+            _accentColorDark = MaestroTheme.GetInstrumentAccentDark(instrument);
+            UpdateNoteTypeSelection();
+            UpdateDottedVisual();
+        }
+
         public DurationSelector(int width)
         {
             Size = new Point(width, Layout.Height);
@@ -104,7 +116,7 @@ namespace Maestro.UI.MaestroCreator
                 Location = new Point(0, 0),
                 Size = new Point(Layout.BpmLabelWidth, Layout.NoteButtonHeight),
                 Font = GameService.Content.DefaultFont12,
-                TextColor = MaestroTheme.CreamWhite,
+                TextColor = MaestroTheme.InputLabelColor,
                 VerticalAlignment = VerticalAlignment.Middle
             };
 
@@ -133,7 +145,7 @@ namespace Maestro.UI.MaestroCreator
                     Parent = this,
                     Location = new Point(noteX + i * (Layout.NoteButtonWidth + Layout.NoteButtonGap), 0),
                     Size = new Point(Layout.NoteButtonWidth, Layout.NoteButtonHeight),
-                    BackgroundColor = isSelected ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground,
+                    BackgroundColor = isSelected ? _accentColor : MaestroTheme.GhostButtonBackground,
                     BasicTooltipText = tooltipText
                 };
 
@@ -144,7 +156,7 @@ namespace Maestro.UI.MaestroCreator
                     Location = new Point(0, 0),
                     Size = new Point(Layout.NoteButtonWidth, Layout.NoteButtonHeight),
                     Font = GameService.Content.DefaultFont12,
-                    TextColor = isSelected ? MaestroTheme.DarkCharcoal : MaestroTheme.CreamWhite,
+                    TextColor = isSelected ? MaestroTheme.DarkCharcoal : MaestroTheme.GhostButtonText,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Middle,
                     BasicTooltipText = tooltipText
@@ -156,12 +168,12 @@ namespace Maestro.UI.MaestroCreator
                 button.MouseEntered += (s, e) =>
                 {
                     var sel = _noteTypes[capturedIndex] == _selectedNoteType;
-                    button.BackgroundColor = sel ? MaestroTheme.DeepAmber : MaestroTheme.ButtonBackgroundHover;
+                    button.BackgroundColor = sel ? _accentColorDark : MaestroTheme.GhostButtonHover;
                 };
                 button.MouseLeft += (s, e) =>
                 {
                     var sel = _noteTypes[capturedIndex] == _selectedNoteType;
-                    button.BackgroundColor = sel ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground;
+                    button.BackgroundColor = sel ? _accentColor : MaestroTheme.GhostButtonBackground;
                 };
                 button.LeftMouseButtonReleased += (s, e) => SelectedNoteType = capturedNoteType;
 
@@ -176,7 +188,7 @@ namespace Maestro.UI.MaestroCreator
                 Parent = this,
                 Location = new Point(dottedX, 0),
                 Size = new Point(42, Layout.NoteButtonHeight),
-                BackgroundColor = MaestroTheme.ButtonBackground,
+                BackgroundColor = MaestroTheme.GhostButtonBackground,
                 BasicTooltipText = "Dotted note (+50% duration)"
             };
 
@@ -187,7 +199,7 @@ namespace Maestro.UI.MaestroCreator
                 Location = new Point(0, 0),
                 Size = new Point(42, Layout.NoteButtonHeight),
                 Font = GameService.Content.DefaultFont12,
-                TextColor = MaestroTheme.CreamWhite,
+                TextColor = MaestroTheme.GhostButtonText,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Middle,
                 BasicTooltipText = "Dotted note (+50% duration)"
@@ -195,15 +207,16 @@ namespace Maestro.UI.MaestroCreator
 
             _dottedButton.MouseEntered += (s, e) =>
             {
-                _dottedButton.BackgroundColor = _isDotted ? MaestroTheme.DeepAmber : MaestroTheme.ButtonBackgroundHover;
+                _dottedButton.BackgroundColor = _isDotted ? _accentColorDark : MaestroTheme.GhostButtonHover;
             };
             _dottedButton.MouseLeft += (s, e) =>
             {
-                _dottedButton.BackgroundColor = _isDotted ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground;
+                _dottedButton.BackgroundColor = _isDotted ? _accentColor : MaestroTheme.GhostButtonBackground;
             };
             _dottedButton.LeftMouseButtonReleased += (s, e) => IsDotted = !_isDotted;
 
             UpdateNoteTypeSelection();
+            UpdateTooltips();
         }
 
         private string GetNoteButtonText(NoteType noteType)
@@ -304,7 +317,7 @@ namespace Maestro.UI.MaestroCreator
         private void UpdateDottedVisual()
         {
             if (_dottedButton == null) return;
-            _dottedButton.BackgroundColor = _isDotted ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground;
+            _dottedButton.BackgroundColor = _isDotted ? _accentColor : MaestroTheme.GhostButtonBackground;
             _dottedLabel.TextColor = _isDotted ? MaestroTheme.DarkCharcoal : MaestroTheme.CreamWhite;
             UpdateTooltips();
         }
@@ -314,8 +327,8 @@ namespace Maestro.UI.MaestroCreator
             for (int i = 0; i < _noteTypes.Length; i++)
             {
                 var isSelected = _noteTypes[i] == _selectedNoteType;
-                _noteButtons[i].BackgroundColor = isSelected ? MaestroTheme.AmberGold : MaestroTheme.ButtonBackground;
-                _noteLabels[i].TextColor = isSelected ? MaestroTheme.DarkCharcoal : MaestroTheme.CreamWhite;
+                _noteButtons[i].BackgroundColor = isSelected ? _accentColor : MaestroTheme.GhostButtonBackground;
+                _noteLabels[i].TextColor = isSelected ? MaestroTheme.DarkCharcoal : MaestroTheme.GhostButtonText;
             }
         }
 
