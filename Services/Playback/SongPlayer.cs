@@ -291,7 +291,15 @@ namespace Maestro.Services.Playback
                 Thread.Sleep(GameTimings.OctaveResetDelayMs);
             }
 
-            if (CurrentSong?.Instrument != InstrumentType.Bass)
+            // From the bottom (5x down), step up to octave 0 (middle). The number of ups
+            // is -MinOctave: 0 for instruments whose lowest octave is already 0 (Bass,
+            // 2-octave Bell), 1 for instruments that reach octave -1. Default to 1 when
+            // no song is loaded (matches the previous non-Bass behavior).
+            int ups = CurrentSong != null
+                ? -InstrumentCatalog.Get(CurrentSong.Instrument).MinOctave
+                : 1;
+
+            for (var i = 0; i < ups; i++)
             {
                 _keyboardService.KeyDown(Keys.NumPad9);
                 _keyboardService.KeyUp(Keys.NumPad9);
@@ -299,8 +307,8 @@ namespace Maestro.Services.Playback
             }
 
             IsAdjustingOctave = false;
-            Logger.Debug(CurrentSong?.Instrument == InstrumentType.Bass
-                ? "Octave reset complete - Bass at Low octave"
+            Logger.Debug(ups == 0
+                ? "Octave reset complete - at lowest octave"
                 : "Octave reset complete - now at middle octave");
         }
 
@@ -320,11 +328,12 @@ namespace Maestro.Services.Playback
                 Thread.Sleep(GameTimings.OctaveResetDelayMs);
             }
 
-            // From bottom: non-Bass needs (targetOctave + 1) ups, Bass needs targetOctave ups
-            int upsNeeded = CurrentSong?.Instrument == InstrumentType.Bass
-                ? targetOctave
-                : targetOctave + 1;
-            upsNeeded = Math.Max(0, upsNeeded);
+            // From the bottom (5x down = MinOctave), step up to the target: ups = target - MinOctave.
+            // Bass/2-octave Bell (MinOctave 0) need `target` ups; instruments reaching -1 need `target + 1`.
+            int minOctave = CurrentSong != null
+                ? InstrumentCatalog.Get(CurrentSong.Instrument).MinOctave
+                : -1;
+            int upsNeeded = Math.Max(0, targetOctave - minOctave);
 
             for (var i = 0; i < upsNeeded; i++)
             {

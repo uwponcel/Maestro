@@ -6,6 +6,8 @@ namespace Maestro.Models
         Harp,
         Lute,
         Bass,
-        Bell
+        Flute,            // C major, no sharps, 2 octaves (Low/Middle)
+        Bell,             // = Choir Bell; C major, 3 octaves (legacy value kept)
+        BellMagnanimous   // = Magnanimous Choir Bell; C major, 2 octaves (Middle/High)
     }
 }

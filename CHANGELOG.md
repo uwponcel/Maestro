@@ -1,5 +1,24 @@
 # Changelog
 
+## v5.0.0
+
+**New instruments**
+
+- Added the Flute and the Bell, alongside Piano, Harp, Lute, and Bass.
+- Flute has two octaves (Low and Middle). Bell comes in two versions: Bell (3 octaves) and Bell (2 octaves).
+
+**Community songs**
+
+- Added 26 new community songs to the library.
+- Songs now need to be at least 15 seconds long to be uploaded.
+
+**A fresh look**
+
+- Buttons across the module now use clean icons (play, pause, stop, download, upload, refresh, and more) with tooltips.
+- Redesigned the Import and Creator windows with larger, easier-to-read fields.
+- Tidied up the music player: the speed and progress sliders now span the full width, and the boxed grey background is gone.
+- New star favorite toggle and cleaner song rows and queue items.
+
 ## v4.1.0
 
 **Creator: Visual Polish**

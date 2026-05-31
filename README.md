@@ -6,12 +6,12 @@
 
 <p align="center">
   A <a href="https://blishhud.com">Blish HUD</a> module that plays music on Guild Wars 2 instruments.<br>
-  Supports Piano, Harp, Lute, and Bass with 103 embedded songs.
+  Supports Piano, Harp, Lute, Bass, Flute, and Bell with 103 embedded songs.
 </p>
 
 ## Features
 
-- **103 embedded songs** ready to play across Piano, Harp, Lute, and Bass
+- **103 embedded songs** ready to play across Piano, Harp, Lute, Bass, Flute, and Bell
 - **Community song sharing** -- browse, download, and upload songs with other players
 - **Maestro Creator** -- compose your own songs in-game with a visual piano keyboard editor
 - **Playlist queue** -- line up songs and play them back-to-back

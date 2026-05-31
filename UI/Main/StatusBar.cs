@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,7 +17,7 @@ namespace Maestro.UI.Main
         {
             private const int ITEM_HEIGHT = 28;
             private const int PADDING_X = 10;
-            private static readonly InstrumentType[] Instruments = { InstrumentType.Piano, InstrumentType.Harp, InstrumentType.Lute, InstrumentType.Bass };
+            private static readonly IReadOnlyList<InstrumentInfo> Instruments = InstrumentCatalog.Pickable.ToList();
 
             private readonly StatusBar _owner;
             private int _highlightedIndex = -1;
@@ -23,8 +26,8 @@ namespace Maestro.UI.Main
             {
                 _owner = owner;
 
-                var height = Instruments.Length * ITEM_HEIGHT + 8;
-                _size = new Point(100, height);
+                var height = Instruments.Count * ITEM_HEIGHT + 8;
+                _size = new Point(150, height);
                 _location = GetPanelLocation();
                 _zIndex = Screen.TOOLTIP_BASEZINDEX;
 
@@ -51,15 +54,15 @@ namespace Maestro.UI.Main
             protected override void OnMouseMoved(MouseEventArgs e)
             {
                 var y = RelativeMousePosition.Y - 4;
-                _highlightedIndex = y >= 0 && y < Instruments.Length * ITEM_HEIGHT ? y / ITEM_HEIGHT : -1;
+                _highlightedIndex = y >= 0 && y < Instruments.Count * ITEM_HEIGHT ? y / ITEM_HEIGHT : -1;
                 base.OnMouseMoved(e);
             }
 
             protected override void OnClick(MouseEventArgs e)
             {
-                if (_highlightedIndex >= 0 && _highlightedIndex < Instruments.Length)
+                if (_highlightedIndex >= 0 && _highlightedIndex < Instruments.Count)
                 {
-                    var instrument = Instruments[_highlightedIndex];
+                    var instrument = Instruments[_highlightedIndex].Type;
                     Dispose();
                     _owner.OnInstrumentSelected(instrument);
                 }
@@ -78,7 +81,7 @@ namespace Maestro.UI.Main
                 spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, new Rectangle(_size.X - 1, 0, 1, _size.Y), MaestroTheme.MediumGray);
 
                 var y = 4;
-                for (var i = 0; i < Instruments.Length; i++)
+                for (var i = 0; i < Instruments.Count; i++)
                 {
                     var isHighlighted = _highlightedIndex == i;
 
@@ -90,7 +93,7 @@ namespace Maestro.UI.Main
                     }
 
                     var textColor = isHighlighted ? ContentService.Colors.Chardonnay : Color.FromNonPremultiplied(239, 240, 239, 255);
-                    spriteBatch.DrawStringOnCtrl(this, Instruments[i].ToString(), Content.DefaultFont14,
+                    spriteBatch.DrawStringOnCtrl(this, Instruments[i].DisplayName, Content.DefaultFont14,
                         new Rectangle(PADDING_X, y, _size.X - PADDING_X * 2, ITEM_HEIGHT), textColor);
 
                     y += ITEM_HEIGHT;
@@ -154,10 +157,9 @@ namespace Maestro.UI.Main
             Size = new Point(width, Layout.Height);
             BackgroundColor = Color.Transparent;
 
-            const int buttonWidth = 70;
-            const int communityButtonWidth = 95;
+            const int buttonWidth = 40;
             const int buttonSpacing = 5;
-            var buttonsWidth = communityButtonWidth + buttonWidth * 2 + buttonSpacing * 2;
+            var buttonsWidth = buttonWidth * 3 + buttonSpacing * 2;
 
             _statusLabel = new Label
             {
@@ -173,33 +175,31 @@ namespace Maestro.UI.Main
             // Position buttons starting from the right edge
             var x = width - buttonWidth; // Import at far right
 
-            _importButton = new StandardButton
+            _importButton = new IconButton(MaestroIcons.Import, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Import",
                 Location = new Point(x, 0),
                 Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight),
-                BasicTooltipText = "Toggle Import"
+                BasicTooltipText = "Import songs"
             };
             _importButton.Click += (s, e) => ImportClicked?.Invoke(this, EventArgs.Empty);
             x -= buttonWidth + buttonSpacing;
 
-            _createButton = new StandardButton
+            _createButton = new IconButton(MaestroIcons.Create, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Create",
                 Location = new Point(x, 0),
-                Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight)
+                Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight),
+                BasicTooltipText = "Create a song"
             };
             _createButton.Click += OnCreateButtonClick;
-            x -= communityButtonWidth + buttonSpacing;
+            x -= buttonWidth + buttonSpacing;
 
-            _communityButton = new StandardButton
+            _communityButton = new IconButton(MaestroIcons.Community, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Community",
                 Location = new Point(x, 0),
-                Size = new Point(communityButtonWidth, MaestroTheme.ActionButtonHeight),
+                Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight),
                 BasicTooltipText = "Browse & upload community songs"
             };
             _communityButton.Click += (s, e) => CommunityClicked?.Invoke(this, EventArgs.Empty);
@@ -226,7 +226,7 @@ namespace Maestro.UI.Main
         public void SetCreateButtonEnabled(bool enabled)
         {
             _createButton.Enabled = enabled;
-            _createButton.BasicTooltipText = enabled ? null : "Close the Creator window first";
+            _createButton.BasicTooltipText = enabled ? "Create a song" : "Close the Creator window first";
         }
 
         private void UpdateText()

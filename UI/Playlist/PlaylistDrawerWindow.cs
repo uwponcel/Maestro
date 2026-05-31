@@ -5,6 +5,7 @@ using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
 using Maestro.Services;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,16 +16,23 @@ namespace Maestro.UI.Playlist
         private static class Layout
         {
             public const int WindowWidth = 250;
-            public const int WindowHeight = 400;
+            // Footer buttons sit ~26px above the window bottom, matching the
+            // Community window's button-to-bottom spacing.
+            public const int WindowHeight = 386;
             public const int ContentWidth = 220;
             public const int ContentHeight = 365;
             public const int ContentPaddingX = 15;
-            public const int HeaderHeight = 50;
             public const int ButtonSpacing = 8;
+            public const int ButtonWidth = 40;
             public const int ButtonHeight = 30;
             public const int CardSpacing = 4;
             public const int OuterPadding = 6;
             public const int DragHandleHalfWidth = 6;
+
+            // Song list fills from the top down to the footer button row.
+            public const int ListTop = OuterPadding;
+            public const int FooterButtonY = ContentHeight - ButtonHeight - OuterPadding;
+            public const int ListHeight = FooterButtonY - ListTop - OuterPadding;
         }
 
         public event EventHandler PlayQueueRequested;
@@ -38,9 +46,8 @@ namespace Maestro.UI.Playlist
         private readonly List<QueueSongCard> _cards = new List<QueueSongCard>();
         private readonly int _cardWidth;
 
-        private Panel _header;
         private StandardButton _clearButton;
-        private StandardButton _playButton;
+        private IconButton _playButton;
         private FlowPanel _songList;
 
         private QueueSongCard _draggingCard;
@@ -145,46 +152,33 @@ namespace Maestro.UI.Playlist
 
         private void BuildContent()
         {
-            BuildHeader();
-            BuildButtons();
             BuildSongList();
+            BuildButtons();
             BuildInstrumentOverlay();
-        }
-
-        private void BuildHeader()
-        {
-            _header = new Panel
-            {
-                Parent = this,
-                Location = Point.Zero,
-                Size = new Point(Layout.ContentWidth, Layout.HeaderHeight),
-                BackgroundColor = MaestroTheme.DrawerHeader,
-                ShowBorder = true
-            };
         }
 
         private void BuildButtons()
         {
-            const int buttonY = (Layout.HeaderHeight - Layout.ButtonHeight) / 2;
-            const int availableWidth = Layout.ContentWidth - Layout.OuterPadding * 2 - Layout.ButtonSpacing;
-            const int buttonWidth = availableWidth / 2;
+            // Center the Clear + Play pair on the footer row.
+            const int pairWidth = Layout.ButtonWidth * 2 + Layout.ButtonSpacing;
+            const int startX = (Layout.ContentWidth - pairWidth) / 2;
 
-            _clearButton = new StandardButton
+            _clearButton = new IconButton(MaestroIcons.Trash, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Clear",
-                Location = new Point(Layout.OuterPadding, buttonY),
-                Width = buttonWidth,
+                BasicTooltipText = "Clear queue",
+                Location = new Point(startX, Layout.FooterButtonY),
+                Width = Layout.ButtonWidth,
                 Height = Layout.ButtonHeight
             };
             _clearButton.Click += OnClearClicked;
 
-            _playButton = new StandardButton
+            _playButton = new IconButton(MaestroIcons.Play, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Play queue",
-                Location = new Point(Layout.OuterPadding + buttonWidth + Layout.ButtonSpacing, buttonY),
-                Width = buttonWidth,
+                BasicTooltipText = "Play queue",
+                Location = new Point(startX + Layout.ButtonWidth + Layout.ButtonSpacing, Layout.FooterButtonY),
+                Width = Layout.ButtonWidth,
                 Height = Layout.ButtonHeight
             };
             _playButton.Click += OnPlayClicked;
@@ -192,12 +186,11 @@ namespace Maestro.UI.Playlist
 
         private void BuildSongList()
         {
-            const int listTop = Layout.HeaderHeight + Layout.OuterPadding;
             _songList = new FlowPanel
             {
                 Parent = this,
-                Location = new Point(0, listTop),
-                Size = new Point(Layout.ContentWidth, Layout.ContentHeight - listTop),
+                Location = new Point(0, Layout.ListTop),
+                Size = new Point(Layout.ContentWidth, Layout.ListHeight),
                 FlowDirection = ControlFlowDirection.SingleTopToBottom,
                 ControlPadding = new Vector2(0, Layout.CardSpacing),
                 OuterControlPadding = new Vector2(Layout.OuterPadding, Layout.OuterPadding),
@@ -209,13 +202,12 @@ namespace Maestro.UI.Playlist
 
         private void BuildInstrumentOverlay()
         {
-            const int listTop = Layout.HeaderHeight + Layout.OuterPadding;
-            const int overlayHeight = Layout.ContentHeight - listTop;
+            const int overlayHeight = Layout.ListHeight;
 
             _instrumentOverlay = new Panel
             {
                 Parent = this,
-                Location = new Point(0, listTop),
+                Location = new Point(0, Layout.ListTop),
                 Size = new Point(Layout.ContentWidth, overlayHeight),
                 BackgroundColor = new Color(20, 25, 35, 240),
                 ZIndex = 100,
@@ -327,7 +319,9 @@ namespace Maestro.UI.Playlist
 
         private void UpdatePlayButtonText()
         {
-            _playButton.Text = _isPlayingFromQueue && _playlistService.HasItems ? "Next" : "Play queue";
+            var isNext = _isPlayingFromQueue && _playlistService.HasItems;
+            _playButton.IconTexture = isNext ? MaestroIcons.Next : MaestroIcons.Play;
+            _playButton.BasicTooltipText = isNext ? "Next" : "Play queue";
         }
 
         private static Point GetDragHandleOffset()
@@ -426,7 +420,6 @@ namespace Maestro.UI.Playlist
 
         private void DisposeControls()
         {
-            _header?.Dispose();
             _clearButton?.Dispose();
             _playButton?.Dispose();
             _songList?.Dispose();

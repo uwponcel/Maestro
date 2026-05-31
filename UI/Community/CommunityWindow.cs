@@ -17,10 +17,11 @@ namespace Maestro.UI.Community
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 350;
+            public const int WindowHeight = 570;
             public const int ContentWidth = 390;
+            public const int HeaderOffset = 20;
             public const int FilterBarHeight = 32;
-            public const int SongListHeight = 250;
+            public const int SongListHeight = 450;
             public const int StatusBarHeight = 30;
             public const int CardWidth = 378;
         }
@@ -69,6 +70,13 @@ namespace Maestro.UI.Community
             LeftMouseButtonPressed += OnWindowClicked;
         }
 
+        private static string[] BuildInstrumentFilterItems()
+        {
+            var items = new List<string> { "All" };
+            items.AddRange(InstrumentCatalog.Pickable.Select(i => i.DisplayName));
+            return items.ToArray();
+        }
+
         private void OnWindowClicked(object sender, MouseEventArgs e)
         {
             if (FocusedControl is TextInputBase textInput && !textInput.MouseOver)
@@ -77,7 +85,7 @@ namespace Maestro.UI.Community
 
         private void BuildUi()
         {
-            var currentY = MaestroTheme.PaddingContentTop;
+            var currentY = MaestroTheme.PaddingContentTop + Layout.HeaderOffset;
 
             var filterPanel = new Panel
             {
@@ -87,10 +95,10 @@ namespace Maestro.UI.Community
                 BackgroundColor = Color.Transparent
             };
 
-            var uploadWidth = 70;
-            var availableWidth = Layout.ContentWidth - uploadWidth - MaestroTheme.InputSpacing;
-            var searchWidth = (availableWidth - MaestroTheme.InputSpacing) / 2;
-            var filterWidth = availableWidth - searchWidth - MaestroTheme.InputSpacing;
+            // Match the main window's filter bar: search left-anchored, filter
+            // right-anchored, same widths so the gap between them is identical.
+            const int searchWidth = 150;
+            const int filterWidth = 210;
 
             _searchBox = new TextBox
             {
@@ -98,28 +106,19 @@ namespace Maestro.UI.Community
                 Location = new Point(0, 0),
                 Width = searchWidth,
                 Height = 26,
-                PlaceholderText = "Search..."
+                PlaceholderText = "Search songs..."
             };
             _searchBox.TextChanged += OnFilterChanged;
 
             _filterButton = new GenericFilterButton(
-                new FilterSection { Items = new[] { "All", "Piano", "Harp", "Lute", "Bass" }, DefaultValue = "All" },
+                new FilterSection { Items = BuildInstrumentFilterItems(), DefaultValue = "All" },
                 new FilterSection { Items = new[] { "Newest", "Name A-Z", "Name Z-A" }, DefaultValue = "Newest" })
             {
                 Parent = filterPanel,
-                Location = new Point(searchWidth + MaestroTheme.InputSpacing, 0),
+                Location = new Point(Layout.ContentWidth - filterWidth, 0),
                 Width = filterWidth
             };
             _filterButton.FilterChanged += OnFilterChanged;
-
-            _uploadButton = new StandardButton
-            {
-                Parent = filterPanel,
-                Text = "Upload",
-                Location = new Point(Layout.ContentWidth - uploadWidth, 0),
-                Width = uploadWidth
-            };
-            _uploadButton.Click += OnUploadClicked;
 
             currentY += Layout.FilterBarHeight + MaestroTheme.InputSpacing;
 
@@ -136,32 +135,48 @@ namespace Maestro.UI.Community
 
             currentY += Layout.SongListHeight + MaestroTheme.InputSpacing;
 
-            var refreshWidth = 70;
+            var refreshWidth = 40;
+            var uploadWidth = 40;
             var spinnerSize = 26;
+            var spacing = MaestroTheme.InputSpacing;
 
-            _loadingSpinner = new LoadingSpinner
+            var uploadX = Layout.ContentWidth - uploadWidth;
+            var refreshX = uploadX - spacing - refreshWidth;
+            var spinnerX = refreshX - spacing - spinnerSize;
+
+            _uploadButton = new IconButton(MaestroIcons.Upload, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Location = new Point(Layout.ContentWidth - refreshWidth - MaestroTheme.InputSpacing - spinnerSize, currentY),
-                Size = new Point(spinnerSize, spinnerSize),
-                Visible = false
+                BasicTooltipText = "Upload a song",
+                Location = new Point(uploadX, currentY),
+                Width = uploadWidth,
+                Height = 26
             };
+            _uploadButton.Click += OnUploadClicked;
 
-            _refreshButton = new StandardButton
+            _refreshButton = new IconButton(MaestroIcons.Refresh, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Refresh",
-                Location = new Point(Layout.ContentWidth - refreshWidth, currentY),
+                BasicTooltipText = "Refresh",
+                Location = new Point(refreshX, currentY),
                 Width = refreshWidth,
                 Height = 26
             };
             _refreshButton.Click += OnRefreshClicked;
 
+            _loadingSpinner = new LoadingSpinner
+            {
+                Parent = this,
+                Location = new Point(spinnerX, currentY),
+                Size = new Point(spinnerSize, spinnerSize),
+                Visible = false
+            };
+
             _statusLabel = new Label
             {
                 Parent = this,
                 Location = new Point(0, currentY),
-                Width = Layout.ContentWidth - refreshWidth - MaestroTheme.InputSpacing - spinnerSize - MaestroTheme.InputSpacing,
+                Width = spinnerX - spacing,
                 Height = Layout.StatusBarHeight,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.LightGray,

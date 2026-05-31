@@ -23,17 +23,14 @@ namespace Maestro.UI
         public static readonly Color MutedCream = new Color(200, 191, 169);
         public static readonly Color LightGray = new Color(128, 128, 128);
 
+        // Tint for dark glyph icons drawn on light GW2 buttons (play/pause/stop)
+        public static readonly Color IconGlyph = new Color(57, 50, 38);
+
         // State Colors
         public static readonly Color Playing = new Color(76, 175, 80);
         public static readonly Color Paused = new Color(255, 193, 7);
         public static readonly Color Error = new Color(244, 67, 54);
         public static readonly Color Disabled = new Color(85, 85, 85);
-
-        // Instrument Accent Colors (for icons/badges)
-        public static readonly Color Piano = new Color(126, 200, 227);
-        public static readonly Color Harp = new Color(184, 212, 168);
-        public static readonly Color Lute = new Color(232, 193, 112);
-        public static readonly Color Bass = new Color(212, 132, 140);
 
         // Panel Colors (semi-transparent)
         public static readonly Color PanelBackground = new Color(45, 45, 45, 180);
@@ -184,34 +181,14 @@ namespace Maestro.UI
                 255);
         }
 
-        // Per-instrument accent colors (darker variants for hover)
-        public static readonly Color PianoDark = new Color(90, 176, 208);       // #5ab0d0
-        public static readonly Color HarpDark = new Color(140, 196, 144);       // #8cc490
-        public static readonly Color LuteDark = new Color(212, 166, 86);        // #d4a656
-        public static readonly Color BassDark = new Color(192, 112, 120);       // #c07078
-
         public static Color GetInstrumentAccent(InstrumentType instrument)
         {
-            switch (instrument)
-            {
-                case InstrumentType.Piano: return Piano;
-                case InstrumentType.Harp: return Harp;
-                case InstrumentType.Lute: return Lute;
-                case InstrumentType.Bass: return Bass;
-                default: return AmberGold;
-            }
+            return InstrumentCatalog.Get(instrument).Accent;
         }
 
         public static Color GetInstrumentAccentDark(InstrumentType instrument)
         {
-            switch (instrument)
-            {
-                case InstrumentType.Piano: return PianoDark;
-                case InstrumentType.Harp: return HarpDark;
-                case InstrumentType.Lute: return LuteDark;
-                case InstrumentType.Bass: return BassDark;
-                default: return WarmBronze;
-            }
+            return InstrumentCatalog.Get(instrument).AccentDark;
         }
 
         public static Color AccentTint(Color accent, float opacity)

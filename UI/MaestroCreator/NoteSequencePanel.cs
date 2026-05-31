@@ -80,10 +80,10 @@ namespace Maestro.UI.MaestroCreator
 
         private readonly Label _headerLabel;
         private readonly Label _modeStatusLabel;
-        private readonly StandardButton _insertButton;
+        private readonly IconButton _insertButton;
         private readonly StandardButton _previewAllButton;
         private readonly StandardButton _previewSelectedButton;
-        private readonly StandardButton _pauseButton;
+        private readonly IconButton _pauseButton;
         private readonly StandardButton _stopButton;
         private readonly Label _playbackStatusLabel;
         private bool _suppressSectionScroll;
@@ -152,10 +152,10 @@ namespace Maestro.UI.MaestroCreator
             var insertX = undoX - btnGap - btnW;
             var sectionX = insertX - btnGap - sectionBtnW;
 
-            _clearButton = new StandardButton
+            _clearButton = new IconButton(MaestroIcons.Trash, MaestroTheme.IconGlyph)
             {
                 Parent = _headerPanel,
-                Text = "Clear",
+                BasicTooltipText = "Clear all notes",
                 Location = new Point(clearX, Layout.ButtonY),
                 Size = new Point(btnW, Layout.HeaderHeight)
             };
@@ -172,10 +172,10 @@ namespace Maestro.UI.MaestroCreator
                 Clear();
             };
 
-            _undoButton = new StandardButton
+            _undoButton = new IconButton(MaestroIcons.Undo, MaestroTheme.IconGlyph)
             {
                 Parent = _headerPanel,
-                Text = "Undo",
+                BasicTooltipText = "Undo",
                 Location = new Point(undoX, Layout.ButtonY),
                 Size = new Point(btnW, Layout.HeaderHeight)
             };
@@ -196,10 +196,9 @@ namespace Maestro.UI.MaestroCreator
             var customItem = _sectionMenu.AddMenuItem("Custom...");
             customItem.Click += (s, e) => ShowCustomSectionInput();
 
-            _sectionButton = new StandardButton
+            _sectionButton = new IconButton(MaestroIcons.Section, MaestroTheme.IconGlyph)
             {
                 Parent = _headerPanel,
-                Text = "Section",
                 Location = new Point(sectionX, Layout.ButtonY),
                 Size = new Point(sectionBtnW, Layout.HeaderHeight),
                 BasicTooltipText = "Add a section marker to organize notes"
@@ -210,10 +209,9 @@ namespace Maestro.UI.MaestroCreator
                 _sectionMenu.Show(_sectionButton);
             };
 
-            _insertButton = new StandardButton
+            _insertButton = new IconButton(MaestroIcons.Create, MaestroTheme.IconGlyph)
             {
                 Parent = _headerPanel,
-                Text = "Insert",
                 Location = new Point(insertX, Layout.ButtonY),
                 Size = new Point(btnW, Layout.HeaderHeight),
                 BasicTooltipText = "When active, new notes insert after the selected note instead of appending to the end"
@@ -321,20 +319,20 @@ namespace Maestro.UI.MaestroCreator
             const int btnY = 6;
 
             // Left side: playback controls (hidden until playing)
-            _pauseButton = new StandardButton
+            _pauseButton = new IconButton(MaestroIcons.Pause, MaestroTheme.IconGlyph)
             {
                 Parent = _footerPanel,
-                Text = "||",
+                BasicTooltipText = "Pause",
                 Location = new Point(Layout.Padding, btnY),
                 Size = new Point(30, btnHeight),
                 Enabled = false
             };
             _pauseButton.Click += (s, e) => PauseRequested?.Invoke(this, EventArgs.Empty);
 
-            _stopButton = new StandardButton
+            _stopButton = new IconButton(MaestroIcons.Stop, MaestroTheme.IconGlyph)
             {
                 Parent = _footerPanel,
-                Text = "X",
+                BasicTooltipText = "Stop",
                 Location = new Point(Layout.Padding + 35, btnY),
                 Size = new Point(30, btnHeight),
                 Enabled = false
@@ -352,23 +350,21 @@ namespace Maestro.UI.MaestroCreator
                 VerticalAlignment = VerticalAlignment.Middle
             };
 
-            // Right side: preview buttons
-            _previewAllButton = new StandardButton
+            // Right side: preview buttons (icon-only)
+            _previewAllButton = new IconButton(MaestroIcons.PlayAll, MaestroTheme.IconGlyph)
             {
                 Parent = _footerPanel,
-                Text = "Preview All",
-                Location = new Point(width - 95, btnY),
-                Size = new Point(85, btnHeight),
+                Location = new Point(width - 46, btnY),
+                Size = new Point(36, btnHeight),
                 BasicTooltipText = "Preview all notes"
             };
             _previewAllButton.Click += (s, e) => PreviewAllRequested?.Invoke(this, EventArgs.Empty);
 
-            _previewSelectedButton = new StandardButton
+            _previewSelectedButton = new IconButton(MaestroIcons.Play, MaestroTheme.IconGlyph)
             {
                 Parent = _footerPanel,
-                Text = "Preview Selected",
-                Location = new Point(width - 220, btnY),
-                Size = new Point(120, btnHeight),
+                Location = new Point(width - 88, btnY),
+                Size = new Point(36, btnHeight),
                 Enabled = false,
                 BasicTooltipText = "Preview selected notes"
             };
@@ -646,7 +642,7 @@ namespace Maestro.UI.MaestroCreator
 
         private void UpdateInsertVisual()
         {
-            _insertButton.BackgroundColor = _isInsertMode ? MaestroTheme.AmberGold : Color.Transparent;
+            _insertButton.Tint = _isInsertMode ? MaestroTheme.AmberGold : MaestroTheme.IconGlyph;
         }
 
         public void CopySelected()
@@ -706,8 +702,8 @@ namespace Maestro.UI.MaestroCreator
             _footerSeparator.Size = new Point(width, 1);
             _footerPanel.Location = new Point(0, height - footerHeight);
             _footerPanel.Size = new Point(width, footerHeight);
-            _previewAllButton.Location = new Point(width - 95, _previewAllButton.Location.Y);
-            _previewSelectedButton.Location = new Point(width - 220, _previewSelectedButton.Location.Y);
+            _previewAllButton.Location = new Point(width - 46, _previewAllButton.Location.Y);
+            _previewSelectedButton.Location = new Point(width - 88, _previewSelectedButton.Location.Y);
 
             // Resize section marker chips to match new width
             foreach (var chip in _chips)
@@ -744,16 +740,14 @@ namespace Maestro.UI.MaestroCreator
         private void PrimeClearConfirm()
         {
             _clearConfirmExpiresAt = DateTime.UtcNow.AddSeconds(ClearConfirmTimeoutSeconds);
-            _clearButton.Text = "Sure?";
-            _clearButton.BackgroundColor = MaestroTheme.Error;
+            _clearButton.BasicTooltipText = "Click again to clear all notes";
         }
 
         private void ResetClearConfirm()
         {
             if (_clearConfirmExpiresAt == null) return;
             _clearConfirmExpiresAt = null;
-            _clearButton.Text = "Clear";
-            _clearButton.BackgroundColor = Color.Transparent;
+            _clearButton.BasicTooltipText = "Clear all notes";
         }
 
 
@@ -1126,13 +1120,13 @@ namespace Maestro.UI.MaestroCreator
             {
                 _playbackStatusLabel.Text = "Playing...";
                 _playbackStatusLabel.TextColor = MaestroTheme.Playing;
-                _pauseButton.Text = "||";
+                _pauseButton.IconTexture = MaestroIcons.Pause;
             }
             else
             {
                 _playbackStatusLabel.Text = "No song playing";
                 _playbackStatusLabel.TextColor = MaestroTheme.HintTextColor;
-                _pauseButton.Text = "||";
+                _pauseButton.IconTexture = MaestroIcons.Pause;
             }
 
             // Header buttons
@@ -1153,7 +1147,7 @@ namespace Maestro.UI.MaestroCreator
 
         public void SetPlaybackPaused(bool paused)
         {
-            _pauseButton.Text = paused ? ">" : "||";
+            _pauseButton.IconTexture = paused ? MaestroIcons.Play : MaestroIcons.Pause;
             _playbackStatusLabel.Text = paused ? "Paused" : "Playing...";
             _playbackStatusLabel.TextColor = paused ? MaestroTheme.Paused : MaestroTheme.Playing;
         }

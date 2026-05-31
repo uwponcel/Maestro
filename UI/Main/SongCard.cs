@@ -94,7 +94,7 @@ namespace Maestro.UI.Main
             _highlightEffect = new ScrollingHighlightEffect(this);
             EffectBehind = _highlightEffect;
 
-            var instrumentColor = GetInstrumentColor(song.Instrument);
+            var instrumentColor = MaestroTheme.GetInstrumentAccent(song.Instrument);
 
             _indicator = new Panel
             {
@@ -107,7 +107,7 @@ namespace Maestro.UI.Main
             _instrumentLabel = new Label
             {
                 Parent = this,
-                Text = $"[{song.Instrument}]",
+                Text = $"{song.Instrument}",
                 Location = new Point(Layout.LabelsX, Layout.InstrumentY),
                 Font = GameService.Content.DefaultFont12,
                 TextColor = instrumentColor
@@ -149,10 +149,10 @@ namespace Maestro.UI.Main
             };
             _starButton.Click += (s, e) => FavoriteToggleRequested?.Invoke(this, EventArgs.Empty);
 
-            _playButton = new StandardButton
+            _playButton = new IconButton(MaestroIcons.Play, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = ">",
+                BasicTooltipText = "Play",
                 Location = new Point(width - Layout.PlayButtonWidth - Layout.PlayButtonRightMargin, Layout.PlayButtonY),
                 Width = Layout.PlayButtonWidth
             };
@@ -194,18 +194,6 @@ namespace Maestro.UI.Main
         private void UpdateVisualState()
         {
             _highlightEffect.ForceActive = _isSelected;
-        }
-
-        private static Color GetInstrumentColor(InstrumentType instrument)
-        {
-            switch (instrument)
-            {
-                case InstrumentType.Piano: return MaestroTheme.Piano;
-                case InstrumentType.Harp: return MaestroTheme.Harp;
-                case InstrumentType.Lute: return MaestroTheme.Lute;
-                case InstrumentType.Bass: return MaestroTheme.Bass;
-                default: return MaestroTheme.AmberGold;
-            }
         }
 
         protected override void DisposeControl()

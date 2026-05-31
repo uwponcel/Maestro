@@ -59,6 +59,14 @@ namespace Maestro.UI.Controls
             {
                 if (!MouseOver)
                 {
+                    // Pressing the owner button while the panel is open closes it.
+                    // Flag _hadPanel so the owner's subsequent OnClick treats this as a
+                    // close instead of immediately re-opening a fresh panel.
+                    if (_owner.MouseOver)
+                    {
+                        _owner._hadPanel = true;
+                    }
+
                     Dispose();
                 }
             }
@@ -335,16 +343,27 @@ namespace Maestro.UI.Controls
                 new Rectangle(_size.X - 5, 0, 5, _size.Y),
                 new Rectangle(TextureInputBox.Width - 5, 0, 5, TextureInputBox.Height));
 
-            // Draw simple dropdown arrow (triangle)
+            // Draw dropdown arrow: points up while the panel is open, down while closed.
             var arrowColor = (Enabled && MouseOver) ? ContentService.Colors.Chardonnay : MaestroTheme.MutedCream;
             var arrowX = _size.X - 18;
             var arrowY = _size.Y / 2 - 2;
 
-            // Draw a simple "v" shape arrow
-            spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                new Rectangle(arrowX, arrowY, 8, 2), arrowColor);
-            spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                new Rectangle(arrowX + 2, arrowY + 2, 4, 2), arrowColor);
+            if (PanelOpen)
+            {
+                // "^" shape (narrow top, wide bottom)
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX + 2, arrowY, 4, 2), arrowColor);
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX, arrowY + 2, 8, 2), arrowColor);
+            }
+            else
+            {
+                // "v" shape (wide top, narrow bottom)
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX, arrowY, 8, 2), arrowColor);
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX + 2, arrowY + 2, 4, 2), arrowColor);
+            }
 
             // Draw text
             spriteBatch.DrawStringOnCtrl(this, DisplayText, Content.DefaultFont14,

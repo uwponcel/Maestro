@@ -300,15 +300,27 @@ namespace Maestro.UI.Controls
                 new Rectangle(_size.X - 5, 0, 5, _size.Y),
                 new Rectangle(TextureInputBox.Width - 5, 0, 5, TextureInputBox.Height));
 
-            // Draw dropdown arrow
+            // Draw dropdown arrow: points up while the panel is open, down while closed.
             var arrowColor = (Enabled && MouseOver) ? ContentService.Colors.Chardonnay : MaestroTheme.MutedCream;
             var arrowX = _size.X - 18;
             var arrowY = _size.Y / 2 - 2;
 
-            spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                new Rectangle(arrowX, arrowY, 8, 2), arrowColor);
-            spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                new Rectangle(arrowX + 2, arrowY + 2, 4, 2), arrowColor);
+            if (PanelOpen)
+            {
+                // "^" shape (narrow top, wide bottom)
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX + 2, arrowY, 4, 2), arrowColor);
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX, arrowY + 2, 8, 2), arrowColor);
+            }
+            else
+            {
+                // "v" shape (wide top, narrow bottom)
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX, arrowY, 8, 2), arrowColor);
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
+                    new Rectangle(arrowX + 2, arrowY + 2, 4, 2), arrowColor);
+            }
 
             // Draw text with padding and truncation
             var fullText = SelectedItem?.DisplayText ?? "";

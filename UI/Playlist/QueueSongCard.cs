@@ -3,6 +3,7 @@ using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
 using Maestro.Models;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.BitmapFonts;
@@ -53,7 +54,7 @@ namespace Maestro.UI.Playlist
 
             _size = new Point(width, Layout.Height);
 
-            _dragHandleBounds = new Rectangle(Layout.DragHandleX, (Layout.Height - 16) / 2, 12, 16);
+            _dragHandleBounds = new Rectangle(Layout.DragHandleX, (Layout.Height - 16) / 2, 16, 16);
             _removeButtonBounds = new Rectangle(
                 width - Layout.RemoveButtonSize - Layout.RemoveButtonMargin,
                 (Layout.Height - Layout.RemoveButtonSize) / 2,
@@ -128,23 +129,17 @@ namespace Maestro.UI.Playlist
             spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, bounds, bgColor);
 
             // Left accent bar
-            var instrumentColor = GetInstrumentColor(_song.Instrument);
+            var instrumentColor = MaestroTheme.GetInstrumentAccent(_song.Instrument);
             instrumentColor = new Color(instrumentColor.R, instrumentColor.G, instrumentColor.B, (int)(255 * opacity));
             spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
                 new Rectangle(0, 0, 3, Layout.Height), instrumentColor);
 
-            // Drag handle (3 horizontal lines)
+            // Drag handle (grip icon)
             var handleColor = _isHoveringDragHandle || _isDragging
                 ? MaestroTheme.AmberGold
                 : MaestroTheme.MutedCream;
             handleColor = new Color(handleColor.R, handleColor.G, handleColor.B, (int)(255 * opacity));
-            const int handleY = (Layout.Height - 12) / 2;
-
-            for (var i = 0; i < 3; i++)
-            {
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(Layout.DragHandleX, handleY + i * 5, 10, 2), handleColor);
-            }
+            spriteBatch.DrawOnCtrl(this, MaestroIcons.Queue, _dragHandleBounds, handleColor);
 
             // Song title (truncated if needed)
             var titleWidth = _size.X - Layout.TitleX - Layout.RemoveButtonSize - Layout.RemoveButtonMargin - 8;
@@ -162,26 +157,16 @@ namespace Maestro.UI.Playlist
                 new Rectangle(Layout.TitleX, Layout.ArtistY, titleWidth, 14),
                 artistColor);
 
-            // Remove button (X)
+            // Remove button (X icon)
             var removeColor = _isHoveringRemove ? MaestroTheme.Error : MaestroTheme.MutedCream;
             removeColor = new Color(removeColor.R, removeColor.G, removeColor.B, (int)(255 * opacity));
-            DrawX(spriteBatch, _removeButtonBounds, removeColor);
-        }
-
-        private void DrawX(SpriteBatch spriteBatch, Rectangle bounds, Color color)
-        {
-            var centerX = bounds.X + bounds.Width / 2;
-            var centerY = bounds.Y + bounds.Height / 2;
-            const int size = 4;
-
-            // Draw X as two crossing lines using small rectangles
-            for (var i = -size; i <= size; i++)
-            {
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(centerX + i - 1, centerY + i - 1, 2, 2), color);
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(centerX - i - 1, centerY + i - 1, 2, 2), color);
-            }
+            const int removeIconSize = 16;
+            var removeIconRect = new Rectangle(
+                _removeButtonBounds.X + (_removeButtonBounds.Width - removeIconSize) / 2,
+                _removeButtonBounds.Y + (_removeButtonBounds.Height - removeIconSize) / 2,
+                removeIconSize,
+                removeIconSize);
+            spriteBatch.DrawOnCtrl(this, MaestroIcons.Cancel, removeIconRect, removeColor);
         }
 
         private static string TruncateText(string text, BitmapFont font, int maxWidth)
@@ -205,18 +190,6 @@ namespace Maestro.UI.Playlist
             }
 
             return ellipsis;
-        }
-
-        private static Color GetInstrumentColor(InstrumentType instrument)
-        {
-            switch (instrument)
-            {
-                case InstrumentType.Piano: return MaestroTheme.Piano;
-                case InstrumentType.Harp: return MaestroTheme.Harp;
-                case InstrumentType.Lute: return MaestroTheme.Lute;
-                case InstrumentType.Bass: return MaestroTheme.Bass;
-                default: return MaestroTheme.AmberGold;
-            }
         }
     }
 }

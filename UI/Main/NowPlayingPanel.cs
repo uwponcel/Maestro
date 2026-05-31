@@ -13,7 +13,7 @@ namespace Maestro.UI.Main
     {
         public static class Layout
         {
-            public const int Height = 130;
+            public const int Height = 144;
 
             public const int ButtonY = 18;
             public const int ButtonWidth = 40;
@@ -27,19 +27,13 @@ namespace Maestro.UI.Main
             public const int InstrumentLabelY = 45;
             public const int LabelWidth = 300;
 
-            public const int SpeedLabelX = 8;
-            public const int SpeedLabelY = 62;
-            public const int SpeedSliderX = 60;
-            public const int SpeedSliderY = 65;
-            public const int SpeedSliderWidth = 180;
-            public const int SpeedValueX = 248;
-
-            public const int SeekElapsedX = 8;
-            public const int SeekLabelY = 87;
-            public const int SeekSliderX = 42;
-            public const int SeekSliderY = 90;
-            public const int SeekSliderWidth = 200;
-            public const int SeekTotalX = 248;
+            // Speed + seek rows: a label row (left + right aligned) above a
+            // full-width slider, with equal SideMargin on both sides.
+            public const int SideMargin = 8;
+            public const int SpeedLabelY = 52;
+            public const int SpeedSliderY = 78;
+            public const int SeekLabelY = 100;
+            public const int SeekSliderY = 126;
 
             public const int QueueButtonWidth = 30;
             public const int QueueButtonRightPadding = 8;
@@ -51,7 +45,7 @@ namespace Maestro.UI.Main
         public event EventHandler QueueToggleClicked;
 
         private readonly SongPlayer _songPlayer;
-        private readonly StandardButton _pauseButton;
+        private readonly IconButton _pauseButton;
         private readonly StandardButton _stopButton;
         private readonly MarqueeLabel _nowPlayingLabel;
         private readonly Label _progressLabel;
@@ -74,8 +68,8 @@ namespace Maestro.UI.Main
             _songPlayer = songPlayer;
 
             Size = new Point(width, Layout.Height);
-            BackgroundColor = MaestroTheme.WithAlpha(MaestroTheme.SlateGray, 150);
-            ShowBorder = true;
+            BackgroundColor = Color.Transparent;
+            ShowBorder = false;
 
             _pauseButton = CreatePauseButton();
             _stopButton = CreateStopButton();
@@ -152,12 +146,12 @@ namespace Maestro.UI.Main
             base.DisposeControl();
         }
 
-        private StandardButton CreatePauseButton()
+        private IconButton CreatePauseButton()
         {
-            var button = new StandardButton
+            var button = new IconButton(MaestroIcons.Pause, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "||",
+                BasicTooltipText = "Pause",
                 Location = new Point(Layout.PauseButtonX, Layout.ButtonY),
                 Width = Layout.ButtonWidth,
                 Enabled = false
@@ -168,10 +162,10 @@ namespace Maestro.UI.Main
 
         private StandardButton CreateStopButton()
         {
-            var button = new StandardButton
+            var button = new IconButton(MaestroIcons.Stop, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "X",
+                BasicTooltipText = "Stop",
                 Location = new Point(Layout.StopButtonX, Layout.ButtonY),
                 Width = Layout.ButtonWidth,
                 Enabled = false
@@ -220,14 +214,17 @@ namespace Maestro.UI.Main
             };
         }
 
+        private int RowWidth => Width - Layout.SideMargin * 2;
+
         private Label CreateSpeedLabel()
         {
             return new Label
             {
                 Parent = this,
                 Text = "Speed:",
-                Location = new Point(Layout.SpeedLabelX, Layout.SpeedLabelY),
-                AutoSizeWidth = true,
+                Location = new Point(Layout.SideMargin, Layout.SpeedLabelY),
+                Width = RowWidth,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.MutedCream
             };
@@ -238,8 +235,8 @@ namespace Maestro.UI.Main
             var slider = new TrackBar
             {
                 Parent = this,
-                Location = new Point(Layout.SpeedSliderX, Layout.SpeedSliderY),
-                Width = Layout.SpeedSliderWidth,
+                Location = new Point(Layout.SideMargin, Layout.SpeedSliderY),
+                Width = RowWidth,
                 MinValue = 1,
                 MaxValue = 20,
                 Value = 10,
@@ -255,8 +252,9 @@ namespace Maestro.UI.Main
             {
                 Parent = this,
                 Text = "1.0x",
-                Location = new Point(Layout.SpeedValueX, Layout.SpeedLabelY),
-                AutoSizeWidth = true,
+                Location = new Point(Layout.SideMargin, Layout.SpeedLabelY),
+                Width = RowWidth,
+                HorizontalAlignment = HorizontalAlignment.Right,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.CreamWhite
             };
@@ -268,8 +266,9 @@ namespace Maestro.UI.Main
             {
                 Parent = this,
                 Text = "0:00",
-                Location = new Point(Layout.SeekElapsedX, Layout.SeekLabelY),
-                AutoSizeWidth = true,
+                Location = new Point(Layout.SideMargin, Layout.SeekLabelY),
+                Width = RowWidth,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.MutedCream
             };
@@ -280,8 +279,8 @@ namespace Maestro.UI.Main
             var slider = new TrackBar
             {
                 Parent = this,
-                Location = new Point(Layout.SeekSliderX, Layout.SeekSliderY),
-                Width = Layout.SeekSliderWidth,
+                Location = new Point(Layout.SideMargin, Layout.SeekSliderY),
+                Width = RowWidth,
                 MinValue = 0,
                 MaxValue = 1000,
                 Value = 0,
@@ -299,8 +298,9 @@ namespace Maestro.UI.Main
             {
                 Parent = this,
                 Text = "0:00",
-                Location = new Point(Layout.SeekTotalX, Layout.SeekLabelY),
-                AutoSizeWidth = true,
+                Location = new Point(Layout.SideMargin, Layout.SeekLabelY),
+                Width = RowWidth,
+                HorizontalAlignment = HorizontalAlignment.Right,
                 Font = GameService.Content.DefaultFont12,
                 TextColor = MaestroTheme.MutedCream
             };
@@ -308,10 +308,9 @@ namespace Maestro.UI.Main
 
         private StandardButton CreateQueueButton(int panelWidth)
         {
-            var button = new StandardButton
+            var button = new IconButton(MaestroIcons.Queue, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = ">>",
                 Location = new Point(panelWidth - Layout.QueueButtonWidth - Layout.QueueButtonRightPadding, Layout.QueueButtonY),
                 Size = new Point(Layout.QueueButtonWidth, MaestroTheme.ActionButtonHeight),
                 BasicTooltipText = "Toggle Queue"
@@ -423,7 +422,7 @@ namespace Maestro.UI.Main
 
         private void UpdatePausedState()
         {
-            _pauseButton.Text = ">";
+            _pauseButton.IconTexture = MaestroIcons.Play;
             _nowPlayingLabel.TextColor = MaestroTheme.CreamWhite;
             _progressLabel.Text = "Paused" + GetQueueSuffix();
             _progressLabel.TextColor = MaestroTheme.Paused;
@@ -431,7 +430,7 @@ namespace Maestro.UI.Main
 
         private void UpdateActivePlayingState(Song song)
         {
-            _pauseButton.Text = "||";
+            _pauseButton.IconTexture = MaestroIcons.Pause;
             _nowPlayingLabel.TextColor = MaestroTheme.CreamWhite;
 
             if (_songPlayer.IsAdjustingOctave)
@@ -481,7 +480,7 @@ namespace Maestro.UI.Main
                 _progressLabel.Text = "";
             }
 
-            _pauseButton.Text = "||";
+            _pauseButton.IconTexture = MaestroIcons.Pause;
             _pauseButton.Enabled = false;
             _stopButton.Enabled = false;
             _seekSlider.Enabled = false;
@@ -500,7 +499,7 @@ namespace Maestro.UI.Main
             _progressLabel.Text = "Ready" + GetQueueSuffix();
             _progressLabel.TextColor = MaestroTheme.Paused;
 
-            _pauseButton.Text = ">";
+            _pauseButton.IconTexture = MaestroIcons.Play;
             _pauseButton.Enabled = true;
             _stopButton.Enabled = false;
             _seekSlider.Enabled = false;
@@ -510,7 +509,7 @@ namespace Maestro.UI.Main
         {
             if (_songPlayer.IsWaitingForInput)
             {
-                _pauseButton.Text = ">";
+                _pauseButton.IconTexture = MaestroIcons.Play;
                 _progressLabel.Text = "Paused" + GetQueueSuffix();
                 _progressLabel.TextColor = MaestroTheme.Paused;
             }
@@ -521,7 +520,7 @@ namespace Maestro.UI.Main
             }
             else
             {
-                _pauseButton.Text = "||";
+                _pauseButton.IconTexture = MaestroIcons.Pause;
                 var song = _songPlayer.CurrentSong;
                 UpdateProgressText(song);
                 _progressLabel.TextColor = MaestroTheme.MutedCream;

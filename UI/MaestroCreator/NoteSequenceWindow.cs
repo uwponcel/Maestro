@@ -103,6 +103,9 @@ namespace Maestro.UI.MaestroCreator
             // The Notes window is tied to the Creator window's lifetime; clicking the
             // built-in X button routes here and must not actually close the window.
             // Use CloseProgrammatic() to hide it alongside the Creator.
+            ScreenNotification.ShowNotification(
+                "Close the Creator from its main window instead.",
+                ScreenNotification.NotificationType.Warning);
         }
 
         protected override void DisposeControl()

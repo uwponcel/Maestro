@@ -3,7 +3,7 @@ namespace Maestro.Models
     public class UploadValidationResult
     {
         public bool IsValid => NameValid && TranscriberValid && InstrumentValid &&
-                               NotesValid && !IsDuplicate && !RateLimitExceeded;
+                               NotesValid && DurationValid && !IsDuplicate && !RateLimitExceeded;
 
         public bool NameValid { get; set; }
         public string NameError { get; set; }
@@ -16,6 +16,9 @@ namespace Maestro.Models
 
         public bool NotesValid { get; set; }
         public string NotesError { get; set; }
+
+        public bool DurationValid { get; set; }
+        public string DurationError { get; set; }
 
         public bool IsDuplicate { get; set; }
         public string DuplicateError { get; set; }
@@ -31,6 +34,7 @@ namespace Maestro.Models
                 TranscriberValid = true,
                 InstrumentValid = true,
                 NotesValid = true,
+                DurationValid = true,
                 IsDuplicate = false,
                 RateLimitExceeded = false
             };

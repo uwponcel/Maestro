@@ -332,30 +332,10 @@ namespace Maestro.UI.MaestroCreator
         {
             _instrument = instrument;
 
-            switch (instrument)
-            {
-                case InstrumentType.Piano:
-                    _sharpsEnabled = true;
-                    _minOctave = -1;  // Lower
-                    _maxOctave = 1;   // Upper
-                    break;
-                case InstrumentType.Harp:
-                case InstrumentType.Lute:
-                    _sharpsEnabled = false;
-                    _minOctave = -1;  // Lower
-                    _maxOctave = 1;   // Upper
-                    break;
-                case InstrumentType.Bass:
-                    _sharpsEnabled = false;
-                    _minOctave = 0;   // Low
-                    _maxOctave = 1;   // High
-                    break;
-                default:
-                    _sharpsEnabled = true;
-                    _minOctave = -1;
-                    _maxOctave = 1;
-                    break;
-            }
+            var info = InstrumentCatalog.Get(instrument);
+            _sharpsEnabled = info.SharpsEnabled;
+            _minOctave = info.MinOctave;
+            _maxOctave = info.MaxOctave;
 
             // Update black keys visibility
             foreach (var key in _blackKeyPanels)
@@ -364,9 +344,8 @@ namespace Maestro.UI.MaestroCreator
                     key.Visible = _sharpsEnabled;
             }
 
-            // Clamp current octave to new bounds and reset to starting position
-            // Bass starts at low (0), others at middle (0)
-            _currentOctave = _instrument == InstrumentType.Bass ? 0 : 0;
+            // Start at octave 0 (middle) when reachable, otherwise at the lowest octave.
+            _currentOctave = 0 >= _minOctave ? 0 : _minOctave;
             _accentColor = MaestroTheme.GetInstrumentAccent(instrument);
             UpdateOctaveDisplay();
         }
@@ -375,28 +354,9 @@ namespace Maestro.UI.MaestroCreator
         {
             if (_octaveLabel != null)
             {
-                string octaveName;
-                if (_instrument == InstrumentType.Bass)
-                {
-                    // Bass: 0 = Low, 1 = High
-                    octaveName = _currentOctave == 0 ? "Low" : "High";
-                }
-                else
-                {
-                    // Others: -1 = Lower, 0 = Middle, 1 = Upper
-                    switch (_currentOctave)
-                    {
-                        case -1:
-                            octaveName = "Lower (-)";
-                            break;
-                        case 1:
-                            octaveName = "Upper (+)";
-                            break;
-                        default:
-                            octaveName = "Middle";
-                            break;
-                    }
-                }
+                var labels = InstrumentCatalog.Get(_instrument).OctaveLabels;
+                var index = _currentOctave - _minOctave;
+                var octaveName = (index >= 0 && index < labels.Count) ? labels[index] : "Middle";
                 _octaveLabel.Text = $"Octave: {octaveName}";
             }
 

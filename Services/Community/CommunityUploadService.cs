@@ -16,6 +16,7 @@ namespace Maestro.Services.Community
         private const int MIN_NAME_LENGTH = 3;
         private const int MIN_TRANSCRIBER_LENGTH = 2;
         private const int MIN_NOTE_COUNT = 10;
+        private const long MIN_DURATION_MS = 15000;
 
         private readonly CommunityApiClient _apiClient;
         private readonly CommunityService _communityService;
@@ -98,6 +99,18 @@ namespace Maestro.Services.Community
             else
             {
                 result.NotesValid = true;
+            }
+
+            // Validate duration (songs must be at least 15 seconds long)
+            var durationMs = song.DurationMs;
+            if (durationMs < MIN_DURATION_MS)
+            {
+                result.DurationValid = false;
+                result.DurationError = $"Song must be at least {MIN_DURATION_MS / 1000}s long (is {durationMs / 1000.0:0.#}s)";
+            }
+            else
+            {
+                result.DurationValid = true;
             }
 
             // Check for duplicates in community (skip if re-uploading own song)
@@ -209,6 +222,7 @@ namespace Maestro.Services.Community
             if (!validation.TranscriberValid) return validation.TranscriberError;
             if (!validation.InstrumentValid) return validation.InstrumentError;
             if (!validation.NotesValid) return validation.NotesError;
+            if (!validation.DurationValid) return validation.DurationError;
             if (validation.IsDuplicate) return validation.DuplicateError;
             if (validation.RateLimitExceeded) return validation.RateLimitError;
             return "Unknown validation error";

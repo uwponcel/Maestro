@@ -152,6 +152,8 @@ namespace Maestro.Services.Data
 
                 if (cmd.Type == CommandType.KeyDown)
                 {
+                    // Compact note format ceiling: the encoding only represents +/-1 octave,
+                    // so seek tracking clamps to [-1, 1] regardless of instrument range.
                     if (cmd.Key == Keys.NumPad9)
                         octave = Math.Min(octave + 1, 1);
                     else if (cmd.Key == Keys.NumPad0)

@@ -17,7 +17,7 @@ namespace Maestro.UI.Community
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 355;
+            public const int WindowHeight = 370;
             public const int ContentWidth = 390;
             public const int LabelWidth = 90;
             public const int ValueWidth = 280;
@@ -43,6 +43,7 @@ namespace Maestro.UI.Community
         private Label _transcriberValidation;
         private Label _instrumentValidation;
         private Label _notesValidation;
+        private Label _durationValidation;
         private Label _duplicateValidation;
         private Label _rateLimitValidation;
 
@@ -139,7 +140,7 @@ namespace Maestro.UI.Community
             {
                 Parent = this,
                 Location = new Point(0, currentY),
-                Size = new Point(Layout.ContentWidth, 95),
+                Size = new Point(Layout.ContentWidth, 110),
                 ShowBorder = true,
                 CanScroll = true
             };
@@ -149,10 +150,11 @@ namespace Maestro.UI.Community
             _transcriberValidation = CreateValidationRow(_validationPanel, "Transcriber (min 2 chars)", ref valY);
             _instrumentValidation = CreateValidationRow(_validationPanel, "Instrument selected", ref valY);
             _notesValidation = CreateValidationRow(_validationPanel, "At least 10 notes", ref valY);
+            _durationValidation = CreateValidationRow(_validationPanel, "Duration (min 15s)", ref valY);
             _duplicateValidation = CreateValidationRow(_validationPanel, "Not a duplicate", ref valY);
             _rateLimitValidation = CreateValidationRow(_validationPanel, "Upload limit OK", ref valY);
 
-            currentY += 95 + MaestroTheme.InputSpacing;
+            currentY += 110 + MaestroTheme.InputSpacing;
 
             // Remaining uploads indicator
             _remainingUploadsLabel = new Label
@@ -325,6 +327,7 @@ namespace Maestro.UI.Community
             UpdateValidationLabel(_transcriberValidation, "Transcriber (min 2 chars)", validation.TranscriberValid, validation.TranscriberError);
             UpdateValidationLabel(_instrumentValidation, "Instrument selected", validation.InstrumentValid, validation.InstrumentError);
             UpdateValidationLabel(_notesValidation, "At least 10 notes", validation.NotesValid, validation.NotesError);
+            UpdateValidationLabel(_durationValidation, "Duration (min 15s)", validation.DurationValid, validation.DurationError);
             UpdateValidationLabel(_duplicateValidation, "Not a duplicate", !validation.IsDuplicate, validation.DuplicateError);
             UpdateValidationLabel(_rateLimitValidation, "Upload limit OK", !validation.RateLimitExceeded, validation.RateLimitError);
 

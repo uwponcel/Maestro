@@ -18,7 +18,7 @@ namespace Maestro.UI.Main
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 520;
+            public const int WindowHeight = 536;
             public const int ContentWidth = 390;
         }
 
@@ -533,7 +533,7 @@ namespace Maestro.UI.Main
             var filter = _filterBar.SelectedInstrument;
             if (filter == "All") return songs;
 
-            if (Enum.TryParse<InstrumentType>(filter, out var instrument))
+            if (InstrumentCatalog.TryFromDisplayName(filter, out var instrument))
             {
                 return songs.Where(s => s.Instrument == instrument);
             }

@@ -70,6 +70,8 @@
     <ItemGroup>
         <Compile Include="Module.cs"/>
         <Compile Include="Models\InstrumentType.cs"/>
+        <Compile Include="Models\InstrumentInfo.cs"/>
+        <Compile Include="Models\InstrumentCatalog.cs"/>
         <Compile Include="Models\SongCommand.cs"/>
         <Compile Include="Models\Song.cs"/>
         <Compile Include="Models\SeekData.cs"/>
@@ -89,6 +91,8 @@
         <Compile Include="UI\Main\NowPlayingPanel.cs"/>
         <Compile Include="UI\Main\SongCard.cs"/>
         <Compile Include="UI\Controls\StarButton.cs"/>
+        <Compile Include="UI\Controls\IconButton.cs"/>
+        <Compile Include="UI\Controls\MaestroIcons.cs"/>
         <Compile Include="UI\Controls\GenericFilterButton.cs"/>
         <Compile Include="UI\Controls\CustomDropdown.cs"/>
         <Compile Include="UI\Controls\MarqueeLabel.cs"/>

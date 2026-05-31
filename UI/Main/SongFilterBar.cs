@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Blish_HUD.Controls;
+using Maestro.Models;
 using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 
@@ -59,7 +62,7 @@ namespace Maestro.UI.Main
 #endif
             _filterButton = new GenericFilterButton(
                 new FilterSection { Items = sourceItems, DefaultValue = "All" },
-                new FilterSection { Items = new[] { "All", "Piano", "Harp", "Lute", "Bass" }, DefaultValue = "All" },
+                new FilterSection { Items = BuildInstrumentFilterItems(), DefaultValue = "All" },
                 new FilterSection { Items = new[] { "Name A-Z", "Name Z-A" }, DefaultValue = "Name A-Z" })
             {
                 Parent = this,
@@ -67,6 +70,13 @@ namespace Maestro.UI.Main
                 Width = Layout.FilterButtonWidth
             };
             _filterButton.FilterChanged += (s, e) => FilterChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private static string[] BuildInstrumentFilterItems()
+        {
+            var items = new List<string> { "All" };
+            items.AddRange(InstrumentCatalog.Pickable.Select(i => i.DisplayName));
+            return items.ToArray();
         }
 
         public void HideFilterPanel()

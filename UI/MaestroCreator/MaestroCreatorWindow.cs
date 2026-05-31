@@ -17,24 +17,27 @@ namespace Maestro.UI.MaestroCreator
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 360;
+            public const int WindowHeight = 408;
             public const int ContentWidth = 390;
-            public const int ContentHeight = 350;
+            // Left inset that horizontally centers the content region inside the window.
+            public const int ContentLeftInset = (WindowWidth - ContentWidth) / 2;
+            public const int ContentHeight = 398;
 
             public const int RowHeight = 28;
             public const int ChordBarHeight = 30;
 
-            public const int TitleInputX = 35;
-            public const int TitleInputWidth = 95;
-            public const int ArtistLabelX = 135;
-            public const int ArtistInputX = 175;
-            public const int ArtistInputWidth = 70;
-            public const int TranscriberLabelX = 250;
-            public const int TranscriberInputX = 275;
-            public const int TranscriberInputWidth = 115;
+            // Metadata: Title on a full-width row, Artist + By split on the next row.
+            public const int TitleInputX = 45;
+            public const int TitleInputWidth = ContentWidth - TitleInputX;   // 345
+            public const int ArtistInputX = 48;
+            public const int ArtistInputWidth = 140;
+            public const int ByLabelX = 200;
+            public const int ByInputX = 228;
+            public const int ByInputWidth = ContentWidth - ByInputX;         // 162
 
-            public const int ActionButtonWidth = 80;
-            public const int ActionButtonSpacing = 10;
+            public const int ActionButtonWidth = 90;
+            public const int ActionButtonHeight = 30;
+            public const int ActionButtonSpacing = 12;
             public const int ChordPreviewMaxLength = 38;
             public const int LabelYOffset = 5;
             public const int MaxChordNotes = 7;
@@ -83,10 +86,19 @@ namespace Maestro.UI.MaestroCreator
             return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
         }
 
+        private static string ShortInstrumentName(InstrumentType instrument)
+        {
+            // The Bell variants ("Bell (2 octaves)" / "Bell (3 octaves)") are just
+            // shown as "Bell" in the Creator's subtitle and prompts.
+            return instrument == InstrumentType.Bell || instrument == InstrumentType.BellMagnanimous
+                ? "Bell"
+                : InstrumentCatalog.Get(instrument).DisplayName;
+        }
+
         public void SetInstrument(InstrumentType instrument)
         {
             _instrument = instrument;
-            Subtitle = instrument.ToString();
+            Subtitle = ShortInstrumentName(instrument);
             _pianoKeyboard.Configure(instrument);
             _durationSelector.SetAccentColor(instrument);
 
@@ -136,7 +148,7 @@ namespace Maestro.UI.MaestroCreator
 
             // Show confirmation overlay and wait for user to confirm instrument is equipped
             _isWaitingForConfirmation = true;
-            _confirmationLabel.Text = $"Equip your {_instrument} and click Ready";
+            _confirmationLabel.Text = $"Equip your {ShortInstrumentName(_instrument)} and click Ready";
             _confirmationOverlay.Visible = true;
             _pianoKeyboard.SetOctaveButtonsEnabled(false);
         }
@@ -171,9 +183,9 @@ namespace Maestro.UI.MaestroCreator
             // Now do the octave reset
             _chordPreviewLabel.Text = "Resetting octave...";
 
-            // Reset in-game instrument to appropriate starting octave
-            // Bass: stays at low octave, others: go to middle octave
-            if (_instrument == InstrumentType.Bass)
+            // Instruments whose lowest octave is 0 (Bass, 2-octave Bell) reset to their
+            // bottom; instruments that reach octave -1 step back up to octave 0 (middle).
+            if (InstrumentCatalog.Get(_instrument).MinOctave == 0)
             {
                 ResetToLowOctave();
             }
@@ -202,7 +214,7 @@ namespace Maestro.UI.MaestroCreator
             : base(
                 GetBackground(),
                 new Rectangle(0, 0, Layout.WindowWidth, Layout.WindowHeight),
-                new Rectangle(15, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.ContentHeight))
+                new Rectangle(Layout.ContentLeftInset, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.ContentHeight))
         {
             Title = "Maestro Creator";
             Emblem = Module.Instance.ContentsManager.GetTexture("creator-emblem.png");
@@ -213,7 +225,7 @@ namespace Maestro.UI.MaestroCreator
 
             var currentY = MaestroTheme.PaddingContentTop;
 
-            // --- Title / Artist / Transcriber row ---
+            // --- Title (full-width row) ---
             CreateLabel("Title:", 0, currentY);
             _titleInput = new TextBox
             {
@@ -222,8 +234,10 @@ namespace Maestro.UI.MaestroCreator
                 Width = Layout.TitleInputWidth,
                 PlaceholderText = "Song title"
             };
+            currentY += Layout.RowHeight + MaestroTheme.InputSpacing;
 
-            CreateLabel("Artist:", Layout.ArtistLabelX, currentY);
+            // --- Artist + By (split row) ---
+            CreateLabel("Artist:", 0, currentY);
             _artistInput = new TextBox
             {
                 Parent = this,
@@ -232,15 +246,15 @@ namespace Maestro.UI.MaestroCreator
                 PlaceholderText = "Artist"
             };
 
-            CreateLabel("By:", Layout.TranscriberLabelX, currentY);
+            CreateLabel("By:", Layout.ByLabelX, currentY);
             _transcriberInput = new TextBox
             {
                 Parent = this,
-                Location = new Point(Layout.TranscriberInputX, currentY),
-                Width = Layout.TranscriberInputWidth,
+                Location = new Point(Layout.ByInputX, currentY),
+                Width = Layout.ByInputWidth,
                 PlaceholderText = "Your name"
             };
-            currentY += Layout.RowHeight + MaestroTheme.InputSpacing;
+            currentY += Layout.RowHeight + MaestroTheme.InputSpacing * 2;
 
             // --- Piano keyboard ---
             _pianoKeyboard = new PianoKeyboard(Layout.ContentWidth)
@@ -304,7 +318,7 @@ namespace Maestro.UI.MaestroCreator
                 Parent = this,
                 Text = "Save",
                 Location = new Point(buttonsStartX, currentY),
-                Size = new Point(Layout.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
+                Size = new Point(Layout.ActionButtonWidth, Layout.ActionButtonHeight)
             };
             _saveButton.Click += OnSaveClicked;
 
@@ -313,7 +327,7 @@ namespace Maestro.UI.MaestroCreator
                 Parent = this,
                 Text = "Cancel",
                 Location = new Point(buttonsStartX + Layout.ActionButtonWidth + Layout.ActionButtonSpacing, currentY),
-                Size = new Point(Layout.ActionButtonWidth, MaestroTheme.ActionButtonHeight)
+                Size = new Point(Layout.ActionButtonWidth, Layout.ActionButtonHeight)
             };
             _cancelButton.Click += OnCancelClicked;
 
@@ -334,7 +348,8 @@ namespace Maestro.UI.MaestroCreator
             _confirmationOverlay = new Panel
             {
                 Parent = this,
-                Location = new Point(0, MaestroTheme.PaddingContentTop + Layout.RowHeight + MaestroTheme.InputSpacing),
+                // Cover exactly the piano keyboard, not the metadata rows above it.
+                Location = new Point(0, _pianoKeyboard.Location.Y),
                 Size = new Point(Layout.ContentWidth, PianoKeyboard.Layout.TotalHeight),
                 BackgroundColor = new Color(0, 0, 0, 200),
                 ZIndex = 100,
@@ -535,19 +550,14 @@ namespace Maestro.UI.MaestroCreator
                 else if (e.IsSharp)
                     sb.Append("#");
 
+                // Compact note format encodes a single octave offset: "+" high, "-" low,
+                // nothing for middle. Instruments whose lowest octave is 0 never produce a
+                // negative offset, so the general rule covers every instrument.
                 var octave = _pianoKeyboard.CurrentOctave;
-                if (_instrument == InstrumentType.Bass)
-                {
-                    if (octave > 0)
-                        sb.Append("+");
-                }
-                else
-                {
-                    if (octave > 0)
-                        sb.Append("+");
-                    else if (octave < 0)
-                        sb.Append("-");
-                }
+                if (octave > 0)
+                    sb.Append("+");
+                else if (octave < 0)
+                    sb.Append("-");
             }
 
             sb.Append(":");

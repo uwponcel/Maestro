@@ -5,6 +5,7 @@ using Blish_HUD.Controls.Effects;
 using Blish_HUD.Input;
 using Maestro.Models;
 using Maestro.Services.Community;
+using Maestro.UI.Controls;
 using Microsoft.Xna.Framework;
 
 namespace Maestro.UI.Community
@@ -19,7 +20,7 @@ namespace Maestro.UI.Community
             public const int InstrumentY = 4;
             public const int TitleY = 22;
             public const int DetailsY = 40;
-            public const int ButtonWidth = 90;
+            public const int ButtonWidth = 40;
             public const int ButtonHeight = 26;
             public const int ButtonY = 18;
             public const int ButtonRightMargin = 15;
@@ -34,7 +35,7 @@ namespace Maestro.UI.Community
         private readonly Label _instrumentLabel;
         private readonly Label _titleLabel;
         private readonly Label _detailsLabel;
-        private readonly StandardButton _actionButton;
+        private readonly IconButton _actionButton;
         private readonly Label _progressLabel;
         private readonly ScrollingHighlightEffect _highlightEffect;
         private readonly ContextMenuStrip _contextMenu;
@@ -68,7 +69,7 @@ namespace Maestro.UI.Community
             _highlightEffect = new ScrollingHighlightEffect(this);
             EffectBehind = _highlightEffect;
 
-            var instrumentColor = GetInstrumentColor(song.InstrumentType);
+            var instrumentColor = MaestroTheme.GetInstrumentAccent(song.InstrumentType);
 
             _indicator = new Panel
             {
@@ -81,7 +82,7 @@ namespace Maestro.UI.Community
             _instrumentLabel = new Label
             {
                 Parent = this,
-                Text = $"[{song.Instrument}]",
+                Text = $"{song.Instrument}",
                 Location = new Point(Layout.LabelsX, Layout.InstrumentY),
                 Font = GameService.Content.DefaultFont12,
                 TextColor = instrumentColor
@@ -111,12 +112,13 @@ namespace Maestro.UI.Community
                 TextColor = MaestroTheme.MutedCream
             };
 
-            _actionButton = new StandardButton
+            _actionButton = new IconButton(MaestroIcons.Download, MaestroTheme.IconGlyph)
             {
                 Parent = this,
-                Text = "Download",
+                BasicTooltipText = "Download",
                 Location = new Point(width - Layout.ButtonWidth - Layout.ButtonRightMargin, Layout.ButtonY),
-                Width = Layout.ButtonWidth
+                Width = Layout.ButtonWidth,
+                Height = Layout.ButtonHeight
             };
             _actionButton.Click += OnActionButtonClicked;
 
@@ -142,7 +144,9 @@ namespace Maestro.UI.Community
 
         private void OnActionButtonClicked(object sender, MouseEventArgs e)
         {
-            if (_downloadState == DownloadState.Idle)
+            if (_downloadState == DownloadState.Idle ||
+                _downloadState == DownloadState.Failed ||
+                _downloadState == DownloadState.Cancelled)
             {
                 DownloadRequested?.Invoke(this, _song);
             }
@@ -170,7 +174,8 @@ namespace Maestro.UI.Community
             switch (_downloadState)
             {
                 case DownloadState.Idle:
-                    _actionButton.Text = "Download";
+                    _actionButton.IconTexture = MaestroIcons.Download;
+                    _actionButton.BasicTooltipText = "Download";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = true;
                     _progressLabel.Visible = false;
@@ -183,37 +188,28 @@ namespace Maestro.UI.Community
                     break;
 
                 case DownloadState.Completed:
-                    _actionButton.Text = "Downloaded";
+                    _actionButton.IconTexture = MaestroIcons.Check;
+                    _actionButton.BasicTooltipText = "Downloaded";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = false;
                     _progressLabel.Visible = false;
                     break;
 
                 case DownloadState.Failed:
-                    _actionButton.Text = "Retry";
+                    _actionButton.IconTexture = MaestroIcons.Refresh;
+                    _actionButton.BasicTooltipText = "Retry";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = true;
                     _progressLabel.Visible = false;
                     break;
 
                 case DownloadState.Cancelled:
-                    _actionButton.Text = "Download";
+                    _actionButton.IconTexture = MaestroIcons.Download;
+                    _actionButton.BasicTooltipText = "Download";
                     _actionButton.Visible = true;
                     _actionButton.Enabled = true;
                     _progressLabel.Visible = false;
                     break;
-            }
-        }
-
-        private static Color GetInstrumentColor(InstrumentType instrument)
-        {
-            switch (instrument)
-            {
-                case InstrumentType.Piano: return MaestroTheme.Piano;
-                case InstrumentType.Harp: return MaestroTheme.Harp;
-                case InstrumentType.Lute: return MaestroTheme.Lute;
-                case InstrumentType.Bass: return MaestroTheme.Bass;
-                default: return MaestroTheme.AmberGold;
             }
         }
 
