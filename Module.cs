@@ -38,6 +38,7 @@ namespace Maestro
         internal Gw2ApiManager Gw2ApiManager => ModuleParameters.Gw2ApiManager;
 
         private ModuleSettings _moduleSettings;
+        internal ModuleSettings Settings => _moduleSettings;
         private KeyboardService _keyboardService;
         internal KeyboardService KeyboardService => _keyboardService;
         private SongPlayer _songPlayer;
@@ -173,6 +174,8 @@ namespace Maestro
             {
                 _importWindow = new ImportWindow();
                 _importWindow.SongImported += OnSongImported;
+                _importWindow.Shown += (s, args) => _maestroWindow?.SetImportActive(true);
+                _importWindow.Hidden += (s, args) => _maestroWindow?.SetImportActive(false);
             }
 
             if (_importWindow.Visible)
@@ -189,6 +192,8 @@ namespace Maestro
                 _communityWindow.SongDownloaded += OnCommunitySongDownloaded;
                 _communityWindow.SongDeleteRequested += OnCommunitySongDeleteRequested;
                 _communityWindow.UploadRequested += OnUploadRequested;
+                _communityWindow.Shown += (s, args) => _maestroWindow?.SetCommunityActive(true);
+                _communityWindow.Hidden += (s, args) => _maestroWindow?.SetCommunityActive(false);
             }
 
             if (_communityWindow.Visible)
@@ -352,6 +357,8 @@ namespace Maestro
             {
                 _uploadWindow = new UploadWindow(_uploadService, _songs);
                 _uploadWindow.UploadCompleted += OnUploadCompleted;
+                _uploadWindow.Shown += (s, args) => _communityWindow?.SetUploadActive(true);
+                _uploadWindow.Hidden += (s, args) => _communityWindow?.SetUploadActive(false);
             }
 
             if (_uploadWindow.Visible)

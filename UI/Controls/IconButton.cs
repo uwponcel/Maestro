@@ -17,6 +17,7 @@ namespace Maestro.UI.Controls
 
         private Color _tint;
         private Texture2D _iconTexture;
+        private bool _selected;
 
         public IconButton(Texture2D icon, Color tint)
         {
@@ -48,11 +49,32 @@ namespace Maestro.UI.Controls
             }
         }
 
+        /// <summary>When true, the button renders a filled "selected" state (dark fill + light glyph).</summary>
+        public bool Selected
+        {
+            get => _selected;
+            set
+            {
+                if (_selected == value) return;
+                _selected = value;
+                Invalidate();
+            }
+        }
+
         protected override void Paint(SpriteBatch spriteBatch, Rectangle bounds)
         {
             base.Paint(spriteBatch, bounds);
 
             if (_iconTexture == null) return;
+
+            if (_selected)
+            {
+                // Dark espresso inner fill so an active toggle reads clearly against the light button.
+                var fill = new Rectangle(3, 3, _size.X - 6, _size.Y - 6);
+                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, fill, MaestroTheme.ToggleActiveFill);
+            }
+
+            var glyphColor = _selected ? MaestroTheme.ToggleActiveGlyph : _tint;
 
             var iconBounds = new Rectangle(
                 _size.X / 2 - IconSize / 2,
@@ -60,7 +82,7 @@ namespace Maestro.UI.Controls
                 IconSize,
                 IconSize);
 
-            spriteBatch.DrawOnCtrl(this, _iconTexture, iconBounds, _tint);
+            spriteBatch.DrawOnCtrl(this, _iconTexture, iconBounds, glyphColor);
         }
     }
 }

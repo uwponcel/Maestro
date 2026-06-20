@@ -88,7 +88,7 @@ namespace Maestro.UI.MaestroCreator
         private readonly Label _playbackStatusLabel;
         private bool _suppressSectionScroll;
         private readonly StandardButton _undoButton;
-        private readonly StandardButton _clearButton;
+        private readonly IconButton _clearButton;
         private readonly Panel _headerPanel;
         private readonly Panel _footerPanel;
         private readonly FlowPanel _chipsContainer;
@@ -642,7 +642,7 @@ namespace Maestro.UI.MaestroCreator
 
         private void UpdateInsertVisual()
         {
-            _insertButton.Tint = _isInsertMode ? MaestroTheme.AmberGold : MaestroTheme.IconGlyph;
+            _insertButton.Selected = _isInsertMode;
         }
 
         public void CopySelected()
@@ -740,6 +740,7 @@ namespace Maestro.UI.MaestroCreator
         private void PrimeClearConfirm()
         {
             _clearConfirmExpiresAt = DateTime.UtcNow.AddSeconds(ClearConfirmTimeoutSeconds);
+            _clearButton.Selected = true;
             _clearButton.BasicTooltipText = "Click again to clear all notes";
         }
 
@@ -747,6 +748,7 @@ namespace Maestro.UI.MaestroCreator
         {
             if (_clearConfirmExpiresAt == null) return;
             _clearConfirmExpiresAt = null;
+            _clearButton.Selected = false;
             _clearButton.BasicTooltipText = "Clear all notes";
         }
 

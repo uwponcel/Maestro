@@ -124,9 +124,9 @@ namespace Maestro.UI.Main
         public event EventHandler<InstrumentType> CreateClicked;
 
         private readonly Label _statusLabel;
-        private readonly StandardButton _communityButton;
+        private readonly IconButton _communityButton;
         private readonly StandardButton _createButton;
-        private readonly StandardButton _importButton;
+        private readonly IconButton _importButton;
         private InstrumentSelectorPanel _instrumentPanel;
         private bool _hadPanel;
         private int _visibleCount;
@@ -227,6 +227,16 @@ namespace Maestro.UI.Main
         {
             _createButton.Enabled = enabled;
             _createButton.BasicTooltipText = enabled ? "Create a song" : "Close the Creator window first";
+        }
+
+        public void SetImportActive(bool active)
+        {
+            _importButton.Selected = active;
+        }
+
+        public void SetCommunityActive(bool active)
+        {
+            _communityButton.Selected = active;
         }
 
         private void UpdateText()

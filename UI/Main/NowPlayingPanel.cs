@@ -56,7 +56,7 @@ namespace Maestro.UI.Main
         private readonly Label _elapsedLabel;
         private readonly TrackBar _seekSlider;
         private readonly Label _totalLabel;
-        private readonly StandardButton _queueButton;
+        private readonly IconButton _queueButton;
 
         private bool _isPlayingFromQueue;
         private Song _pendingSong;
@@ -91,6 +91,11 @@ namespace Maestro.UI.Main
         {
             _isPlayingFromQueue = isPlaying;
             UpdatePlaybackState();
+        }
+
+        public void SetQueueActive(bool active)
+        {
+            _queueButton.Selected = active;
         }
 
         public void SetPendingSong(Song song)
@@ -306,7 +311,7 @@ namespace Maestro.UI.Main
             };
         }
 
-        private StandardButton CreateQueueButton(int panelWidth)
+        private IconButton CreateQueueButton(int panelWidth)
         {
             var button = new IconButton(MaestroIcons.Queue, MaestroTheme.IconGlyph)
             {

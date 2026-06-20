@@ -7,6 +7,7 @@ using Blish_HUD.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.BitmapFonts;
+using MonoGame.Extended.TextureAtlases;
 
 namespace Maestro.UI.Controls
 {
@@ -197,6 +198,8 @@ namespace Maestro.UI.Controls
         }
 
         private static readonly Texture2D TextureInputBox = Content.GetTexture("input-box");
+        private static readonly TextureRegion2D DdArrow = Blish_HUD.Controls.Resources.Control.TextureAtlasControl.GetRegion("inputboxes/dd-arrow");
+        private static readonly TextureRegion2D DdArrowActive = Blish_HUD.Controls.Resources.Control.TextureAtlasControl.GetRegion("inputboxes/dd-arrow-active");
 
         public event EventHandler<ValueChangedEventArgs> ValueChanged;
 
@@ -300,27 +303,10 @@ namespace Maestro.UI.Controls
                 new Rectangle(_size.X - 5, 0, 5, _size.Y),
                 new Rectangle(TextureInputBox.Width - 5, 0, 5, TextureInputBox.Height));
 
-            // Draw dropdown arrow: points up while the panel is open, down while closed.
-            var arrowColor = (Enabled && MouseOver) ? ContentService.Colors.Chardonnay : MaestroTheme.MutedCream;
-            var arrowX = _size.X - 18;
-            var arrowY = _size.Y / 2 - 2;
-
-            if (PanelOpen)
-            {
-                // "^" shape (narrow top, wide bottom)
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(arrowX + 2, arrowY, 4, 2), arrowColor);
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(arrowX, arrowY + 2, 8, 2), arrowColor);
-            }
-            else
-            {
-                // "v" shape (wide top, narrow bottom)
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(arrowX, arrowY, 8, 2), arrowColor);
-                spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel,
-                    new Rectangle(arrowX + 2, arrowY + 2, 4, 2), arrowColor);
-            }
+            // Draw the standard Blish dropdown arrow (matches the stock Dropdown control).
+            var arrow = ((Enabled && MouseOver) || PanelOpen) ? DdArrowActive : DdArrow;
+            spriteBatch.DrawOnCtrl(this, arrow,
+                new Rectangle(_size.X - arrow.Width - 5, _size.Y / 2 - arrow.Height / 2, arrow.Width, arrow.Height));
 
             // Draw text with padding and truncation
             var fullText = SelectedItem?.DisplayText ?? "";

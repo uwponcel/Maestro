@@ -1,5 +1,29 @@
 # Changelog
 
+## v6.0.0
+
+**Import your own songs**
+
+- You can now import songs in Maestro's own format, not just AutoHotkey scripts. Copy the song, click Paste, and Maestro detects the format automatically.
+- The Import window adapts to whatever you paste, and links to a guide that explains the Maestro song format.
+
+**Repeat and shuffle the queue**
+
+- Added repeat (off, all songs, or current song) and shuffle to the playback queue.
+- The song currently playing is now highlighted in the queue, and your repeat and shuffle choices are remembered between sessions.
+
+**A warmer, more polished look**
+
+- New warm gradient window backgrounds, with each window given its own color so they feel distinct but still part of the same set.
+- Richer, more vivid instrument colors on the song cards.
+- The Import, Community, Queue, and Upload buttons now light up while their window is open.
+- Crisper window icons and clearer active toggle buttons.
+
+**Community**
+
+- Added 2 new community songs.
+- The Upload window now explains that only songs you imported or created can be uploaded, reminds you to credit the original creator, and notes that uploads are reviewed manually.
+
 ## v5.0.0
 
 **New instruments**

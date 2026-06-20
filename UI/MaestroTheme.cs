@@ -26,6 +26,10 @@ namespace Maestro.UI
         // Tint for dark glyph icons drawn on light GW2 buttons (play/pause/stop)
         public static readonly Color IconGlyph = new Color(57, 50, 38);
 
+        // Active/selected toggle buttons: dark espresso fill + light glyph (clearly visible on light buttons)
+        public static readonly Color ToggleActiveFill = new Color(46, 34, 28);
+        public static readonly Color ToggleActiveGlyph = CreamWhite;
+
         // State Colors
         public static readonly Color Playing = new Color(76, 175, 80);
         public static readonly Color Paused = new Color(255, 193, 7);
@@ -36,11 +40,6 @@ namespace Maestro.UI
         public static readonly Color PanelBackground = new Color(45, 45, 45, 180);
         public static readonly Color PanelHover = new Color(64, 64, 64, 200);
         public static readonly Color PanelSelected = new Color(51, 51, 51, 220);
-
-        // Queue Drawer Colors
-        public static readonly Color DrawerHeader = new Color(38, 42, 48);
-        public static readonly Color DrawerAccent = new Color(85, 95, 110);
-        public static readonly Color DrawerBackground = new Color(25, 28, 32);
 
         // Piano Key Colors
         public static readonly Color PianoWhiteKey = new Color(250, 250, 245);
@@ -86,7 +85,18 @@ namespace Maestro.UI
         public const int WindowContentTopPadding = 20;
 
         // Private
-        private static readonly Color WindowBackground = new Color(30, 24, 40, 255); // #1e1828 warm fantasy
+        // Per-window vertical gradients: one warm, low-value family so the windows feel
+        // related, each with its own hue so they stay individually recognizable.
+        private static readonly Color BgMainTop = new Color(28, 20, 34, 255);          // #1c1422 plum
+        private static readonly Color BgMainBottom = new Color(42, 32, 28, 255);       // #2a201c espresso
+        private static readonly Color BgImportTop = new Color(22, 21, 36, 255);        // #161524 indigo
+        private static readonly Color BgImportBottom = new Color(34, 32, 52, 255);     // #222034
+        private static readonly Color BgCreatorTop = new Color(30, 23, 30, 255);       // #1e171e umber
+        private static readonly Color BgCreatorBottom = new Color(44, 34, 24, 255);    // #2c2218 amber-brown
+        private static readonly Color BgCommunityTop = new Color(19, 26, 28, 255);     // #131a1c teal
+        private static readonly Color BgCommunityBottom = new Color(28, 40, 38, 255);  // #1c2826
+        private static readonly Color BgDrawerTop = new Color(26, 20, 25, 255);        // #1a1419 wine
+        private static readonly Color BgDrawerBottom = new Color(38, 27, 33, 255);     // #261b21
         private const int BACKGROUND_X_OFFSET = 1;
         private const int BACKGROUND_Y_OFFSET = 13;
 
@@ -196,7 +206,7 @@ namespace Maestro.UI
             return new Color(accent.R, accent.G, accent.B, (int)(255 * opacity));
         }
 
-        public static Texture2D CreateWindowBackground(int windowWidth, int windowHeight)
+        public static Texture2D CreateVerticalGradient(int windowWidth, int windowHeight, Color top, Color bottom)
         {
             var width = windowWidth - BACKGROUND_X_OFFSET;
             var height = windowHeight - BACKGROUND_Y_OFFSET;
@@ -206,9 +216,14 @@ namespace Maestro.UI
                 var texture = new Texture2D(context.GraphicsDevice, width, height);
                 var data = new Color[width * height];
 
-                for (var i = 0; i < data.Length; i++)
+                for (var y = 0; y < height; y++)
                 {
-                    data[i] = WindowBackground;
+                    var t = height > 1 ? (float)y / (height - 1) : 0f;
+                    var row = Color.Lerp(top, bottom, t);
+                    for (var x = 0; x < width; x++)
+                    {
+                        data[y * width + x] = row;
+                    }
                 }
 
                 texture.SetData(data);
@@ -219,29 +234,20 @@ namespace Maestro.UI
                 context.Dispose();
             }
         }
+
+        public static Texture2D CreateWindowBackground(int windowWidth, int windowHeight)
+            => CreateVerticalGradient(windowWidth, windowHeight, BgMainTop, BgMainBottom);
+
+        public static Texture2D CreateImportBackground(int windowWidth, int windowHeight)
+            => CreateVerticalGradient(windowWidth, windowHeight, BgImportTop, BgImportBottom);
+
+        public static Texture2D CreateCreatorBackground(int windowWidth, int windowHeight)
+            => CreateVerticalGradient(windowWidth, windowHeight, BgCreatorTop, BgCreatorBottom);
+
+        public static Texture2D CreateCommunityBackground(int windowWidth, int windowHeight)
+            => CreateVerticalGradient(windowWidth, windowHeight, BgCommunityTop, BgCommunityBottom);
 
         public static Texture2D CreateDrawerBackground(int windowWidth, int windowHeight)
-        {
-            var width = windowWidth - BACKGROUND_X_OFFSET;
-            var height = windowHeight - BACKGROUND_Y_OFFSET;
-            var context = GameService.Graphics.LendGraphicsDeviceContext();
-            try
-            {
-                var texture = new Texture2D(context.GraphicsDevice, width, height);
-                var data = new Color[width * height];
-
-                for (var i = 0; i < data.Length; i++)
-                {
-                    data[i] = DrawerBackground;
-                }
-
-                texture.SetData(data);
-                return texture;
-            }
-            finally
-            {
-                context.Dispose();
-            }
-        }
+            => CreateVerticalGradient(windowWidth, windowHeight, BgDrawerTop, BgDrawerBottom);
     }
 }

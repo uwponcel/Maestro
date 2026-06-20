@@ -83,7 +83,7 @@ namespace Maestro.UI.MaestroCreator
 
         private static Texture2D GetBackground()
         {
-            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateCreatorBackground(Layout.WindowWidth, Layout.WindowHeight));
         }
 
         private static string ShortInstrumentName(InstrumentType instrument)

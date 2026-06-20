@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-05-31T00:00:00.000Z",
+  "lastUpdated": "2026-06-19T23:34:22.190Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -406,6 +406,24 @@
       "instrument": "Piano",
       "durationMs": 39749,
       "createdAt": "2026-05-24T18:23:37.497Z"
+    },
+    {
+      "id": "de792732-c220-41cc-aa9f-def34e5d72dc",
+      "name": "Carol of the Bells",
+      "artist": "Mykola Leontowytsch",
+      "transcriber": "Laudato",
+      "instrument": "Piano",
+      "durationMs": 43452,
+      "createdAt": "2026-06-16T19:16:28.996Z"
+    },
+    {
+      "id": "b3d291fa-0248-4a99-93ac-6b1a973fff8d",
+      "name": "Electric de Chocobo",
+      "artist": "Nobuo Uematsu",
+      "transcriber": "Kraft Lawrence",
+      "instrument": "Piano",
+      "durationMs": 118000,
+      "createdAt": "2026-06-19T23:34:22.190Z"
     }
   ]
 }

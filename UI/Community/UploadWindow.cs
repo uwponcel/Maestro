@@ -17,7 +17,7 @@ namespace Maestro.UI.Community
         private static class Layout
         {
             public const int WindowWidth = 420;
-            public const int WindowHeight = 370;
+            public const int WindowHeight = 460;
             public const int ContentWidth = 390;
             public const int LabelWidth = 90;
             public const int ValueWidth = 280;
@@ -60,7 +60,7 @@ namespace Maestro.UI.Community
 
         private static Texture2D GetBackground()
         {
-            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateCommunityBackground(Layout.WindowWidth, Layout.WindowHeight));
         }
 
         public UploadWindow(CommunityUploadService uploadService, List<Song> songs)
@@ -166,6 +166,20 @@ namespace Maestro.UI.Community
                 TextColor = MaestroTheme.MutedCream
             };
             currentY += Layout.RowHeight + MaestroTheme.InputSpacing;
+
+            // Manual-review note
+            new Label
+            {
+                Parent = this,
+                Location = new Point(0, currentY),
+                Width = Layout.ContentWidth,
+                Height = 80,
+                WrapText = true,
+                Font = GameService.Content.DefaultFont12,
+                Text = "Only songs you imported or created can be uploaded. Please tag them properly and credit the original creator, otherwise the upload will be rejected. Uploads are also reviewed manually, so bear with me while I get to yours. Thank you for every submission, I truly appreciate it!",
+                TextColor = MaestroTheme.MutedCream
+            };
+            currentY += 80 + MaestroTheme.InputSpacing;
 
             // Status and loading
             _loadingSpinner = new LoadingSpinner

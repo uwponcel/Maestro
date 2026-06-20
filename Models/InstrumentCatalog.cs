@@ -16,33 +16,33 @@ namespace Maestro.Models
         private static readonly IReadOnlyList<InstrumentInfo> _all = new List<InstrumentInfo>
         {
             new InstrumentInfo(InstrumentType.Piano, "Piano",
-                new Color(126, 200, 227), new Color(90, 176, 208),
+                new Color(79, 155, 224), new Color(53, 122, 192),   // sapphire
                 sharpsEnabled: true, minOctave: -1, maxOctave: 1, octaveLabels: ThreeOctaveLabels),
 
             new InstrumentInfo(InstrumentType.Harp, "Harp",
-                new Color(184, 212, 168), new Color(140, 196, 144),
+                new Color(107, 194, 136), new Color(62, 154, 99),   // emerald
                 sharpsEnabled: false, minOctave: -1, maxOctave: 1, octaveLabels: ThreeOctaveLabels),
 
             new InstrumentInfo(InstrumentType.Lute, "Lute",
-                new Color(232, 193, 112), new Color(212, 166, 86),
+                new Color(227, 165, 58), new Color(190, 132, 32),   // amber
                 sharpsEnabled: false, minOctave: -1, maxOctave: 1, octaveLabels: ThreeOctaveLabels),
 
             new InstrumentInfo(InstrumentType.Bass, "Bass",
-                new Color(212, 132, 140), new Color(192, 112, 120),
+                new Color(224, 106, 124), new Color(184, 72, 94),   // garnet rose
                 sharpsEnabled: false, minOctave: 0, maxOctave: 1,
                 octaveLabels: new[] { "Low", "High" }),
 
             new InstrumentInfo(InstrumentType.Flute, "Flute",
-                new Color(175, 160, 220), new Color(135, 118, 190),
+                new Color(165, 121, 224), new Color(126, 84, 190),  // amethyst
                 sharpsEnabled: false, minOctave: -1, maxOctave: 0,
                 octaveLabels: new[] { "Low", "Middle" }),
 
             new InstrumentInfo(InstrumentType.Bell, "Bell (3 octaves)",
-                new Color(150, 196, 190), new Color(108, 156, 150),
+                new Color(63, 194, 178), new Color(42, 148, 136),   // turquoise
                 sharpsEnabled: false, minOctave: -1, maxOctave: 1, octaveLabels: ThreeOctaveLabels),
 
             new InstrumentInfo(InstrumentType.BellMagnanimous, "Bell (2 octaves)",
-                new Color(176, 208, 200), new Color(130, 176, 168),
+                new Color(116, 214, 190), new Color(73, 174, 151),  // mint (bell family)
                 sharpsEnabled: false, minOctave: 0, maxOctave: 1,
                 octaveLabels: new[] { "Middle", "High" }),
         };

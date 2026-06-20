@@ -30,7 +30,7 @@ namespace Maestro.UI.Community
 
         private static Texture2D GetBackground()
         {
-            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateCommunityBackground(Layout.WindowWidth, Layout.WindowHeight));
         }
 
         public event EventHandler<Song> SongDownloaded;
@@ -45,7 +45,7 @@ namespace Maestro.UI.Community
         private FlowPanel _songListPanel;
         private Label _statusLabel;
         private StandardButton _refreshButton;
-        private StandardButton _uploadButton;
+        private IconButton _uploadButton;
         private LoadingSpinner _loadingSpinner;
 
         public CommunityWindow(CommunityService communityService)
@@ -323,6 +323,11 @@ namespace Maestro.UI.Community
                 card.UpdateDownloadProgress(0, DownloadState.Idle);
                 UpdateStatusLabel();
             }
+        }
+
+        public void SetUploadActive(bool active)
+        {
+            _uploadButton.Selected = active;
         }
 
         private void UpdateStatusLabel()

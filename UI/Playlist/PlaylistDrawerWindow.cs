@@ -48,6 +48,8 @@ namespace Maestro.UI.Playlist
 
         private StandardButton _clearButton;
         private IconButton _playButton;
+        private IconButton _shuffleButton;
+        private IconButton _repeatButton;
         private FlowPanel _songList;
 
         private QueueSongCard _draggingCard;
@@ -79,6 +81,7 @@ namespace Maestro.UI.Playlist
 
             BuildContent();
             SubscribeToEvents();
+            InitFromSettings();
             RefreshCards();
         }
 
@@ -159,25 +162,49 @@ namespace Maestro.UI.Playlist
 
         private void BuildButtons()
         {
-            // Center the Clear + Play pair on the footer row.
-            const int pairWidth = Layout.ButtonWidth * 2 + Layout.ButtonSpacing;
-            const int startX = (Layout.ContentWidth - pairWidth) / 2;
+            const int count = 4;
+            const int rowWidth = Layout.ButtonWidth * count + Layout.ButtonSpacing * (count - 1);
+            const int startX = (Layout.ContentWidth - rowWidth) / 2;
+            var x = startX;
+
+            _shuffleButton = new IconButton(MaestroIcons.Shuffle, MaestroTheme.IconGlyph)
+            {
+                Parent = this,
+                BasicTooltipText = "Shuffle: Off",
+                Location = new Point(x, Layout.FooterButtonY),
+                Width = Layout.ButtonWidth,
+                Height = Layout.ButtonHeight
+            };
+            _shuffleButton.Click += OnShuffleClicked;
+            x += Layout.ButtonWidth + Layout.ButtonSpacing;
+
+            _repeatButton = new IconButton(MaestroIcons.Repeat, MaestroTheme.IconGlyph)
+            {
+                Parent = this,
+                BasicTooltipText = "Repeat: Off",
+                Location = new Point(x, Layout.FooterButtonY),
+                Width = Layout.ButtonWidth,
+                Height = Layout.ButtonHeight
+            };
+            _repeatButton.Click += OnRepeatClicked;
+            x += Layout.ButtonWidth + Layout.ButtonSpacing;
 
             _clearButton = new IconButton(MaestroIcons.Trash, MaestroTheme.IconGlyph)
             {
                 Parent = this,
                 BasicTooltipText = "Clear queue",
-                Location = new Point(startX, Layout.FooterButtonY),
+                Location = new Point(x, Layout.FooterButtonY),
                 Width = Layout.ButtonWidth,
                 Height = Layout.ButtonHeight
             };
             _clearButton.Click += OnClearClicked;
+            x += Layout.ButtonWidth + Layout.ButtonSpacing;
 
             _playButton = new IconButton(MaestroIcons.Play, MaestroTheme.IconGlyph)
             {
                 Parent = this,
                 BasicTooltipText = "Play queue",
-                Location = new Point(startX + Layout.ButtonWidth + Layout.ButtonSpacing, Layout.FooterButtonY),
+                Location = new Point(x, Layout.FooterButtonY),
                 Width = Layout.ButtonWidth,
                 Height = Layout.ButtonHeight
             };
@@ -236,6 +263,7 @@ namespace Maestro.UI.Playlist
         private void SubscribeToEvents()
         {
             _playlistService.QueueChanged += OnQueueChanged;
+            _playlistService.CurrentChanged += OnCurrentChanged;
             Input.Mouse.LeftMouseButtonReleased += OnGlobalMouseReleased;
             Input.Mouse.MouseMoved += OnGlobalMouseMoved;
         }
@@ -245,6 +273,67 @@ namespace Maestro.UI.Playlist
         private void OnClearClicked(object sender, MouseEventArgs e) => _playlistService.Clear();
 
         private void OnPlayClicked(object sender, MouseEventArgs e) => PlayQueueRequested?.Invoke(this, EventArgs.Empty);
+
+        private void InitFromSettings()
+        {
+            var settings = Module.Instance.Settings;
+            _playlistService.Repeat = settings.Repeat.Value;
+            _playlistService.Shuffle = settings.ShuffleEnabled.Value;
+            UpdateRepeatVisual();
+            UpdateShuffleVisual();
+        }
+
+        private void OnShuffleClicked(object sender, MouseEventArgs e)
+        {
+            _playlistService.Shuffle = !_playlistService.Shuffle;
+            Module.Instance.Settings.ShuffleEnabled.Value = _playlistService.Shuffle;
+            UpdateShuffleVisual();
+        }
+
+        private void OnRepeatClicked(object sender, MouseEventArgs e)
+        {
+            var next = _playlistService.Repeat == RepeatMode.Off ? RepeatMode.All
+                     : _playlistService.Repeat == RepeatMode.All ? RepeatMode.One
+                     : RepeatMode.Off;
+            _playlistService.Repeat = next;
+            Module.Instance.Settings.Repeat.Value = next;
+            UpdateRepeatVisual();
+        }
+
+        private void UpdateShuffleVisual()
+        {
+            var on = _playlistService.Shuffle;
+            _shuffleButton.Selected = on;
+            _shuffleButton.BasicTooltipText = on ? "Shuffle On" : "Shuffle Off";
+        }
+
+        private void UpdateRepeatVisual()
+        {
+            switch (_playlistService.Repeat)
+            {
+                case RepeatMode.All:
+                    _repeatButton.Selected = true;
+                    _repeatButton.BasicTooltipText = "Repeat all songs";
+                    break;
+                case RepeatMode.One:
+                    _repeatButton.Selected = true;
+                    _repeatButton.BasicTooltipText = "Repeat current song";
+                    break;
+                default:
+                    _repeatButton.Selected = false;
+                    _repeatButton.BasicTooltipText = "Repeat off";
+                    break;
+            }
+        }
+
+        private void OnCurrentChanged(object sender, EventArgs e) => UpdateCurrentHighlight();
+
+        private void UpdateCurrentHighlight()
+        {
+            var currentIndex = _playlistService.CurrentIndex;
+            for (var i = 0; i < _cards.Count; i++)
+                _cards[i].IsCurrent = (i == currentIndex);
+        }
 
         private void OnCardRemoveRequested(object sender, EventArgs e)
         {
@@ -281,6 +370,7 @@ namespace Maestro.UI.Playlist
         {
             ClearCards();
             CreateCards();
+            UpdateCurrentHighlight();
             UpdateButtonStates();
         }
 
@@ -395,8 +485,11 @@ namespace Maestro.UI.Playlist
         private void UnsubscribeFromEvents()
         {
             _playlistService.QueueChanged -= OnQueueChanged;
+            _playlistService.CurrentChanged -= OnCurrentChanged;
             _clearButton.Click -= OnClearClicked;
             _playButton.Click -= OnPlayClicked;
+            _shuffleButton.Click -= OnShuffleClicked;
+            _repeatButton.Click -= OnRepeatClicked;
             Input.Mouse.LeftMouseButtonReleased -= OnGlobalMouseReleased;
             Input.Mouse.MouseMoved -= OnGlobalMouseMoved;
         }
@@ -420,6 +513,8 @@ namespace Maestro.UI.Playlist
 
         private void DisposeControls()
         {
+            _shuffleButton?.Dispose();
+            _repeatButton?.Dispose();
             _clearButton?.Dispose();
             _playButton?.Dispose();
             _songList?.Dispose();

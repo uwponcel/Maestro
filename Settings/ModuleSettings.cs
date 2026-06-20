@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Blish_HUD.Input;
 using Blish_HUD.Settings;
+using Maestro.Services;
 using Microsoft.Xna.Framework.Input;
 
 namespace Maestro.Settings
@@ -26,12 +27,15 @@ namespace Maestro.Settings
         public SettingEntry<KeyBinding> SharpA { get; private set; }
 
         public string ClientId { get; private set; }
+        public SettingEntry<RepeatMode> Repeat { get; private set; }
+        public SettingEntry<bool> ShuffleEnabled { get; private set; }
 
         public ModuleSettings(SettingCollection settings)
         {
             DefineInstrumentKeys(settings);
             DefinePianoSharps(settings);
             DefineClientId(settings);
+            DefinePlaybackSettings(settings);
         }
 
         private void DefineInstrumentKeys(SettingCollection settings)
@@ -130,6 +134,14 @@ namespace Maestro.Settings
             }
 
             ClientId = clientIdSetting.Value;
+        }
+
+        private void DefinePlaybackSettings(SettingCollection settings)
+        {
+            // Hidden sub-collection: toggled from the queue drawer, not the settings UI.
+            var playback = settings.AddSubCollection("Playback", false);
+            Repeat = playback.DefineSetting("RepeatMode", RepeatMode.Off);
+            ShuffleEnabled = playback.DefineSetting("ShuffleEnabled", false);
         }
 
         public Dictionary<Keys, SettingEntry<KeyBinding>> GetKeyMappings()

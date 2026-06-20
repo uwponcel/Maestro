@@ -6,12 +6,12 @@
 
 <p align="center">
   A <a href="https://blishhud.com">Blish HUD</a> module that plays music on Guild Wars 2 instruments.<br>
-  Supports Piano, Harp, Lute, Bass, Flute, and Bell with 103 embedded songs.
+  Supports Piano, Harp, Lute, Bass, Flute, and Bell with lots of embedded songs.
 </p>
 
 ## Features
 
-- **103 embedded songs** ready to play across Piano, Harp, Lute, Bass, Flute, and Bell
+- **Lots of embedded songs** ready to play across Piano, Harp, Lute, Bass, Flute, and Bell
 - **Community song sharing** -- browse, download, and upload songs with other players
 - **Maestro Creator** -- compose your own songs in-game with a visual piano keyboard editor
 - **Playlist queue** -- line up songs and play them back-to-back
@@ -32,6 +32,51 @@ You can select notes to preview or delete specific sections of your composition:
 - **Shift+Click** to select a range of notes
 - **Ctrl+Click** to add or remove individual notes from the selection
 - **Right-click** the notes area for a context menu with Preview Selected, Delete Selected, Select All, and Clear Selection
+
+## Importing Songs
+
+Open the Import window from the main window and click **Paste Song**. Maestro auto-detects the format of whatever is on your clipboard:
+
+- **AHK v1 script** -- the format exported by the in-game Music Box and AutoHotkey.
+- **Maestro song (JSON)** -- Maestro's own format, documented below.
+
+The fields fill in automatically. Adjust the title, artist, transcriber, or instrument if you like, then click Import.
+
+### Maestro Song Format
+
+A Maestro song is a single JSON object:
+
+```json
+{
+  "name": "Song name",
+  "artist": "Artist",
+  "transcriber": "Your name",
+  "instrument": "Piano",
+  "notes": ["G-:333", "A-:333", "A#-:166", "R:666"],
+  "skipOctaveReset": false
+}
+```
+
+| Field | Required | Description |
+|---|---|---|
+| `name` | yes | Song title |
+| `artist` | no | Composer or artist (defaults to "Unknown") |
+| `transcriber` | no | Who arranged it for GW2 |
+| `instrument` | yes | One of `Piano`, `Harp`, `Lute`, `Bass`, `Flute`, `Bell` (3-octave Choir Bell), `BellMagnanimous` (2-octave) |
+| `notes` | yes | The note sequence (see below) |
+| `skipOctaveReset` | no | Skip the octave reset at the start of playback (default `false`) |
+
+Each entry in `notes` is `Note[#][+/-][^]:DurationMs`:
+
+- **Note** -- `C D E F G A B`, or `R` for a rest (silence)
+- `#` -- sharp (e.g. `C#`)
+- `+` / `-` -- high / low octave (omit for the middle octave)
+- `^` -- high C (the 8th key)
+- `:DurationMs` -- how long to hold the note, in milliseconds
+
+Play notes together as a chord by separating them with spaces in one entry: `"C:470 E:470 G:470"`.
+
+Examples: `C:150` (middle C for 150ms), `F#:300` (F sharp), `G+:200` (high-octave G), `R:500` (half-second rest).
 
 ## Module Settings
 

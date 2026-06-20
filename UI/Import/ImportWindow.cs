@@ -38,14 +38,16 @@ namespace Maestro.UI.Import
         private readonly Dropdown _instrumentDropdown;
         private readonly StandardButton _importButton;
         private readonly StandardButton _cancelButton;
+        private readonly Label _formatLink;
 
         private List<string> _parsedNotes;
+        private bool _skipOctaveReset;
 
         private static Texture2D _backgroundTexture;
 
         private static Texture2D GetBackground()
         {
-            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateImportBackground(Layout.WindowWidth, Layout.WindowHeight));
         }
 
         public ImportWindow()
@@ -55,7 +57,7 @@ namespace Maestro.UI.Import
                 new Rectangle(15, MaestroTheme.WindowContentTopPadding, Layout.ContentWidth, Layout.WindowHeight))
         {
             Title = "Import Song";
-            Subtitle = "AHK v1 Format";
+            Subtitle = "AHK or Maestro";
             Emblem = Module.Instance.ContentsManager.GetTexture("import-emblem.png");
             SavesPosition = true;
             Id = "ImportWindow_v1";
@@ -68,7 +70,7 @@ namespace Maestro.UI.Import
             _pasteButton = new StandardButton
             {
                 Parent = this,
-                Text = "Paste AHK Script",
+                Text = "Paste Song",
                 Location = new Point(0, currentY),
                 Size = new Point(Layout.ContentWidth, Layout.PasteBarHeight)
             };
@@ -84,7 +86,7 @@ namespace Maestro.UI.Import
                 Height = Layout.ChipHeight,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Font = GameService.Content.DefaultFont12,
-                Text = "Paste your AHK v1 script to begin",
+                Text = "Paste an AHK script or Maestro song",
                 TextColor = MaestroTheme.HintTextColor
             };
             currentY += Layout.ChipHeight + MaestroTheme.InputSpacing;
@@ -139,6 +141,31 @@ namespace Maestro.UI.Import
                 Size = new Point(Layout.FooterButtonWidth, MaestroTheme.ActionButtonHeight)
             };
             _cancelButton.Click += OnCancelClicked;
+
+            // Link to the song-format guide (README)
+            _formatLink = new Label
+            {
+                Parent = this,
+                Text = "Maestro format guide",
+                Location = new Point(0, currentY + 6),
+                AutoSizeWidth = true,
+                Font = GameService.Content.DefaultFont12,
+                TextColor = MaestroTheme.AmberGold,
+                BasicTooltipText = "Open the Maestro song format guide in your browser"
+            };
+            _formatLink.Click += OnFormatLinkClicked;
+        }
+
+        private void OnFormatLinkClicked(object sender, Blish_HUD.Input.MouseEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("https://blishhud.com/modules/?module=Aex.Maestro#profile");
+            }
+            catch
+            {
+                // ignore: failed to open the browser
+            }
         }
 
         private Label CreateLabel(string text, int x, int y)
@@ -177,12 +204,38 @@ namespace Maestro.UI.Import
                         return;
                     }
 
-                    ParseScript(task.Result);
+                    ParseClipboard(task.Result);
                 });
+        }
+
+        private void ParseClipboard(string text)
+        {
+            var trimmed = text.TrimStart();
+
+            if (trimmed.StartsWith("["))
+            {
+                _parsedNotes = null;
+                Subtitle = "Maestro format";
+                SetStatus("Paste a single song, not a list", MaestroTheme.Error);
+                UpdateImportEnabled();
+                return;
+            }
+
+            if (trimmed.StartsWith("{"))
+            {
+                ParseJson(text);
+            }
+            else
+            {
+                ParseScript(text);
+            }
         }
 
         private void ParseScript(string script)
         {
+            Subtitle = "AHK v1 Format";
+            _skipOctaveReset = false;
+
             try
             {
                 _parsedNotes = AhkParser.ParseToCompact(script);
@@ -204,6 +257,60 @@ namespace Maestro.UI.Import
                 SetStatus("Could not parse clipboard content", MaestroTheme.Error);
             }
 
+            UpdateImportEnabled();
+        }
+
+        private void FailParse(string message)
+        {
+            _parsedNotes = null;
+            _skipOctaveReset = false;
+            SetStatus(message, MaestroTheme.Error);
+            UpdateImportEnabled();
+        }
+
+        private void ParseJson(string json)
+        {
+            Subtitle = "Maestro format";
+
+            Song song;
+            try
+            {
+                song = SongSerializer.DeserializeJsonContent(json);
+            }
+            catch
+            {
+                FailParse("Could not read Maestro song");
+                return;
+            }
+
+            if (song?.Notes == null || song.Notes.Count == 0)
+            {
+                FailParse("No notes found");
+                return;
+            }
+
+            var durationMs = NoteParser.CalculateDurationMs(song.Notes);
+            if (durationMs <= 0)
+            {
+                FailParse("Notes are not in a valid format");
+                return;
+            }
+
+            _parsedNotes = song.Notes;
+            _skipOctaveReset = song.SkipOctaveReset;
+
+            if (!string.IsNullOrWhiteSpace(song.Name))
+                _titleInput.Text = song.Name;
+            _artistInput.Text = string.IsNullOrWhiteSpace(song.Artist) ? string.Empty : song.Artist;
+            _transcriberInput.Text = string.IsNullOrWhiteSpace(song.Transcriber) ? string.Empty : song.Transcriber;
+
+            // InstrumentCatalog.Get never throws: every InstrumentType has a row.
+            // DeserializeJsonContent falls back to the enum default (Piano) for an
+            // unrecognized instrument string; the user can correct it via the dropdown.
+            _instrumentDropdown.SelectedItem = InstrumentCatalog.Get(song.Instrument).DisplayName;
+
+            var duration = TimeSpan.FromMilliseconds(durationMs);
+            SetStatus($"✓ {_parsedNotes.Count} notes · {duration:m\\:ss}", MaestroTheme.Playing);
             UpdateImportEnabled();
         }
 
@@ -251,7 +358,7 @@ namespace Maestro.UI.Import
 
             if (_parsedNotes == null || _parsedNotes.Count == 0)
             {
-                ScreenNotification.ShowNotification("Please paste a valid AHK script", ScreenNotification.NotificationType.Error);
+                ScreenNotification.ShowNotification("Please paste a valid song", ScreenNotification.NotificationType.Error);
                 return false;
             }
 
@@ -268,6 +375,7 @@ namespace Maestro.UI.Import
                 Artist = string.IsNullOrWhiteSpace(_artistInput.Text) ? "Unknown" : _artistInput.Text.Trim(),
                 Transcriber = string.IsNullOrWhiteSpace(_transcriberInput.Text) ? null : _transcriberInput.Text.Trim(),
                 Instrument = instrument,
+                SkipOctaveReset = _skipOctaveReset,
                 IsUserImported = true
             };
 
@@ -286,7 +394,9 @@ namespace Maestro.UI.Import
             _transcriberInput.Text = string.Empty;
             _instrumentDropdown.SelectedItem = "Harp";
             _parsedNotes = null;
-            SetStatus("Paste your AHK v1 script to begin", MaestroTheme.HintTextColor);
+            _skipOctaveReset = false;
+            Subtitle = "AHK or Maestro";
+            SetStatus("Paste an AHK script or Maestro song", MaestroTheme.HintTextColor);
             UpdateImportEnabled();
         }
 
@@ -295,6 +405,7 @@ namespace Maestro.UI.Import
             _importButton.Click -= OnImportClicked;
             _cancelButton.Click -= OnCancelClicked;
             _pasteButton.Click -= OnPasteClicked;
+            _formatLink.Click -= OnFormatLinkClicked;
 
             _titleInput?.Dispose();
             _artistInput?.Dispose();
@@ -304,6 +415,7 @@ namespace Maestro.UI.Import
             _pasteButton?.Dispose();
             _importButton?.Dispose();
             _cancelButton?.Dispose();
+            _formatLink?.Dispose();
 
             base.DisposeControl();
         }

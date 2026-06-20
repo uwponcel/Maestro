@@ -41,6 +41,20 @@ namespace Maestro.UI.Playlist
         public bool IsDragging => _isDragging;
         public bool IsGhost { get; set; }
 
+        private static readonly Color CurrentHighlight = new Color(74, 62, 38);
+
+        private bool _isCurrent;
+        public bool IsCurrent
+        {
+            get => _isCurrent;
+            set
+            {
+                if (_isCurrent == value) return;
+                _isCurrent = value;
+                Invalidate();
+            }
+        }
+
         public void EndDrag()
         {
             _isDragging = false;
@@ -123,8 +137,10 @@ namespace Maestro.UI.Playlist
             // Apply opacity for dimming during drag (uses inherited Control.Opacity)
             var opacity = Opacity;
 
-            // Background
-            var bgColor = MouseOver ? MaestroTheme.PanelHover : MaestroTheme.PanelBackground;
+            // Background (the now-playing item gets a warm highlight)
+            var bgColor = _isCurrent
+                ? CurrentHighlight
+                : (MouseOver ? MaestroTheme.PanelHover : MaestroTheme.PanelBackground);
             bgColor = new Color(bgColor.R, bgColor.G, bgColor.B, (int)(bgColor.A * opacity));
             spriteBatch.DrawOnCtrl(this, ContentService.Textures.Pixel, bounds, bgColor);
 

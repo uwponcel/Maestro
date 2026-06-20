@@ -91,6 +91,16 @@ namespace Maestro.UI.Main
             _statusBar.SetCreateButtonEnabled(enabled);
         }
 
+        public void SetImportActive(bool active)
+        {
+            _statusBar.SetImportActive(active);
+        }
+
+        public void SetCommunityActive(bool active)
+        {
+            _statusBar.SetCommunityActive(active);
+        }
+
         public void RemoveSong(Song song)
         {
             if (_songPlayer.CurrentSong == song)
@@ -323,6 +333,7 @@ namespace Maestro.UI.Main
         private void OnDrawerHidden(object sender, EventArgs e)
         {
             _isDrawerOpen = false;
+            _nowPlayingPanel.SetQueueActive(false);
             if (_pendingSong != null)
             {
                 _pendingSong = null;
@@ -361,6 +372,7 @@ namespace Maestro.UI.Main
             if (!_isDrawerOpen)
             {
                 _isDrawerOpen = true;
+                _nowPlayingPanel.SetQueueActive(true);
                 var targetX = AbsoluteBounds.Right + 5;
                 var targetY = AbsoluteBounds.Top + 35;
                 _playlistDrawer.ShowWithAnimation(targetX, targetY);
@@ -379,9 +391,9 @@ namespace Maestro.UI.Main
 
         private void OnSongCompleted(object sender, EventArgs e)
         {
-            if (_isPlayingFromQueue && _playlistService.HasItems)
+            if (_isPlayingFromQueue)
             {
-                PlayNextFromQueue();
+                AdvanceQueue();
             }
             else
             {
@@ -391,14 +403,20 @@ namespace Maestro.UI.Main
 
         private void OnPlayQueueRequested(object sender, EventArgs e)
         {
-            if (_playlistService.HasItems)
-            {
-                // Stop any currently playing song
-                _songPlayer.Stop();
+            if (!_playlistService.HasItems)
+                return;
 
-                SetQueuePlaybackMode(true);
-                PlayNextFromQueue();
+            if (_isPlayingFromQueue)
+            {
+                // The drawer's Play button is labelled "Next" while the queue plays.
+                AdvanceQueue();
+                return;
             }
+
+            _songPlayer.Stop();
+            SetQueuePlaybackMode(true);
+            _playlistService.StartPlayback();
+            PlayCurrentFromQueue();
         }
 
         private void OnStopRequested(object sender, EventArgs e)
@@ -414,35 +432,42 @@ namespace Maestro.UI.Main
             _nowPlayingPanel.SetQueuePlaybackMode(isPlaying);
         }
 
-        private void PlayNextFromQueue()
+        private void AdvanceQueue()
         {
-            var nextSong = _playlistService.Dequeue();
-            if (nextSong != null)
+            if (_playlistService.MoveNext())
+                PlayCurrentFromQueue();
+            else
+                SetQueuePlaybackMode(false);
+        }
+
+        private void PlayCurrentFromQueue()
+        {
+            var song = _playlistService.Current;
+            if (song == null)
             {
-                // Compare against pending song's instrument if there is one, otherwise last played
-                var currentInstrument = _pendingSong?.Instrument ?? _lastPlayedInstrument;
+                SetQueuePlaybackMode(false);
+                return;
+            }
 
-                if (currentInstrument.HasValue && nextSong.Instrument != currentInstrument.Value)
-                {
-                    ShowInstrumentConfirmation(nextSong);
-                }
-                else
-                {
-                    if (_pendingSong != null)
-                    {
-                        _pendingSong = null;
-                        _nowPlayingPanel.ClearPendingSong();
-                        _playlistDrawer.HideInstrumentConfirmation();
-                    }
+            // Compare against the pending song's instrument if there is one, else last played.
+            var currentInstrument = _pendingSong?.Instrument ?? _lastPlayedInstrument;
 
-                    _lastPlayedInstrument = nextSong.Instrument;
-                    _nowPlayingPanel.SetCurrentInstrument(nextSong.Instrument);
-                    _songPlayer.Play(nextSong);
-                }
+            if (currentInstrument.HasValue && song.Instrument != currentInstrument.Value)
+            {
+                ShowInstrumentConfirmation(song);
             }
             else
             {
-                SetQueuePlaybackMode(false);
+                if (_pendingSong != null)
+                {
+                    _pendingSong = null;
+                    _nowPlayingPanel.ClearPendingSong();
+                    _playlistDrawer.HideInstrumentConfirmation();
+                }
+
+                _lastPlayedInstrument = song.Instrument;
+                _nowPlayingPanel.SetCurrentInstrument(song.Instrument);
+                _songPlayer.Play(song);
             }
         }
 
@@ -460,6 +485,8 @@ namespace Maestro.UI.Main
             {
                 _playlistDrawer.Hide();
             }
+
+            _nowPlayingPanel.SetQueueActive(_isDrawerOpen);
         }
 
         private void UpdateDrawerPosition()

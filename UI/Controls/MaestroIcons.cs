@@ -29,6 +29,8 @@ namespace Maestro.UI.Controls
         private static Texture2D _save;
         private static Texture2D _section;
         private static Texture2D _playAll;
+        private static Texture2D _repeat;
+        private static Texture2D _shuffle;
 
         public static Texture2D Play => _play ?? (_play = Load("play-icon.png"));
         public static Texture2D Pause => _pause ?? (_pause = Load("pause-icon.png"));
@@ -51,6 +53,8 @@ namespace Maestro.UI.Controls
         public static Texture2D Save => _save ?? (_save = Load("save-icon.png"));
         public static Texture2D Section => _section ?? (_section = Load("section-icon.png"));
         public static Texture2D PlayAll => _playAll ?? (_playAll = Load("playall-icon.png"));
+        public static Texture2D Repeat => _repeat ?? (_repeat = Load("repeat-icon.png"));
+        public static Texture2D Shuffle => _shuffle ?? (_shuffle = Load("shuffle-icon.png"));
 
         private static Texture2D Load(string fileName)
         {
