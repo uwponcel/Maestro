@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-19T23:34:22.190Z",
+  "lastUpdated": "2026-06-21T00:44:56.749Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -424,6 +424,15 @@
       "instrument": "Piano",
       "durationMs": 118000,
       "createdAt": "2026-06-19T23:34:22.190Z"
+    },
+    {
+      "id": "08255b21-3f79-4176-82f9-9c11876f0876",
+      "name": "Canon in D",
+      "artist": "Johann Pachelbel",
+      "transcriber": "Kraft Lawrence",
+      "instrument": "Piano",
+      "durationMs": 234300,
+      "createdAt": "2026-06-21T00:44:56.749Z"
     }
   ]
 }
