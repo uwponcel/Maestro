@@ -27,7 +27,7 @@ namespace Maestro.Models
         public string DisplayName => $"{Name} - {Artist}";
 
         public long DurationMs => Notes.Count > 0
-            ? NoteParser.CalculateDurationMs(Notes)
+            ? SongCompiler.CalculateDurationMs(Notes, Instrument)
             : Commands.Where(c => c.Type == CommandType.Wait).Sum(c => c.Duration);
 
         public string DisplayDuration

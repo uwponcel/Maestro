@@ -107,8 +107,9 @@ namespace Maestro.UI.Main
             _instrumentLabel = new Label
             {
                 Parent = this,
-                Text = $"{song.Instrument}",
+                Text = song.Instrument.DisplayName(),
                 Location = new Point(Layout.LabelsX, Layout.InstrumentY),
+                AutoSizeWidth = true,   // size to the text so longer names (e.g. "Drum Set") aren't clipped
                 Font = GameService.Content.DefaultFont12,
                 TextColor = instrumentColor
             };

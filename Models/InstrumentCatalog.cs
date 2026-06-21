@@ -45,6 +45,12 @@ namespace Maestro.Models
                 new Color(116, 214, 190), new Color(73, 174, 151),  // mint (bell family)
                 sharpsEnabled: false, minOctave: 0, maxOctave: 1,
                 octaveLabels: new[] { "Middle", "High" }),
+
+            new InstrumentInfo(InstrumentType.DrumSet, "Drum Set",
+                new Color(198, 110, 64), new Color(160, 82, 45),    // copper/bronze
+                sharpsEnabled: false, minOctave: 0, maxOctave: 0,
+                octaveLabels: new[] { "Kit" },
+                listedInPickers: true, isPercussion: true),
         };
 
         private static readonly Dictionary<InstrumentType, InstrumentInfo> _byType =

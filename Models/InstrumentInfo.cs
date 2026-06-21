@@ -23,6 +23,12 @@ namespace Maestro.Models
         public int MaxOctave { get; }
 
         /// <summary>
+        /// True for percussion instruments (Drum Set): no octave, no sharps,
+        /// sounds map to fixed keys. Gates the parser and octave-reset logic.
+        /// </summary>
+        public bool IsPercussion { get; }
+
+        /// <summary>
         /// Label per octave position, indexed from <see cref="MinOctave"/> to
         /// <see cref="MaxOctave"/> inclusive. Length must equal MaxOctave - MinOctave + 1.
         /// </summary>
@@ -40,7 +46,8 @@ namespace Maestro.Models
             int minOctave,
             int maxOctave,
             string[] octaveLabels,
-            bool listedInPickers = true)
+            bool listedInPickers = true,
+            bool isPercussion = false)
         {
             Type = type;
             DisplayName = displayName;
@@ -51,6 +58,7 @@ namespace Maestro.Models
             MaxOctave = maxOctave;
             OctaveLabels = Array.AsReadOnly(octaveLabels);
             ListedInPickers = listedInPickers;
+            IsPercussion = isPercussion;
         }
     }
 }

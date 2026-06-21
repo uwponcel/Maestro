@@ -404,7 +404,7 @@ namespace Maestro.UI.Main
             var song = _songPlayer.CurrentSong;
             _nowPlayingLabel.Text = song?.DisplayName ?? "Unknown";
             _nowPlayingLabel.Location = new Point(Layout.LabelX, Layout.LabelYPlaying);
-            _instrumentLabel.Text = song?.Instrument.ToString() ?? "";
+            _instrumentLabel.Text = song != null ? song.Instrument.DisplayName() : "";
 
             if (_songPlayer.IsPaused)
             {
@@ -499,7 +499,7 @@ namespace Maestro.UI.Main
             _nowPlayingLabel.Text = _pendingSong?.DisplayName ?? "Unknown";
             _nowPlayingLabel.Location = new Point(Layout.LabelX, Layout.LabelYPlaying);
             _nowPlayingLabel.TextColor = MaestroTheme.CreamWhite;
-            _instrumentLabel.Text = _pendingSong?.Instrument.ToString() ?? "";
+            _instrumentLabel.Text = _pendingSong != null ? _pendingSong.Instrument.DisplayName() : "";
 
             _progressLabel.Text = "Ready" + GetQueueSuffix();
             _progressLabel.TextColor = MaestroTheme.Paused;

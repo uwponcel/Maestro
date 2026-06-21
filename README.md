@@ -6,12 +6,12 @@
 
 <p align="center">
   A <a href="https://blishhud.com">Blish HUD</a> module that plays music on Guild Wars 2 instruments.<br>
-  Supports Piano, Harp, Lute, Bass, Flute, and Bell with lots of embedded songs.
+  Supports Piano, Harp, Lute, Bass, Flute, Bell, and Drum Set with lots of embedded songs.
 </p>
 
 ## Features
 
-- **Lots of embedded songs** ready to play across Piano, Harp, Lute, Bass, Flute, and Bell
+- **Lots of embedded songs** ready to play across Piano, Harp, Lute, Bass, Flute, Bell, and Drum Set
 - **Community song sharing** -- browse, download, and upload songs with other players
 - **Maestro Creator** -- compose your own songs in-game with a visual piano keyboard editor
 - **Playlist queue** -- line up songs and play them back-to-back
@@ -62,7 +62,7 @@ A Maestro song is a single JSON object:
 | `name` | yes | Song title |
 | `artist` | no | Composer or artist (defaults to "Unknown") |
 | `transcriber` | no | Who arranged it for GW2 |
-| `instrument` | yes | One of `Piano`, `Harp`, `Lute`, `Bass`, `Flute`, `Bell` (3-octave Choir Bell), `BellMagnanimous` (2-octave) |
+| `instrument` | yes | One of `Piano`, `Harp`, `Lute`, `Bass`, `Flute`, `Bell` (3-octave Choir Bell), `BellMagnanimous` (2-octave), `DrumSet` |
 | `notes` | yes | The note sequence (see below) |
 | `skipOctaveReset` | no | Skip the octave reset at the start of playback (default `false`) |
 
@@ -77,6 +77,30 @@ Each entry in `notes` is `Note[#][+/-][^]:DurationMs`:
 Play notes together as a chord by separating them with spaces in one entry: `"C:470 E:470 G:470"`.
 
 Examples: `C:150` (middle C for 150ms), `F#:300` (F sharp), `G+:200` (high-octave G), `R:500` (half-second rest).
+
+### Drum Set Format
+
+The Drum Set is percussion: one fixed octave, no sharps. Each note line is one
+beat slot. Hit sounds together by space-joining full tokens on a line, each with
+its own duration (same as melodic chords) - e.g. `b:250 hc:250` is kick + hi-hat.
+Duration in milliseconds. Rest is `R`.
+
+| Code | Sound | Code | Sound |
+|------|-------|------|-------|
+| `b`  | Bass drum   | `cr` | Crash cymbal |
+| `s`  | Snare       | `rd` | Ride cymbal |
+| `x`  | Cross-stick | `hc` | Hi-hat closed |
+| `g`  | Ghost snare | `ho` | Hi-hat open |
+| `ht` | High tom    | `hf` | Hi-hat foot |
+| `mt` | Mid tom     | `R`  | Rest |
+| `ft` | Floor tom   |      |  |
+
+Example (one bar of a basic rock beat at 120 BPM):
+
+    b:250 hc:250
+    hc:250
+    s:250 hc:250
+    hc:250
 
 ## Module Settings
 

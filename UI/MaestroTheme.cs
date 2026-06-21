@@ -73,6 +73,27 @@ namespace Maestro.UI
         public static readonly Color ChipLowerOctaveSharp = new Color(60, 50, 95);    // #3c325f
         public static readonly Color ChipMiddleOctaveSharp = new Color(48, 88, 56);   // #305838
         public static readonly Color ChipUpperOctaveSharp = new Color(100, 42, 48);   // #642a30
+
+        // Drum pad group tints. Resting/hover are derived from the note-chip group
+        // colors above so pads and chips share one color language; press uses the
+        // instrument accent (copper for Drum Set).
+        public static readonly Color DrumPadBase = new Color(34, 30, 40);             // #221e28
+
+        public static Color GetDrumGroupColor(DrumGroup group)
+        {
+            switch (group)
+            {
+                case DrumGroup.Cymbals: return ChipLowerOctave;   // purple
+                case DrumGroup.Toms:    return ChipUpperOctave;    // red
+                default:                return ChipMiddleOctave;   // green (Drums)
+            }
+        }
+
+        public static Color DrumPadResting(DrumGroup group) =>
+            Color.Lerp(DrumPadBase, GetDrumGroupColor(group), 0.40f);
+
+        public static Color DrumPadHover(DrumGroup group) =>
+            Color.Lerp(DrumPadBase, GetDrumGroupColor(group), 0.62f);
   
         // Action buttons (Import, Cancel, etc.)
         public const int ActionButtonWidth = 90;
@@ -89,8 +110,6 @@ namespace Maestro.UI
         // related, each with its own hue so they stay individually recognizable.
         private static readonly Color BgMainTop = new Color(28, 20, 34, 255);          // #1c1422 plum
         private static readonly Color BgMainBottom = new Color(42, 32, 28, 255);       // #2a201c espresso
-        private static readonly Color BgImportTop = new Color(22, 21, 36, 255);        // #161524 indigo
-        private static readonly Color BgImportBottom = new Color(34, 32, 52, 255);     // #222034
         private static readonly Color BgCreatorTop = new Color(30, 23, 30, 255);       // #1e171e umber
         private static readonly Color BgCreatorBottom = new Color(44, 34, 24, 255);    // #2c2218 amber-brown
         private static readonly Color BgCommunityTop = new Color(19, 26, 28, 255);     // #131a1c teal
@@ -237,9 +256,6 @@ namespace Maestro.UI
 
         public static Texture2D CreateWindowBackground(int windowWidth, int windowHeight)
             => CreateVerticalGradient(windowWidth, windowHeight, BgMainTop, BgMainBottom);
-
-        public static Texture2D CreateImportBackground(int windowWidth, int windowHeight)
-            => CreateVerticalGradient(windowWidth, windowHeight, BgImportTop, BgImportBottom);
 
         public static Texture2D CreateCreatorBackground(int windowWidth, int windowHeight)
             => CreateVerticalGradient(windowWidth, windowHeight, BgCreatorTop, BgCreatorBottom);

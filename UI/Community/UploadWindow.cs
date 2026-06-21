@@ -321,7 +321,7 @@ namespace Maestro.UI.Community
             _nameLabel.Text = _selectedSong.Name ?? "-";
             _artistLabel.Text = _selectedSong.Artist ?? "-";
             _transcriberLabel.Text = _selectedSong.Transcriber ?? "(not set)";
-            _instrumentLabel.Text = _selectedSong.Instrument.ToString();
+            _instrumentLabel.Text = _selectedSong.Instrument.DisplayName();
             _noteCountLabel.Text = GetNoteCount(_selectedSong).ToString();
         }
 

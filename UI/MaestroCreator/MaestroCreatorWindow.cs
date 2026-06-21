@@ -51,6 +51,7 @@ namespace Maestro.UI.MaestroCreator
         private readonly TextBox _artistInput;
         private readonly TextBox _transcriberInput;
         private readonly PianoKeyboard _pianoKeyboard;
+        private readonly DrumPadPanel _drumPadPanel;
         private readonly DurationSelector _durationSelector;
         private readonly NoteSequencePanel _noteSequencePanel;
         private readonly StandardButton _saveButton;
@@ -61,7 +62,7 @@ namespace Maestro.UI.MaestroCreator
         private readonly StandardButton _addChordButton;
         private bool _isChordMode;
         private readonly List<string> _pendingChordNotes = new List<string>();
-        private readonly List<NoteEventArgs> _pendingChordEvents = new List<NoteEventArgs>();
+        private readonly List<Action> _pendingChordPreviews = new List<Action>();
 
         private InstrumentType _instrument = InstrumentType.Piano;
         private Song _editingSong;
@@ -95,11 +96,29 @@ namespace Maestro.UI.MaestroCreator
                 : InstrumentCatalog.Get(instrument).DisplayName;
         }
 
+        private bool IsPercussion => InstrumentCatalog.Get(_instrument).IsPercussion;
+
+        private void ConfigureInputPanel()
+        {
+            if (IsPercussion)
+            {
+                _pianoKeyboard.Visible = false;
+                _drumPadPanel.Visible = true;
+                _drumPadPanel.Configure(_instrument);
+            }
+            else
+            {
+                _drumPadPanel.Visible = false;
+                _pianoKeyboard.Visible = true;
+                _pianoKeyboard.Configure(_instrument);
+            }
+        }
+
         public void SetInstrument(InstrumentType instrument)
         {
             _instrument = instrument;
             Subtitle = ShortInstrumentName(instrument);
-            _pianoKeyboard.Configure(instrument);
+            ConfigureInputPanel();
             _durationSelector.SetAccentColor(instrument);
 
             // Update chord mode button accent
@@ -135,14 +154,15 @@ namespace Maestro.UI.MaestroCreator
             OpenNotesWindow();
 
             // Configure keyboard for selected instrument
-            _pianoKeyboard.Configure(_instrument);
+            ConfigureInputPanel();
 
             // Skip confirmation overlay when editing (instrument is already known)
             if (_editingSong != null)
             {
                 _isWaitingForConfirmation = false;
                 _confirmationOverlay.Visible = false;
-                _pianoKeyboard.SetOctaveButtonsEnabled(true);
+                if (!IsPercussion)
+                    _pianoKeyboard.SetOctaveButtonsEnabled(true);
                 return;
             }
 
@@ -150,7 +170,8 @@ namespace Maestro.UI.MaestroCreator
             _isWaitingForConfirmation = true;
             _confirmationLabel.Text = $"Equip your {ShortInstrumentName(_instrument)} and click Ready";
             _confirmationOverlay.Visible = true;
-            _pianoKeyboard.SetOctaveButtonsEnabled(false);
+            if (!IsPercussion)
+                _pianoKeyboard.SetOctaveButtonsEnabled(false);
         }
 
         private void OpenNotesWindow()
@@ -185,7 +206,11 @@ namespace Maestro.UI.MaestroCreator
 
             // Instruments whose lowest octave is 0 (Bass, 2-octave Bell) reset to their
             // bottom; instruments that reach octave -1 step back up to octave 0 (middle).
-            if (InstrumentCatalog.Get(_instrument).MinOctave == 0)
+            if (IsPercussion)
+            {
+                // Drums have no octave; nothing to reset.
+            }
+            else if (InstrumentCatalog.Get(_instrument).MinOctave == 0)
             {
                 ResetToLowOctave();
             }
@@ -195,7 +220,8 @@ namespace Maestro.UI.MaestroCreator
             }
 
             // Re-enable buttons and clear status
-            _pianoKeyboard.SetOctaveButtonsEnabled(true);
+            if (!IsPercussion)
+                _pianoKeyboard.SetOctaveButtonsEnabled(true);
             _chordPreviewLabel.Text = "";
         }
 
@@ -265,6 +291,17 @@ namespace Maestro.UI.MaestroCreator
             };
             _pianoKeyboard.NotePressed += OnNotePressed;
             _pianoKeyboard.OctaveChanged += OnOctaveChanged;
+
+            _drumPadPanel = new DrumPadPanel(Layout.ContentWidth)
+            {
+                Parent = this,
+                Location = new Point(0, currentY),
+                Visible = false,
+                ShowBorder = true
+            };
+            _drumPadPanel.PadPressed += OnDrumPadPressed;
+            _drumPadPanel.RestPressed += OnDrumRestPressed;
+
             currentY += PianoKeyboard.Layout.TotalHeight + MaestroTheme.InputSpacing;
 
             // --- Duration selector (BPM + note types + dot) ---
@@ -398,7 +435,7 @@ namespace Maestro.UI.MaestroCreator
             if (!_isChordMode && _pendingChordNotes.Count > 0)
             {
                 _pendingChordNotes.Clear();
-                _pendingChordEvents.Clear();
+                _pendingChordPreviews.Clear();
             }
 
             UpdateChordPreview();
@@ -416,10 +453,8 @@ namespace Maestro.UI.MaestroCreator
         {
             if (_pendingChordNotes.Count == 0) return;
 
-            foreach (var noteEvent in _pendingChordEvents)
-            {
-                PlayNoteSound(noteEvent);
-            }
+            foreach (var preview in _pendingChordPreviews)
+                preview?.Invoke();
 
             var chordString = string.Join(" ", _pendingChordNotes);
 
@@ -440,7 +475,7 @@ namespace Maestro.UI.MaestroCreator
             }
 
             _pendingChordNotes.Clear();
-            _pendingChordEvents.Clear();
+            _pendingChordPreviews.Clear();
             UpdateChordPreview();
         }
 
@@ -491,36 +526,66 @@ namespace Maestro.UI.MaestroCreator
 
             if (_isChordMode)
             {
-                if (_pendingChordNotes.Count >= Layout.MaxChordNotes)
-                {
-                    UpdateChordPreview(showFullMessage: true);
-                    return;
-                }
-                if (_pendingChordNotes.Contains(noteString))
-                {
-                    return;
-                }
-                _pendingChordNotes.Add(noteString);
-                _pendingChordEvents.Add(e);
-                UpdateChordPreview();
+                AddToPendingChord(noteString, () => PlayNoteSound(e));
+                return;
             }
-            else if (_noteSequencePanel.IsReplaceMode)
+
+            CommitToken(noteString, () => PlayNoteSound(e));
+        }
+
+        private void OnDrumPadPressed(object sender, DrumSound sound)
+        {
+            var token = DrumMapping.Get(sound).Code + ":" + _durationSelector.CurrentDurationMs;
+
+            if (_isChordMode)
             {
-                PlayNoteSound(e);
-                _noteSequencePanel.ReplaceAt(_noteSequencePanel.ReplaceTargetIndex, noteString);
+                AddToPendingChord(token, () => Module.Instance.PlayDrum(sound));
+                return;
+            }
+
+            CommitToken(token, () => Module.Instance.PlayDrum(sound));
+        }
+
+        private void OnDrumRestPressed(object sender, EventArgs e)
+        {
+            var token = "R:" + _durationSelector.CurrentDurationMs;
+            CommitToken(token, null);
+        }
+
+        private void AddToPendingChord(string token, Action preview)
+        {
+            if (_pendingChordNotes.Count >= Layout.MaxChordNotes)
+            {
+                UpdateChordPreview(showFullMessage: true);
+                return;
+            }
+            if (_pendingChordNotes.Contains(token))
+                return;
+
+            _pendingChordNotes.Add(token);
+            _pendingChordPreviews.Add(preview);
+            UpdateChordPreview();
+        }
+
+        private void CommitToken(string token, Action preview)
+        {
+            if (_noteSequencePanel.IsReplaceMode)
+            {
+                preview?.Invoke();
+                _noteSequencePanel.ReplaceAt(_noteSequencePanel.ReplaceTargetIndex, token);
                 _noteSequencePanel.ExitReplaceMode();
             }
             else if (_noteSequencePanel.IsInsertMode && _noteSequencePanel.HasSelection)
             {
-                PlayNoteSound(e);
+                preview?.Invoke();
                 var insertIndex = _noteSequencePanel.GetLastSelectedIndex() + 1;
-                _noteSequencePanel.InsertAt(insertIndex, noteString);
+                _noteSequencePanel.InsertAt(insertIndex, token);
                 _noteSequencePanel.SelectSingle(insertIndex);
             }
             else
             {
-                PlayNoteSound(e);
-                _noteSequencePanel.AddNote(noteString);
+                preview?.Invoke();
+                _noteSequencePanel.AddNote(token);
             }
         }
 
@@ -580,7 +645,7 @@ namespace Maestro.UI.MaestroCreator
             }
 
             var notes = _noteSequencePanel.Notes.ToList();
-            var parseResult = NoteParser.ParseWithMapping(notes);
+            var parseResult = SongCompiler.ParseWithMapping(notes, _instrument);
 
             var song = new Song
             {
@@ -605,7 +670,7 @@ namespace Maestro.UI.MaestroCreator
             try
             {
                 var selectedIndices = _noteSequencePanel.GetSelectedIndices();
-                var parseResult = NoteParser.ParseWithMapping(selectedNotes.ToList());
+                var parseResult = SongCompiler.ParseWithMapping(selectedNotes.ToList(), _instrument);
 
                 var song = new Song
                 {
@@ -722,6 +787,12 @@ namespace Maestro.UI.MaestroCreator
 
             base.Hide();
             WindowClosed?.Invoke(this, EventArgs.Empty);
+
+            // Reset edit/input state on every close path, including the title-bar X
+            // (which bypasses Save/Cancel). Otherwise a stale _editingSong makes the
+            // next "create" skip the equip-confirmation overlay and reload old data.
+            // Save/Cancel also call ClearInputs() after Hide(); the repeat is a no-op.
+            ClearInputs();
         }
 
         private bool HasSongChanged(Song original, Song edited)
@@ -770,7 +841,7 @@ namespace Maestro.UI.MaestroCreator
                     song.Notes.Add(note);
                 }
 
-                var commands = NoteParser.Parse(song.Notes);
+                var commands = SongCompiler.Parse(song.Notes, _instrument);
                 song.Commands.AddRange(commands);
 
                 return song;
@@ -794,7 +865,7 @@ namespace Maestro.UI.MaestroCreator
             _noteSequencePanel.ClearUndoStack();
             _pianoKeyboard.CurrentOctave = 0;
             _pendingChordNotes.Clear();
-            _pendingChordEvents.Clear();
+            _pendingChordPreviews.Clear();
             _isChordMode = false;
             _chordModeButton.BackgroundColor = Color.Transparent;
             UpdateChordPreview();
@@ -810,6 +881,8 @@ namespace Maestro.UI.MaestroCreator
             _noteSequencePanel.SelectionChanged -= OnNoteSequenceStateChanged;
             _pianoKeyboard.NotePressed -= OnNotePressed;
             _pianoKeyboard.OctaveChanged -= OnOctaveChanged;
+            _drumPadPanel.PadPressed -= OnDrumPadPressed;
+            _drumPadPanel.RestPressed -= OnDrumRestPressed;
             _noteSequencePanel.PreviewAllRequested -= OnPreviewClicked;
             _noteSequencePanel.PauseRequested -= OnPauseClicked;
             _noteSequencePanel.StopRequested -= OnStopClicked;
@@ -823,6 +896,7 @@ namespace Maestro.UI.MaestroCreator
             _artistInput?.Dispose();
             _transcriberInput?.Dispose();
             _pianoKeyboard?.Dispose();
+            _drumPadPanel?.Dispose();
             _durationSelector?.Dispose();
             _noteSequencePanel?.Dispose();
             _saveButton?.Dispose();

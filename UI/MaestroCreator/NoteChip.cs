@@ -1,8 +1,8 @@
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Blish_HUD.Input;
+using Maestro.Models;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Maestro.UI.MaestroCreator
 {
@@ -38,12 +38,16 @@ namespace Maestro.UI.MaestroCreator
 
             var maxTextWidth = Layout.FixedWidth - Layout.CloseButtonSize - Layout.Padding * 2 - Layout.CloseButtonMargin;
             var maxChars = maxTextWidth / 7;
-            var displayText = noteString;
+            var fullText = noteString;
+            if (TryParseDrum(noteString, out var drumInfo, out var drumDuration))
+                fullText = drumInfo.DisplayName + ":" + drumDuration;
+
+            var displayText = fullText;
             var needsTooltip = false;
 
-            if (noteString.Length > maxChars)
+            if (fullText.Length > maxChars)
             {
-                displayText = noteString.Substring(0, maxChars - 2) + "..";
+                displayText = fullText.Substring(0, maxChars - 2) + "..";
                 needsTooltip = true;
             }
 
@@ -57,7 +61,7 @@ namespace Maestro.UI.MaestroCreator
                 TextColor = MaestroTheme.CreamWhite,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Middle,
-                BasicTooltipText = needsTooltip ? noteString : null
+                BasicTooltipText = needsTooltip ? fullText : null
             };
 
             _closeButton = new Label
@@ -91,10 +95,26 @@ namespace Maestro.UI.MaestroCreator
             base.OnClick(e);
         }
 
+        private static bool TryParseDrum(string noteString, out DrumSoundInfo info, out string durationPart)
+        {
+            info = null;
+            durationPart = null;
+
+            var colon = noteString.IndexOf(':');
+            if (colon <= 0) return false;
+
+            var code = noteString.Substring(0, colon);
+            durationPart = noteString.Substring(colon + 1);
+            return DrumMapping.TryFromCode(code, out info);
+        }
+
         private static Color GetNoteColor(string noteString)
         {
             if (noteString.StartsWith("R"))
                 return MaestroTheme.ChipRest;
+
+            if (TryParseDrum(noteString, out var drum, out _))
+                return MaestroTheme.GetDrumGroupColor(drum.Group);
 
             var isSharp = noteString.Contains("#");
 

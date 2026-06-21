@@ -317,6 +317,16 @@ namespace Maestro
         }
 
         /// <summary>
+        /// Plays a single Drum Set sound on the in-game instrument (Creator preview).
+        /// </summary>
+        /// <param name="sound">The drum sound to play.</param>
+        public void PlayDrum(DrumSound sound)
+        {
+            var info = DrumMapping.Get(sound);
+            _keyboardService?.PlayNote(info.PrimaryKey, info.NeedsAlt);
+        }
+
+        /// <summary>
         /// Changes the in-game instrument octave.
         /// </summary>
         /// <param name="up">True to go up one octave, false to go down.</param>

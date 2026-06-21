@@ -47,7 +47,7 @@ namespace Maestro.UI.Import
 
         private static Texture2D GetBackground()
         {
-            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateImportBackground(Layout.WindowWidth, Layout.WindowHeight));
+            return _backgroundTexture ?? (_backgroundTexture = MaestroTheme.CreateWindowBackground(Layout.WindowWidth, Layout.WindowHeight));
         }
 
         public ImportWindow()
@@ -246,6 +246,7 @@ namespace Maestro.UI.Import
                 }
                 else
                 {
+                    // AHK / Music Box scripts are melodic-only, so this preview always uses the melodic parser (drum AHK import is out of scope).
                     var durationMs = NoteParser.CalculateDurationMs(_parsedNotes);
                     var duration = TimeSpan.FromMilliseconds(durationMs);
                     SetStatus($"✓ {_parsedNotes.Count} notes · {duration:m\\:ss}", MaestroTheme.Playing);
@@ -289,7 +290,7 @@ namespace Maestro.UI.Import
                 return;
             }
 
-            var durationMs = NoteParser.CalculateDurationMs(song.Notes);
+            var durationMs = SongCompiler.CalculateDurationMs(song.Notes, song.Instrument);
             if (durationMs <= 0)
             {
                 FailParse("Notes are not in a valid format");
@@ -380,7 +381,7 @@ namespace Maestro.UI.Import
             };
 
             song.Notes.AddRange(_parsedNotes);
-            var commands = NoteParser.Parse(_parsedNotes);
+            var commands = SongCompiler.Parse(_parsedNotes, instrument);
             song.Commands.AddRange(commands);
 
             ScreenNotification.ShowNotification($"Imported \"{song.Name}\" ({_parsedNotes.Count} notes)");

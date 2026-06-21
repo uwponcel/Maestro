@@ -82,7 +82,7 @@ namespace Maestro.UI.Community
             _instrumentLabel = new Label
             {
                 Parent = this,
-                Text = $"{song.Instrument}",
+                Text = song.InstrumentType.DisplayName(),
                 Location = new Point(Layout.LabelsX, Layout.InstrumentY),
                 Font = GameService.Content.DefaultFont12,
                 TextColor = instrumentColor

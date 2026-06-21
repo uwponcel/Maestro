@@ -130,7 +130,7 @@ namespace Maestro.Services.Data
         {
             if (song.Commands.Count == 0 && song.Notes?.Count > 0)
             {
-                var commands = NoteParser.Parse(song.Notes);
+                var commands = SongCompiler.Parse(song.Notes, song.Instrument);
                 song.Commands.AddRange(commands);
             }
         }

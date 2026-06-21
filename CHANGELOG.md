@@ -1,5 +1,27 @@
 # Changelog
 
+## v6.1.0
+
+### Added
+- **Drum Set instrument** - play, create, and import drum songs on the GW2 Drum
+  Set. Full percussion kit: bass, snare, cross-stick, ghost notes, three toms,
+  and five cymbals/hi-hats (15 keys, 12 sounds).
+- Creator drum pad for authoring beats, with simultaneous hits (kick + crash)
+  via chord mode. Pads are color-grouped (drums, toms, cymbals) to match the
+  note colors, each with an accent rail, plus a full-width Rest button.
+- Drum Set song format with short-code notation (see README).
+
+### Fixed
+- Instrument names now show in full across song cards, Now Playing, Community,
+  and Upload (e.g. "Drum Set", "Bell (2 octaves)") instead of internal code
+  names like "DrumSet".
+
+### Technical
+- New percussion path: `DrumSound`, `DrumMapping`, `DrumParser`, and a
+  `SongCompiler` dispatcher that routes compilation by instrument.
+- Playback auto-alternates paired keys (bass/snare/ghost) for clean fast rolls
+  and skips octave reset for percussion.
+
 ## v6.0.0
 
 **Import your own songs**

@@ -79,6 +79,8 @@
         <Compile Include="Services\Playback\KeyboardService.cs"/>
         <Compile Include="Services\Playback\SongPlayer.cs"/>
         <Compile Include="Services\Data\NoteParser.cs"/>
+        <Compile Include="Services\Data\DrumParser.cs"/>
+        <Compile Include="Services\Data\SongCompiler.cs"/>
         <Compile Include="Services\Data\SongLoader.cs"/>
         <Compile Include="Services\Data\SongSerializer.cs"/>
         <Compile Include="Services\Data\AhkParser.cs"/>
@@ -103,6 +105,7 @@
         <Compile Include="UI\Playlist\PlaylistDrawerWindow.cs"/>
         <Compile Include="UI\MaestroCreator\MaestroCreatorWindow.cs"/>
         <Compile Include="UI\MaestroCreator\PianoKeyboard.cs"/>
+        <Compile Include="UI\MaestroCreator\DrumPadPanel.cs"/>
         <Compile Include="UI\MaestroCreator\DurationSelector.cs"/>
         <Compile Include="UI\MaestroCreator\BaseChip.cs"/>
         <Compile Include="UI\MaestroCreator\NoteChip.cs"/>
@@ -124,6 +127,8 @@
         <Compile Include="Services\Community\CommunityUploadService.cs"/>
         <Compile Include="Services\Community\UploadRateLimiter.cs"/>
         <Compile Include="Models\NoteMapping.cs"/>
+        <Compile Include="Models\DrumSound.cs"/>
+        <Compile Include="Models\DrumMapping.cs"/>
         <Compile Include="Models\GameTimings.cs"/>
     </ItemGroup>
     <ItemGroup>
