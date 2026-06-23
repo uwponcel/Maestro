@@ -347,3 +347,7 @@ tools/
 
 # Rider run configurations
 .run/
+
+# Superpowers working dirs (ephemeral specs/plans, plugin cache)
+docs/superpowers/
+.superpowers/

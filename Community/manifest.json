@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-19T23:34:22.190Z",
+  "lastUpdated": "2026-06-21T00:44:56.749Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -59,7 +59,7 @@
     {
       "id": "94a28460-3f5b-4313-b1cc-a41e0afa3dc9",
       "name": "Gravity Falls Theme slow",
-      "artist": "Unknown",
+      "artist": "Brad Breeck",
       "transcriber": "Georgius Agicolae",
       "instrument": "Harp",
       "durationMs": 47855,
@@ -86,7 +86,7 @@
     {
       "id": "4ff36478-8a01-4e2f-bb46-dddadb73a791",
       "name": "I'll Make A Man (Mulan)",
-      "artist": "Unknown",
+      "artist": "Matthew Wilder",
       "transcriber": "Lindsey",
       "instrument": "Harp",
       "durationMs": 134668,
@@ -95,7 +95,7 @@
     {
       "id": "edd8ce60-a4e4-433e-aad3-b7ba2164405d",
       "name": "Elite Four (Pokemon Red/Blue/Yellow)",
-      "artist": "Unknown",
+      "artist": "Junichi Masuda",
       "transcriber": "Lindsey",
       "instrument": "Harp",
       "durationMs": 99800,
@@ -141,16 +141,16 @@
       "id": "6a05f2c1-ef78-4883-b1c6-49216e4ad89a",
       "name": "Alicia",
       "artist": "Clair Obscure",
-      "transcriber": "Tomas",
+      "transcriber": "PianoTomas",
       "instrument": "Piano",
       "durationMs": 180774,
       "createdAt": "2026-03-14T06:54:51.436Z"
     },
     {
       "id": "0d7eb3ef-5321-4729-b6f1-f6ed39cabcd0",
-      "name": "Lumiere",
-      "artist": "Tomas",
-      "transcriber": "tomas",
+      "name": "Lumière",
+      "artist": "Clair Obscure",
+      "transcriber": "PianoTomas",
       "instrument": "Piano",
       "durationMs": 215191,
       "createdAt": "2026-03-14T06:55:34.814Z"
@@ -167,7 +167,7 @@
     {
       "id": "1450f2d0-5d4b-4333-a5d6-d04f6efa0ae9",
       "name": "UnderTale (adaptation not finished)",
-      "artist": "Unknown",
+      "artist": "Toby Fox",
       "transcriber": "WildNerd",
       "instrument": "Harp",
       "durationMs": 27000,
@@ -185,7 +185,7 @@
     {
       "id": "79431802-0116-4d16-8ea7-36e5598d9c7f",
       "name": "UnderTale (adaptation not finished)",
-      "artist": "Unknown",
+      "artist": "Toby Fox",
       "transcriber": "WildNerd",
       "instrument": "Harp",
       "durationMs": 27000,
@@ -203,7 +203,7 @@
     {
       "id": "d19b5faa-555c-4714-a875-a4fa6ae97666",
       "name": "Baka Mitai (Dame Dame)",
-      "artist": "Yakuza",
+      "artist": "Mitsuharu Fukuyama",
       "transcriber": "Bai Gujing",
       "instrument": "Piano",
       "durationMs": 109344,
@@ -221,7 +221,7 @@
     {
       "id": "9a682824-8984-45ca-b545-2393b5805d27",
       "name": "Roundabout",
-      "artist": "Jojo's Bizzare Adventure",
+      "artist": "Yes",
       "transcriber": "Zephyrite Bliss",
       "instrument": "Lute",
       "durationMs": 54396,
@@ -239,7 +239,7 @@
     {
       "id": "6f2f4795-06a9-4823-a158-0b4afe2f4323",
       "name": "UnderTale (adaptation not finished)",
-      "artist": "Unknown",
+      "artist": "Toby Fox",
       "transcriber": "WildNerd",
       "instrument": "Harp",
       "durationMs": 27000,
@@ -266,7 +266,7 @@
     {
       "id": "08eff2cf-f1c3-4052-b4e6-a95eba417e94",
       "name": "Roundabout",
-      "artist": "Jojo's Bizzare Adventure",
+      "artist": "Yes",
       "transcriber": "Zephyrite Bliss",
       "instrument": "Lute",
       "durationMs": 54396,
@@ -338,7 +338,7 @@
     {
       "id": "3173ec85-16fe-4f41-b8f6-79262a11a214",
       "name": "interstellar",
-      "artist": "Unknown",
+      "artist": "Hans Zimmer",
       "transcriber": "bhachuu",
       "instrument": "Piano",
       "durationMs": 96600,
@@ -383,7 +383,7 @@
     {
       "id": "3b5cafb8-d93f-4451-82d0-fd153a4e988f",
       "name": "Can you feel the love tonight",
-      "artist": "Neko",
+      "artist": "Elton John",
       "transcriber": "Nekopaww",
       "instrument": "Piano",
       "durationMs": 113500,
@@ -392,7 +392,7 @@
     {
       "id": "ef920c66-40d9-4600-ba96-2f5ee51f7a01",
       "name": "Whole new world",
-      "artist": "Neko",
+      "artist": "Alan Menken",
       "transcriber": "Nekopaww",
       "instrument": "Piano",
       "durationMs": 246250,
@@ -424,6 +424,15 @@
       "instrument": "Piano",
       "durationMs": 118000,
       "createdAt": "2026-06-19T23:34:22.190Z"
+    },
+    {
+      "id": "08255b21-3f79-4176-82f9-9c11876f0876",
+      "name": "Canon in D",
+      "artist": "Johann Pachelbel",
+      "transcriber": "Kraft Lawrence",
+      "instrument": "Piano",
+      "durationMs": 234300,
+      "createdAt": "2026-06-21T00:44:56.749Z"
     }
   ]
 }

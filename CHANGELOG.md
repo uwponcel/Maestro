@@ -1,5 +1,24 @@
 # Changelog
 
+## v6.2.0
+
+### Added
+- Four new piano songs: **Welcome to the Black Parade** (My Chemical Romance),
+  plus three original high-energy instrumentals — **Sunrise Sprint**,
+  **Ember Cascade**, and **Neon Skyline** (each around 1:50).
+- New community song: **Canon in D** (Johann Pachelbel, transcribed by
+  Kraft Lawrence).
+
+### Fixed
+- Corrected the **Lumière** community song: fixed its title accent and credited
+  it properly (Clair Obscure, PianoTomas), and updated Alicia's transcriber.
+- Cleaned up community song credits. Identified previously-unknown artists
+  (Gravity Falls → Brad Breeck, Mulan's "I'll Make a Man" → Matthew Wilder,
+  Pokémon Elite Four → Junichi Masuda, UnderTale → Toby Fox, Interstellar →
+  Hans Zimmer) and corrected mislabeled ones (Can You Feel the Love Tonight →
+  Elton John, A Whole New World → Alan Menken, Roundabout → Yes, Baka Mitai →
+  Mitsuharu Fukuyama).
+
 ## v6.1.0
 
 ### Added
