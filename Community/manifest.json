@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-19T23:34:22.190Z",
+  "lastUpdated": "2026-06-29T05:38:12.918Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -424,6 +424,15 @@
       "instrument": "Piano",
       "durationMs": 118000,
       "createdAt": "2026-06-19T23:34:22.190Z"
+    },
+    {
+      "id": "90911a47-8470-4a2a-a47b-6f82d58d74e5",
+      "name": "Gourmet Race / Kirby's Theme",
+      "artist": "Jun Ishikawa",
+      "transcriber": "nullward",
+      "instrument": "Harp",
+      "durationMs": 83827,
+      "createdAt": "2026-06-29T05:38:12.918Z"
     }
   ]
 }
