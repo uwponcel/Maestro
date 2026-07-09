@@ -1,5 +1,13 @@
 # Changelog
 
+## v6.2.1
+
+### Added
+- Four new community songs: **Gourmet Race / Kirby's Theme** (Jun Ishikawa,
+  transcribed by nullward), **Grief and Sorrows** (Naruto, Yasuharu Takanashi,
+  transcribed by Laudato), **Kass' Theme** (Koji Kondo, transcribed by
+  Marathon), and **The Chain** (Fleetwood Mac, transcribed by GW2MB).
+
 ## v6.2.0
 
 ### Added

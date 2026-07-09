@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-21T00:44:56.749Z",
+  "lastUpdated": "2026-07-05T13:21:43.025Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -426,13 +426,40 @@
       "createdAt": "2026-06-19T23:34:22.190Z"
     },
     {
-      "id": "08255b21-3f79-4176-82f9-9c11876f0876",
-      "name": "Canon in D",
-      "artist": "Johann Pachelbel",
-      "transcriber": "Kraft Lawrence",
+      "id": "90911a47-8470-4a2a-a47b-6f82d58d74e5",
+      "name": "Gourmet Race / Kirby's Theme",
+      "artist": "Jun Ishikawa",
+      "transcriber": "nullward",
+      "instrument": "Harp",
+      "durationMs": 83827,
+      "createdAt": "2026-06-29T05:38:12.918Z"
+    },
+    {
+      "id": "03b60164-9964-4c72-b3f2-0c4126395a7a",
+      "name": "Grief and Sorrows (Naruto)",
+      "artist": "Yasuharu Takanashi",
+      "transcriber": "Laudato",
+      "instrument": "Harp",
+      "durationMs": 177061,
+      "createdAt": "2026-06-29T16:47:34.302Z"
+    },
+    {
+      "id": "60ee7d91-6d0f-4622-870c-a58827f66e85",
+      "name": "Kass' Theme",
+      "artist": "Koji Kondo",
+      "transcriber": "Marathon",
       "instrument": "Piano",
-      "durationMs": 234300,
-      "createdAt": "2026-06-21T00:44:56.749Z"
+      "durationMs": 49917,
+      "createdAt": "2026-07-03T01:12:05.019Z"
+    },
+    {
+      "id": "b6de57e8-2638-44c6-8a33-df31608d84d4",
+      "name": "The Chain",
+      "artist": "Fleetwood Mac",
+      "transcriber": "GW2MB",
+      "instrument": "Bass",
+      "durationMs": 90921,
+      "createdAt": "2026-07-05T13:21:43.025Z"
     }
   ]
 }
