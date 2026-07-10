@@ -1,0 +1,1077 @@
+{
+  "version": 1,
+  "songs": [
+    {
+      "id": "cd8caae6-da83-4c1a-8b79-9f33fe991d4a",
+      "name": "Anastasia",
+      "artist": "Slash",
+      "transcriber": "smogu",
+      "instrument": "Bass",
+      "durationMs": 50485.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5d1a24b3-5be7-4091-beed-0e43b559ea9f",
+      "name": "Another One Bites The Dust",
+      "artist": "Queen",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 54552.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a2f69621-6ecd-434e-a193-41bcf64145fe",
+      "name": "Bad to the Bone",
+      "artist": "George Thorogood",
+      "transcriber": "Sunderious",
+      "instrument": "Bass",
+      "durationMs": 16200.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "25e73e8c-2f27-4aea-beec-79ffc9d6f7c0",
+      "name": "Bark at the Moon",
+      "artist": "Ozzy Osbourne",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 103346.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a6bc08e7-7af8-43fb-82f9-3b6620a0f5cd",
+      "name": "Behind Blue Eyes",
+      "artist": "The Who",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 201291.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "97ef93fa-2ded-41e2-a962-e6a20a7225fc",
+      "name": "Black Hole Sun",
+      "artist": "Soundgarden",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 91244.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "67bcdcb2-d072-4afd-bfca-aaa1704ff830",
+      "name": "Do I Wanna Know",
+      "artist": "Arctic Monkeys",
+      "transcriber": "sorcerer08",
+      "instrument": "Bass",
+      "durationMs": 178420.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "803d2a6b-5a06-4595-80b7-d028ef741b39",
+      "name": "Dream On",
+      "artist": "Aerosmith",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 32802.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "7e584cf8-343e-4245-a961-bba4cc592d33",
+      "name": "Highway to Hell",
+      "artist": "AC/DC",
+      "transcriber": "c0pperhe4d",
+      "instrument": "Bass",
+      "durationMs": 4995.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "e1efee59-55ca-483b-a731-11567f5d4fc7",
+      "name": "Hysteria",
+      "artist": "Muse",
+      "transcriber": "wulfgar",
+      "instrument": "Bass",
+      "durationMs": 52400.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "0800e031-1d96-464f-80d5-e77f40931ad5",
+      "name": "I Dont Want to Miss a Thing",
+      "artist": "Aerosmith",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 134553.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "6ebd7b42-cb24-48ec-94ed-948f8e30a820",
+      "name": "Imperial March",
+      "artist": "John Williams",
+      "transcriber": "c0pperhe4d",
+      "instrument": "Bass",
+      "durationMs": 8400.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "0ab29947-e3ea-43f7-bff8-f34079fff5cb",
+      "name": "Pepper",
+      "artist": "Butthole Surfers",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 184544.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "fdda5354-cac2-4c41-8a44-11e1857390a6",
+      "name": "Redemption Song",
+      "artist": "Bob Marley",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 146208.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "6cb00ac2-f89b-4562-a872-56c41cd9ca9d",
+      "name": "Rock n Roll Aint Noise Pollution",
+      "artist": "AC/DC",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 147641.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "0b823ff5-6b11-4f40-89a1-0486d8f09362",
+      "name": "Seven Nation Army",
+      "artist": "The White Stripes",
+      "transcriber": "meh",
+      "instrument": "Bass",
+      "durationMs": 154800.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "8efe972a-b7ce-404c-a9af-e03c1f2bc62b",
+      "name": "Smooth Criminal",
+      "artist": "Michael Jackson",
+      "transcriber": "scri",
+      "instrument": "Bass",
+      "durationMs": 174680.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5309be74-d99a-4a4f-9812-43ecb82f2eec",
+      "name": "Time is Running Out",
+      "artist": "Muse",
+      "transcriber": "winfer",
+      "instrument": "Bass",
+      "durationMs": 26000.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "fdd09142-bffb-4455-b345-879cfbfbf740",
+      "name": "White Wedding",
+      "artist": "Billy Idol",
+      "transcriber": "Aex",
+      "instrument": "Bass",
+      "durationMs": 39000.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "b0c95ec2-8f23-4353-8327-532fdd58916e",
+      "name": "Back in Black",
+      "artist": "AC/DC",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 68634.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "999007e2-ca48-41be-b653-fb906a1d3ef7",
+      "name": "Billie Jean",
+      "artist": "Michael Jackson",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 68098.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a544a05f-1835-4b3c-9e2a-80aa7cef25f3",
+      "name": "Fusion Frenzy",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 82684.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "90890a9d-51d1-4e2b-bd50-c780954277a8",
+      "name": "Hot for Teacher",
+      "artist": "Van Halen",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 64020.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "7bfd55c8-5f03-4f52-b04e-e968af514fcc",
+      "name": "In the Air Tonight",
+      "artist": "Phil Collins",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 66148.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "56fb3897-45c7-4608-961e-6cf228f003c3",
+      "name": "Jungle Run",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 64960.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "b25cfe61-51aa-40f1-b92b-5c10a3ab007a",
+      "name": "Painkiller",
+      "artist": "Judas Priest",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 65264.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "bd927c08-02bf-4b17-94d0-363fe33b6e90",
+      "name": "Polyrhythm Pulse",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 66544.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "4bc41a0e-bd64-4d92-a870-7c4f60a08cf9",
+      "name": "Sing Sing Sing",
+      "artist": "Benny Goodman",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 63480.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "c6e9eb12-da54-4502-8763-ba7fd13263d4",
+      "name": "Thunder Run",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 80264.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "69d2ca91-7f1a-4091-b60e-db43a967d296",
+      "name": "Tom Sawyer",
+      "artist": "Rush",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 64940.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "38fdc5a2-b760-4f28-863b-64f1d68e10e4",
+      "name": "Tribal Storm",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 64120.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "0f24aefe-1437-4d53-b25a-f84b19495972",
+      "name": "Wipe Out",
+      "artist": "The Surfaris",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 67296.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "10a8def9-1c36-443e-89bd-bb202a311e8b",
+      "name": "YYZ",
+      "artist": "Rush",
+      "transcriber": "Aex",
+      "instrument": "DrumSet",
+      "durationMs": 62475.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "90a5b7da-4cad-48b5-bbb1-0422f5353421",
+      "name": "21 Guns",
+      "artist": "Green Day",
+      "transcriber": "Sebter",
+      "instrument": "Harp",
+      "durationMs": 302524.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "c35b0bc0-2271-41cd-a8b1-a97ff5f47571",
+      "name": "Aint No Sunshine",
+      "artist": "Bill Withers",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 64218.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "8ce30f47-03d1-403d-9338-4b5ee27ed07a",
+      "name": "All of Me",
+      "artist": "John Legend",
+      "transcriber": "nynaeve",
+      "instrument": "Harp",
+      "durationMs": 111924.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a21c9f3c-9748-4dde-a04b-834c7d7793e5",
+      "name": "Amazing Grace",
+      "artist": "Traditional",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 26101.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a806f36f-9582-4475-91c0-0b9c448a5667",
+      "name": "Around The Fire",
+      "artist": "Jeremy Soule",
+      "transcriber": "siyahusta",
+      "instrument": "Harp",
+      "durationMs": 193458.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "7f780aa4-472d-44d0-aff1-38fb3f17dc7c",
+      "name": "Ashford Abbey",
+      "artist": "Jeremy Soule",
+      "transcriber": "Mylae Xar",
+      "instrument": "Harp",
+      "durationMs": 60511.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "bd613ca2-96f7-4eae-9822-4ff61e2e468f",
+      "name": "Ave Maria",
+      "artist": "Franz Schubert",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 84000.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "cdf99f77-1915-4a9a-b67a-0c34dd40d3b1",
+      "name": "Brahms Lullaby",
+      "artist": "Johannes Brahms",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 64800.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a12fddcc-960f-411e-95de-19a4e8bfe5e5",
+      "name": "California Dreamin",
+      "artist": "The Mamas and the Papas",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 65749.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "4f600917-1273-4d67-8172-0f37f4725aad",
+      "name": "Canon in D",
+      "artist": "Johann Pachelbel",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 65424.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5cb6c32d-322c-472b-80e0-e3cb14e5e111",
+      "name": "Cant Help Falling in Love",
+      "artist": "Elvis Presley",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 105148.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5d1a7a08-1618-41d2-9daf-cca4f17c6d3a",
+      "name": "Castle in the Sky Theme",
+      "artist": "Joe Hisaishi",
+      "transcriber": "nynaeve",
+      "instrument": "Harp",
+      "durationMs": 115135.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "3e516c59-57dc-4142-82af-7aaa82b12ef0",
+      "name": "Crossing Field",
+      "artist": "LiSA",
+      "transcriber": "Lindsey",
+      "instrument": "Harp",
+      "durationMs": 121400.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "870a03ef-70b8-4e44-bc2a-27c98dae3f86",
+      "name": "Fear Not This Night",
+      "artist": "Asja Kadric",
+      "transcriber": "nynaeve",
+      "instrument": "Harp",
+      "durationMs": 292740.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "c029421d-5439-4f6a-91b5-ae74147a235b",
+      "name": "Fur Elise",
+      "artist": "Beethoven",
+      "transcriber": "My Paws",
+      "instrument": "Harp",
+      "durationMs": 26120.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "e2f6dc75-1585-497b-aa95-a8afb1ebbfa3",
+      "name": "Game of Thrones Theme",
+      "artist": "Ramin Djawadi",
+      "transcriber": "Mylae Xar",
+      "instrument": "Harp",
+      "durationMs": 140206.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "7a8aa2cd-2a32-4878-b73d-93f5690d7f21",
+      "name": "Gracefully",
+      "artist": "Yuki Kajiura",
+      "transcriber": "Lindsey",
+      "instrument": "Harp",
+      "durationMs": 94945.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "1e0c935b-5c17-43b3-8b35-6774638be742",
+      "name": "Guild Wars Prophecies",
+      "artist": "Jeremy Soule",
+      "transcriber": "LastArabesque",
+      "instrument": "Harp",
+      "durationMs": 21000.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5bbafcd8-d40b-4eb2-84e6-3234484c37ec",
+      "name": "Gymnopedie",
+      "artist": "Erik Satie",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 195010.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "ede1d8f2-3c59-4c96-be50-d48188dfff4e",
+      "name": "Heaven",
+      "artist": "Bryan Adams",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 54000.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "4eb335fa-8651-4780-8290-cb0cbc56376e",
+      "name": "Hello",
+      "artist": "Adele",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 56720.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "d3b3ecf9-0a40-45f8-af1d-04305700ce97",
+      "name": "Hero",
+      "artist": "Enrique Iglesias",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 48280.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "02407356-8f8c-4717-8c92-0b0b5a40bd7d",
+      "name": "Hoshi no Arika",
+      "artist": "Falcom Sound Team",
+      "transcriber": "nynaeve",
+      "instrument": "Harp",
+      "durationMs": 78515.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "8cedf8ea-57e0-43fe-9428-cd26c46bb5bc",
+      "name": "I Need Your Love",
+      "artist": "Calvin Harris ft. Ellie Goulding",
+      "transcriber": "bebunw",
+      "instrument": "Harp",
+      "durationMs": 202024.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "4fa1a02f-925c-43cf-bd0c-41281572d548",
+      "name": "Interstellar",
+      "artist": "Hans Zimmer",
+      "transcriber": "paninibolo",
+      "instrument": "Harp",
+      "durationMs": 35631.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "14670e30-75fe-4467-86fd-038ebb2a5a83",
+      "name": "Let It Be",
+      "artist": "The Beatles",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 70400.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "bdb70499-b3bf-465e-9c49-40da4538d0d5",
+      "name": "Morrowind Main Theme",
+      "artist": "Jeremy Soule",
+      "transcriber": "Stouts",
+      "instrument": "Harp",
+      "durationMs": 26658.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "7df711b5-68c4-47ae-a7b8-0ce0f235e497",
+      "name": "Never Gonna Give You Up",
+      "artist": "Rick Astley",
+      "transcriber": "Gravenblade",
+      "instrument": "Harp",
+      "durationMs": 231994.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "495cb8fe-ed44-45a5-a402-59ac85952c07",
+      "name": "Numb",
+      "artist": "Linkin Park",
+      "transcriber": "bebunw",
+      "instrument": "Harp",
+      "durationMs": 181508.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "860a7409-1f47-4166-bf7f-e225250162cb",
+      "name": "Radioactive",
+      "artist": "Imagine Dragons",
+      "transcriber": "nynaeve",
+      "instrument": "Harp",
+      "durationMs": 231994.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "02df6ff5-e915-45c0-bb50-df65f71e8ac9",
+      "name": "Sadness and Sorrow",
+      "artist": "Toshio Masuda",
+      "transcriber": "Lindsey",
+      "instrument": "Harp",
+      "durationMs": 92492.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "35659aa3-e522-4b55-9a11-d22a2fbeee52",
+      "name": "Say Something",
+      "artist": "A Great Big World",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 216717.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "f97693ab-ea56-43f8-84ea-c085f2a1f004",
+      "name": "Still Alive",
+      "artist": "Ellen McLain",
+      "transcriber": "Mylae Xar",
+      "instrument": "Harp",
+      "durationMs": 172000.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "4f356899-81be-4d67-8304-26566e4c849f",
+      "name": "Super Mario",
+      "artist": "Koji Kondo",
+      "transcriber": "An Apple A Day",
+      "instrument": "Harp",
+      "durationMs": 43250.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "02c88402-444f-47ca-a657-00a01858442f",
+      "name": "Time Boils the Rain",
+      "artist": "Wu Yifan (Kris Wu)",
+      "transcriber": "nynaeve",
+      "instrument": "Harp",
+      "durationMs": 236457.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "510cb755-2529-4140-a56d-15b86fb45ce9",
+      "name": "Yesterday",
+      "artist": "The Beatles",
+      "transcriber": "Aex",
+      "instrument": "Harp",
+      "durationMs": 125695.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "cafeb624-2f08-4312-9279-7ecec901d83a",
+      "name": "1921 Main Theme",
+      "artist": "Unknown",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 77087.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "af4c2b69-0920-40f3-9f50-57719943ceae",
+      "name": "After the Rain",
+      "artist": "Avision",
+      "transcriber": "nynaeve",
+      "instrument": "Lute",
+      "durationMs": 92492.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "f83e34a1-ffcd-4452-b4c3-df265ce02a68",
+      "name": "Altered Carbon Theme",
+      "artist": "Jeff Russo",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 87244.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "781b9182-9103-4acc-8b16-ce515d4d3671",
+      "name": "Animaniacs Theme",
+      "artist": "Richard Stone",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 23824.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "9d475dda-3565-45fa-9833-f2c3fbf7c98c",
+      "name": "Avengers Theme",
+      "artist": "Alan Silvestri",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 46800.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "ebdcb76e-8ff9-4804-9c80-6c9c971e25ad",
+      "name": "Beetlejuice Theme",
+      "artist": "Danny Elfman",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 52150.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "e0acd2bc-efc0-4294-b19d-eaf07efab0cc",
+      "name": "Big Bang Theory Theme",
+      "artist": "Barenaked Ladies",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 22500.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "8bf6d55a-ea4d-4f07-b3b3-d42b686d1e91",
+      "name": "Brave Song",
+      "artist": "Lia",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 62040.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "35edcded-24b4-4c8a-a82c-71e25bc5cf89",
+      "name": "Braveheart Theme",
+      "artist": "James Horner",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 44250.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "fc93ba95-db87-4fe2-bdb2-eec9649259dd",
+      "name": "Colors of the Wind",
+      "artist": "Alan Menken",
+      "transcriber": "proteininja",
+      "instrument": "Lute",
+      "durationMs": 206880.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "456560a4-8745-430f-aecc-ce453239b1df",
+      "name": "Colors of the Wind",
+      "artist": "Alan Menken",
+      "transcriber": "proteininja",
+      "instrument": "Lute",
+      "durationMs": 102954.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "3c340647-0242-42ee-895f-9cec65576c4b",
+      "name": "Lute small song",
+      "artist": "Poket Aysis",
+      "transcriber": "Poket Aysis",
+      "instrument": "Lute",
+      "durationMs": 5100.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "8d06864f-5016-4c7e-87ba-10dfca333215",
+      "name": "Dueling Lutes",
+      "artist": "Arthur Smith",
+      "transcriber": "proteininja",
+      "instrument": "Lute",
+      "durationMs": 35429.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "d3a1318f-f194-4ed2-a18b-6fb0f88b96f8",
+      "name": "GoldenEye Theme",
+      "artist": "Tina Turner",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 63976.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "dae29a77-459b-4f82-8f1e-77ee717c5ef2",
+      "name": "Gummy Bears Theme",
+      "artist": "Michael Silversher",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 49480.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "51772068-1297-4030-84a0-ade730656203",
+      "name": "He's a Pirate",
+      "artist": "Hans Zimmer",
+      "transcriber": "nynaeve",
+      "instrument": "Lute",
+      "durationMs": 70200.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "d2f41205-0db2-47b1-a2c7-b7aff106d9ec",
+      "name": "Ievan Polkka",
+      "artist": "Loituma",
+      "transcriber": "nynaeve",
+      "instrument": "Lute",
+      "durationMs": 44281.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5293c3fa-d159-4afb-90f9-b64944c985dd",
+      "name": "Isabellas Lullaby",
+      "artist": "Takahiro Obata",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 61476.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "aaeb588b-58fd-4c99-8043-1dbec852c4ce",
+      "name": "KK Ballad",
+      "artist": "Kazumi Totaka",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 38488.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "b578dd3e-ca10-4bd6-84da-d128aba3c364",
+      "name": "Minuet in G",
+      "artist": "J.S. Bach",
+      "transcriber": "Aex",
+      "instrument": "Lute",
+      "durationMs": 63902.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "f1da893a-26d6-40fd-87c8-d638ce93ca06",
+      "name": "Song of Storms",
+      "artist": "Koji Kondo",
+      "transcriber": "MyRageness",
+      "instrument": "Lute",
+      "durationMs": 37881.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "b204e22b-7cf9-4162-a226-c9081eff54e8",
+      "name": "Aerials",
+      "artist": "System of a Down",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 77249.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "93e00bb0-e648-458d-8a53-a182df56e3cf",
+      "name": "As Long As You Love Me",
+      "artist": "Backstreet Boys",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 205636.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "d28cbab6-e313-41bb-b1ae-8aaeaa0a4302",
+      "name": "Bink's Sake",
+      "artist": "One Piece",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 68167.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "42df5099-214c-481e-9596-dd62ba8c901f",
+      "name": "Earth Song",
+      "artist": "Michael Jackson",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 150757.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "90627bd3-9544-4d2e-9139-76cbcf9fc33e",
+      "name": "Ember Cascade",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "durationMs": 108376.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "b620aeb3-30da-485e-a40d-4ef3e8999207",
+      "name": "Here Comes A Thought",
+      "artist": "Steven Universe",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 202076.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "1dfdd1f5-c9f8-4f87-87eb-1219264dabd2",
+      "name": "Hey Jude",
+      "artist": "The Beatles",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 280160.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "bd78bd09-3d60-4332-9e7f-5d8d7b943104",
+      "name": "Hypnotize",
+      "artist": "System of a Down",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 175417.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "a6f256c0-8ae8-4161-9e60-da9b20086283",
+      "name": "I Want It That Way",
+      "artist": "Backstreet Boys",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 208631.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "489eff7d-72e9-4792-b36b-4539649b2217",
+      "name": "Imagine",
+      "artist": "John Lennon",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "durationMs": 136868.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "23255383-730a-499b-9b50-9bf5af534f9b",
+      "name": "Just Give Me A Reason",
+      "artist": "Pink",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 229363.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "e869389b-a12b-4e6c-a84b-c8ad141b5622",
+      "name": "My Heart Will Go On",
+      "artist": "Celine Dion",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 38225.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "e6adefd4-031d-4be5-a1ba-7d4fc19be10a",
+      "name": "My Immortal",
+      "artist": "Evanescence",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 257130.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "ecfca3ba-95ad-4ed3-be8c-348e4d449181",
+      "name": "Neon Skyline",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "durationMs": 110904.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "2fb063cd-5087-4b85-87a7-34c46e898489",
+      "name": "Numb",
+      "artist": "Linkin Park",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 208025.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "23dc5449-e152-4b2d-9307-2d7476b65900",
+      "name": "Perfect",
+      "artist": "Pentatonix",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 270851.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "d7bffd42-6cc3-4aa6-9921-a2e78dbdf92d",
+      "name": "Prelude in C",
+      "artist": "J.S. Bach",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "durationMs": 106650.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "cad28337-6bca-4993-8f43-9245d65f0ae7",
+      "name": "River Flows In You",
+      "artist": "Yiruma",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 178958.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "97c702b6-11c4-46ac-92cf-e7523881e865",
+      "name": "Sadness and Sorrow",
+      "artist": "Naruto",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 203514.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "6f8e5f40-3a3d-45c5-8ad4-a024c336b66d",
+      "name": "Still Loving You",
+      "artist": "Scorpions",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 325901.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "e98dfeda-4e9c-47e0-8bf3-a5721a8a4fb9",
+      "name": "Sunrise Sprint",
+      "artist": "Aex",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "durationMs": 114456.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "149a1355-ee81-4b57-8a68-f26557993e64",
+      "name": "Tem Do Pequenininha",
+      "artist": "Roberio e Seus Teclados",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 123066.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "89bb0b03-1aac-4122-914b-cde3190a6697",
+      "name": "Through The Fire And Flames",
+      "artist": "DragonForce",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 368815.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "7a80dcc4-a1c9-4626-8239-cb18c5756f8d",
+      "name": "Total Eclipse Of The Heart",
+      "artist": "Bonnie Tyler",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 309253.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "970527ca-80fe-495a-b052-87885288907e",
+      "name": "Volta Amor",
+      "artist": "Roberio e Seus Teclados",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 193905.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5f4fc662-7b15-4945-a0b0-c1308b94c9f9",
+      "name": "We Are The World",
+      "artist": "USA for Africa",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 301294.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "0dc168b0-8633-420d-a3b0-269f99e67113",
+      "name": "Welcome to the Black Parade",
+      "artist": "My Chemical Romance",
+      "transcriber": "Aex",
+      "instrument": "Piano",
+      "durationMs": 53800.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5b457f71-f41a-4fd7-9ee9-853808057fa0",
+      "name": "What A Feeling",
+      "artist": "Irene Cara",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 234280.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    },
+    {
+      "id": "5ffb1438-de0c-4862-89b5-411f273fe802",
+      "name": "What's The Use Of Feeling Blue",
+      "artist": "Steven Universe",
+      "transcriber": "PianoTomas",
+      "instrument": "Piano",
+      "durationMs": 160924.0,
+      "createdAt": "2026-07-09T22:39:40.692Z"
+    }
+  ],
+  "lastUpdated": "2026-07-09T22:39:40.692Z"
+}
