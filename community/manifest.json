@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-07-12T17:22:15.099Z",
+  "lastUpdated": "2026-07-12T17:23:36.579Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -460,15 +460,6 @@
       "instrument": "Bass",
       "durationMs": 90921,
       "createdAt": "2026-07-05T13:21:43.025Z"
-    },
-    {
-      "id": "ffbbe64e-3877-4e86-90af-54def3deed95",
-      "name": "MIGRATION TEST SONG - safe to delete",
-      "artist": "Test",
-      "transcriber": "migration-test",
-      "instrument": "Piano",
-      "durationMs": 2400,
-      "createdAt": "2026-07-12T21:19:32.349Z"
     }
   ]
 }
