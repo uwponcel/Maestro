@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-07-05T13:21:43.025Z",
+  "lastUpdated": "2026-07-12T17:22:15.099Z",
   "songs": [
     {
       "id": "d4b78349-0a99-4b11-ba62-d833e8b787a1",
@@ -117,7 +117,7 @@
       "transcriber": "Bai Gujing",
       "instrument": "Piano",
       "durationMs": 161019,
-      "createdAt": "2026-02-23T11:25:22.430Z"
+      "createdAt": "2026-02-23T11:25:22.43Z"
     },
     {
       "id": "ebb95087-667e-4977-9876-8448b13aafb7",
@@ -342,7 +342,7 @@
       "transcriber": "bhachuu",
       "instrument": "Piano",
       "durationMs": 96600,
-      "createdAt": "2026-05-08T19:58:29.000Z"
+      "createdAt": "2026-05-08T19:58:29Z"
     },
     {
       "id": "b42d5f7b-848f-4be4-a072-ae6eb659afe6",
@@ -369,7 +369,7 @@
       "transcriber": "Marathon",
       "instrument": "Piano",
       "durationMs": 94200,
-      "createdAt": "2026-05-17T04:02:18.550Z"
+      "createdAt": "2026-05-17T04:02:18.55Z"
     },
     {
       "id": "2f428715-bbcb-48e4-afb2-612650e48acc",
@@ -396,7 +396,7 @@
       "transcriber": "Nekopaww",
       "instrument": "Piano",
       "durationMs": 246250,
-      "createdAt": "2026-05-20T04:25:19.690Z"
+      "createdAt": "2026-05-20T04:25:19.69Z"
     },
     {
       "id": "90816569-0eb5-44de-9da8-18b2e452dcc3",
@@ -423,7 +423,7 @@
       "transcriber": "Kraft Lawrence",
       "instrument": "Piano",
       "durationMs": 118000,
-      "createdAt": "2026-06-19T23:34:22.190Z"
+      "createdAt": "2026-06-19T23:34:22.19Z"
     },
     {
       "id": "90911a47-8470-4a2a-a47b-6f82d58d74e5",
@@ -460,6 +460,15 @@
       "instrument": "Bass",
       "durationMs": 90921,
       "createdAt": "2026-07-05T13:21:43.025Z"
+    },
+    {
+      "id": "ffbbe64e-3877-4e86-90af-54def3deed95",
+      "name": "MIGRATION TEST SONG - safe to delete",
+      "artist": "Test",
+      "transcriber": "migration-test",
+      "instrument": "Piano",
+      "durationMs": 2400,
+      "createdAt": "2026-07-12T21:19:32.349Z"
     }
   ]
 }
