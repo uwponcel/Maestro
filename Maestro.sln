@@ -1,9 +1,43 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maestro", "Maestro.csproj", "{FEC31CE0-4539-4A1B-A633-78E3BDBD8C56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maestro", "module\Maestro.csproj", "{FEC31CE0-4539-4A1B-A633-78E3BDBD8C56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "worker", "worker", "{2521B1EF-7E5B-4888-B22B-2B666F1EA966}"
+	ProjectSection(SolutionItems) = preProject
+		worker\.eslintrc.json = worker\.eslintrc.json
+		worker\.gitignore = worker\.gitignore
+		worker\.prettierrc = worker\.prettierrc
+		worker\package-lock.json = worker\package-lock.json
+		worker\package.json = worker\package.json
+		worker\tsconfig.json = worker\tsconfig.json
+		worker\wrangler.toml = worker\wrangler.toml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1066032E-4482-4F35-A024-C5DC9AB2B834}"
+	ProjectSection(SolutionItems) = preProject
+		worker\src\index.ts = worker\src\index.ts
+		worker\src\types.ts = worker\src\types.ts
+		worker\src\utils.ts = worker\src\utils.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "handlers", "handlers", "{08078AD5-2C24-47F5-8AA8-964BA448BE24}"
+	ProjectSection(SolutionItems) = preProject
+		worker\src\handlers\upload.ts = worker\src\handlers\upload.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{96F00B6F-4097-4C2F-8962-8F14BD0E714D}"
+	ProjectSection(SolutionItems) = preProject
+		worker\src\services\github.ts = worker\src\services\github.ts
+		worker\src\services\rate-limiter.ts = worker\src\services\rate-limiter.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "validators", "validators", "{211EF472-5E7C-4224-B00E-9A0F1E9D0C1C}"
+	ProjectSection(SolutionItems) = preProject
+		worker\src\validators\song.ts = worker\src\validators\song.ts
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +52,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1066032E-4482-4F35-A024-C5DC9AB2B834} = {2521B1EF-7E5B-4888-B22B-2B666F1EA966}
+		{08078AD5-2C24-47F5-8AA8-964BA448BE24} = {1066032E-4482-4F35-A024-C5DC9AB2B834}
+		{96F00B6F-4097-4C2F-8962-8F14BD0E714D} = {1066032E-4482-4F35-A024-C5DC9AB2B834}
+		{211EF472-5E7C-4224-B00E-9A0F1E9D0C1C} = {1066032E-4482-4F35-A024-C5DC9AB2B834}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94774E8F-CBB1-4CC2-A4F9-606CEF73C97D}

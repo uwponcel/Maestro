@@ -1,5 +1,26 @@
 # Changelog
 
+## v6.3.0
+
+### Changed
+- Built-in and community songs are now served from Blish HUD's static hosting
+  instead of being bundled with the module or fetched via git branches. New
+  songs no longer require a module release to reach players. On first launch
+  after this update, built-in songs sync once from the network (previously
+  instant/bundled).
+
+### Fixed
+- Fixed a threading bug where downloading a community song, or the new
+  built-in sync, could mutate the song list off Blish HUD's main thread.
+  Normally invisible, but the underlying race was real.
+
+### Technical
+- Unified built-in, community, and pending-review song hosting onto one
+  `bhud-static/Aex.Maestro` branch (manifest + per-song JSON per namespace),
+  replacing the bundled `ref/songs.json` blob and the `Community/` folder.
+- Folded the standalone `maestro-api` Cloudflare Worker repo into this repo
+  as `worker/`.
+
 ## v6.2.1
 
 ### Added

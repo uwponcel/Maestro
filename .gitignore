@@ -296,10 +296,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-# Cake - Uncomment if you are using it
-# tools/**
-# !tools/packages.config
-
 # Tabs Studio
 *.tss
 
@@ -333,21 +329,12 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-# Blish HUD debug artifacts
-Blish HUD.DebugHelper.exe
-
-GW2Songsdata
-
-debug_keys.txt
-Features/
+# Local debug-mode song exports (Module.cs debugSongsPath / DebugLogger)
 SongsDebug/
 
-# Dev tools (local utilities, not shipped)
-tools/
+# docs/ is scratch (design notes, superpowers plugin cache) - not part of the repo
+/docs/
 
-# Rider run configurations
-.run/
-
-# Superpowers working dirs (ephemeral specs/plans, plugin cache)
-docs/superpowers/
+# Claude Code local project state (settings, scheduled-task locks) - machine-local, not part of the repo
+/.claude/
 .superpowers/
