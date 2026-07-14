@@ -38,6 +38,7 @@ namespace Maestro.UI.Main
             public const int QueueButtonWidth = 30;
             public const int QueueButtonRightPadding = 8;
             public const int QueueButtonY = 8;
+
         }
 
         public event EventHandler StopRequested;

@@ -42,5 +42,10 @@ namespace Maestro.Models
                     : span.ToString(@"m\:ss");
             }
         }
+
+        // Percussion is excluded: the practice highway and NoteTimeline only
+        // understand melodic note tokens (C-B with octave markers), not drum codes.
+        public bool IsPracticeSupported =>
+            Notes != null && Notes.Count > 0 && !InstrumentCatalog.Get(Instrument).IsPercussion;
     }
 }

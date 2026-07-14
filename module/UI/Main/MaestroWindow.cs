@@ -240,6 +240,36 @@ namespace Maestro.UI.Main
 
             _playlistService.QueueChanged += OnQueueChanged;
             _favoriteService.FavoritesChanged += OnFavoritesChanged;
+
+            // Module.Instance is guaranteed here: MaestroWindow is constructed
+            // from Module.OnCornerIconClick, which only runs after Initialize.
+            Module.Instance.PracticeActiveChanged += OnPracticeActiveChanged;
+        }
+
+        private void OnPracticeActiveChanged(object sender, EventArgs e)
+        {
+            RefreshPlayButtonState();
+        }
+
+        private void RefreshPlayButtonState()
+        {
+            // Practice mode owns the keyboard while running. There is no single
+            // "main play" control to disable; instead the per-song play actions
+            // are gated in OnSongPlayRequested / OnPlayPendingRequested via a
+            // notification so users always know why a click was ignored.
+            _songListPanel.UpdateCardStates();
+        }
+
+        private bool BlockIfPracticeActive()
+        {
+            if (Module.Instance != null && Module.Instance.IsPracticeActive)
+            {
+                ScreenNotification.ShowNotification(
+                    "Practice mode is running. Close it first to play normally.",
+                    ScreenNotification.NotificationType.Warning);
+                return true;
+            }
+            return false;
         }
 
         private void OnWindowClicked(object sender, MouseEventArgs e)
@@ -260,6 +290,8 @@ namespace Maestro.UI.Main
 
         private void OnSongPlayRequested(object sender, Song song)
         {
+            if (BlockIfPracticeActive()) return;
+
             // Clear any pending state
             if (_pendingSong != null)
             {
@@ -345,6 +377,8 @@ namespace Maestro.UI.Main
 
         private void OnPlayPendingRequested(object sender, Song song)
         {
+            if (BlockIfPracticeActive()) return;
+
             _playlistDrawer.HideInstrumentConfirmation();
 
             if (!_isPlayingFromQueue)
@@ -403,6 +437,8 @@ namespace Maestro.UI.Main
 
         private void OnPlayQueueRequested(object sender, EventArgs e)
         {
+            if (BlockIfPracticeActive()) return;
+
             if (!_playlistService.HasItems)
                 return;
 
@@ -606,6 +642,10 @@ namespace Maestro.UI.Main
             _nowPlayingPanel.StopRequested -= OnStopRequested;
             _nowPlayingPanel.PlayPendingRequested -= OnPlayPendingRequested;
             _nowPlayingPanel.QueueToggleClicked -= OnQueueToggleClicked;
+
+            // Module.Instance is still valid here: Module.Unload disposes
+            // _maestroWindow before clearing Instance.
+            Module.Instance.PracticeActiveChanged -= OnPracticeActiveChanged;
         }
 
         private void DisposeControls()

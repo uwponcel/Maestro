@@ -58,12 +58,9 @@
         <None Include="manifest.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include=".gitignore"/>
         <None Include="packages.config"/>
-        <None Include="README.md"/>
         <None Include="Scripts\**\*"/>
         <None Include="SongsDebug\**\*"/>
-        <None Include="CHANGELOG.md"/>
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Module.cs"/>
@@ -74,6 +71,9 @@
         <Compile Include="Models\Song.cs"/>
         <Compile Include="Models\SongNamespace.cs"/>
         <Compile Include="Models\SeekData.cs"/>
+        <Compile Include="Models\Judgement.cs"/>
+        <Compile Include="Models\PracticeResult.cs"/>
+        <Compile Include="Models\PracticeSettings.cs"/>
         <Compile Include="Services\DebugLogger.cs"/>
         <Compile Include="Services\Playback\KeyboardService.cs"/>
         <Compile Include="Services\Playback\SongPlayer.cs"/>
@@ -84,6 +84,12 @@
         <Compile Include="Services\Data\SongSerializer.cs"/>
         <Compile Include="Services\Data\AhkParser.cs"/>
         <Compile Include="Services\Data\SongStorage.cs"/>
+        <Compile Include="Services\Practice\HitGrader.cs"/>
+        <Compile Include="Services\Practice\KeyboardServiceKeySender.cs"/>
+        <Compile Include="Services\Practice\NoteTimeline.cs"/>
+        <Compile Include="Services\Practice\PracticeClock.cs"/>
+        <Compile Include="Services\Practice\PracticeInputListener.cs"/>
+        <Compile Include="Services\Practice\PracticeSession.cs"/>
         <Compile Include="Services\FavoriteService.cs"/>
         <Compile Include="Services\PlaylistService.cs"/>
         <Compile Include="UI\Import\ImportWindow.cs"/>
@@ -102,6 +108,10 @@
         <Compile Include="UI\Main\StatusBar.cs"/>
         <Compile Include="UI\Playlist\QueueSongCard.cs"/>
         <Compile Include="UI\Playlist\PlaylistDrawerWindow.cs"/>
+        <Compile Include="UI\Practice\NoteHighway.cs"/>
+        <Compile Include="UI\Practice\PracticeHud.cs"/>
+        <Compile Include="UI\Practice\PracticeWindow.cs"/>
+        <Compile Include="UI\Practice\SectionLoopBar.cs"/>
         <Compile Include="UI\MaestroCreator\MaestroCreatorWindow.cs"/>
         <Compile Include="UI\MaestroCreator\PianoKeyboard.cs"/>
         <Compile Include="UI\MaestroCreator\DrumPadPanel.cs"/>

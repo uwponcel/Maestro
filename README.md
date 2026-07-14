@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="256" height="256" alt="Aex Maestro" src="https://github.com/user-attachments/assets/d5fa3c1f-8359-4835-9c01-29faf5d45f17" />
+  <img width="256" height="256" alt="Aex Maestro" src="https://maestro-assets.pages.dev/maestro-logo.png" />
 </p>
 
 <h1 align="center">Maestro</h1>
@@ -12,6 +12,7 @@
 ## Features
 
 - **Lots of embedded songs** ready to play across Piano, Harp, Lute, Bass, Flute, Bell, and Drum Set
+- **Practice Mode** -- a Guitar Hero-style note highway that grades your timing as you play the real instrument
 - **Community song sharing** -- browse, download, and upload songs with other players
 - **Maestro Creator** -- compose your own songs in-game with a visual piano keyboard editor
 - **Playlist queue** -- line up songs and play them back-to-back
@@ -20,9 +21,36 @@
 - **Smart playback** -- auto-pauses when you tab out or type in chat, resumes when you return
 - Search, filter by instrument or source, and sort your library
 
+## Practice Mode
+
+Practice any melodic song in the modern note format on a falling-note highway. Tiles scroll down toward a hit line and you press your configured instrument keys in time, playing the real in-game instrument.
+
+### How to use it
+
+1. Click the bullseye button on a song card (it lights up while that song's practice window is open).
+2. Equip the song's instrument in GW2, then click **Ready**.
+3. Play along as the tiles fall -- press the matching keybind when a tile's head crosses the hit line.
+4. When the song ends, a results screen shows your final score, max combo, and a Perfect/Good/Miss/Wrong breakdown, with buttons to Restart or Close.
+
+![Practice Mode](https://maestro-assets.pages.dev/practice-mode.gif)
+
+### Features
+
+- **Your keybinds** -- grades the keys you already configured for Maestro; the bottom strip shows your key per lane, and tile colors match your GW2 note-skill icons
+- **Readable tiles** -- bright note head at the hit moment, dimmer sustain tail, note letters on every tile
+- **Sharps like in-game** -- darker `#` tiles, played with **Alt + skill slots 1-5** (C#/D#/F#/G#/A#), same as GW2
+- **Grades** -- Perfect (50 ms), Good (120 ms), Miss, with live score and combo, plus a results screen when the song ends
+- **Speed control** (0.5x / 0.75x / 1.0x) and a 3-2-1 countdown on start and restart
+- **Section loop** -- Shift+click the loop end, Ctrl+click the loop start, right-click to clear
+- **Automatic octave switching** so you can focus on the melody (manual handling planned)
+
+Drum Set songs can't be practiced (the highway is melodic-only).
+
 ## Maestro Creator
 
 The Creator lets you compose songs in-game with a visual piano keyboard. Notes appear as colored chips in the sequence panel.
+
+![Maestro Creator](https://maestro-assets.pages.dev/maestro-creator.gif)
 
 ### Note Selection
 
@@ -104,9 +132,9 @@ Example (one bar of a basic rock beat at 120 BPM):
 
 ## Module Settings
 
-![Module settings - keybinds](https://github.com/user-attachments/assets/b38a401b-adb8-4a2e-b9ca-7a4a7ccbd26f)
+![Module settings - keybinds](https://maestro-assets.pages.dev/module-settings-keybinds.png)
 
-![Module settings - options](https://github.com/user-attachments/assets/08843f71-3556-4b54-a00b-23da1996655b)
+![Module settings - options](https://maestro-assets.pages.dev/module-settings-options.png)
 
 ### Sharp Note Keybinds
 
@@ -116,7 +144,7 @@ Most song transcribers use **F1-F5 (Profession Skills)** for sharp notes. This a
 
 Match your module settings to your in-game instrument keybinds. Sharp keybinds must not conflict with natural note keybinds -- the defaults avoid this by using NumPad for natural notes and Alt + number row for sharps.
 
-![GW2 instrument keybind settings](https://github.com/user-attachments/assets/d35a5eb8-d301-4dc1-a405-4c50e4f5cc06)
+![GW2 instrument keybind settings](https://maestro-assets.pages.dev/gw2-instrument-keybinds.png)
 
 ## Get Involved
 
