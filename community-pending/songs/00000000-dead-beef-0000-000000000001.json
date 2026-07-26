@@ -1,0 +1,45 @@
+{
+  "name": "ZZ TEST SUBMISSION",
+  "artist": "Test Harness",
+  "transcriber": "Test Harness",
+  "instrument": "Piano",
+  "notes": [
+    {
+      "key": "1",
+      "timeMs": 100
+    },
+    {
+      "key": "1",
+      "timeMs": 200
+    },
+    {
+      "key": "1",
+      "timeMs": 300
+    },
+    {
+      "key": "1",
+      "timeMs": 400
+    },
+    {
+      "key": "1",
+      "timeMs": 500
+    },
+    {
+      "key": "1",
+      "timeMs": 600
+    },
+    {
+      "key": "1",
+      "timeMs": 700
+    },
+    {
+      "key": "1",
+      "timeMs": 800
+    },
+    {
+      "key": "1",
+      "timeMs": 900
+    }
+  ],
+  "skipOctaveReset": false
+}
