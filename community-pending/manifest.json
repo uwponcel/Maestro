@@ -1,5 +1,15 @@
 {
   "version": 1,
-  "songs": [],
+  "songs": [
+    {
+      "id": "00000000-dead-beef-0000-000000000001",
+      "name": "ZZ TEST SUBMISSION",
+      "artist": "Test Harness",
+      "transcriber": "Test Harness",
+      "instrument": "Piano",
+      "durationMs": 500,
+      "createdAt": "2026-07-26T00:00:00.000Z"
+    }
+  ],
   "lastUpdated": "2026-07-26T16:14:50.317Z"
 }
