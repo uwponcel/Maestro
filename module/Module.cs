@@ -19,6 +19,7 @@ using Maestro.UI.Community;
 using Maestro.UI.Import;
 using Maestro.UI.Main;
 using Maestro.UI.MaestroCreator;
+using Maestro.UI.Practice;
 using Microsoft.Xna.Framework;
 
 namespace Maestro
@@ -39,6 +40,18 @@ namespace Maestro
 
         private ModuleSettings _moduleSettings;
         internal ModuleSettings Settings => _moduleSettings;
+        private PracticeSettings _practiceSettings;
+        internal PracticeSettings PracticeSettings => _practiceSettings;
+        private PracticeWindow _practiceWindow;
+        public bool IsPracticeActive => _practiceWindow != null && _practiceWindow.Session != null && !_practiceWindow.Session.IsCompleted;
+
+        /// <summary>
+        /// The song currently open in the Practice window, or null if none is open.
+        /// Stays set while the results overlay is showing (window open but session
+        /// completed) so the song card's toggle only clears when the window is closed.
+        /// </summary>
+        public Song CurrentPracticeSong => _practiceWindow?.Song;
+        public event EventHandler PracticeActiveChanged;
         private KeyboardService _keyboardService;
         internal KeyboardService KeyboardService => _keyboardService;
         private SongPlayer _songPlayer;
@@ -67,6 +80,7 @@ namespace Maestro
         protected override void DefineSettings(SettingCollection settings)
         {
             _moduleSettings = new ModuleSettings(settings);
+            _practiceSettings = new PracticeSettings(settings.AddSubCollection("Practice", true, false));
         }
 
         protected override void Initialize()
@@ -218,6 +232,14 @@ namespace Maestro
 
         private void OnCreateRequested(object sender, InstrumentType instrument)
         {
+            if (IsPracticeActive)
+            {
+                ScreenNotification.ShowNotification(
+                    "Practice mode is running. Close it first to open the Creator.",
+                    ScreenNotification.NotificationType.Warning);
+                return;
+            }
+
             if (_maestroCreatorWindow == null)
             {
                 _maestroCreatorWindow = new MaestroCreatorWindow();
@@ -246,6 +268,14 @@ namespace Maestro
 
         private void OnEditRequested(object sender, Song song)
         {
+            if (IsPracticeActive)
+            {
+                ScreenNotification.ShowNotification(
+                    "Practice mode is running. Close it first to edit a song.",
+                    ScreenNotification.NotificationType.Warning);
+                return;
+            }
+
             if (_maestroCreatorWindow == null)
             {
                 _maestroCreatorWindow = new MaestroCreatorWindow();
@@ -312,6 +342,61 @@ namespace Maestro
                 Logger.Error(ex, $"Failed to save created song: {song.Name}");
                 ScreenNotification.ShowNotification("Failed to save song", ScreenNotification.NotificationType.Error);
             }
+        }
+
+        /// <summary>
+        /// Opens the Practice Mode window for a song. The song must be in the modern
+        /// note format (<see cref="Song.IsPracticeSupported"/>); legacy Commands-only
+        /// songs are rejected with a warning.
+        /// </summary>
+        public void StartPractice(Song song)
+        {
+            if (song == null || !song.IsPracticeSupported)
+            {
+                Logger.Warn($"Cannot start practice: unsupported song {song?.Name}");
+                return;
+            }
+
+            if (_keyboardService == null || _practiceSettings == null)
+            {
+                Logger.Warn("Cannot start practice: module not yet initialized");
+                return;
+            }
+
+            // Creator and Practice both use the Blish HUD keyboard; only one can
+            // own it at a time. Tell the user which one to close first.
+            if (_maestroCreatorWindow != null && _maestroCreatorWindow.Visible)
+            {
+                ScreenNotification.ShowNotification(
+                    "The Creator is open. Close it first to start Practice mode.",
+                    ScreenNotification.NotificationType.Warning);
+                return;
+            }
+
+            // Stop main playback so the practice session has exclusive use of the keyboard.
+            _songPlayer.Stop();
+
+            // Re-use existing window if present. Detach the Disposed handler before
+            // tearing down so the swap doesn't fire a spurious "practice ended"
+            // pulse on PracticeActiveChanged between the old and new windows.
+            if (_practiceWindow != null)
+            {
+                _practiceWindow.Disposed -= OnPracticeWindowDisposed;
+                _practiceWindow.Hide();
+                _practiceWindow.Dispose();
+                _practiceWindow = null;
+            }
+
+            _practiceWindow = new PracticeWindow(song, _keyboardService, _practiceSettings);
+            _practiceWindow.Disposed += OnPracticeWindowDisposed;
+            _practiceWindow.Show();
+            PracticeActiveChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnPracticeWindowDisposed(object sender, EventArgs e)
+        {
+            _practiceWindow = null;
+            PracticeActiveChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -482,6 +567,12 @@ namespace Maestro
         protected override void Unload()
         {
             _songPlayer?.Stop();
+            if (_practiceWindow != null)
+            {
+                _practiceWindow.Disposed -= OnPracticeWindowDisposed;
+                _practiceWindow.Dispose();
+                _practiceWindow = null;
+            }
             _maestroCreatorWindow?.Dispose();
             _uploadWindow?.Dispose();
             _communityWindow?.Dispose();

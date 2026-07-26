@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "validators", "validators", 
 		worker\src\validators\song.ts = worker\src\validators\song.ts
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maestro.Tests", "Maestro.Tests\Maestro.Tests.csproj", "{CC1F0A42-9392-4EC5-9607-D08D150DB817}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -49,6 +51,10 @@ Global
 		{FEC31CE0-4539-4A1B-A633-78E3BDBD8C56}.Debug|x64.Build.0 = Debug|x64
 		{FEC31CE0-4539-4A1B-A633-78E3BDBD8C56}.Release|x64.ActiveCfg = Release|x64
 		{FEC31CE0-4539-4A1B-A633-78E3BDBD8C56}.Release|x64.Build.0 = Release|x64
+		{CC1F0A42-9392-4EC5-9607-D08D150DB817}.Debug|x64.ActiveCfg = Debug|x64
+		{CC1F0A42-9392-4EC5-9607-D08D150DB817}.Debug|x64.Build.0 = Debug|x64
+		{CC1F0A42-9392-4EC5-9607-D08D150DB817}.Release|x64.ActiveCfg = Release|x64
+		{CC1F0A42-9392-4EC5-9607-D08D150DB817}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

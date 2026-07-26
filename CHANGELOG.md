@@ -1,5 +1,27 @@
 # Changelog
 
+## v7.0.0 - Practice Mode
+
+The headline feature of this release: a Guitar Hero-style practice window for any
+melodic song in the modern note format, so you can learn a song's timing before
+you ever equip the instrument in GW2.
+
+### Added
+
+- **Practice Mode**: an 8-lane falling-note highway with real-time grading.
+  - **Note tiles colored like your skill bar** - each lane matches its GW2 note-skill icon color, and sharp tiles use the Alt-skill colors, so the highway reads like the actual skill bar. Every tile is labelled with its note letter (`C`, `F#`, etc.).
+  - A bright **note head** crosses the hit line exactly when the note should be played, with a dimmer **sustain tail** showing its length and a translucent band marking the Good timing window.
+  - **Grades the keybinds you already configured for Maestro** - the bottom strip shows your key per lane. Sharps work exactly like in-game: **Alt + skill slots 1-5** for C#/D#/F#/G#/A#.
+  - Perfect (within 50 ms) / Good (within 120 ms) / Miss grading with a running score and combo counter.
+  - Speed control (0.5x / 0.75x / 1.0x), a 3-2-1 countdown on start and restart, and section looping (Shift+click sets the loop end, Ctrl+click sets the loop start, right-click clears it).
+  - Octave switches are handled automatically so you can focus on the melody (manual octave handling is planned for a future release).
+  - A **results screen** when the song ends: final score, max combo, and a Perfect/Good/Miss/Wrong breakdown, with Restart and Close.
+  - Launched with the new bullseye button on each song card, which toggles on while that song's practice window is open. Drum Set songs can't be practiced (the highway is melodic-only).
+
+### Changed
+
+- Main playback now refuses to start a song while a practice session is active, with a screen notification explaining why.
+
 ## v6.3.0
 
 ### Changed

@@ -21,6 +21,7 @@ namespace Maestro.Services.Playback
         private readonly Dictionary<Keys, SettingEntry<KeyBinding>> _sharpRemappings;
         private readonly HashSet<Keys> _activeSharpKeys;
         private readonly HashSet<Keys> _heldKeys;
+        private readonly HashSet<Keys> _justSent = new HashSet<Keys>();
         private readonly DebugLogger _debugLogger = new DebugLogger();
         private bool _altHeld;
 
@@ -140,6 +141,33 @@ namespace Maestro.Services.Playback
             _activeSharpKeys.Clear();
 
             _altHeld = false;
+        }
+
+        /// <summary>
+        /// Mark that Maestro is about to inject a keypress for <paramref name="key"/>.
+        /// The next call to <see cref="WasJustSent"/> with the same key returns true and clears the mark.
+        /// Used by practice mode to ignore echoes of its own auto-octave injections.
+        /// </summary>
+        public void MarkJustSent(Keys key)
+        {
+            _justSent.Add(key);
+        }
+
+        /// <summary>
+        /// Resolve an internal key (e.g. NumPad9) to the physical key the user's binding
+        /// actually sends. Practice mode marks that physical key as just-sent so its own
+        /// injections are filtered from the input listener.
+        /// </summary>
+        public Keys GetConfiguredPrimaryKey(Keys key) =>
+            _keyRemappings.TryGetValue(key, out var setting) ? setting.Value.PrimaryKey : key;
+
+        /// <summary>
+        /// Check (and consume) whether <paramref name="key"/> was marked via <see cref="MarkJustSent"/>.
+        /// Returns true once per mark, then false until marked again.
+        /// </summary>
+        public bool WasJustSent(Keys key)
+        {
+            return _justSent.Remove(key);
         }
 
         /// <summary>

@@ -34,8 +34,17 @@ namespace Maestro.UI.Main
             public const int PlayButtonY = (Height - PlayButtonHeight) / 2;
             public const int PlayButtonRightMargin = 15;
 
+            // Practice button (sits between star and play)
+            public const int PracticeButtonWidth = 26;
+            public const int PracticeButtonHeight = 26;
+            public const int PracticeButtonY = (Height - PracticeButtonHeight) / 2;
+            public const int PracticeButtonGap = 6;
+
             // Labels width = card width - LabelRightMargin
-            public static int LabelRightMargin => PlayButtonWidth + PlayButtonRightMargin + StarButtonSize + StarButtonGap;
+            public static int LabelRightMargin =>
+                PlayButtonWidth + PlayButtonRightMargin
+                + PracticeButtonWidth + PracticeButtonGap
+                + StarButtonSize + StarButtonGap;
         }
 
         public event EventHandler<MouseEventArgs> PlayClicked;
@@ -50,6 +59,7 @@ namespace Maestro.UI.Main
         private readonly Label _titleLabel;
         private readonly Label _artistLabel;
         private readonly StarButton _starButton;
+        private readonly IconButton _practiceButton;
         private readonly StandardButton _playButton;
         private readonly ScrollingHighlightEffect _highlightEffect;
 
@@ -82,6 +92,13 @@ namespace Maestro.UI.Main
         {
             get => _starButton.IsFavorite;
             set => _starButton.IsFavorite = value;
+        }
+
+        /// <summary>Whether this song is currently open in the Practice window.</summary>
+        public bool IsPracticing
+        {
+            get => _practiceButton.Selected;
+            set => _practiceButton.Selected = value;
         }
 
         public SongCard(Song song, int width)
@@ -145,10 +162,34 @@ namespace Maestro.UI.Main
             {
                 Parent = this,
                 Location = new Point(
-                    width - Layout.PlayButtonWidth - Layout.PlayButtonRightMargin - Layout.StarButtonSize - Layout.StarButtonGap,
+                    width - Layout.PlayButtonWidth - Layout.PlayButtonRightMargin
+                          - Layout.PracticeButtonWidth - Layout.PracticeButtonGap
+                          - Layout.StarButtonSize - Layout.StarButtonGap,
                     (Layout.Height - Layout.StarButtonSize) / 2)
             };
             _starButton.Click += (s, e) => FavoriteToggleRequested?.Invoke(this, EventArgs.Empty);
+
+            _practiceButton = new IconButton(MaestroIcons.Practice, MaestroTheme.IconGlyph)
+            {
+                Parent = this,
+                Location = new Point(
+                    width - Layout.PlayButtonWidth - Layout.PlayButtonRightMargin
+                          - Layout.PracticeButtonWidth - Layout.PracticeButtonGap,
+                    Layout.PracticeButtonY),
+                Width = Layout.PracticeButtonWidth,
+                Height = Layout.PracticeButtonHeight,
+                Enabled = song.IsPracticeSupported,
+                BasicTooltipText = song.IsPracticeSupported
+                    ? "Practice this song (Guitar Hero-style)"
+                    : "Practice mode supports melodic songs in the modern note format. Drum Set songs and legacy imports can't be practiced."
+            };
+            _practiceButton.Click += (s, e) =>
+            {
+                if (Song.IsPracticeSupported)
+                {
+                    Module.Instance.StartPractice(Song);
+                }
+            };
 
             _playButton = new IconButton(MaestroIcons.Play, MaestroTheme.IconGlyph)
             {
@@ -204,6 +245,7 @@ namespace Maestro.UI.Main
             _titleLabel?.Dispose();
             _artistLabel?.Dispose();
             _starButton?.Dispose();
+            _practiceButton?.Dispose();
             _playButton?.Dispose();
 
             base.DisposeControl();

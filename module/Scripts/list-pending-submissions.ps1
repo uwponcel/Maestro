@@ -1,6 +1,8 @@
 # Lists all songs currently awaiting approval in community-pending/ on bhud-static/Aex.Maestro.
 # Read-only - makes no changes. Approve one with:
 #   .\promote-community-song.ps1 -SongId <id>
+# Reject one with:
+#   .\reject-community-song.ps1 -SongId <id> [-Reason "why"]
 $ErrorActionPreference = "Stop"
 
 $repo = "uwponcel/Maestro"
@@ -37,5 +39,7 @@ foreach ($song in $manifest.songs) {
     Write-Host "Id:          $($song.id)"
     Write-Host "Approve with:" -ForegroundColor Cyan
     Write-Host "  .\promote-community-song.ps1 -SongId $($song.id)" -ForegroundColor White
+    Write-Host "Reject with:" -ForegroundColor Cyan
+    Write-Host "  .\reject-community-song.ps1 -SongId $($song.id)" -ForegroundColor White
 }
 Write-Host "-----------------------------------" -ForegroundColor DarkGray
