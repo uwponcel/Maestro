@@ -1,15 +1,5 @@
 {
   "version": 1,
-  "songs": [
-    {
-      "id": "ba27ed2d-e687-476a-b84a-ae44063496b4",
-      "name": "Saria's Song",
-      "artist": "Koji Kondo",
-      "transcriber": "Mr Strokes",
-      "instrument": "Piano",
-      "durationMs": 112498,
-      "createdAt": "2026-07-22T09:39:11.005Z"
-    }
-  ],
-  "lastUpdated": "2026-07-26T16:07:29.018Z"
+  "songs": [],
+  "lastUpdated": "2026-07-26T16:07:37.195Z"
 }
