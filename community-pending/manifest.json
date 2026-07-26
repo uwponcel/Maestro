@@ -2,15 +2,6 @@
   "version": 1,
   "songs": [
     {
-      "id": "0cdcd425-8c02-4ac9-b987-beb967dda9f8",
-      "name": "Reptilia",
-      "artist": "The Strokes",
-      "transcriber": "Mr Strokes",
-      "instrument": "Piano",
-      "durationMs": 38400,
-      "createdAt": "2026-07-20T20:19:34.784Z"
-    },
-    {
       "id": "ba27ed2d-e687-476a-b84a-ae44063496b4",
       "name": "Saria's Song",
       "artist": "Koji Kondo",
@@ -20,5 +11,5 @@
       "createdAt": "2026-07-22T09:39:11.005Z"
     }
   ],
-  "lastUpdated": "2026-07-26T16:07:19.392Z"
+  "lastUpdated": "2026-07-26T16:07:29.018Z"
 }
