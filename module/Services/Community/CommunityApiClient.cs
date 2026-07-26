@@ -48,7 +48,13 @@ namespace Maestro.Services.Community
         {
             try
             {
-                var url = $"{STATIC_HOST_BASE}/{NamespaceSegment(ns)}/manifest.json";
+                // Static hosting pins a cached object to the plain manifest URL and keeps serving
+                // it long past its max-age, so a newly approved song can stay invisible for days.
+                // A Cache-Control: no-cache request header does not dislodge it, but varying the
+                // query string does, so every manifest fetch gets a unique one. Song files are
+                // immutable per id and are left cacheable.
+                var cacheBuster = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                var url = $"{STATIC_HOST_BASE}/{NamespaceSegment(ns)}/manifest.json?t={cacheBuster}";
                 Logger.Info($"Fetching {ns} manifest from {url}");
 
                 var response = await _httpClient.GetAsync(url, cancellationToken);

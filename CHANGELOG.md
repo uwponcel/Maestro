@@ -1,5 +1,14 @@
 # Changelog
 
+## v7.0.1
+
+### Fixed
+
+- Newly approved community songs now show up in the Community Songs window. The
+  static host was serving a stale copy of the community list to the module, so
+  recently added songs could stay invisible for days no matter how often you
+  refreshed. Maestro now forces a fresh fetch of the list every time.
+
 ## v7.0.0 - Practice Mode
 
 The headline feature of this release: a Guitar Hero-style practice window for any
