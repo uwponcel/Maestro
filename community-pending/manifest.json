@@ -1,15 +1,5 @@
 {
   "version": 1,
-  "songs": [
-    {
-      "id": "8e681f8d-a1e9-4b6d-9a76-d1750a877890",
-      "name": "Tifa's Theme",
-      "artist": "Nobuo Uematsu",
-      "transcriber": "Marathon",
-      "instrument": "Piano",
-      "durationMs": 203182,
-      "createdAt": "2026-07-30T02:35:31.482Z"
-    }
-  ],
-  "lastUpdated": "2026-07-30T02:35:31.482Z"
+  "songs": [],
+  "lastUpdated": "2026-08-03T17:25:53.730Z"
 }
