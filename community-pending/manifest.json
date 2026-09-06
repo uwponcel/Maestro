@@ -38,15 +38,6 @@
       "createdAt": "2026-08-05T02:46:06.86Z"
     },
     {
-      "id": "897e71ea-2817-4a85-afc9-2e55b3b638d8",
-      "name": "Time Boils the Rain",
-      "artist": "Nynaeve",
-      "transcriber": "greyeagle",
-      "instrument": "Harp",
-      "durationMs": 228998,
-      "createdAt": "2026-08-09T15:57:53.912Z"
-    },
-    {
       "id": "b3368c65-7d70-4306-b94a-08585e5caedb",
       "name": "Leaves from the Vine",
       "artist": "Jeremy Zuckerman",
@@ -65,5 +56,5 @@
       "createdAt": "2026-08-18T16:57:23.519Z"
     }
   ],
-  "lastUpdated": "2026-09-06T17:23:42.983Z"
+  "lastUpdated": "2026-09-06T17:23:58.509Z"
 }
