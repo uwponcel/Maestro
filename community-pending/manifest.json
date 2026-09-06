@@ -3,8 +3,8 @@
   "songs": [
     {
       "id": "2658856f-880e-4a1f-b84a-338fbd5d1927",
-      "name": "Bad Apple",
-      "artist": "Touhou",
+      "name": "Bad Apple!!",
+      "artist": "ZUN",
       "transcriber": "Twofacedlie",
       "instrument": "Piano",
       "durationMs": 30875,
@@ -12,7 +12,7 @@
     },
     {
       "id": "2d65ffd0-b3d1-4881-a250-a91cec0be701",
-      "name": "Moonlight Sonata (Transposed A Minor)",
+      "name": "Moonlight Sonata (Transposed to A Minor)",
       "artist": "Ludwig van Beethoven",
       "transcriber": "Havrynn",
       "instrument": "Piano",
@@ -30,12 +30,12 @@
     },
     {
       "id": "dfa528ef-4350-475b-a05c-cbbb7c6f8d78",
-      "name": "1000 Miles",
+      "name": "A Thousand Miles",
       "artist": "Vanessa Carlton",
       "transcriber": "~Isaac",
       "instrument": "Piano",
       "durationMs": 19500,
-      "createdAt": "2026-08-05T02:46:06.860Z"
+      "createdAt": "2026-08-05T02:46:06.86Z"
     },
     {
       "id": "897e71ea-2817-4a85-afc9-2e55b3b638d8",
@@ -57,13 +57,13 @@
     },
     {
       "id": "6dc93c53-5539-4c23-a6ff-dde1518c4040",
-      "name": "orobroy",
-      "artist": "donates",
+      "name": "Orobroy",
+      "artist": "David Peña Dorantes",
       "transcriber": "kiubyxx",
       "instrument": "Piano",
       "durationMs": 15500,
       "createdAt": "2026-08-18T16:57:23.519Z"
     }
   ],
-  "lastUpdated": "2026-08-18T16:57:23.519Z"
+  "lastUpdated": "2026-09-06T17:23:42.983Z"
 }
