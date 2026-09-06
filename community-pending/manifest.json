@@ -2,15 +2,6 @@
   "version": 1,
   "songs": [
     {
-      "id": "b3368c65-7d70-4306-b94a-08585e5caedb",
-      "name": "Leaves from the Vine",
-      "artist": "Jeremy Zuckerman",
-      "transcriber": "Three",
-      "instrument": "Harp",
-      "durationMs": 47057,
-      "createdAt": "2026-08-17T05:11:42.749Z"
-    },
-    {
       "id": "6dc93c53-5539-4c23-a6ff-dde1518c4040",
       "name": "Orobroy",
       "artist": "David Peña Dorantes",
@@ -20,5 +11,5 @@
       "createdAt": "2026-08-18T16:57:23.519Z"
     }
   ],
-  "lastUpdated": "2026-09-06T17:24:57.175Z"
+  "lastUpdated": "2026-09-06T17:25:04.280Z"
 }
