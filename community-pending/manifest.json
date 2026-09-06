@@ -1,15 +1,5 @@
 {
   "version": 1,
-  "songs": [
-    {
-      "id": "6dc93c53-5539-4c23-a6ff-dde1518c4040",
-      "name": "Orobroy",
-      "artist": "David Peña Dorantes",
-      "transcriber": "kiubyxx",
-      "instrument": "Piano",
-      "durationMs": 15500,
-      "createdAt": "2026-08-18T16:57:23.519Z"
-    }
-  ],
-  "lastUpdated": "2026-09-06T17:25:04.280Z"
+  "songs": [],
+  "lastUpdated": "2026-09-06T17:25:12.659Z"
 }
