@@ -2,15 +2,6 @@
   "version": 1,
   "songs": [
     {
-      "id": "2658856f-880e-4a1f-b84a-338fbd5d1927",
-      "name": "Bad Apple!!",
-      "artist": "ZUN",
-      "transcriber": "Twofacedlie",
-      "instrument": "Piano",
-      "durationMs": 30875,
-      "createdAt": "2026-08-04T04:42:20.273Z"
-    },
-    {
       "id": "2d65ffd0-b3d1-4881-a250-a91cec0be701",
       "name": "Moonlight Sonata (Transposed to A Minor)",
       "artist": "Ludwig van Beethoven",
@@ -56,5 +47,5 @@
       "createdAt": "2026-08-18T16:57:23.519Z"
     }
   ],
-  "lastUpdated": "2026-09-06T17:23:58.509Z"
+  "lastUpdated": "2026-09-06T17:24:34.427Z"
 }
