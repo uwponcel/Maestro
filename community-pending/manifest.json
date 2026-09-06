@@ -2,15 +2,6 @@
   "version": 1,
   "songs": [
     {
-      "id": "dfa528ef-4350-475b-a05c-cbbb7c6f8d78",
-      "name": "A Thousand Miles",
-      "artist": "Vanessa Carlton",
-      "transcriber": "~Isaac",
-      "instrument": "Piano",
-      "durationMs": 19500,
-      "createdAt": "2026-08-05T02:46:06.86Z"
-    },
-    {
       "id": "b3368c65-7d70-4306-b94a-08585e5caedb",
       "name": "Leaves from the Vine",
       "artist": "Jeremy Zuckerman",
@@ -29,5 +20,5 @@
       "createdAt": "2026-08-18T16:57:23.519Z"
     }
   ],
-  "lastUpdated": "2026-09-06T17:24:49.306Z"
+  "lastUpdated": "2026-09-06T17:24:57.175Z"
 }
