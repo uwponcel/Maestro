@@ -78,6 +78,7 @@
     <Compile Include="Practice\PracticeClockTests.cs" />
     <Compile Include="Practice\PracticeSessionTests.cs" />
     <Compile Include="Playback\KeyboardServiceWasJustSentTests.cs" />
+    <Compile Include="Support\SupportLinksTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

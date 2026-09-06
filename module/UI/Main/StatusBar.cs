@@ -121,10 +121,12 @@ namespace Maestro.UI.Main
 
         public event EventHandler ImportClicked;
         public event EventHandler CommunityClicked;
+        public event EventHandler SupportClicked;
         public event EventHandler<InstrumentType> CreateClicked;
 
         private readonly Label _statusLabel;
         private readonly IconButton _communityButton;
+        private readonly IconButton _supportButton;
         private readonly StandardButton _createButton;
         private readonly IconButton _importButton;
         private InstrumentSelectorPanel _instrumentPanel;
@@ -159,7 +161,7 @@ namespace Maestro.UI.Main
 
             const int buttonWidth = 40;
             const int buttonSpacing = 5;
-            var buttonsWidth = buttonWidth * 3 + buttonSpacing * 2;
+            var buttonsWidth = buttonWidth * 4 + buttonSpacing * 3;
 
             _statusLabel = new Label
             {
@@ -203,6 +205,16 @@ namespace Maestro.UI.Main
                 BasicTooltipText = "Browse & upload community songs"
             };
             _communityButton.Click += (s, e) => CommunityClicked?.Invoke(this, EventArgs.Empty);
+            x -= buttonWidth + buttonSpacing;
+
+            _supportButton = new IconButton(MaestroIcons.Support, MaestroTheme.IconGlyph)
+            {
+                Parent = this,
+                Location = new Point(x, 0),
+                Size = new Point(buttonWidth, MaestroTheme.ActionButtonHeight),
+                BasicTooltipText = "Support Maestro"
+            };
+            _supportButton.Click += (s, e) => SupportClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnCreateButtonClick(object sender, MouseEventArgs e)
@@ -239,6 +251,11 @@ namespace Maestro.UI.Main
             _communityButton.Selected = active;
         }
 
+        public void SetSupportActive(bool active)
+        {
+            _supportButton.Selected = active;
+        }
+
         private void UpdateText()
         {
             _statusLabel.Text = _visibleCount == _totalCount
@@ -251,6 +268,7 @@ namespace Maestro.UI.Main
             _instrumentPanel?.Dispose();
             _statusLabel?.Dispose();
             _communityButton?.Dispose();
+            _supportButton?.Dispose();
             _createButton?.Dispose();
             _importButton?.Dispose();
             base.DisposeControl();

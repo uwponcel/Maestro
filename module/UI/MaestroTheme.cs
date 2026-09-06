@@ -35,6 +35,7 @@ namespace Maestro.UI
         public static readonly Color Paused = new Color(255, 193, 7);
         public static readonly Color Error = new Color(244, 67, 54);
         public static readonly Color Disabled = new Color(85, 85, 85);
+        public static readonly Color SupportPink = new Color(235, 126, 167);
 
         // Panel Colors (semi-transparent)
         public static readonly Color PanelBackground = new Color(45, 45, 45, 180);

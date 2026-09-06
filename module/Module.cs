@@ -20,6 +20,7 @@ using Maestro.UI.Import;
 using Maestro.UI.Main;
 using Maestro.UI.MaestroCreator;
 using Maestro.UI.Practice;
+using Maestro.UI.Support;
 using Microsoft.Xna.Framework;
 
 namespace Maestro
@@ -65,6 +66,7 @@ namespace Maestro
         private ImportWindow _importWindow;
         private CommunityWindow _communityWindow;
         private UploadWindow _uploadWindow;
+        private SupportWindow _supportWindow;
         private MaestroCreatorWindow _maestroCreatorWindow;
         private CornerIcon _cornerIcon;
         private List<Song> _songs;
@@ -170,6 +172,7 @@ namespace Maestro
                 _maestroWindow = new MaestroWindow(_songPlayer, _songs, _favoriteService);
                 _maestroWindow.ImportRequested += OnImportRequested;
                 _maestroWindow.CommunityRequested += OnCommunityRequested;
+                _maestroWindow.SupportRequested += OnSupportRequested;
                 _maestroWindow.CreateRequested += OnCreateRequested;
                 _maestroWindow.SongDeleteRequested += OnSongDeleteRequested;
                 _maestroWindow.EditRequested += OnEditRequested;
@@ -214,6 +217,25 @@ namespace Maestro
             {
                 _communityWindow.Show();
                 _communityWindow.LoadContent();
+            }
+        }
+
+        private void OnSupportRequested(object sender, EventArgs e)
+        {
+            if (_supportWindow == null)
+            {
+                _supportWindow = new SupportWindow();
+                _supportWindow.Shown += (s, args) => _maestroWindow?.SetSupportActive(true);
+                _supportWindow.Hidden += (s, args) => _maestroWindow?.SetSupportActive(false);
+            }
+
+            if (_supportWindow.Visible)
+            {
+                _supportWindow.Hide();
+            }
+            else
+            {
+                _supportWindow.Show();
             }
         }
 
@@ -562,6 +584,7 @@ namespace Maestro
             }
             _maestroCreatorWindow?.Dispose();
             _uploadWindow?.Dispose();
+            _supportWindow?.Dispose();
             _communityWindow?.Dispose();
             _importWindow?.Dispose();
             _maestroWindow?.Dispose();

@@ -1,5 +1,16 @@
 # Changelog
 
+## v7.0.2
+
+### Added
+
+- Added a compact in-game Support window with direct access to Ko-fi and a
+  one-click copy action for the Guild Wars 2 account name.
+
+### Fixed
+
+- Removed a mislabeled duplicate of Radioactive from the built-in song library.
+
 ## v7.0.1
 
 ### Fixed

@@ -92,6 +92,7 @@
         <Compile Include="Services\Practice\PracticeSession.cs"/>
         <Compile Include="Services\FavoriteService.cs"/>
         <Compile Include="Services\PlaylistService.cs"/>
+        <Compile Include="Services\SupportLinks.cs"/>
         <Compile Include="UI\Import\ImportWindow.cs"/>
         <Compile Include="UI\MaestroTheme.cs"/>
         <Compile Include="UI\Main\MaestroWindow.cs"/>
@@ -112,6 +113,7 @@
         <Compile Include="UI\Practice\PracticeHud.cs"/>
         <Compile Include="UI\Practice\PracticeWindow.cs"/>
         <Compile Include="UI\Practice\SectionLoopBar.cs"/>
+        <Compile Include="UI\Support\SupportWindow.cs"/>
         <Compile Include="UI\MaestroCreator\MaestroCreatorWindow.cs"/>
         <Compile Include="UI\MaestroCreator\PianoKeyboard.cs"/>
         <Compile Include="UI\MaestroCreator\DrumPadPanel.cs"/>

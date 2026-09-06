@@ -24,6 +24,7 @@ namespace Maestro.UI.Main
 
         public event EventHandler ImportRequested;
         public event EventHandler CommunityRequested;
+        public event EventHandler SupportRequested;
         public event EventHandler<InstrumentType> CreateRequested;
         public event EventHandler<Song> SongDeleteRequested;
         public event EventHandler<Song> EditRequested;
@@ -99,6 +100,11 @@ namespace Maestro.UI.Main
         public void SetCommunityActive(bool active)
         {
             _statusBar.SetCommunityActive(active);
+        }
+
+        public void SetSupportActive(bool active)
+        {
+            _statusBar.SetSupportActive(active);
         }
 
         public void RemoveSong(Song song)
@@ -215,6 +221,7 @@ namespace Maestro.UI.Main
             _statusBar.TotalCount = _allSongs.Count;
             _statusBar.ImportClicked += OnImportClicked;
             _statusBar.CommunityClicked += OnCommunityClicked;
+            _statusBar.SupportClicked += OnSupportClicked;
             _statusBar.CreateClicked += OnCreateClicked;
         }
 
@@ -326,6 +333,11 @@ namespace Maestro.UI.Main
         private void OnCommunityClicked(object sender, EventArgs e)
         {
             CommunityRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnSupportClicked(object sender, EventArgs e)
+        {
+            SupportRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnCreateClicked(object sender, InstrumentType instrument)

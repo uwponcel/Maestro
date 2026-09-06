@@ -157,3 +157,6 @@ If you enjoy Maestro, consider supporting development:
 
 - [Ko-fi](https://ko-fi.com/aex)
 - In-game gold or items: **Aexor.6238**
+
+You can also open the heart button in Maestro's main window to access both
+support options and copy the in-game account name.

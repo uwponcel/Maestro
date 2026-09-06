@@ -32,6 +32,7 @@ namespace Maestro.UI.Controls
         private static Texture2D _repeat;
         private static Texture2D _shuffle;
         private static Texture2D _practice;
+        private static Texture2D _support;
 
         public static Texture2D Play => _play ?? (_play = Load("play-icon.png"));
         public static Texture2D Pause => _pause ?? (_pause = Load("pause-icon.png"));
@@ -57,10 +58,66 @@ namespace Maestro.UI.Controls
         public static Texture2D Repeat => _repeat ?? (_repeat = Load("repeat-icon.png"));
         public static Texture2D Shuffle => _shuffle ?? (_shuffle = Load("shuffle-icon.png"));
         public static Texture2D Practice => _practice ?? (_practice = Load("practice-icon.png"));
+        public static Texture2D Support => _support ?? (_support = CreateHeartIcon());
 
         private static Texture2D Load(string fileName)
         {
             return Module.Instance.ContentsManager.GetTexture(fileName);
+        }
+
+        private static Texture2D CreateHeartIcon()
+        {
+            const int size = 32;
+            const int samplesPerAxis = 4;
+            var context = Blish_HUD.GameService.Graphics.LendGraphicsDeviceContext();
+
+            try
+            {
+                var texture = new Texture2D(context.GraphicsDevice, size, size);
+                var pixels = new Microsoft.Xna.Framework.Color[size * size];
+
+                for (var y = 0; y < size; y++)
+                {
+                    for (var x = 0; x < size; x++)
+                    {
+                        var coveredSamples = 0;
+                        for (var sampleY = 0; sampleY < samplesPerAxis; sampleY++)
+                        {
+                            for (var sampleX = 0; sampleX < samplesPerAxis; sampleX++)
+                            {
+                                var samplePositionX =
+                                    (x + (sampleX + 0.5f) / samplesPerAxis) / size;
+                                var samplePositionY =
+                                    (y + (sampleY + 0.5f) / samplesPerAxis) / size;
+                                var normalizedX = (samplePositionX * 2f - 1f) * 1.35f;
+                                var normalizedY = 1.35f - samplePositionY * 2.55f;
+                                var baseValue =
+                                    normalizedX * normalizedX + normalizedY * normalizedY - 1f;
+                                var heartValue =
+                                    baseValue * baseValue * baseValue -
+                                    normalizedX * normalizedX *
+                                    normalizedY * normalizedY * normalizedY;
+
+                                if (heartValue <= 0f)
+                                {
+                                    coveredSamples++;
+                                }
+                            }
+                        }
+
+                        var alpha = 255 * coveredSamples / (samplesPerAxis * samplesPerAxis);
+                        pixels[y * size + x] =
+                            Microsoft.Xna.Framework.Color.FromNonPremultiplied(255, 255, 255, alpha);
+                    }
+                }
+
+                texture.SetData(pixels);
+                return texture;
+            }
+            finally
+            {
+                context.Dispose();
+            }
         }
     }
 }
