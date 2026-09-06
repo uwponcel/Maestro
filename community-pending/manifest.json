@@ -2,15 +2,6 @@
   "version": 1,
   "songs": [
     {
-      "id": "2d65ffd0-b3d1-4881-a250-a91cec0be701",
-      "name": "Moonlight Sonata (Transposed to A Minor)",
-      "artist": "Ludwig van Beethoven",
-      "transcriber": "Havrynn",
-      "instrument": "Piano",
-      "durationMs": 80710,
-      "createdAt": "2026-08-04T16:54:37.397Z"
-    },
-    {
       "id": "734d87e9-af63-402b-8b77-88e9b0d2bd65",
       "name": "Eternia",
       "artist": "Daniel Pemberton",
@@ -47,5 +38,5 @@
       "createdAt": "2026-08-18T16:57:23.519Z"
     }
   ],
-  "lastUpdated": "2026-09-06T17:24:34.427Z"
+  "lastUpdated": "2026-09-06T17:24:42.551Z"
 }
